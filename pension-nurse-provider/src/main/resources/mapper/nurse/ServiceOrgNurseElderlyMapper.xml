@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.ServiceOrgNurseElderlyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.ServiceOrgNurseElderly">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="deviceName" property="deviceName" jdbcType="VARCHAR"/>
+        <result column="deviceNumber" property="deviceNumber" jdbcType="VARCHAR"/>
+        <result column="bedInfo" property="bedInfo" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="leaveTime" property="leaveTime" jdbcType="TIMESTAMP"/>
+        <result column="deviceMobile" property="deviceMobile" jdbcType="VARCHAR"/>
+        <result column="deviceSecret" property="deviceSecret" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, elderId, serviceOrgId,deviceName, deviceNumber, bedInfo, createTime, updateTime, leaveTime,
+    deviceMobile,deviceSecret
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_nurse_elderly
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByIdcardnoAndNumber" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_nurse_elderly
+        where elderId = #{elderId} and deviceNumber = #{number}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_nurse_elderly
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByIdcardnoAndNumber">
+    delete from t_service_org_nurse_elderly
+    where elderId = #{elderId} and deviceNumber = #{number}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.ServiceOrgNurseElderly" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org_nurse_elderly
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="deviceName != null">
+                deviceName,
+            </if>
+            <if test="deviceNumber != null">
+                deviceNumber,
+            </if>
+            <if test="bedInfo != null">
+                bedInfo,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="leaveTime != null">
+                leaveTime,
+            </if>
+            <if test="deviceSecret!=null">
+                deviceSecret,
+            </if>
+            <if test="deviceMobile!=null">
+                deviceMobile
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceName != null">
+                #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceNumber != null">
+                #{deviceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bedInfo != null">
+                #{bedInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="leaveTime != null">
+                #{leaveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deviceSecret!=null">
+                #{deviceSecret},
+            </if>
+            <if test="deviceMobile!=null">
+                #{deviceMobile}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.ServiceOrgNurseElderly">
+        update t_service_org_nurse_elderly
+        <set>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceName != null">
+                deviceName = #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceNumber != null">
+                deviceNumber = #{deviceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bedInfo != null">
+                bedInfo = #{bedInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="leaveTime != null">
+                leaveTime = #{leaveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deviceSecret!=null">
+                deviceSecret=#{deviceSecret},
+            </if>
+            <if test="deviceMobile!=null">
+                deviceMobile=#{deviceMobile}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        from t_service_org_nurse_elderly a LEFT JOIN t_service_org b on (a.serviceOrgId=b.id) LEFT JOIN
+        t_elderly_message c on (a.elderId=c.id)
+        <where>
+            <if test="elderName != null and elderName !=''">
+                c.elderName LIKE CONCAT('%',#{elderName},'%')
+            </if>
+            <if test="serviceOrgName != null and serviceOrgName !=''">
+                and b.institutionName LIKE CONCAT('%',#{serviceOrgName},'%')
+            </if>
+            <if test="deviceNumber != null and deviceNumber !=''">
+                and a.deviceNumber = #{deviceNumber}
+            </if>
+            <if test="elderId != null and elderId !=''">
+                and a.elderId = #{elderId}
+            </if>
+            <if test="idcardno != null and idcardno !=''">
+                and c.idcardno = #{idcardno}
+            </if>
+            <if test="deviceName != null and deviceName !=''">
+                and a.deviceName = #{deviceName}
+            </if>
+            <if test="deviceMobile != null and deviceMobile !=''">
+                and a.deviceMobile LIKE CONCAT('%',#{deviceMobile},'%')
+            </if>
+            <if test="sexDictId != null and sexDictId !=''">
+                and c.sexDictId = #{sexDictId}
+            </if>
+            <if test="areaName != null and areaName !=''">
+                and c.areaName = #{areaName}
+            </if>
+            <if test="startAge != null and startAge !=''">
+                and c.age <![CDATA[ >= ]]> #{startAge}
+            </if>
+            <if test="endAge != null and endAge !=''">
+                and c.age <![CDATA[ <= ]]> #{endAge}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_nurse_elderly
+  </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.ServiceOrgNurseElderly">
+        select
+        a.id, a.elderId,c.idcardno,c.areaName,c.elderName,c.sexDictId elderSex,c.age elderAge,
+        a.serviceOrgId,b.institutionName serviceOrgName,a.deviceName, a.deviceNumber, a.bedInfo, a.createTime,
+        a.updateTime, a.leaveTime,a.deviceMobile,a.deviceSecret
+        from t_service_org_nurse_elderly a LEFT JOIN t_service_org b on (a.serviceOrgId=b.id) LEFT JOIN
+        t_elderly_message c on (a.elderId=c.id)
+        <where>
+            <if test="filter.elderName != null and filter.elderName !=''">
+                c.elderName LIKE CONCAT('%',#{filter.elderName},'%')
+            </if>
+            <if test="filter.serviceOrgName != null and filter.serviceOrgName !=''">
+                and b.institutionName LIKE CONCAT('%',#{filter.serviceOrgName},'%')
+            </if>
+            <if test="filter.deviceNumber != null and filter.deviceNumber !=''">
+                and a.deviceNumber = #{filter.deviceNumber}
+            </if>
+            <if test="filter.elderId != null and filter.elderId !=''">
+                and a.elderId = #{filter.elderId}
+            </if>
+            <if test="filter.idcardno != null and filter.idcardno !=''">
+                and c.idcardno = #{filter.idcardno}
+            </if>
+            <if test="filter.deviceName != null and filter.deviceName !=''">
+                and a.deviceName = #{filter.deviceName}
+            </if>
+            <if test="filter.deviceMobile != null and filter.deviceMobile !=''">
+                and a.deviceMobile LIKE CONCAT('%',#{filter.deviceMobile},'%')
+            </if>
+            <if test="filter.sexDictId != null and filter.sexDictId !=''">
+                and c.sexDictId = #{filter.sexDictId}
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                and c.areaName = #{filter.areaName}
+            </if>
+            <if test="filter.startAge != null and filter.startAge !=''">
+                and c.age <![CDATA[ >= ]]> #{filter.startAge}
+            </if>
+            <if test="filter.endAge != null and filter.endAge !=''">
+                and c.age <![CDATA[ <= ]]> #{filter.endAge}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+    <select id="getAllRecode" resultType="com.fedtech.pension.nurse.entity.ServiceOrgNurseElderly">
+        select
+        a.id, a.elderId,c.idcardno,c.areaName,c.elderName,c.sexDictId elderSex,c.age elderAge,
+        a.serviceOrgId,b.institutionName serviceOrgName,a.deviceName, a.deviceNumber, a.bedInfo, a.createTime,
+        a.updateTime, a.leaveTime,a.deviceMobile,a.deviceSecret
+        from t_service_org_nurse_elderly a LEFT JOIN t_service_org b on (a.serviceOrgId=b.id) LEFT JOIN
+        t_elderly_message c on (a.elderId=c.id)
+        <where>
+            <if test="filter.elderName != null and filter.elderName !=''">
+                c.elderName LIKE CONCAT('%',#{filter.elderName},'%')
+            </if>
+            <if test="filter.serviceOrgName != null and filter.serviceOrgName !=''">
+                and b.institutionName LIKE CONCAT('%',#{filter.serviceOrgName},'%')
+            </if>
+            <if test="filter.deviceNumber != null and filter.deviceNumber !=''">
+                and a.deviceNumber = #{filter.deviceNumber}
+            </if>
+            <if test="filter.elderId != null and filter.elderId !=''">
+                and a.elderId = #{filter.elderId}
+            </if>
+            <if test="filter.idcardno != null and filter.idcardno !=''">
+                and c.idcardno = #{filter.idcardno}
+            </if>
+            <if test="filter.deviceName != null and filter.deviceName !=''">
+                and a.deviceName = #{filter.deviceName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

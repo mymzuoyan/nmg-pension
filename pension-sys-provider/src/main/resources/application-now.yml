@@ -1,0 +1,67 @@
+debug:
+  true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Root!!2018
+  db:
+    readsize: 3
+    read0:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  dubbo:
+    application:
+      name: sys-provider
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20881
+    scan: com.fedtech.pension.sys.service
+server:
+  port: 8081
+
+#短信服务器账号
+sms:
+  url: https://api.ums86.com:9600/sms/Api/Send.do
+  company: 280795
+  username: nj_ytyl
+  password: ytyl3195
+  key: 76e54a2119647e90f4cf640b457973e9
+  yzmcontent: 您的验证码：%s
+
+#邮件发送参数
+email:
+  host: smtp.126.com
+  username: njyt12349@126.com
+  password: njyt12349

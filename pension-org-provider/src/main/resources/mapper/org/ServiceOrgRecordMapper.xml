@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgRecordMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="homeBaseAttach" property="homeBaseAttach" jdbcType="VARCHAR"/>
+        <result column="qiYeAttach" property="qiYeAttach" jdbcType="VARCHAR"/>
+        <result column="fangChanAttach" property="fangChanAttach" jdbcType="VARCHAR"/>
+        <result column="zFAttach" property="zFAttach" jdbcType="VARCHAR"/>
+        <result column="xFAttach" property="xFAttach" jdbcType="VARCHAR"/>
+        <result column="sQAttach" property="sQAttach" jdbcType="VARCHAR"/>
+        <result column="wSAttach" property="wSAttach" jdbcType="VARCHAR"/>
+        <result column="peopleAttach" property="peopleAttach" jdbcType="VARCHAR"/>
+        <result column="fwAttach" property="fwAttach" jdbcType="VARCHAR"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="verityStatus" property="verityStatus" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgRecord">
+        insert into t_service_org_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="homeBaseAttach != null">
+                homeBaseAttach,
+            </if>
+            <if test="qiYeAttach != null">
+                qiYeAttach,
+            </if>
+            <if test="fangChanAttach != null">
+                fangChanAttach,
+            </if>
+            <if test="xFAttach != null">
+                xFAttach,
+            </if>
+            <if test="zFAttach != null">
+                zFAttach,
+            </if>
+            <if test="sQAttach != null">
+                sQAttach,
+            </if>
+            <if test="wSAttach != null">
+                wSAttach,
+            </if>
+            <if test="peopleAttach != null">
+                peopleAttach,
+            </if>
+            <if test="fwAttach != null">
+                fwAttach,
+            </if>
+            <if test="applyTime != null">
+                applyTime,
+            </if>
+            <if test="verityStatus != null">
+                verityStatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="homeBaseAttach != null">
+                #{homeBaseAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="qiYeAttach != null">
+                #{qiYeAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="fangChanAttach != null">
+                #{fangChanAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="xFAttach != null">
+                #{xFAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="zFAttach != null">
+                #{zFAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="sQAttach != null">
+                #{sQAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="wSAttach != null">
+                #{wSAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="peopleAttach != null">
+                #{peopleAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="fwAttach != null">
+                #{fwAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="verityStatus != null">
+                #{verityStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectPageList" resultMap="BaseResultMap">
+        select es.*,
+        tso.institutionName institutionName
+        from t_service_org_record es
+        left join t_service_org tso on es.serviceOrgId = tso.id
+        <where>
+            <if test="filter.verityStatus != null">
+                AND  verityStatus = #{filter.verityStatus,jdbcType=INTEGER}
+            </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from t_service_org_record
+        <where>
+            <if test="verityStatus != null">
+                verityStatus = #{verityStatus,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgRecord"
+            parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_service_org_record a where  a.serviceOrgId = #{id}
+    </select>
+    <select id="selectIdByServiceOrgId" resultType="java.lang.Integer"
+            parameterType="java.lang.Integer">
+        SELECT
+        id
+        FROM t_service_org_record where serviceOrgId = #{serviceOrgId}
+    </select>
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_service_org_record
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgRecord">
+        update t_service_org_record
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="homeBaseAttach != null">
+                homeBaseAttach = #{homeBaseAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="qiYeAttach != null">
+                qiYeAttach = #{qiYeAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="fangChanAttach != null">
+                fangChanAttach = #{fangChanAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="xFAttach != null">
+                xFAttach = #{xFAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="zFAttach != null">
+                zFAttach = #{zFAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="sQAttach != null">
+                sQAttach = #{sQAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="wSAttach != null">
+                wSAttach = #{wSAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="peopleAttach != null">
+                peopleAttach = #{peopleAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="fwAttach != null">
+                fwAttach = #{fwAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                applyTime = #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="verityStatus != null">
+                verityStatus = #{verityStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

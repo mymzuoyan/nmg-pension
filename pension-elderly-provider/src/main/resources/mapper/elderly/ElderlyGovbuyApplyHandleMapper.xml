@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyGovbuyApplyHandleMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyGovbuyApplyHandle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="applyId" property="applyId" jdbcType="INTEGER" />
+    <result column="handlerId" property="handlerId" jdbcType="INTEGER" />
+    <result column="handleName" property="handleName" jdbcType="VARCHAR" />
+    <result column="handleContent" property="handleContent" jdbcType="VARCHAR" />
+    <result column="handleTime" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, applyId, handlerId, handleName, handleContent, handleTime, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_govbuy_apply_handle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_elderly_govbuy_apply_handle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApplyHandle" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_elderly_govbuy_apply_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyId != null" >
+        applyId,
+      </if>
+      <if test="handlerId != null" >
+        handlerId,
+      </if>
+      <if test="handleName != null" >
+        handleName,
+      </if>
+      <if test="handleContent != null" >
+        handleContent,
+      </if>
+      <if test="handleTime != null" >
+        handleTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="handlerId != null" >
+        #{handlerId,jdbcType=INTEGER},
+      </if>
+      <if test="handleName != null" >
+        #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleContent != null" >
+        #{handleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApplyHandle" >
+    update t_elderly_govbuy_apply_handle
+    <set >
+      <if test="applyId != null" >
+        applyId = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="handlerId != null" >
+        handlerId = #{handlerId,jdbcType=INTEGER},
+      </if>
+      <if test="handleName != null" >
+        handleName = #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleContent != null" >
+        handleContent = #{handleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        handleTime = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllRecode" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApplyHandle" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_elderly_govbuy_apply_handle
+    <where>
+      <if test="filter.applyId != null">
+         applyId = #{filter.applyId}
+      </if>
+    </where>
+  </select>
+</mapper>

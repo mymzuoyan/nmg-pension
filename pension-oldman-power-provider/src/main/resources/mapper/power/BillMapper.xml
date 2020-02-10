@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.BillMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Bill"
+            parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_bill a where  a.id = #{id}
+    </select>
+
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.power.entity.Bill">
+        SELECT b.*,e.elderTypeDictIds,e.idcardno,e.areaName,e.areaId
+        from t_bill b left join t_elderly_message e on
+        b.elderlyId=e.id
+        order by b.dissipate asc
+    </select>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.Bill">
+        SELECT b.*,e.elderTypeDictIds,e.idcardno,e.areaName,e.areaId
+        from t_bill b left join t_elderly_message e on
+        b.elderlyId=e.id
+        <where>
+            <if test="filter.flowNumber!=null and filter.flowNumber!=''">
+                and b.flowNumber like CONCAT('%',#{filter.flowNumber},'%' )
+            </if>
+            <if test="filter.cardNumber!=null and filter.cardNumber!=''">
+                and b.cardNumber like CONCAT('%',#{filter.cardNumber},'%' )
+            </if>
+            <if test="filter.elderlyName!=null and filter.elderlyName!=''">
+                and b.elderlyName like CONCAT('%',#{filter.elderlyName},'%' )
+            </if>
+            <if test="filter.ultimateBalance!=null and filter.ultimateBalance!=''">
+                and b.ultimateBalance like CONCAT('%',#{filter.ultimateBalance},'%' )
+            </if>
+            <if test="filter.orgName!=null and filter.orgName!=''">
+                and b.orgName like CONCAT('%',#{filter.orgName},'%' )
+            </if>
+            <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+                AND (
+                <trim prefixOverrides="or">
+                    <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                        OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                    </foreach>
+                </trim>
+                )
+            </if>
+            <if test="filter.idcardno != null and filter.idcardno !=''">
+                AND e.idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND e.areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.startTime!=null and filter.startTime!=''">
+                AND dissipate &gt;= #{filter.startTime}
+            </if>
+            <if test="filter.endTime!=null and filter.endTime!=''">
+                AND dissipate &lt;= #{filter.endTime}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+    <update id="invalidBill" parameterType="com.fedtech.pension.power.entity.Bill">
+        UPDATE t_bill
+        <set>
+            <if test="status != null">
+                status=#{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="count" parameterType="com.fedtech.pension.power.entity.Bill" resultType="java.lang.Integer">
+        SELECT COUNT(1) from t_bill b left join t_elderly_message e on b.elderlyId=e.id left join t_service_org s on
+        b.orgId=s.id
+        <where>
+            <if test="flowNumber!=null and flowNumber!=''">
+                and b.flowNumber like CONCAT('%',#{flowNumber},'%' )
+            </if>
+            <if test="cardNumber!=null and cardNumber!=''">
+                and b.cardNumber like CONCAT('%',#{cardNumber},'%' )
+            </if>
+            <if test="elderlyName!=null and elderlyName!=''">
+                and b.elderlyName like CONCAT('%',#{elderlyName},'%' )
+            </if>
+            <if test="ultimateBalance!=null and ultimateBalance!=''">
+                and b.ultimateBalance like CONCAT('%',#{ultimateBalance},'%' )
+            </if>
+            <!--<if test="orgId!=null and orgId!='' and orgId!=0 ">
+                and orgId  = #{orgId}
+            </if>-->
+            <if test="orgName!=null and orgName!=''">
+                and b.orgName like CONCAT('%',#{orgName},'%' )
+            </if>
+            <if test="itemName!=null and itemName!=''">
+                and b.itemName like CONCAT('%',#{itemName},'%' )
+            </if>
+            <!--<if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                AND e.elderTypeDictIds=#{elderTypeDictIds}
+            </if>-->
+            <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                AND (
+                <trim prefixOverrides="or">
+                    <foreach collection="elderTypeList" index="index" item="elderTypeDictIds">
+                        OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                    </foreach>
+                </trim>
+                )
+            </if>
+            <if test="idcardno != null and idcardno !=''">
+                AND e.idcardno like CONCAT('%',#{idcardno},'%' )
+            </if>
+            <if test="areaName != null and areaName !=''">
+                AND s.areaName like CONCAT('%',#{areaName},'%' )
+            </if>
+            <!--<if test="projectTypeDictIds != null and projectTypeDictIds !=''">
+                AND b.id in (select billId from  t_order  where objectName=#{projectTypeDictIds})
+            </if>-->
+            <if test="startTime!=null and startTime!='' ">
+                AND DATE(dissipate) &gt;= #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!='' ">
+                AND DATE(dissipate) &lt;= #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_bill
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Bill" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_bill (flowNumber, cardNumber,oldManCardId, orgName, orgId, elderlyName,elderlyId, price,selfExpenditure,currentBalance,ultimateBalance,itemName,count,status,dissipate,remark,startTime)
+    VALUES (#{flowNumber}, #{cardNumber},#{oldManCardId},#{orgName}, #{orgId}, #{elderlyName},#{elderlyId}, #{price}, #{selfExpenditure},#{currentBalance},#{ultimateBalance},#{itemName},#{count},#{status},now(),#{remark},#{startTime})
+    </insert>
+    <update id="updateBillAccount" parameterType="com.fedtech.pension.power.entity.Bill">
+        UPDATE t_bill
+        <set>
+            <if test="endTime != null">
+                endTime=#{endTime},
+            </if>
+            <if test="serviceTime != null">
+                serviceTime=#{serviceTime},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

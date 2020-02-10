@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.nurse.mapper.BloodSugarMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.BloodSugar">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sugar_value" jdbcType="DOUBLE" property="sugarValue" />
+    <result column="type_code" jdbcType="INTEGER" property="typeCode" />
+    <result column="type_detail_code" jdbcType="INTEGER" property="typeDetailCode" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sugar_value, type_code, type_detail_code, level, level_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blood_sugar
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blood_sugar
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.BloodSugar" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into blood_sugar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sugarValue != null">
+        sugar_value,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="typeDetailCode != null">
+        type_detail_code,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+      #{id,jdbcType=INTEGER},
+    </if>
+      <if test="sugarValue != null">
+        #{sugarValue,jdbcType=DOUBLE},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="typeDetailCode != null">
+        #{typeDetailCode,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.BloodSugar">
+    update blood_sugar
+    <set>
+      <if test="sugarValue != null">
+        sugar_value = #{sugarValue,jdbcType=DOUBLE},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="typeDetailCode != null">
+        type_detail_code = #{typeDetailCode,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from blood_sugar
+    <where>
+      <if test="sugarValue!=null">
+        and sugar_value=#{sugarValue}
+      </if>
+      <if test="typeCode!=null">
+        and type_code=#{typeCode}
+      </if>
+      <if test="typeDetailCodeint!=null">
+        and type_detail_codeint=#{typeDetailCodeint}
+      </if>
+      <if test="level!=null">
+        and level=#{level}
+      </if>
+      <if test="levelName != null and levelName !=''">
+        AND level_name like CONCAT('%',#{levelName},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from blood_sugar
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.BloodSugar">
+    select
+    *
+    from blood_sugar
+    <where>
+      <if test="filter.sugarValue!=null">
+        and sugar_value=#{filter.sugarValue}
+      </if>
+      <if test="filter.typeCode!=null">
+        and type_code=#{filter.typeCode}
+      </if>
+      <if test="filter.typeDetailCodeint!=null">
+        and type_detail_codeint=#{filter.typeDetailCodeint}
+      </if>
+      <if test="filter.level!=null">
+        and level=#{filter.level}
+      </if>level
+      <if test="filter.levelName != null and filter.levelName !=''">
+        AND level_name like CONCAT('%',#{filter.levelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from blood_sugar
+  </select>
+</mapper>

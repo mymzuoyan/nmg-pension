@@ -1,0 +1,65 @@
+debug:
+  true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Root!!2008
+  db:
+    readsize: 3
+    read0:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read1:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read2:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    readCdr:
+     driver-class-name: com.mysql.jdbc.Driver
+     url: jdbc:mysql://121.46.130.73/yuneasycti?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+     username: cdr
+     password: cdr
+    readIpccp:
+       driver-class-name: com.mysql.jdbc.Driver
+       url: jdbc:mysql://192.168.3.250:3306/IPCCP?zeroDateTimeBehavior=convertToNull
+       username: tzyl
+       password: root
+  redis:
+      host: 127.0.0.1
+      port: 6379
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  dubbo:
+    application:
+      name: call-provider
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20886
+    scan: com.fedtech.pension
+server:
+  port: 8086

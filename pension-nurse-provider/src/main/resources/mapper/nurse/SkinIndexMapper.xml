@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.SkinIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.SkinIndex" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="water_percent" property="waterPercent" jdbcType="DOUBLE" />
+    <result column="oil_percent" property="oilPercent" jdbcType="DOUBLE" />
+    <result column="body_part" property="bodyPart" jdbcType="INTEGER" />
+    <result column="water_percent_level" property="waterPercentLevel" jdbcType="INTEGER" />
+    <result column="water_percent_level_name" property="waterPercentLevelName" jdbcType="VARCHAR" />
+    <result column="oil_percent_level" property="oilPercentLevel" jdbcType="INTEGER" />
+    <result column="oil_percent_level_name" property="oilPercentLevelName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, water_percent, oil_percent,body_part,water_percent_level,water_percent_level_name,oil_percent_level,oil_percent_level_name
+  </sql>
+
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.SkinIndex" useGeneratedKeys="true"
+          keyProperty="id" >
+    insert into t_skin_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="waterPercent != null" >
+        water_percent,
+      </if>
+      <if test="oilPercent != null" >
+        oil_percent,
+      </if>
+      <if test="bodyPart != null" >
+        body_part,
+      </if>
+      <if test="waterPercentLevel != null" >
+        water_percent_level,
+      </if>
+      <if test="waterPercentLevelName != null" >
+        water_percent_level_name,
+      </if>
+      <if test="oilPercentLevel != null" >
+        oil_percent_level,
+      </if>
+      <if test="oilPercentLevelName != null" >
+        oil_percent_level_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="waterPercent != null" >
+        #{waterPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="oilPercent != null" >
+        #{oilPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyPart != null" >
+        #{bodyPart,jdbcType=INTEGER},
+      </if>
+      <if test="waterPercentLevel != null" >
+        #{waterPercentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="waterPercentLevelName != null" >
+        #{waterPercentLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="oilPercentLevel != null" >
+        #{oilPercentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="oilPercentLevelName != null" >
+        #{oilPercentLevelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.SkinIndex" >
+    update t_skin_index
+    <set>
+      <if test="waterPercent != null" >
+        water_percent = #{waterPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="oilPercent != null" >
+        oil_percent = #{oilPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyPart != null" >
+        body_part = #{bodyPart,jdbcType=INTEGER},
+      </if>
+      <if test="waterPercentLevel != null" >
+        water_percent_level = #{waterPercentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="waterPercentLevelName != null" >
+        water_percent_level_name = #{waterPercentLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="oilPercentLevel != null" >
+        oil_percent_level = #{oilPercentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="oilPercentLevelName != null" >
+        oil_percent_level_name = #{oilPercentLevelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.MentalIndex">
+    select
+    *
+    from t_skin_index
+    <where>
+      <if test="filter.waterPercent!=null">
+        water_percent = #{filter.waterPercent}
+      </if>
+      <if test="filter.oilPercent!=null">
+        and oil_percent = #{filter.oilPercent}
+      </if>
+      <if test="filter.bodyPart!=null">
+        and body_part = #{filter.bodyPart}
+      </if>
+      <if test="filter.waterPercentLevel!=null">
+        and water_percent_level = #{filter.waterPercentLevel}
+      </if>
+      <if test="filter.waterPercentLevelName!=null and filter.waterPercentLevelName!=''">
+        and water_percent_level_name like CONCAT('%',#{filter.waterPercentLevelName},'%' )
+      </if>
+      <if test="filter.oilPercentLevel!=null">
+        and oil_percent_level = #{filter.oilPercentLevel}
+      </if>
+      <if test="filter.oilPercentLevelName!=null and filter.oilPercentLevelName!=''">
+        and oil_percent_level_name like CONCAT('%',#{filter.oilPercentLevelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_skin_index
+    <where>
+      <if test="waterPercent!=null">
+        water_percent = #{waterPercent}
+      </if>
+      <if test="oilPercent!=null">
+        and oil_percent = #{oilPercent}
+      </if>
+      <if test="bodyPart!=null">
+        and body_part = #{bodyPart}
+      </if>
+      <if test="waterPercentLevel!=null">
+        and water_percent_level = #{waterPercentLevel}
+      </if>
+      <if test="waterPercentLevelName!=null and waterPercentLevelName!=''">
+        and water_percent_level_name like CONCAT('%',#{waterPercentLevelName},'%' )
+      </if>
+      <if test="oilPercentLevel!=null">
+        and oil_percent_level = #{oilPercentLevel}
+      </if>
+      <if test="oilPercentLevelName!=null and oilPercentLevelName!=''">
+        and oil_percent_level_name like CONCAT('%',#{oilPercentLevelName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_skin_index
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_skin_index
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

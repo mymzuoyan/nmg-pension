@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.TaskHandleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.task.entity.TaskHandle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="taskId" property="taskId" jdbcType="INTEGER" />
+    <result column="handleName" property="handleName" jdbcType="VARCHAR" />
+    <result column="handleTime" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="handleStatus" property="handleStatus" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, taskId, handleName, handleTime, handleStatus
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_task_handle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getTaskHandles"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_task_handle
+    where taskId = #{taskId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getTaskHandleByStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_task_handle
+    where taskId = #{taskId,jdbcType=INTEGER} and handleStatus= #{status,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_task_handle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.task.entity.TaskHandle" >
+    insert into t_task_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taskId != null" >
+        taskId,
+      </if>
+      <if test="handleName != null" >
+        handleName,
+      </if>
+      <if test="handleTime != null" >
+        handleTime,
+      </if>
+      <if test="handleStatus != null" >
+        handleStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="handleName != null" >
+        #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleStatus != null" >
+        #{handleStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.task.entity.TaskHandle" >
+    update t_task_handle
+    <set >
+      <if test="taskId != null" >
+        taskId = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="handleName != null" >
+        handleName = #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        handleTime = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleStatus != null" >
+        handleStatus = #{handleStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

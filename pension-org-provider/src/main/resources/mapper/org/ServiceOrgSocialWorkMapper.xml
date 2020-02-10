@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgSocialWorkMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgSocialWork" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="service_item" jdbcType="VARCHAR" property="serviceItem" />
+    <result column="principal" jdbcType="VARCHAR" property="principal" />
+    <result column="service_start_time" jdbcType="VARCHAR" property="serviceStartTime" />
+    <result column="service_end_time" jdbcType="VARCHAR" property="serviceEndTime" />
+    <result column="service_diary" jdbcType="VARCHAR" property="serviceDiary" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+   id, service_item, principal, service_start_time, service_end_time, service_diary,organization_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_service_org_social_work
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+   delete from t_service_org_social_work
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialWork" >
+    insert into t_service_org_social_work (id, service_item, principal,
+      service_start_time, service_end_time, service_diary,organization_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{serviceItem,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR},
+      #{serviceStartTime,jdbcType=VARCHAR}, #{serviceEndTime,jdbcType=VARCHAR}, #{serviceDiary,jdbcType=VARCHAR}, #{organizationName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialWork" >
+    insert into t_service_org_social_work
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceItem != null">
+        service_item,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="serviceStartTime != null">
+        service_start_time,
+      </if>
+      <if test="serviceEndTime != null">
+        service_end_time,
+      </if>
+      <if test="serviceDiary != null">
+        service_diary,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceItem != null">
+        #{serviceItem,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStartTime != null">
+        #{serviceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEndTime != null">
+        #{serviceEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDiary != null">
+        #{serviceDiary,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialWork" >
+    update t_service_org_social_work
+    <set>
+      <if test="serviceItem != null">
+        service_item = #{serviceItem,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStartTime != null">
+        service_start_time = #{serviceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEndTime != null">
+        service_end_time = #{serviceEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDiary != null">
+        service_diary = #{serviceDiary,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_social_work
+    <where>
+      <if test="serviceItem != null and serviceItem !=''">
+        AND service_item like CONCAT('%',#{serviceItem},'%' )
+      </if>
+      <if test="principal != null and principal !=''">
+        AND principal like CONCAT('%',#{principal},'%' )
+      </if>
+      <if test="serviceStartTime!=null and serviceStartTime!=''">
+        and service_start_time  like CONCAT('%',#{serviceStartTime},'%' )
+      </if>
+      <if test="serviceEndTime!=null and serviceEndTime!=''">
+        and service_end_time like CONCAT('%',#{serviceEndTime},'%' )
+      </if>
+      <if test="serviceDiary != null and serviceDiary !=''">
+        AND service_diary like CONCAT('%',#{serviceDiary},'%' )
+      </if>
+      <if test="organizationName != null and organizationName !=''">
+        AND organization_name like CONCAT('%',#{organizationName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_social_work
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgSocialWork">
+    select
+    *
+    from t_service_org_social_work
+    <where>
+      <if test="filter.serviceItem != null and filter.serviceItem !=''">
+        AND service_item like CONCAT('%',#{filter.serviceItem},'%' )
+      </if>
+      <if test="filter.principal != null and filter.principal !=''">
+        AND principal like CONCAT('%',#{filter.principal},'%' )
+      </if>
+      <if test="filter.serviceStartTime!=null and filter.serviceStartTime!=''">
+        and service_start_time  like CONCAT('%',#{filter.serviceStartTime},'%' )
+      </if>
+      <if test="filter.serviceEndTime!=null and filter.serviceEndTime!=''">
+        and service_end_time like CONCAT('%',#{serviceEndTime},'%' )
+      </if>
+      <if test="filter.serviceDiary != null and filter.serviceDiary !=''">
+        AND service_diary like CONCAT('%',#{filter.serviceDiary},'%' )
+      </if>
+      <if test="filter.organizationName != null and filter.organizationName !=''">
+        AND organization_name like CONCAT('%',#{filter.organizationName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialWork" >
+    update t_service_org_social_work
+    set service_item = #{serviceItem,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      service_start_time = #{serviceStartTime,jdbcType=VARCHAR},
+      service_end_time = #{serviceEndTime,jdbcType=VARCHAR},
+      service_diary = #{serviceDiary,jdbcType=VARCHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+</update>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_service_org_social_work
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+</mapper>

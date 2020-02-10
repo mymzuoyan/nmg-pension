@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyOrderAppMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="elderName" property="elderName" jdbcType="VARCHAR"/>
+        <result column="addr" property="addr" jdbcType="VARCHAR"/>
+        <result column="varsId" property="varsId" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="sendTime" property="sendTime" jdbcType="VARCHAR"/>
+        <result column="serviceTime" property="serviceTime" jdbcType="VARCHAR"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="serviceOrgName" property="serviceOrgName" jdbcType="VARCHAR"/>
+        <result column="lng" property="lng" jdbcType="DOUBLE"/>
+        <result column="lat" property="lat" jdbcType="DOUBLE"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="commentUserId" property="commentUserId" jdbcType="INTEGER"/>
+        <result column="commentTime" property="commentTime" jdbcType="VARCHAR"/>
+
+        <result column="orderNum" property="orderNum" jdbcType="VARCHAR"/>
+        <result column="serviceUserId" property="serviceUserId" jdbcType="INTEGER"/>
+        <result column="pubPhone" property="pubPhone" jdbcType="VARCHAR"/>
+        <result column="servicePhone" property="servicePhone" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="orderStatus" property="orderStatus" jdbcType="INTEGER"/>
+        <result column="robStatus" property="robStatus" jdbcType="INTEGER"/>
+
+        <result column="signCoordinate" property="signCoordinate" jdbcType="VARCHAR"/>
+        <result column="signPlace" property="signPlace" jdbcType="VARCHAR"/>
+        <result column="signTime" property="signTime" jdbcType="VARCHAR"/>
+        <result column="balanceCoordinate" property="balanceCoordinate" jdbcType="VARCHAR"/>
+        <result column="balancePlace" property="balancePlace" jdbcType="VARCHAR"/>
+        <result column="balanceTime" property="balanceTime" jdbcType="VARCHAR"/>
+        <result column="whoRobStatus" property="whoRobStatus" jdbcType="INTEGER"/>
+        <result column="realPay" property="realPay" jdbcType="DOUBLE"/>
+        <result column="payMethod" property="payMethod" jdbcType="VARCHAR"/>
+        <result column="varsTitle" property="varsTitle" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp"
+            parameterType="java.lang.Integer">
+          select  a.*,tuc.login_name  commonUserName,f.name serviceUserName  from  t_elderly_order_app  a
+          left  join  t_user_common tuc on tuc.uid=a.userId
+          left join t_user_fuwu f  on f.id=a.serviceUserId
+          where  a.id=#{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+         delete from t_elderly_order_app
+        where id = #{id,jdbcType=INTEGER} and robStatus!=2
+
+    </delete>
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_elderly_order_app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="elderName != null">
+                elderName,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+
+            <if test="addr != null">
+                addr,
+            </if>
+
+            <if test="varsId != null">
+                varsId,
+            </if>
+
+            <if test="varsName != null">
+                varsName,
+            </if>
+
+            <if test="sendTime != null">
+                sendTime,
+            </if>
+
+            <if test="serviceTime != null">
+                serviceTime,
+            </if>
+
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+
+            <if test="serviceOrgName != null">
+                serviceOrgName,
+            </if>
+            <if test="lng != null">
+                lng,
+            </if>
+            <if test="lat != null">
+                lat,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+
+            <if test="orderNum != null">
+                orderNum,
+            </if>
+
+            <if test="serviceUserId != null">
+                serviceUserId,
+            </if>
+
+            <if test="pubPhone != null">
+                pubPhone,
+            </if>
+            <if test="servicePhone != null">
+                servicePhone,
+            </if>
+
+            <if test="price != null">
+                price,
+            </if>
+            <if test="orderStatus != null">
+                orderStatus,
+            </if>
+            <if test="robStatus != null">
+                robStatus,
+            </if>
+            <if test="whoRobStatus != null">
+                whoRobStatus,
+            </if>
+            <if test="orgserviceId != null">
+                orgserviceId,
+            </if>
+            <if test="orgserviceName != null">
+                orgserviceName,
+            </if>
+            <if test="sourceType != null">
+                sourceType,
+            </if>
+
+
+
+
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+
+            <if test="addr != null">
+                #{addr,jdbcType=VARCHAR},
+            </if>
+
+            <if test="varsId != null">
+                #{varsId,jdbcType=INTEGER},
+            </if>
+
+            <if test="varsName != null">
+                #{varsName,jdbcType=VARCHAR},
+            </if>
+
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTime != null">
+                #{serviceTime,jdbcType=VARCHAR},
+            </if>
+
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+
+            <if test="serviceOrgName != null">
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="lng != null">
+                #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="lat != null">
+                #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+
+            <if test="serviceUserId != null">
+                #{serviceUserId,jdbcType=INTEGER},
+            </if>
+
+            <if test="pubPhone != null">
+                #{pubPhone,jdbcType=VARCHAR},
+            </if>
+
+            <if test="servicePhone != null">
+                #{servicePhone,jdbcType=VARCHAR},
+            </if>
+
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="robStatus != null">
+                #{robStatus,jdbcType=INTEGER},
+            </if>
+            <if test="whoRobStatus != null">
+                #{whoRobStatus,jdbcType=INTEGER},
+            </if>
+            <if test="orgserviceId != null">
+                #{orgserviceId,jdbcType=INTEGER},
+            </if>
+            <if test="orgserviceName != null">
+                #{orgserviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceType != null">
+                #{sourceType,jdbcType=INTEGER},
+            </if>
+
+        </trim>
+    </insert>
+
+    <select id="selectCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+        where 1=1
+        <if test="userId!=null and userId!=''">
+            AND p.userId = #{userId}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+        <if test="orderStatus==1">
+            AND p.orderStatus in(1,2,11)
+        </if>
+            <if test="orderStatus!=1">
+                AND p.orderStatus   in(#{orderStatus})
+            </if>
+
+
+        </if>
+            ORDER BY id desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrderCountByVarsType"  parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" resultType="java.lang.Integer" >
+    select count(*) count from (
+    select e.*,o.areaName from t_elderly_order_app e
+    left join t_service_org o on e.serviceOrgId=o.id) b where areaName like concat('%',#{serviceOrgName} ,'%') and varsName like concat('%',#{varsName} ,'%')
+    </select>
+
+    <select id="selectOrderRobCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        SELECT * from
+        (
+        SELECT
+        *,
+        ROUND(
+        6378.138 * 2 * ASIN(
+        SQRT(
+        POW(
+        SIN(
+        (
+        #{localLat} * PI() / 180 - lat * PI() / 180
+        ) / 2
+        ),
+        2
+        ) + COS(#{localLat} * PI() / 180) * COS(lat * PI() / 180) * POW(
+        SIN(
+        (
+        #{localLng} * PI() / 180 - lng * PI() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) AS tance,SUBSTR(varsName,1,2) as cept
+        FROM
+        t_elderly_order_app
+        ) t  where  t.tance &lt; #{tance} AND
+        t.robStatus != 2 and    #{varsRole}  like  CONCAT(&apos;%&apos;,t.cept,&apos;%&apos;)
+        ORDER BY t.serviceTime desc
+        LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrderNew" resultType="Integer" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        SELECT count(t.id) from
+        (
+        SELECT
+        *,
+        ROUND(
+        6378.138 * 2 * ASIN(
+        SQRT(
+        POW(
+        SIN(
+        (
+        #{localLat} * PI() / 180 - lat * PI() / 180
+        ) / 2
+        ),
+        2
+        ) + COS(#{localLat} * PI() / 180) * COS(lat * PI() / 180) * POW(
+        SIN(
+        (
+        #{localLng} * PI() / 180 - lng * PI() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) AS tance,SUBSTR(varsName,1,2) as cept
+        FROM
+        t_elderly_order_app
+        ) t  where  t.tance &lt; #{tance} AND
+        t.robStatus != 2 and    #{varsRole}  like  CONCAT(&apos;%&apos;,t.cept,&apos;%&apos;)
+        and  t.sendTime &lt; #{endTime}  and  t.sendTime  &gt;=  #{beginTime}
+
+    </select>
+
+    <!--<select id="selectOrderNew" resultType="Integer" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">-->
+        <!--SELECT count(t.id) from-->
+        <!--(-->
+        <!--SELECT-->
+        <!--*-->
+        <!--FROM-->
+        <!--t_elderly_order_app-->
+        <!--) t  where-->
+        <!--t.robStatus != 2 and-->
+          <!--t.sendTime &lt; #{endTime}  and  t.sendTime  &gt;=  #{beginTime}-->
+
+    <!--</select>-->
+
+    <select id="selectNotServerCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where (orderStatus=1 or orderStatus=11) and  robStatus=2 and  serviceUserId=#{serviceUserId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+    </select>
+
+    <select id="selectOrgNotServerCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+       select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+            where (p.orderStatus=1 or p.orderStatus=11) and  p.robStatus=2 and  p.serviceOrgId=#{serviceOrgId}
+            ORDER BY p.serviceTime desc
+            LIMIT 0, #{count}
+    </select>
+
+    <select id="selectOnServerCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where  robStatus = 2   and  orderStatus = 2 and  serviceUserId=#{serviceUserId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrgOnServerCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+         select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+            where  p.robStatus = 2   and  p.orderStatus = 2 and  p.serviceOrgId=#{serviceOrgId}
+            ORDER BY p.serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectNotPayCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where  robStatus = 2   and  orderStatus = 3 and  serviceUserId=#{serviceUserId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrgNotPayCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+         select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+            where  p.robStatus = 2   and  p.orderStatus = 3 and  p.serviceOrgId=#{serviceOrgId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectHasPayCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where  robStatus = 2   and  orderStatus = 4 and  serviceUserId=#{serviceUserId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrgHasPayCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+         select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+            where  p.robStatus = 2   and  p.orderStatus = 4 and  p.serviceOrgId=#{serviceOrgId}
+            ORDER BY p.serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectServerOrderALLCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where  robStatus = 2  and  serviceUserId=#{serviceUserId}
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrgServerOrderALLCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select p.*,f.name as serviceUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+            where  p.robStatus = 2  and  p.serviceOrgId=#{serviceOrgId}
+            ORDER BY p.serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <select id="selectOrgNotSendList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select *
+        from t_elderly_order_app
+            where  robStatus = 2  and serviceOrgId=#{serviceOrgId}  and (isNull(serviceUserId) or serviceUserId=0)
+            ORDER BY serviceTime desc
+            LIMIT 0, #{count}
+
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        UPDATE t_elderly_order_app
+        <set>
+            <if test="elderId!=null and elderId!=''">
+                elderId = #{elderId},
+            </if>
+            <if test="elderName != null and elderName != ''">
+                elderName = #{elderName},
+            </if>
+            <if test="addr != null and addr != ''">
+                addr = #{addr},
+            </if>
+
+            <if test="varsId != null">
+                varsId = #{varsId},
+            </if>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="serviceTime != serviceTime">
+                serviceTime = #{serviceTime},
+            </if>
+            <if test="serviceOrgId != null and serviceOrgId != ''">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="serviceOrgName != null and serviceOrgName != ''">
+                serviceOrgName = #{serviceOrgName},
+            </if>
+            <if test="lng != null and lng != ''">
+                lng = #{lng},
+            </if>
+            <if test="lat != null and lat != ''">
+                lat = #{lat},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+            <if test="commentUserId != null and commentUserId != ''">
+                commentUserId = #{commentUserId},
+            </if>
+            <if test="commentTime != null and commentTime != ''">
+                commentTime = #{commentTime},
+            </if>
+
+            <if test="orderNum != null and orderNum != ''">
+                orderNum = #{orderNum},
+            </if>
+            <if test="serviceUserId != null">
+                serviceUserId = #{serviceUserId},
+            </if>
+            <if test="pubPhone != null">
+                pubPhone = #{pubPhone},
+            </if>
+            <if test="servicePhone != null and servicePhone != ''">
+                servicePhone = #{servicePhone},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="orderStatus != null">
+                orderStatus = #{orderStatus},
+            </if>
+            <if test="robStatus != null">
+                robStatus = #{robStatus},
+            </if>
+            <if test="whoRobStatus != null">
+                whoRobStatus= #{whoRobStatus},
+            </if>
+            <if test="orgserviceId != null">
+                orgserviceId= #{orgserviceId},
+            </if>
+            <if test="orgserviceName != null">
+                orgserviceName= #{orgserviceName},
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateServerRobStatus" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        UPDATE t_elderly_order_app
+        <set>
+            <if test="serviceOrgId != null and serviceOrgId != ''">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="serviceOrgName != null and serviceOrgName != ''">
+                serviceOrgName = #{serviceOrgName},
+            </if>
+            <if test="serviceUserId != null">
+                serviceUserId = #{serviceUserId},
+            </if>
+            <if test="orderStatus != null">
+                orderStatus = #{orderStatus},
+            </if>
+            <if test="robStatus != null">
+                robStatus = #{robStatus},
+            </if>
+            <if test="servicePhone != null">
+                servicePhone = #{servicePhone},
+            </if>
+
+            <if test="signCoordinate != null">
+                signCoordinate = #{signCoordinate},
+            </if>
+            <if test="signPlace != null">
+                signPlace = #{signPlace},
+            </if>
+            <if test="signTime != null">
+                signTime = #{signTime},
+            </if>
+            <if test="balanceCoordinate != null">
+                balanceCoordinate = #{balanceCoordinate},
+            </if>
+            <if test="balancePlace != null">
+                balancePlace = #{balancePlace},
+            </if>
+            <if test="balanceTime != null">
+                balanceTime = #{balanceTime},
+            </if>
+            <if test="whoRobStatus != null">
+                whoRobStatus = #{whoRobStatus},
+            </if>
+            <if test="realPay != null">
+                realPay = #{realPay},
+            </if>
+            <if test="payMethod != null">
+                payMethod = #{payMethod},
+            </if>
+            <if test="varsTitle != null">
+                varsTitle = #{varsTitle},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectServerOrderZC" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+            select * from t_elderly_order_app
+            where  varsId in (select id from t_service_project where serviceType=1)
+            ORDER BY serviceTime desc
+    </select>
+
+    <select id="selectByOrgId" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp"
+            parameterType="java.lang.Integer">
+          SELECT * from t_elderly_order_app where serviceOrgId=#{orgId}
+    </select>
+
+    <select id="selectOrder" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+          SELECT * from t_elderly_order_app
+    </select>
+
+    <select id="selectByOrgIdToday" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp"
+            parameterType="java.lang.Integer">
+          SELECT * from t_elderly_order_app where serviceOrgId=#{orgId} and sendTime like  concat('%',date(now()) ,'%')
+    </select>
+
+    <select id="selectOrderToday" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+         SELECT * from t_elderly_order_app where sendTime like  concat('%',date(now()) ,'%')
+    </select>
+
+    <select id="selectOrderCountByMonth" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp"
+            parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select m.date as serviceTime,IFNULL(b.count,0) as count,IFNULL(b.realPay,0) as realPay from
+        (
+        select date_format(adddate(#{startDate}, INTERVAL i MONTH),'%Y-%m') as date
+        from num where adddate(#{startDate}, INTERVAL i MONTH) &lt;= date_format(curdate(),'%Y-%m-%d') order by date
+        ) m
+        LEFT JOIN
+        (SELECT serviceTime,count(*) count,SUM(realPay) as realPay FROM  (
+        select DATE_FORMAT(serviceTime,'%Y-%m') as serviceTime,p.addr,p.id,p.serviceOrgName,p.realPay
+        from t_elderly_order_app p where robStatus=2 and serviceUserId=#{serviceUserId}
+        and serviceTime BETWEEN #{startDate} and #{endDate}
+        <if test="varsName!=null and varsName!=''">
+            AND substr(varsName,1,2)=#{varsName}
+        </if>
+        order by serviceTime ) w
+        GROUP BY  serviceTime) b
+        on b.serviceTime=m.date order by date
+    </select>
+
+    <select id="selectOrgOrderCountByMonth" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp"
+            parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select m.date as serviceTime,IFNULL(b.count,0) as count,IFNULL(b.realPay,0) as realPay from
+        (
+        select date_format(adddate(#{startDate}, INTERVAL i MONTH),'%Y-%m') as date
+        from num where adddate(#{startDate}, INTERVAL i MONTH) &lt;= date_format(curdate(),'%Y-%m-%d') order by date
+        ) m
+        LEFT JOIN
+        (SELECT serviceTime,count(*) count,SUM(realPay) as realPay FROM  (
+        select DATE_FORMAT(serviceTime,'%Y-%m') as serviceTime,p.addr,p.id,p.serviceOrgName,p.realPay
+        from t_elderly_order_app p where robStatus=2 and serviceOrgId=#{serviceOrgId}
+        and serviceTime BETWEEN #{startDate} and #{endDate}
+        <if test="varsName!=null and varsName!=''">
+            AND substr(varsName,1,2)=#{varsName}
+        </if>
+        order by serviceTime ) w
+        GROUP BY  serviceTime) b
+        on b.serviceTime=m.date order by date
+    </select>
+
+    <select id="selectServiceOrgMapBigData" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+select tab5.*,substr(tab6.varsName,1,2) varsName,tab6.zhuyuancount as trance,tab6.sumordercount count from (	select
+                        a.serviceOrgId,c.institutionName serviceOrgName,
+                        a.lng,a.lat
+                        from t_serviceorg_location a ,t_service_org c
+                        where a.serviceOrgId = c.id
+												) tab5 left join (
+
+select tab3.*,IFNULL(tab4.zhuyuancount,0) zhuyuancount from (
+
+SELECT  tab1.* ,tab2.varsName
+				FROM(
+
+				SELECT serviceOrgId,sum(ordercount) sumordercount, max(ordercount) ordercount,max(oid) oid from (
+
+
+				select cc.*,bb.oid,IFNULL(bb.ordercount,0) ordercount,bb.varsName from (
+
+                    select
+                        a.serviceOrgId,c.institutionName serviceOrgName,
+                        a.lng,a.lat
+                        from t_serviceorg_location a ,t_service_org c
+                        where a.serviceOrgId = c.id
+												) cc left join (
+													select max(id) oid,serviceOrgId,count(*) ordercount,SUBSTR(varsName,1,2) varsName from		t_elderly_order_app
+													where serviceTime BETWEEN DATE_SUB(CURDATE(),INTERVAL dayofyear(now())-1 DAY) and concat(YEAR(now()),'-12-31')
+									GROUP BY serviceOrgId,SUBSTR(varsName,1,2)
+								) bb on cc.serviceOrgId=bb.serviceOrgId
+
+								)tab group by serviceOrgId
+
+								) tab1 left join t_elderly_order_app tab2  on tab1.oid=tab2.id
+
+
+								) tab3
+
+								left join( select service_org_id,count(o.id) zhuyuancount from
+												t_service_org_elderly o where o.status  in(1,2,3,4,5)   group by  service_org_id
+												) tab4 on  tab4.service_org_id=tab3.serviceOrgId
+												) tab6 on tab5.serviceOrgId=tab6.serviceOrgId
+ </select>
+
+    <select id="selectVarsCountBigData" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+    select count(*)count,SUBSTR(varsName,1,2) varsName from t_elderly_order_app group  by SUBSTR(varsName,1,2)
+     </select>
+
+    <select id="selectServiceCountBigData" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" >
+    SELECT
+    count(*) count
+    FROM t_elderly_order_app where serviceTime
+    BETWEEN DATE_SUB(CURDATE(),INTERVAL dayofyear(now())-1 DAY) and concat(YEAR(now()),'-12-31')
+ </select>
+
+    <select id="getGoldMoney"  resultType="java.lang.Double">
+    select IFNULL(0,sum(totalMoney)) totalMoney  from t_gold_send
+    </select>
+
+    <select id="getCardCountByArea" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from (
+        SELECT
+        a.*,s.areaName
+        FROM t_moneyflow a left join t_service_org s
+        on s.id=a.serviceOrgId ) c where c.amount&lt; 0
+        and c.uptime BETWEEN DATE_SUB(CURDATE(),INTERVAL dayofyear(now())-1 DAY) and concat(YEAR(now()),'-12-31')
+        and c.areaName  like  concat('%',#{area} ,'%')
+    </select>
+
+    <select id="getfreePassCountByArea" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--  select count(*) from t_elderly_message where  isNeedCard=1 and areaName  like  concat('%',#{area} ,'%')-->
+       select count(*) from (
+            SELECT t.id,t.`name`,m.areaId,m.areaName from t_elderly_preferential_treatment t left join t_elderly_message m
+            on t.idcardno=m.idcardno  where  m.areaName  like  concat('%',#{area} ,'%')
+        ) tab
+    </select>
+
+    <select id="getSignCountByArea" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(*) from (
+				SELECT
+				a.*,s.areaName
+        FROM t_elderly_order_app a left join t_service_org s
+				on s.id=a.serviceOrgId ) c where c.signTime is not null
+				and c.servicetime BETWEEN DATE_SUB(CURDATE(),INTERVAL dayofyear(now())-1 DAY) and concat(YEAR(now()),'-12-31')
+				and c.areaName   like  concat('%',#{area} ,'%')
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select p.*,f.name as serviceUserName,u.nick_name commonUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+        left join t_user u  on u.uid=p.userId
+        where 1=1
+        <if test="filter.orderStatus !=null">
+            <if test="filter.orderStatus == 1">
+                and (p.orderStatus=1 or p.orderStatus=11)
+            </if>
+            <if test="filter.orderStatus != 1">
+                and p.orderStatus = #{filter.orderStatus}
+            </if>
+            and  p.robStatus = 2
+
+        </if>
+
+        <if test="filter.serviceOrgId !=-1">
+            AND (p.serviceOrgId=null or p.serviceOrgId=0 or p.serviceOrgId=#{filter.serviceOrgId}  )
+        </if>
+
+
+
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" resultType="java.lang.Integer">
+        SELECT COUNT(1) from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+        left join t_user u  on u.uid=p.userId
+        where 1=1
+        <if test="orderStatus !=null">
+            <if test="orderStatus == 1">
+                and (p.orderStatus=1 or p.orderStatus=11)
+            </if>
+            <if test="orderStatus != 1">
+                and p.orderStatus = #{orderStatus}
+            </if>
+            and  p.robStatus = 2
+        </if>
+        <if test="serviceOrgId !=-1">
+            AND (p.serviceOrgId=null or p.serviceOrgId=0 or p.serviceOrgId=#{serviceOrgId}  )
+        </if>
+        <if test="serviceOrgName != null and serviceOrgName!=''">
+            AND p.serviceOrgName like CONCAT('%',#{serviceOrgName},'%' )
+        </if>
+
+    </select>
+
+    <select id="selectWebPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp">
+        select p.*,f.name as serviceUserName,u.nick_name commonUserName from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+        left join t_user u  on u.uid=p.userId
+          where 1=1
+            and  p.robStatus = 2
+        <!--<if test="filter.orderStatus == -1">-->
+            <!--and p.orderStatus >0-->
+        <!--</if>-->
+
+        <if test="filter.sourceType != null">
+            and p.sourceType= #{filter.sourceType}
+        </if>
+
+        <if test="filter.serviceOrgId != null">
+            AND (p.serviceOrgId=#{filter.serviceOrgId})
+        </if>
+
+
+        <if test="filter.userId != null">
+            and p.userId = #{filter.userId}
+        </if>
+
+
+
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="webcount" parameterType="com.fedtech.pension.elderly.entity.ElderlyOrderApp" resultType="java.lang.Integer">
+        SELECT COUNT(1) from t_elderly_order_app p
+        left join t_user_fuwu f  on f.id=p.serviceUserId
+        left join t_user u  on u.uid=p.userId
+        where 1=1
+        and  p.robStatus = 2
+        <!--<if test="orderStatus == -1">-->
+            <!--and p.orderStatus >0-->
+        <!--</if>-->
+        <if test="sourceType != null">
+            and p.sourceType= #{sourceType}
+        </if>
+        <if test="userId != null">
+            and p.userId = #{userId}
+        </if>
+        <if test="serviceOrgId != null">
+            AND (p.serviceOrgId=#{serviceOrgId}  )
+        </if>
+
+        <if test="serviceOrgName != null and serviceOrgName!=''">
+            AND p.serviceOrgName like CONCAT('%',#{serviceOrgName},'%' )
+        </if>
+
+    </select>
+
+</mapper>

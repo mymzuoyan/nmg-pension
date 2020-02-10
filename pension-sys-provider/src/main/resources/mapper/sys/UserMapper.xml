@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.UserMapper">
+
+    <!-- type指向你的javabean类，id可以自定义 -->
+    <resultMap type="com.fedtech.pension.sys.entity.User" id="user">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <!-- property对应实体类的属性名称，column为数据库结果集的列的名称 -->
+        <result property="login_name" column="login_name" jdbcType="VARCHAR"/>
+        <result property="pass_word" column="pass_word" jdbcType="VARCHAR"/>
+        <result property="nick_name" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="create_time" column="create_time" jdbcType="INTEGER"/>
+        <result property="unitAndDuty" column="unitAndDuty" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="serviceType" column="serviceType" jdbcType="VARCHAR"/>
+        <result property="serviceOrgName" column="serviceOrgName" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="areaId" column="areaId" jdbcType="INTEGER"/>
+        <result property="areaName" column="areaName" jdbcType="VARCHAR"/>
+        <result property="realAddress" column="realAddress" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="serviceOrgId" column="serviceOrgId" jdbcType="INTEGER"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="gender1" column="gender1" jdbcType="VARCHAR"/>
+        <result property="idcardno" column="idcardno" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="queue" column="queue" jdbcType="VARCHAR"/>
+        <result property="disphone" column="disphone" jdbcType="VARCHAR"/>
+        <result property="agent" column="agent" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="userIdCardNo" column="userIdCardNo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="base_column_list">
+        uid,login_name,pass_word,nick_name,areaId,areaName,serviceOrgId,serviceOrgName,assessOrgId,assessOrgName,linkName,phone,avatar,gender,create_time,appToken,status,registrationId,unitAndDuty,email,queue,disphone,agent,pwd,userIdCardNo
+    </sql>
+
+    <sql id="simple_column_list">
+        uid,login_name,nick_name,areaId,areaName,avatar,serviceOrgId,serviceOrgName,assessOrgId,assessOrgName,linkName,phone,gender,appToken,status,registrationId,unitAndDuty,email,queue,disphone,agent
+    </sql>
+    <sql id="login_column_list">
+        uid,login_name,pass_word,areaId,areaName,serviceOrgId,serviceOrgName,assessOrgId,assessOrgName,linkName,phone,appToken,status,registrationId,unitAndDuty,email,queue,disphone,agent
+    </sql>
+
+    <select id="selectUidByNickName" resultType="java.lang.String">
+        SELECT uid FROM t_user WHERE nick_name = #{nick_name}
+    </select>
+
+    <select id="selectByServiceOrgId" resultMap="user" parameterType="java.lang.Integer">
+        SELECT
+        *
+        FROM
+        t_user
+        WHERE
+        serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="user" >
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE uid=#{id} AND status!=2
+    </select>
+
+    <select id="selectZuZhiInfoAndTaskCount" resultMap="user" >
+        select a.*,b.serviceProjectName as serviceType from t_user a,t_service_org b where a.serviceOrgId=b.id and
+        uid=#{uid} and a.status!=2
+    </select>
+
+    <select id="selectUserFuwuInfoAndTaskCount" resultMap="user" >
+            select a.*,b.name,b.mobile,b.idcardno,b.realAddress,b.serviceType,b.age,b.gender as gender1 from t_user
+            a,t_user_fuwu b
+            where a.uid=b.userId and a.status!=2 and a.uid=#{uid}
+    </select>
+
+    <select id="selectObjectInfoAndTaskCount" resultMap="user" >
+            select a.*,b.taskCount from t_user a, (select count(1) as taskCount
+            from t_task_receive where creatorId=#{uid}) b where uid=#{uid} and a.status!=2
+    </select>
+
+    <select id="selectByLoginName" resultMap="user" parameterType="java.lang.String">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE login_name=#{loginName} AND status=1
+    </select>
+
+    <select id="selectByLoginNameAndRole" resultMap="user">
+        SELECT
+        a.*,b.name,b.realAddress,b.mobile,b.serviceType
+        FROM t_user a LEFT Join t_user_role c on (a.uid=c.userId) LEFT  join t_user_fuwu b on (a.uid=b.userId)
+        WHERE a.login_name=#{loginName}
+         and c.roleId=#{roleId}
+         and a.status=1
+    </select>
+
+
+    <select id="selectByAuthCode" resultMap="user" parameterType="java.lang.String">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE authCode=#{authCode} AND status=0
+    </select>
+
+    <select id="selectSimpleInfo" resultMap="user" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="simple_column_list"/>
+        FROM t_user
+        WHERE uid=#{uid} AND status!=2
+    </select>
+
+    <select id="selectByLoginNameandPwd" resultMap="user" parameterType="java.lang.String">
+        SELECT
+        <include refid="login_column_list"/>
+        FROM t_user
+        WHERE login_name=#{login_name} AND pass_word=#{pass_word}
+    </select>
+
+    <select id="selectLastZuAdmin" resultType="java.lang.String">
+      select a.login_name login_name
+      FROM t_user a LEFT  JOIN t_user_role b on (a.uid=b.userId)
+      where a.login_name LIKE   CONCAT(#{areaCode},'%' ) and b.roleId = #{roleId}
+      ORDER BY  a.uid DESC
+      limit 1
+    </select>
+
+    <select id="selectUsers" resultMap="user">
+        select * FROM t_user
+    </select>
+
+    <select id="selectBy">
+        SELECT * FROM `t_user` a,t_user_role b where a.uid=b.userId and roleId in (1,2)
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        UPDATE t_user
+        SET status=2
+        WHERE uid = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.User" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO t_user (login_name,pass_word,nick_name,areaId,areaName,serviceOrgId,serviceOrgName,assessOrgId,assessOrgName,linkName,phone,avatar,gender,create_time,appToken,email,unitAndDuty,status,queue,disphone,agent,pwd)
+        VALUES (#{login_name},#{pass_word},#{nick_name},#{areaId},#{areaName},#{serviceOrgId},#{serviceOrgName},#{assessOrgId},#{assessOrgName},#{linkName},#{phone},#{avatar},#{gender},NOW(),#{appToken},#{email},#{unitAndDuty},#{status},#{queue},#{disphone},#{agent},#{pwd})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.User">
+        UPDATE t_user
+        <set>
+            <if test="nick_name != null">
+                nick_name = #{nick_name},
+            </if>
+            <if test="linkName != null">
+                linkName = #{linkName},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="pass_word != null">
+                pass_word = #{pass_word},
+            </if>
+            <if test="areaId != null">
+                areaId = #{areaId},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="serviceOrgName != null">
+                serviceOrgName = #{serviceOrgName},
+            </if>
+            <if test="assessOrgId != null">
+                assessOrgId = #{assessOrgId},
+            </if>
+            <if test="assessOrgName != null">
+                assessOrgName = #{assessOrgName},
+            </if>
+            <if test="appToken != null">
+                appToken = #{appToken},
+            </if>
+            <if test="registrationId != null">
+                registrationId = #{registrationId},
+            </if>
+            <if test="queue != null">
+                queue = #{queue},
+            </if>
+            <if test="disphone != null">
+                disphone = #{disphone},
+            </if>
+            <if test="agent != null">
+                agent = #{agent},
+            </if>
+            <if test="pwd != null">
+                pwd = #{pwd},
+            </if>
+            <if test="userIdCardNo != null">
+                userIdCardNo = #{userIdCardNo},
+            </if>
+        </set>
+        WHERE uid=#{uid}
+    </update>
+
+    <update id="updateUserIdCardNoById">
+        UPDATE t_user
+        <set>
+            <if test="userIdCardNo != null">
+                userIdCardNo = #{userIdCardNo},
+            </if>
+        </set>
+        WHERE uid=#{uid}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.User" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user
+        WHERE status!=2
+        <if test="gender!=null">
+            AND gender = #{gender}
+        </if>
+        <if test="nick_name!=null">
+            AND nick_name like CONCAT('%',#{nick_name},'%' )
+        </if>
+        <if test="login_name!=null">
+            AND login_name like CONCAT('%',#{login_name},'%' )
+        </if>
+        <if test="status!=null">
+            AND status = #{status}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user
+        WHERE status!=2
+    </select>
+
+    <select id="selectPageList" resultMap="user" parameterType="com.fedtech.pension.sys.entity.User">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE status != 2
+        <if test="filter.gender!=null">
+            AND gender = #{filter.gender}
+        </if>
+        <if test="filter.status!=null">
+            AND status = #{filter.status}
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectPageListByRoleId" resultMap="user">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE status != 2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.areaName!=null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="roleId!=null">
+            and uid IN
+            (
+            select userId
+            from t_user_role
+            where roleId=#{roleId}
+            )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countUserByRoleId" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.areaName!=null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        <if test="roleId!=null">
+            and uid IN
+            (
+            select userId
+            from t_user_role
+            where roleId=#{roleId}
+            )
+        </if>
+    </select>
+
+    <select id="selectPageListByRoleIds" resultMap="user">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM t_user
+        WHERE status != 2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.assessOrgId!=null">
+            AND assessOrgId = #{filter.assessOrgId}
+        </if>
+        and uid IN
+        (
+        select userId
+        from t_user_role
+        where roleId IN
+        <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        )
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countUserByRoleIds" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.areaName!=null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.assessOrgId!=null">
+            AND assessOrgId = #{filter.assessOrgId}
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        and uid IN
+        (
+        select userId
+        from t_user_role
+        where roleId IN
+        <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        )
+    </select>
+
+    <select id="selectAllUserByRole" resultMap="user">
+        <if test="roleId!=5">
+            SELECT
+            <include refid="simple_column_list"/>
+            FROM t_user
+            WHERE status!=2
+            <if test="filter.areaId!=null">
+                AND areaId = #{filter.areaId}
+            </if>
+            <if test="filter.serviceOrgId!=null">
+                AND serviceOrgId IN (${filter.serviceOrgId})
+            </if>
+            <if test="filter.assessOrgId!=null">
+                AND assessOrgId = #{filter.assessOrgId}
+            </if>
+            <if test="filter.nick_name!=null">
+                AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+            </if>
+            <if test="filter.login_name!=null">
+                AND login_name like CONCAT('%',#{filter.login_name},'%' )
+            </if>
+            and uid IN
+            (
+            select userId
+            from t_user_role
+            where roleId=#{roleId}
+            )
+        </if>
+        <if test="roleId==5">
+            select a.uid,a.serviceOrgId,a.serviceOrgName,
+            b.mobile as phone,b.name as login_name,b.gender as gender1,b.serviceType
+            from t_user a, t_user_fuwu b
+            where a.uid=b.userId and a.status!=2
+        </if>
+    </select>
+
+    <select id="selectAllUserIdByRole" resultType="java.lang.Integer">
+        SELECT
+        uid
+        FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.assessOrgId!=null">
+            AND assessOrgId = #{filter.assessOrgId}
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        and uid IN
+        (
+        select userId
+        from t_user_role
+        where roleId=#{roleId}
+        )
+    </select>
+
+    <select id="selectAllUserByRoles" resultMap="user">
+        SELECT
+        <include refid="simple_column_list"/>
+        FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%' )
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%' )
+        </if>
+        and uid IN
+        (
+        select userId
+        from t_user_role
+        where roleId IN
+        <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        )
+    </select>
+
+    <select id="selectAllUserIdsByRoles" resultType="java.lang.Integer">
+        SELECT
+        uid
+        FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.areaName!=null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%')
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+        <if test="filter.nick_name!=null">
+            AND nick_name like CONCAT('%',#{filter.nick_name},'%')
+        </if>
+        <if test="filter.login_name!=null">
+            AND login_name like CONCAT('%',#{filter.login_name},'%')
+        </if>
+        and uid IN
+        (
+        select userId
+        from t_user_role
+        where roleId IN
+        <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        )
+    </select>
+
+    <select id="getAllRecode" resultMap="user">
+        SELECT
+        <include refid="simple_column_list"/>
+        FROM t_user
+        WHERE status!=2
+        <if test="filter.areaId!=null">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.areaName!=null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND serviceOrgId IN (${filter.serviceOrgId})
+        </if>
+    </select>
+
+    <select id="selectSimpleUserInfo" resultMap="user">
+        SELECT
+        <include refid="simple_column_list"/>
+        FROM t_user
+        WHERE uid IN
+        <foreach collection="list" index="index" item="uid" open="(" separator="," close=")">
+            #{uid}
+        </foreach>
+    </select>
+
+    <update id="updateUsers">
+        UPDATE t_user
+        set status = #{status}
+        WHERE uid in
+        <foreach collection="userIds" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateUsersByServiceOrgIds">
+        UPDATE t_user
+        set status = #{status}
+        WHERE serviceOrgId in
+        <foreach collection="serviceOrgIds" index="index" item="serviceOrgId" open="(" separator="," close=")">
+            #{serviceOrgId}
+        </foreach>
+    </update>
+
+    <insert id="insertOrRole" parameterType="java.lang.Long" useGeneratedKeys="true">
+        INSERT INTO t_user_role
+        (userId,roleId)
+        VALUES
+        ( #{uid},3)
+    </insert>
+
+    <select id="selectUserByTaskId" parameterType="java.lang.Integer" resultMap="user">
+        SELECT
+        <include refid="simple_column_list"/>
+        FROM t_user
+        WHERE uid IN
+        (
+        select receiverId
+        from t_task_receive
+        where taskId=#{taskId}
+        )
+    </select>
+
+    <select id="judgeNickName" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_user where nick_name = #{nick_name} AND status!=2
+    </select>
+
+    <select id="selectFuwuUserByOrgId" resultType="com.fedtech.pension.sys.entity.User">
+        select
+        a.uid,a.login_name,a.nick_name,a.areaId,a.areaName,a.serviceOrgId,a.serviceOrgName,a.avatar,a.create_time,c.id,c.name,c.mobile,c.idcardno,c.realAddress
+        from t_user a,t_user_fuwu c
+        where a.serviceOrgId=#{serviceOrgId}
+        <if test="serviceType!=null and serviceType!=''">
+            and c.serviceType Like CONCAT('%',#{serviceType},'%' )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectByLoginNamesAndRoleId" resultMap="user">
+        SELECT
+        a.uid,a.login_name,a.nick_name
+        FROM t_user a LEFT JOIN t_user_role b on(a.uid=b.userId)
+        WHERE status!=2
+        <if test="roleId>0">
+            and b.roleId=#{roleId}
+        </if>
+        AND login_name in
+        <foreach collection="names" index="id" item="name" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+    </select>
+
+    <update id="updateUserServiceOrgName">
+        update t_user
+        set serviceOrgName=#{serviceOrgName}
+        where serviceOrgId=#{serviceOrgId}
+    </update>
+
+
+    <insert id="insertSomeUser" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO t_user
+        (login_name,pass_word,nick_name,areaId,areaName,create_time)
+        VALUES
+        <foreach collection="users" item="user" index="index" separator=",">
+            (#{user.login_name},#{user.pass_word},#{user.nick_name},#{user.areaId},#{user.areaName},#{user.create_time})
+        </foreach>
+    </insert>
+
+    <select id="selectUidByLoginName" parameterType="java.lang.String" resultType="com.fedtech.pension.sys.entity.User">
+        SELECT uid FROM t_user
+        WHERE login_name=#{login_name}
+    </select>
+
+    <update id="approved" parameterType="com.fedtech.pension.sys.entity.User">
+        update t_user
+        set status=#{user.status}
+        where uid=#{user.uid}
+    </update>
+
+    <select id="selectAppByLoginNameandPwd" resultMap="user" parameterType="java.lang.String">
+        SELECT
+        <include refid="login_column_list"/>
+        FROM t_user
+        WHERE login_name=#{login_name} AND pass_word=#{pass_word} AND status=1
+    </select>
+</mapper>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyPoorVerificationMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyPoorVerification">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="applyId" property="applyId" jdbcType="INTEGER"/>
+        <result column="year" property="year" jdbcType="INTEGER"/>
+        <result column="result" property="result" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="expire" property="expire" jdbcType="INTEGER"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, applyId, year, result, createTime, creatorId,creator, expire,note
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_elderly_poor_verification
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_poor_verification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyPoorVerification">
+        insert into t_elderly_poor_verification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="applyId != null">
+                applyId,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="expire != null">
+                expire,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="applyId != null">
+                #{applyId,jdbcType=INTEGER},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="expire != null">
+                #{expire,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyPoorVerification">
+        update t_elderly_poor_verification
+        <set>
+            <if test="applyId != null">
+                applyId = #{applyId,jdbcType=INTEGER},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="expire != null">
+                expire = #{expire,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from t_elderly_poor_verification
+        <where>
+            <if test="result != null">
+                result = #{result}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="expire != null and expire != ''">
+                and expire = #{expire}
+            </if>
+            <if test="applyId != null and applyId != ''">
+                and applyId = #{applyId}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_elderly_poor_verification
+  </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyPoorVerification">
+        select
+        a.id, a.applyId,b.name name, b.number number,b.idcardno idcardno,b.region1 region1, a.year, a.result,
+        a.createTime, a.creatorId,a.creator, a.expire,a.note
+        from t_elderly_poor_verification a left JOIN t_elderly_poor_apply b on (a.applyId=b.id)
+        <where>
+            <if test="filter.result != null">
+                a.result = #{filter.result}
+            </if>
+            <if test="filter.year != null and filter.year != ''">
+                and a.year = #{filter.year}
+            </if>
+            <if test="filter.expire != null and filter.expire != ''">
+                and a.expire = #{filter.expire}
+            </if>
+            <if test="filter.applyId != null and filter.applyId != ''">
+                and a.applyId = #{filter.applyId}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+    <select id="getAllRecode" resultType="com.fedtech.pension.elderly.entity.ElderlyPoorVerification">
+        select
+        a.id, a.applyId,b.name name, b.number number,b.idcardno idcardno,b.region1 region1, a.year, a.result,
+        a.createTime, a.creatorId,a.creator, a.expire,a.note
+        from t_elderly_poor_verification a left JOIN t_elderly_poor_apply b on (a.applyId=b.id)
+        <where>
+            <if test="filter.result != null">
+                a.result = #{filter.result}
+            </if>
+            <if test="filter.year != null and filter.year != ''">
+                and a.year = #{filter.year}
+            </if>
+            <if test="filter.expire != null and filter.expire != ''">
+                and a.expire = #{filter.expire}
+            </if>
+            <if test="filter.applyId != null and filter.applyId != ''">
+                and a.applyId = #{filter.applyId}
+            </if>
+        </where>
+    </select>
+    <insert id="insertSomeRecode" parameterType="java.util.List">
+        INSERT INTO t_elderly_poor_verification
+        (applyId, year, result, createTime, creatorId,creator, expire,note)
+        VALUES
+        <foreach collection="verifications" item="verification" index="index" separator=",">
+            (#{verification.applyId},#{verification.year},#{verification.result},#{verification.createTime}
+            ,#{verification.creatorId},,#{verification.creator},#{verification.expire},#{verification.note})
+        </foreach>
+    </insert>
+</mapper>

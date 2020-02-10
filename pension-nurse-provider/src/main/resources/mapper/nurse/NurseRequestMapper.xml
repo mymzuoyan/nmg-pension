@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.NurseRequestMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.NurseRequest">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="record_id" property="recordId" jdbcType="VARCHAR"/>
+        <result column="elder_id" property="elderId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="collect_type" property="collectType" jdbcType="INTEGER"/>
+        <result column="collect_sys" property="collectSys" jdbcType="VARCHAR"/>
+        <result column="device_type" property="deviceType" jdbcType="VARCHAR"/>
+        <result column="device_sid" property="deviceSid" jdbcType="VARCHAR"/>
+        <result column="result" property="result" jdbcType="VARCHAR"/>
+        <result column="association_id" property="associationId" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, record_id, elder_id,type,time,collect_type,collect_sys,device_type,device_sid,result,association_id
+  </sql>
+
+    <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.NurseRequest" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_nurse_request
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="recordId != null">
+                record_id,
+            </if>
+            <if test="elderId != null">
+                elder_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="collectType != null">
+                collect_type,
+            </if>
+            <if test="collectSys != null">
+                collect_sys,
+            </if>
+            <if test="deviceType != null">
+                device_type,
+            </if>
+            <if test="deviceSid != null">
+                device_sid,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="associationId != null">
+                association_id,
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                creator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="recordId != null">
+                #{recordId,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="collectType != null">
+                #{collectType,jdbcType=INTEGER},
+            </if>
+            <if test="collectSys != null">
+                #{collectSys,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceType != null">
+                #{deviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceSid != null">
+                #{deviceSid,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=VARCHAR},
+            </if>
+            <if test="associationId != null">
+                #{associationId,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                #{creator.uid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.NurseRequest">
+        update t_nurse_request
+        <set>
+            <if test="recordId != null">
+                record_id = #{recordId,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                elder_id = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="collectType != null">
+                collect_type = #{collectType,jdbcType=INTEGER},
+            </if>
+            <if test="collectSys != null">
+                collect_sys = #{collectSys,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceType != null">
+                device_type = #{deviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceSid != null">
+                device_sid = #{deviceSid,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=VARCHAR},
+            </if>
+            <if test="associationId != null">
+                association_id = #{associationId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.NurseRequest">
+        SELECT n.*,
+        e.idcardno,e.elder_name as "elderName"
+        from t_nurse_request n left join t_nurse_elderly e on (n.elder_id = e.id)
+        <where>
+            <if test="filter.recordId!=null and filter.recordId!=''">
+                n.record_id like CONCAT('%',#{filter.recordId},'%' )
+            </if>
+            <if test="filter.idcardno!=null and filter.idcardno!=''">
+                and e.idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+            <if test="filter.elderId!=null">
+                and n.elder_id = #{filter.elderId}
+            </if>
+            <if test="filter.type!=null">
+                and n.type = #{filter.type}
+            </if>
+            <if test="filter.time!=null and filter.time!=''">
+                and n.time like CONCAT('%',#{filter.time},'%' )
+            </if>
+            <if test="filter.collectType!=null">
+                and n.collect_type = #{filter.collectType}
+            </if>
+            <if test="filter.collectSys!=null and filter.collectSys!=''">
+                and n.collect_sys like CONCAT('%',#{filter.collectSys},'%' )
+            </if>
+            <if test="filter.deviceType!=null and filter.deviceType!=''">
+                and n.device_type like CONCAT('%',#{filter.deviceType},'%' )
+            </if>
+            <if test="filter.deviceSid!=null and filter.deviceSid!=''">
+                and n.device_sid like CONCAT('%',#{filter.deviceSid},'%' )
+            </if>
+            <if test="filter.result!=null and filter.result!=''">
+                and n.result like CONCAT('%',#{filter.result},'%' )
+            </if>
+            <if test="filter.associationId!=null ">
+                and n.association_id = #{filter.associationId}
+            </if>
+        </where>
+        order by n.create_time desc
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from t_nurse_request
+        <where>
+            <if test="recordId!=null and recordId!=''">
+                record_id like CONCAT('%',#{recordId},'%' )
+            </if>
+            <if test="elderId!=null">
+                and elder_id = #{elderId}
+            </if>
+            <if test="type!=null">
+                and type = #{type}
+            </if>
+            <if test="time!=null and time!=''">
+                and time like CONCAT('%',#{time},'%' )
+            </if>
+            <if test="collectType!=null">
+                and collect_type = #{collectType}
+            </if>
+            <if test="collectSys!=null and collectSys!=''">
+                and collect_sys like CONCAT('%',#{collectSys},'%' )
+            </if>
+            <if test="deviceType!=null and deviceType!=''">
+                and device_type like CONCAT('%',#{deviceType},'%' )
+            </if>
+            <if test="deviceSid!=null and deviceSid!=''">
+                and device_sid like CONCAT('%',#{deviceSid},'%' )
+            </if>
+            <if test="result!=null and result!=''">
+                and result like CONCAT('%',#{result},'%' )
+            </if>
+            <if test="associationId!=null ">
+                and association_id = #{associationId}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_nurse_request
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_nurse_request
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

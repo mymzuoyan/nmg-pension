@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.AdvertisementMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.portal.entity.Advertisement"
+            parameterType="java.lang.Integer">
+        SELECT id,title,linkUrl,imageFile,purpose,startTime,endTime,sort
+        FROM t_advertisement
+        WHERE id = #{id}
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_advertisement
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.Advertisement" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO t_advertisement
+        (title,linkUrl,imageFile,startTime,endTime,purpose,sort)
+        VALUES (#{title},#{linkUrl},#{imageFile},#{startTime},#{endTime},#{purpose},#{sort})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.Advertisement">
+        UPDATE t_advertisement
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="purpose != null">
+                purpose = #{purpose},
+            </if>
+            <if test="linkUrl != null">
+                linkUrl = #{linkUrl},
+            </if>
+            <if test="imageFile != null">
+                imageFile = #{imageFile},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.portal.entity.Advertisement" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_advertisement
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_advertisement
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.portal.entity.Advertisement">
+        SELECT id,title,linkUrl,imageFile,startTime,endTime,purpose,sort
+        FROM t_advertisement
+        <where>
+            <if test="filter.purpose != null">
+                purpose = #{filter.purpose},
+            </if>
+            <if test="filter.endTime!=null">
+                AND endTime &gt;= #{filter.endTime}
+            </if>
+            <if test="filter.startTime!=null">
+                AND startTime &lt;= #{filter.startTime}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.portal.entity.Advertisement"
+            resultType="com.fedtech.pension.portal.entity.Advertisement">
+        SELECT id,title,linkUrl,imageFile,startTime,endTime,purpose,sort
+        FROM t_advertisement
+        <where>
+            <if test="filter.purpose != null">
+                purpose = #{filter.purpose}
+            </if>
+            <if test="filter.endTime!=null">
+                AND endTime &gt;= #{filter.endTime}
+            </if>
+            <if test="filter.startTime!=null">
+                AND startTime &lt;= #{filter.startTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

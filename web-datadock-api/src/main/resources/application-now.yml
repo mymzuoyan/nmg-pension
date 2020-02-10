@@ -1,0 +1,42 @@
+debug: true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+server:
+  port: 8092
+  media:
+    url: http://127.0.0.1:8092
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+
+  thymeleaf:
+    cache: false
+  dubbo:
+    application:
+      name: web-datadock-api
+    registry:
+      address: zookeeper://127.0.0.1:2181
+      client: zkclient
+    scan: com.fedtech
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+lian-api-user: 307

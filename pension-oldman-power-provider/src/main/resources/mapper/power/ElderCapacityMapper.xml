@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.ElderCapacityMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.ElderCapacity"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_eldercapacity a where  a.id = #{id}
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.ElderCapacity">
+        SELECT a.id,a.oldmanName,a.sex, a.domicileAddress, a.nowAddress, a.bilityCount,a.infoIntegrity,
+        a.oldmanPhoto,a.phone2,a.age,a.photoFlag
+        FROM t_eldercapacity a
+        left join t_elderly_message c on c.idcardno = a.idCard
+        where
+        a.isFlag = #{filter.isFlag}
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND c.areaName like CONCAT('%',#{filter.areaName},'%')
+        </if>
+        <if test="filter.oldmanName != null and filter.oldmanName !=''">
+            AND a.oldmanName  like CONCAT('%',#{filter.oldmanName},'%' )
+        </if>
+        <if test="filter.householdType != null and filter.householdType !=''">
+            AND a.householdType = #{filter.householdType}
+        </if>
+        <if test="filter.emergencyContact != null and filter.emergencyContact !=''">
+            AND a.emergencyContact like CONCAT('%',#{filter.emergencyContact},'%' )
+        </if>
+        <if test="filter.capacity != null and filter.capacity !=''">
+            AND a.capacity = #{filter.capacity}
+        </if>
+        <if test="filter.disability != null and filter.disability !=''">
+            AND a.disability = #{filter.disability}
+        </if>
+        <if test="filter.idCard != null and filter.idCard !=''">
+            AND a.idCard = #{filter.idCard}
+        </if>
+        <if test="filter.phone2 != null and filter.phone2 !=''">
+            AND a.phone2 like CONCAT('%',#{filter.phone2},'%' )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            limit #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM t_eldercapacity a
+        left join t_elderly_message c on c.idcardno = idCard
+        where
+        a.isFlag = #{isFlag}
+        <if test="areaName!=null and areaName!=''">
+            AND c.areaName like CONCAT('%',#{areaName},'%')
+        </if>
+        <if test="oldmanName != null and oldmanName !=''">
+            AND a.oldmanName  like CONCAT('%',#{oldmanName},'%' )
+        </if>
+        <if test="householdType != null and householdType !=''">
+            AND a.householdType = #{householdType}
+        </if>
+        <if test="emergencyContact != null and emergencyContact !=''">
+            AND emergencyContact like CONCAT('%',#{emergencyContact},'%' )
+        </if>
+        <if test="capacity != null and capacity !=''">
+            AND a.capacity = #{capacity}
+        </if>
+        <if test="disability != null and disability !=''">
+            AND a.disability = #{disability}
+        </if>
+        <if test="idCard != null and idCard !=''">
+            AND a.idCard = #{idCard}
+        </if>
+    </select>
+
+    <delete id="deleteSomeMsg">
+        delete from t_eldercapacity
+        where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_eldercapacity
+        where id = #{id}
+    </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.ElderCapacity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_eldercapacity (oldmanName, idCard,oldmanPreferentialCard, phone1, phone2, oldmanPhoto,degreeOfEducation,
+    domicileAddress, nowAddress,emergencyContact1, emergencyContact1Relatives, emergencyContact1Tel,isKey1, emergencyContact2,
+    emergencyContact2Relatives, emergencyContact2Tel, isKey2, emergencyContact3, emergencyContact3Relatives,
+    emergencyContact3Tel,isKey3, oldmanZy,oldmanCategory, specialObject,sourcesOfIncome, statusOfChildren, medicalCategory,
+    residentialStatus,housingNature, habitableRoom, floorLift, residentialFloor, indoorToilet, indoorBathEquipment,
+    careSituation,governmentPurchase,servicesRequested, physiclalHealthStatus, physiclalIllnessStatus,physiclalChronicStatus,
+    psychologicStatus,socialActivities,socialActivitiesType,dayActivity1, dayActivity2, dayActivity3, dayActivity4,
+    dayActivity5, dayActivity6, dayActivity7,cognitiveAbility1, cognitiveAbility2, cognitiveAbility3, cognitiveAbility4,
+    moodAction1, moodAction2, moodAction3,audiovisual1,audiovisual2,areaName,sign,judgeSign,infoIntegrity,bilityCount,foolStatus,spiritStatus,accident1,
+    accident2,accident3,accident4,accidentOther,dayActivity8,dayActivity9,dayActivity10,audiovisual3,audiovisual4,audiovisual5,
+    dailyRank,spiritRank,perceptionRank,socialRank,demandScore,demandRank,age,community,conservationTime,photoFlag)
+    VALUES (#{oldmanName}, #{idCard}, #{oldmanPreferentialCard},#{phone1}, #{phone2}, #{oldmanPhoto},#{degreeOfEducation},
+    #{domicileAddress}, #{nowAddress},#{emergencyContact1}, #{emergencyContact1Relatives}, #{emergencyContact1Tel},#{isKey1}, #{emergencyContact2},
+    #{emergencyContact2Relatives}, #{emergencyContact2Tel}, #{isKey2}, #{emergencyContact3}, #{emergencyContact3Relatives},
+    #{emergencyContact3Tel},#{isKey3}, #{oldmanZy},#{oldmanCategory}, #{specialObject},#{sourcesOfIncome}, #{statusOfChildren}, #{medicalCategory},
+    #{residentialStatus},#{housingNature}, #{habitableRoom}, #{floorLift}, #{residentialFloor}, #{indoorToilet}, #{indoorBathEquipment},
+    #{careSituation},#{governmentPurchase},#{servicesRequested}, #{physiclalHealthStatus}, #{physiclalIllnessStatus},#{physiclalChronicStatus},
+    #{psychologicStatus},#{socialActivities},#{socialActivitiesType},#{dayActivity1}, #{dayActivity2}, #{dayActivity3}, #{dayActivity4},
+    #{dayActivity5}, #{dayActivity6}, #{dayActivity7},#{cognitiveAbility1}, #{cognitiveAbility2}, #{cognitiveAbility3}, #{cognitiveAbility4},
+    #{moodAction1}, #{moodAction2}, #{moodAction3},#{audiovisual1},#{audiovisual2},#{areaName},#{sign},#{judgeSign}
+    ,#{infoIntegrity},#{bilityCount},#{foolStatus},#{spiritStatus},#{accident1},#{accident2},#{accident3},#{accident4},#{accidentOther}
+    ,#{dayActivity8},#{dayActivity9},#{dayActivity10},#{audiovisual3},#{audiovisual4},#{audiovisual5}
+    ,#{dailyRank},#{spiritRank},#{perceptionRank},#{socialRank},#{demandScore},#{demandRank},#{age},#{community},#{conservationTime},#{photoFlag})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.ElderCapacity">
+        update  t_eldercapacity
+        <set>
+            <if test="oldmanName != null">
+                oldmanName = #{oldmanName},
+            </if>
+            <if test="idCard != null">
+                idCard = #{idCard},
+            </if>
+            <if test="phone2 != null">
+                phone2 = #{phone2},
+            </if>
+            <if test="oldmanPhoto != null and oldmanPhoto != ''">
+                oldmanPhoto = #{oldmanPhoto},
+            </if>
+            <if test="degreeOfEducation != null">
+                degreeOfEducation = #{degreeOfEducation},
+            </if>
+            <if test="domicileAddress != null">
+                domicileAddress = #{domicileAddress},
+            </if>
+            <if test="nowAddress != null">
+                nowAddress = #{nowAddress},
+            </if>
+            <if test="emergencyContact1 != null">
+                emergencyContact1 = #{emergencyContact1},
+            </if>
+            <if test="emergencyContact1Relatives != null">
+                emergencyContact1Relatives = #{emergencyContact1Relatives},
+            </if>
+            <if test="emergencyContact1Tel != null">
+                emergencyContact1Tel = #{emergencyContact1Tel},
+            </if>
+            <if test="isKey1 != null">
+                isKey1 = #{isKey1},
+            </if>
+            <if test="emergencyContact2 != null">
+                emergencyContact2 = #{emergencyContact2},
+            </if>
+            <if test="emergencyContact2Relatives != null">
+                emergencyContact2Relatives = #{emergencyContact2Relatives},
+            </if>
+            <if test="emergencyContact2Tel != null">
+                emergencyContact2Tel = #{emergencyContact2Tel},
+            </if>
+            <if test="isKey2 != null">
+                isKey2 = #{isKey2},
+            </if>
+            <if test="emergencyContact3 != null">
+                emergencyContact3 = #{emergencyContact3},
+            </if>
+            <if test="emergencyContact3Relatives != null">
+                emergencyContact3Relatives = #{emergencyContact3Relatives},
+            </if>
+            <if test="emergencyContact3Tel != null">
+                emergencyContact3Tel = #{emergencyContact3Tel},
+            </if>
+            <if test="isKey3 != null">
+                isKey3 = #{isKey3},
+            </if>
+            <if test="oldmanZy != null">
+                oldmanZy = #{oldmanZy},
+            </if>
+            <if test="oldmanCategory != null">
+                oldmanCategory = #{oldmanCategory},
+            </if>
+            <if test="specialObject != null">
+                specialObject = #{specialObject},
+            </if>
+            <if test="sourcesOfIncome != null">
+                sourcesOfIncome = #{sourcesOfIncome},
+            </if>
+            <if test="statusOfChildren != null">
+                statusOfChildren = #{statusOfChildren},
+            </if>
+            <if test="medicalCategory != null">
+                medicalCategory = #{medicalCategory},
+            </if>
+            <if test="residentialStatus != null">
+                residentialStatus = #{residentialStatus},
+            </if>
+            <if test="housingNature != null">
+                housingNature = #{housingNature},
+            </if>
+            <if test="habitableRoom != null">
+                habitableRoom = #{habitableRoom},
+            </if>
+            <if test="floorLift != null">
+                floorLift = #{floorLift},
+            </if>
+            <if test="residentialFloor != null">
+                residentialFloor = #{residentialFloor},
+            </if>
+            <if test="indoorToilet != null">
+                indoorToilet = #{indoorToilet},
+            </if>
+            <if test="indoorBathEquipment != null">
+                indoorBathEquipment = #{indoorBathEquipment},
+            </if>
+            <if test="careSituation != null">
+                careSituation = #{careSituation},
+            </if>
+            <if test="governmentPurchase != null">
+                governmentPurchase = #{governmentPurchase},
+            </if>
+            <if test="servicesRequested != null">
+                servicesRequested = #{servicesRequested},
+            </if>
+            <if test="physiclalHealthStatus != null">
+                physiclalHealthStatus = #{physiclalHealthStatus},
+            </if>
+            <if test="physiclalIllnessStatus != null">
+                physiclalIllnessStatus = #{physiclalIllnessStatus},
+            </if>
+            <if test="physiclalChronicStatus != null">
+                physiclalChronicStatus = #{physiclalChronicStatus},
+            </if>
+            <if test="psychologicStatus != null">
+                psychologicStatus = #{psychologicStatus},
+            </if>
+            <if test="socialActivities != null">
+                socialActivities = #{socialActivities},
+            </if>
+            <if test="socialActivitiesType != null">
+                socialActivitiesType = #{socialActivitiesType},
+            </if>
+            <if test="dayActivity1 != null">
+                dayActivity1 = #{dayActivity1},
+            </if>
+            <if test="dayActivity2 != null">
+                dayActivity2 = #{dayActivity2},
+            </if>
+            <if test="dayActivity3 != null">
+                dayActivity3 = #{dayActivity3},
+            </if>
+            <if test="dayActivity4 != null">
+                dayActivity4 = #{dayActivity4},
+            </if>
+            <if test="dayActivity5 != null">
+                dayActivity5 = #{dayActivity5},
+            </if>
+            <if test="dayActivity6 != null">
+                dayActivity6 = #{dayActivity6},
+            </if>
+            <if test="dayActivity7 != null">
+                dayActivity7 = #{dayActivity7},
+            </if>
+            <if test="cognitiveAbility1 != null">
+                cognitiveAbility1 = #{cognitiveAbility1},
+            </if>
+            <if test="cognitiveAbility2 != null">
+                cognitiveAbility2 = #{cognitiveAbility2},
+            </if>
+            <if test="cognitiveAbility3 != null">
+                cognitiveAbility3 = #{cognitiveAbility3},
+            </if>
+            <if test="cognitiveAbility4 != null">
+                cognitiveAbility4 = #{cognitiveAbility4},
+            </if>
+            <if test="moodAction1 != null">
+                moodAction1 = #{moodAction1},
+            </if>
+            <if test="moodAction2 != null">
+                moodAction2 = #{moodAction2},
+            </if>
+            <if test="moodAction3 != null">
+                moodAction3 = #{moodAction3},
+            </if>
+            <if test="audiovisual1 != null">
+                audiovisual1 = #{audiovisual1},
+            </if>
+            <if test="audiovisual2 != null">
+                audiovisual2 = #{audiovisual2},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName},
+            </if>
+            <if test="sign != null">
+                sign = #{sign},
+            </if>
+            <if test="judgeSign != null">
+                judgeSign = #{judgeSign},
+            </if>
+            <if test="infoIntegrity != null">
+                infoIntegrity = #{infoIntegrity},
+            </if>
+            <if test="bilityCount != null">
+                bilityCount = #{bilityCount},
+            </if>
+            <if test="foolStatus != null">
+                foolStatus = #{foolStatus},
+            </if>
+            <if test="spiritStatus != null">
+                spiritStatus = #{spiritStatus},
+            </if>
+            <if test="accident1 != null">
+                accident1 = #{accident1},
+            </if>
+            <if test="accident2 != null">
+                accident2 = #{accident2},
+            </if>
+            <if test="accident3 != null">
+                accident3 = #{accident3},
+            </if>
+            <if test="accident4 != null">
+                accident4 = #{accident4},
+            </if>
+            <if test="accidentOther != null">
+                accidentOther = #{accidentOther},
+            </if>
+            <if test="dayActivity8 != null">
+                dayActivity8 = #{dayActivity8},
+            </if>
+            <if test="dayActivity9 != null">
+                dayActivity9 = #{dayActivity9},
+            </if>
+            <if test="dayActivity10 != null">
+                dayActivity10 = #{dayActivity10},
+            </if>
+            <if test="audiovisual3 != null">
+                audiovisual3 = #{audiovisual3},
+            </if>
+            <if test="audiovisual4 != null">
+                audiovisual4 = #{audiovisual4},
+            </if>
+            <if test="audiovisual5 != null">
+                audiovisual5 = #{audiovisual5},
+            </if>
+            <if test="dailyRank != null">
+                dailyRank = #{dailyRank},
+            </if>
+            <if test="spiritRank != null">
+                spiritRank = #{spiritRank},
+            </if>
+            <if test="perceptionRank != null">
+                perceptionRank = #{perceptionRank},
+            </if>
+            <if test="socialRank != null">
+                socialRank = #{socialRank},
+            </if>
+            <if test="demandScore != null">
+                demandScore = #{demandScore},
+            </if>
+            <if test="demandRank != null">
+                demandRank = #{demandRank},
+            </if>
+            <if test="isFlag != null">
+                isFlag = #{isFlag},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="community != null">
+                community = #{community},
+            </if>
+            <if test="conservationTime != null">
+                conservationTime = #{conservationTime},
+            </if>
+            <if test="photoFlag != null">
+                photoFlag = #{photoFlag},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertSomeElderCapacity" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_eldercapacity
+        (oldmanName,idCard,sex,householdType,household,domicile,village,emergencyContact,emergencyContactMode,capacity,economic,livingConditions,age,specialContribution,familyPlan,disability,subsidyLevel)
+        VALUES
+        <foreach collection="elderCapacitys" item="elderCapacity" index="index" separator=",">
+            (#{elderCapacity.oldmanName},#{elderCapacity.idCard},#{elderCapacity.sex},#{elderCapacity.householdType},#{elderCapacity.household},#{elderCapacity.domicile},#{elderCapacity.village},#{elderCapacity.emergencyContact},
+            #{elderCapacity.emergencyContactMode},#{elderCapacity.capacity},#{elderCapacity.economic},#{elderCapacity.livingConditions},
+            #{elderCapacity.age},#{elderCapacity.specialContribution},#{elderCapacity.familyPlan},#{elderCapacity.disability},#{elderCapacity.subsidyLevel})
+        </foreach>
+    </insert>
+
+    <select id="selectByIdcard"  parameterType="java.lang.String"  resultType="com.fedtech.pension.power.entity.ElderCapacity">
+        select * from  t_eldercapacity where idCard = #{idCard}
+    </select>
+    <select id="selectByServerId"  parameterType="java.lang.String"  resultType="com.fedtech.pension.power.entity.ElderCapacity">
+        select * from  t_eldercapacity where judgeSign = #{serverId}
+    </select>
+    <select id="findByIdcard"  parameterType="java.lang.String"  resultType="com.fedtech.pension.power.entity.ElderCapacity">
+        select * from  t_eldercapacity where idCard = #{idCard}
+    </select>
+</mapper>

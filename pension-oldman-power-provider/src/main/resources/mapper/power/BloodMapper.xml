@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.BloodMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Blood"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_blood a where  a.id = #{id}
+    </select>
+    <select id="selectBytestRecordID" resultType="com.fedtech.pension.power.entity.Blood"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_blood a where  a.testRecordID = #{testRecordID}
+    </select>
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Blood" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_blood (memberID, testRecordID,testType, testTime,collectType,deviceType,deviceSid,testBody,hightValue,lowValue,pulseValue,level,levelName)
+    VALUES (#{memberID}, #{testRecordID},#{testType},#{testTime}, #{collectType}, #{deviceType},#{deviceSid}, #{testBody},#{hightValue},#{lowValue},#{pulseValue},#{level},#{levelName})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Blood">
+        UPDATE t_blood set
+
+    memberID= #{memberID},testRecordID= #{testRecordID},testType= #{testType},testTime= #{testTime}, collectType=#{collectType},deviceType=#{deviceType},deviceSid= #{deviceSid},
+    testBody=#{testBody}, hightValue=#{hightValue},lowValue=#{lowValue},pulseValue=#{pulseValue},level=#{level},levelName=#{levelName}
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,2111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.StarRatingOfInstitutionsMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.StarRatingOfInstitutions">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="in09Score" property="in09Score" jdbcType="INTEGER"/>
+        <result column="in11Score" property="in11Score" jdbcType="INTEGER"/>
+        <result column="in18Score" property="in18Score" jdbcType="INTEGER"/>
+        <result column="in21Score" property="in21Score" jdbcType="INTEGER"/>
+        <result column="in26Score" property="in26Score" jdbcType="INTEGER"/>
+        <result column="in28Score" property="in28Score" jdbcType="INTEGER"/>
+        <result column="in38Score" property="in38Score" jdbcType="INTEGER"/>
+        <result column="in39Score" property="in39Score" jdbcType="INTEGER"/>
+        <result column="in40Score" property="in40Score" jdbcType="INTEGER"/>
+        <result column="in54Score" property="in54Score" jdbcType="INTEGER"/>
+        <result column="in57Score" property="in57Score" jdbcType="INTEGER"/>
+        <result column="totalScore" property="totalScore" jdbcType="INTEGER"/>
+        <result column="assessmentTime" property="assessmentTime" jdbcType="TIMESTAMP"/>
+        <result column="starClass" property="starClass" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="proportRequirements" property="proportRequirements" jdbcType="VARCHAR"/>
+        <result column="educationalRequirements" property="educationalRequirements" jdbcType="VARCHAR"/>
+        <result column="professionalRequirements" property="professionalRequirements" jdbcType="VARCHAR"/>
+        <result column="proportion" property="proportion" jdbcType="VARCHAR"/>
+        <result column="occupancyRate" property="occupancyRate" jdbcType="VARCHAR"/>
+        <result column="diningAreaRequirements" property="diningAreaRequirements" jdbcType="VARCHAR"/>
+        <result column="rehabilitationAreaRequirements" property="rehabilitationAreaRequirements" jdbcType="VARCHAR"/>
+        <result column="serviceItems" property="serviceItems" jdbcType="VARCHAR"/>
+        <result column="fraction01" property="fraction01" jdbcType="VARCHAR"/>
+        <result column="fraction02" property="fraction02" jdbcType="VARCHAR"/>
+        <result column="fraction03" property="fraction03" jdbcType="VARCHAR"/>
+        <result column="fraction04" property="fraction04" jdbcType="VARCHAR"/>
+        <result column="fraction05" property="fraction05" jdbcType="VARCHAR"/>
+        <result column="fraction06" property="fraction06" jdbcType="VARCHAR"/>
+        <result column="fraction07" property="fraction07" jdbcType="VARCHAR"/>
+        <result column="fraction08" property="fraction08" jdbcType="VARCHAR"/>
+        <result column="fraction09" property="fraction09" jdbcType="VARCHAR"/>
+        <result column="fraction10" property="fraction10" jdbcType="VARCHAR"/>
+        <result column="fraction11" property="fraction11" jdbcType="VARCHAR"/>
+        <result column="fraction12" property="fraction12" jdbcType="VARCHAR"/>
+        <result column="fraction13" property="fraction13" jdbcType="VARCHAR"/>
+        <result column="fraction14" property="fraction14" jdbcType="VARCHAR"/>
+        <result column="fraction15" property="fraction15" jdbcType="VARCHAR"/>
+        <result column="fraction16" property="fraction16" jdbcType="VARCHAR"/>
+        <result column="fraction17" property="fraction17" jdbcType="VARCHAR"/>
+        <result column="fraction18" property="fraction18" jdbcType="VARCHAR"/>
+        <result column="fraction19" property="fraction19" jdbcType="VARCHAR"/>
+        <result column="fraction20" property="fraction20" jdbcType="VARCHAR"/>
+        <result column="fraction21" property="fraction21" jdbcType="VARCHAR"/>
+        <result column="fraction22" property="fraction22" jdbcType="VARCHAR"/>
+        <result column="fraction23" property="fraction23" jdbcType="VARCHAR"/>
+        <result column="fraction24" property="fraction24" jdbcType="VARCHAR"/>
+        <result column="fraction25" property="fraction25" jdbcType="VARCHAR"/>
+        <result column="fraction26" property="fraction26" jdbcType="VARCHAR"/>
+        <result column="fraction27" property="fraction27" jdbcType="VARCHAR"/>
+        <result column="fraction28" property="fraction28" jdbcType="VARCHAR"/>
+        <result column="fraction29" property="fraction29" jdbcType="VARCHAR"/>
+        <result column="fraction30" property="fraction30" jdbcType="VARCHAR"/>
+        <result column="fraction31" property="fraction31" jdbcType="VARCHAR"/>
+        <result column="fraction32" property="fraction32" jdbcType="VARCHAR"/>
+        <result column="fraction33" property="fraction33" jdbcType="VARCHAR"/>
+        <result column="fraction34" property="fraction34" jdbcType="VARCHAR"/>
+        <result column="fraction35" property="fraction35" jdbcType="VARCHAR"/>
+        <result column="fraction36" property="fraction36" jdbcType="VARCHAR"/>
+        <result column="fraction37" property="fraction37" jdbcType="VARCHAR"/>
+        <result column="fraction38" property="fraction38" jdbcType="VARCHAR"/>
+        <result column="fraction39" property="fraction39" jdbcType="VARCHAR"/>
+        <result column="fraction40" property="fraction40" jdbcType="VARCHAR"/>
+        <result column="fraction41" property="fraction41" jdbcType="VARCHAR"/>
+        <result column="fraction42" property="fraction42" jdbcType="VARCHAR"/>
+        <result column="fraction43" property="fraction43" jdbcType="VARCHAR"/>
+        <result column="fraction44" property="fraction44" jdbcType="VARCHAR"/>
+        <result column="fraction45" property="fraction45" jdbcType="VARCHAR"/>
+        <result column="fraction46" property="fraction46" jdbcType="VARCHAR"/>
+        <result column="fraction47" property="fraction47" jdbcType="VARCHAR"/>
+        <result column="fraction48" property="fraction48" jdbcType="VARCHAR"/>
+        <result column="fraction49" property="fraction49" jdbcType="VARCHAR"/>
+        <result column="fraction50" property="fraction50" jdbcType="VARCHAR"/>
+        <result column="fraction51" property="fraction51" jdbcType="VARCHAR"/>
+        <result column="fraction52" property="fraction52" jdbcType="VARCHAR"/>
+        <result column="fraction53" property="fraction53" jdbcType="VARCHAR"/>
+        <result column="fraction54" property="fraction54" jdbcType="VARCHAR"/>
+        <result column="fraction55" property="fraction55" jdbcType="VARCHAR"/>
+        <result column="fraction56" property="fraction56" jdbcType="VARCHAR"/>
+        <result column="fraction57" property="fraction57" jdbcType="VARCHAR"/>
+        <result column="fraction58" property="fraction58" jdbcType="VARCHAR"/>
+        <result column="fraction59" property="fraction59" jdbcType="VARCHAR"/>
+        <result column="fraction60" property="fraction60" jdbcType="VARCHAR"/>
+        <result column="fraction61" property="fraction61" jdbcType="VARCHAR"/>
+        <result column="fraction62" property="fraction62" jdbcType="VARCHAR"/>
+        <result column="fraction63" property="fraction63" jdbcType="VARCHAR"/>
+        <result column="fraction64" property="fraction64" jdbcType="VARCHAR"/>
+        <result column="fraction65" property="fraction65" jdbcType="VARCHAR"/>
+        <result column="fraction66" property="fraction66" jdbcType="VARCHAR"/>
+        <result column="fraction67" property="fraction67" jdbcType="VARCHAR"/>
+        <result column="fraction68" property="fraction68" jdbcType="VARCHAR"/>
+        <result column="fraction69" property="fraction69" jdbcType="VARCHAR"/>
+        <result column="fraction70" property="fraction70" jdbcType="VARCHAR"/>
+        <result column="fraction71" property="fraction71" jdbcType="VARCHAR"/>
+        <result column="fraction72" property="fraction72" jdbcType="VARCHAR"/>
+        <result column="fraction73" property="fraction73" jdbcType="VARCHAR"/>
+        <result column="fraction74" property="fraction74" jdbcType="VARCHAR"/>
+        <result column="fraction75" property="fraction75" jdbcType="VARCHAR"/>
+        <result column="fraction76" property="fraction76" jdbcType="VARCHAR"/>
+        <result column="fraction77" property="fraction77" jdbcType="VARCHAR"/>
+        <result column="fraction78" property="fraction78" jdbcType="VARCHAR"/>
+        <result column="fraction79" property="fraction79" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="listDetail" property="listDetail" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions"
+            parameterType="com.fedtech.pension.org.entity.StarRatingOfInstitutions">
+        SELECT
+        *
+        FROM t_service_org_star_rate
+        GROUP by id
+    </select>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.StarRatingOfInstitutions" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org_star_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="listDetail != null">
+                listDetail,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="in09Score != null">
+                in09Score,
+            </if>
+            <if test="in11Score != null">
+                in11Score,
+            </if>
+            <if test="in18Score != null">
+                in18Score,
+            </if>
+            <if test="in21Score != null">
+                in21Score,
+            </if>
+            <if test="in26Score != null">
+                in26Score,
+            </if>
+            <if test="in28Score != null">
+                in28Score,
+            </if>
+            <if test="in32Score != null">
+                in32Score,
+            </if>
+            <if test="in38Score != null">
+                in38Score,
+            </if>
+            <if test="in39Score != null">
+                in39Score,
+            </if>
+            <if test="in40Score != null">
+                in40Score,
+            </if>
+            <if test="in54Score != null">
+                in54Score,
+            </if>
+            <if test="in57Score != null">
+                i57Score,
+            </if>
+            <if test="totalScore != null">
+                totalScore,
+            </if>
+            <if test="assessmentTime != null">
+                assessmentTime,
+            </if>
+            <if test="starClass != null">
+                starClass,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="proportRequirements != null">
+                proportRequirements,
+            </if>
+            <if test="educationalRequirements != null">
+                educationalRequirements,
+            </if>
+            <if test="professionalRequirements != null">
+                professionalRequirements,
+            </if>
+            <if test="proportion != null">
+                proportion,
+            </if>
+            <if test="occupancyRate != null">
+                occupancyRate,
+            </if>
+            <if test="diningAreaRequirements != null">
+                diningAreaRequirements,
+            </if>
+            <if test="rehabilitationAreaRequirements != null">
+                rehabilitationAreaRequirements,
+            </if>
+            <if test="serviceItems != null">
+                serviceItems,
+            </if>
+            <if test="fraction01 != null">
+                fraction01,
+            </if>
+            <if test="fraction02 != null">
+                fraction02,
+            </if>
+            <if test="fraction03 != null">
+                fraction03,
+            </if>
+            <if test="fraction04 != null">
+                fraction04,
+            </if>
+            <if test="fraction05 != null">
+                fraction05,
+            </if>
+            <if test="fraction06 != null">
+                fraction06,
+            </if>
+            <if test="fraction07 != null">
+                fraction07,
+            </if>
+            <if test="fraction08 != null">
+                fraction08,
+            </if>
+            <if test="fraction09 != null">
+                fraction09,
+            </if>
+            <if test="fraction10 != null">
+                fraction10,
+            </if>
+            <if test="fraction11 != null">
+                fraction11,
+            </if>
+            <if test="fraction12 != null">
+                fraction12,
+            </if>
+            <if test="fraction13 != null">
+                fraction13,
+            </if>
+            <if test="fraction14 != null">
+                fraction14,
+            </if>
+            <if test="fraction15 != null">
+                fraction15,
+            </if>
+            <if test="fraction16 != null">
+                fraction16,
+            </if>
+            <if test="fraction17 != null">
+                fraction17,
+            </if>
+            <if test="fraction18 != null">
+                fraction18,
+            </if>
+            <if test="fraction19 != null">
+                fraction19,
+            </if>
+            <if test="fraction20 != null">
+                fraction20,
+            </if>
+            <if test="fraction21 != null">
+                fraction21,
+            </if>
+            <if test="fraction22 != null">
+                fraction22,
+            </if>
+            <if test="fraction23 != null">
+                fraction23,
+            </if>
+            <if test="fraction24 != null">
+                fraction24,
+            </if>
+            <if test="fraction25 != null">
+                fraction25,
+            </if>
+            <if test="fraction26 != null">
+                fraction26,
+            </if>
+            <if test="fraction27 != null">
+                fraction27,
+            </if>
+            <if test="fraction28 != null">
+                fraction28,
+            </if>
+            <if test="fraction29 != null">
+                fraction29,
+            </if>
+            <if test="fraction30 != null">
+                fraction30,
+            </if>
+            <if test="fraction31 != null">
+                fraction31,
+            </if>
+            <if test="fraction32 != null">
+                fraction32,
+            </if>
+            <if test="fraction33 != null">
+                fraction33,
+            </if>
+            <if test="fraction34 != null">
+                fraction34,
+            </if>
+            <if test="fraction35 != null">
+                fraction35,
+            </if>
+            <if test="fraction36 != null">
+                fraction36,
+            </if>
+            <if test="fraction37 != null">
+                fraction37,
+            </if>
+            <if test="fraction38 != null">
+                fraction38,
+            </if>
+            <if test="fraction39 != null">
+                fraction39,
+            </if>
+            <if test="fraction40 != null">
+                fraction40,
+            </if>
+            <if test="fraction41 != null">
+                fraction41,
+            </if>
+            <if test="fraction42 != null">
+                fraction42,
+            </if>
+            <if test="fraction43 != null">
+                fraction43,
+            </if>
+            <if test="fraction44 != null">
+                fraction44,
+            </if>
+            <if test="fraction45 != null">
+                fraction45,
+            </if>
+            <if test="fraction46 != null">
+                fraction46,
+            </if>
+            <if test="fraction47 != null">
+                fraction47,
+            </if>
+            <if test="fraction48 != null">
+                fraction48,
+            </if>
+            <if test="fraction49 != null">
+                fraction49,
+            </if>
+            <if test="fraction50 != null">
+                fraction50,
+            </if>
+            <if test="fraction51 != null">
+                fraction51,
+            </if>
+            <if test="fraction52 != null">
+                fraction52,
+            </if>
+            <if test="fraction53 != null">
+                fraction53,
+            </if>
+            <if test="fraction54 != null">
+                fraction54,
+            </if>
+            <if test="fraction55 != null">
+                fraction55,
+            </if>
+            <if test="fraction56 != null">
+                fraction56,
+            </if>
+            <if test="fraction57 != null">
+                fraction57,
+            </if>
+            <if test="fraction58 != null">
+                fraction58,
+            </if>
+            <if test="fraction59 != null">
+                fraction59,
+            </if>
+            <if test="fraction60 != null">
+                fraction60,
+            </if>
+            <if test="fraction61 != null">
+                fraction61,
+            </if>
+            <if test="fraction62 != null">
+                fraction62,
+            </if>
+            <if test="fraction63 != null">
+                fraction63,
+            </if>
+            <if test="fraction64 != null">
+                fraction64,
+            </if>
+            <if test="fraction65 != null">
+                fraction65,
+            </if>
+            <if test="fraction66 != null">
+                fraction66,
+            </if>
+            <if test="fraction67 != null">
+                fraction67,
+            </if>
+            <if test="fraction68 != null">
+                fraction68,
+            </if>
+            <if test="fraction69 != null">
+                fraction69,
+            </if>
+            <if test="fraction70 != null">
+                fraction70,
+            </if>
+            <if test="fraction71 != null">
+                fraction71,
+            </if>
+            <if test="fraction72 != null">
+                fraction72,
+            </if>
+            <if test="fraction73 != null">
+                fraction73,
+            </if>
+            <if test="fraction74 != null">
+                fraction74,
+            </if>
+            <if test="fraction75 != null">
+                fraction75,
+            </if>
+            <if test="fraction76 != null">
+                fraction76,
+            </if>
+            <if test="fraction77 != null">
+                fraction77,
+            </if>
+            <if test="fraction78 != null">
+                fraction78,
+            </if>
+            <if test="fraction79 != null">
+                fraction79,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="listDetail != null">
+                #{listDetail,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="in09Score != null">
+                #{in09Score,jdbcType=INTEGER},
+            </if>
+            <if test="in11Score != null">
+                #{in11Score,jdbcType=INTEGER},
+            </if>
+            <if test="in18Score != null">
+                #{in18Score,jdbcType=INTEGER},
+            </if>
+            <if test="in21Score != null">
+                #{in21Score,jdbcType=INTEGER},
+            </if>
+            <if test="in26Score != null">
+                #{in26Score,jdbcType=INTEGER},
+            </if>
+            <if test="in28Score != null">
+                #{in28Score,jdbcType=INTEGER},
+            </if>
+            <if test="in32Score != null">
+                #{in32Score,jdbcType=INTEGER},
+            </if>
+            <if test="in38Score != null">
+                #{in38Score,jdbcType=INTEGER},
+            </if>
+            <if test="in39Score != null">
+                #{in39Score,jdbcType=INTEGER},
+            </if>
+            <if test="in40Score != null">
+                #{in40Score,jdbcType=INTEGER},
+            </if>
+            <if test="in54Score != null">
+                #{in54Score,jdbcType=INTEGER},
+            </if>
+            <if test="in57Score != null">
+                #{in57Score,jdbcType=INTEGER},
+            </if>
+            <if test="totalScore != null">
+                #{totalScore,jdbcType=INTEGER},
+            </if>
+            <if test="assessmentTime != null">
+                #{assessmentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="starClass != null">
+                #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="proportRequirements != null">
+                #{proportRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="educationalRequirements != null">
+                #{educationalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="professionalRequirements != null">
+                #{professionalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null">
+                #{proportion,jdbcType=VARCHAR},
+            </if>
+            <if test="occupancyRate != null">
+                #{occupancyRate,jdbcType=VARCHAR},
+            </if>
+            <if test="diningAreaRequirements != null">
+                #{diningAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="rehabilitationAreaRequirements != null">
+                #{rehabilitationAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItems != null">
+                #{serviceItems,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction01 != null">
+                #{fraction01,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction02 != null">
+                #{fraction02,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction03 != null">
+                #{fraction03,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction04 != null">
+                #{fraction04,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction05 != null">
+                #{fraction05,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction06 != null">
+                #{fraction06,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction07 != null">
+                #{fraction07,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction08 != null">
+                #{fraction08,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction09 != null">
+                #{fraction09,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction10 != null">
+                #{fraction10,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction11 != null">
+                #{fraction11,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction12 != null">
+                #{fraction12,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction13 != null">
+                #{fraction13,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction14 != null">
+                #{fraction14,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction15 != null">
+                #{fraction05,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction16 != null">
+                #{fraction16,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction17 != null">
+                #{fraction17,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction18 != null">
+                #{fraction18,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction19 != null">
+                #{fraction19,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction20 != null">
+                #{fraction20,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction21 != null">
+                #{fraction21,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction22 != null">
+                #{fraction22,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction23 != null">
+                #{fraction23,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction24 != null">
+                #{fraction24,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction25 != null">
+                #{fraction25,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction26 != null">
+                #{fraction26,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction27 != null">
+                #{fraction27,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction28 != null">
+                #{fraction28,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction29 != null">
+                #{fraction29,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction30 != null">
+                #{fraction30,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction31 != null">
+                #{fraction31,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction32 != null">
+                #{fraction32,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction33 != null">
+                #{fraction33,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction34 != null">
+                #{fraction34,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction35 != null">
+                #{fraction35,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction36 != null">
+                #{fraction36,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction37 != null">
+                #{fraction37,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction38 != null">
+                #{fraction38,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction39 != null">
+                #{fraction39,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction40 != null">
+                #{fraction40,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction41 != null">
+                #{fraction41,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction42 != null">
+                #{fraction42,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction43 != null">
+                #{fraction43,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction44 != null">
+                #{fraction44,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction45 != null">
+                #{fraction45,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction46 != null">
+                #{fraction46,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction47 != null">
+                #{fraction47,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction48 != null">
+                #{fraction48,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction49 != null">
+                #{fraction49,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction50 != null">
+                #{fraction50,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction51 != null">
+                #{fraction51,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction52 != null">
+                #{fraction52,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction53 != null">
+                #{fraction53,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction54 != null">
+                #{fraction54,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction55 != null">
+                #{fraction55,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction56 != null">
+                #{fraction56,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction57 != null">
+                #{fraction57,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction58 != null">
+                #{fraction58,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction59 != null">
+                #{fraction59,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction60 != null">
+                #{fraction60,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction61 != null">
+                #{fraction61,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction62 != null">
+                #{fraction62,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction63 != null">
+                #{fraction63,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction64 != null">
+                #{fraction64,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction65 != null">
+                #{fraction65,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction66 != null">
+                #{fraction66,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction67 != null">
+                #{fraction67,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction68 != null">
+                #{fraction68,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction69 != null">
+                #{fraction69,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction70 != null">
+                #{fraction70,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction71 != null">
+                #{fraction71,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction72 != null">
+                #{fraction72,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction73 != null">
+                #{fraction73,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction74 != null">
+                #{fraction74,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction75 != null">
+                #{fraction75,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction76 != null">
+                #{fraction76,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction77 != null">
+                #{fraction77,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction78 != null">
+                #{fraction78,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction79 != null">
+                #{fraction79,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions">
+        select r.*,s.institutionName,s.areaName
+        FROM t_service_org_star_rate r
+        LEFT JOIN t_service_org s ON r.serviceOrgId = s.id
+        where
+        1=1
+        <if test="filter.institutionName!=null and filter.institutionName!=''">
+            and s.institutionName like CONCAT('%',#{filter.institutionName},'%' )
+        </if>
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            and s.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrgId != null">
+            AND r.serviceOrgId = #{filter.serviceOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="filter.userId != null">
+            AND r.userId = #{filter.userId,jdbcType=INTEGER}
+        </if>
+        <if test="filter.status != null">
+            AND r.status = #{filter.status,jdbcType=INTEGER}
+        </if>
+        <if test="filter.type != null">
+            AND r.type = #{filter.type,jdbcType=INTEGER}
+        </if>
+        <if test="filter.listDetail != null">
+            AND r.listDetail = #{filter.listDetail,jdbcType=INTEGER}
+        </if>
+        <if test="filter.totalScore != null">
+            AND r.totalScore = #{filter.totalScore,jdbcType=INTEGER}
+        </if>
+        <if test="filter.assessmentTime != null">
+            AND r.assessmentTime = #{filter.assessmentTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="filter.starClass != null">
+            AND r.starClass = #{filter.starClass,jdbcType=INTEGER}
+        </if>
+        <if test="filter.area != null">
+            AND r.area = #{filter.area,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.proportRequirements != null">
+            AND r.proportRequirements = #{filter.proportRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.educationalRequirements != null">
+            AND r.educationalRequirements = #{filter.educationalRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.professionalRequirements != null">
+            AND r.professionalRequirements = #{filter.professionalRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.proportion != null">
+            AND r.proportion = #{filter.proportion,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.occupancyRate != null">
+            AND r.occupancyRate = #{filter.occupancyRate,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.diningAreaRequirements != null">
+            AND r.diningAreaRequirements = #{filter.diningAreaRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.rehabilitationAreaRequirements != null">
+            AND r.rehabilitationAreaRequirements = #{filter.rehabilitationAreaRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.serviceItems != null">
+            AND r.serviceItems = #{filter.serviceItems,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction01 != null">
+            AND r.fraction01 = #{filter.fraction01,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction02 != null">
+            AND r.fraction02 = #{filter.fraction02,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction03 != null">
+            AND r.fraction03 = #{filter.fraction03,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction04 != null">
+            AND r.fraction04 = #{filter.fraction04,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction05 != null">
+            AND r.fraction05 = #{filter.fraction05,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction06 != null">
+            AND r.fraction06 = #{filter.fraction06,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction07 != null">
+            AND r.fraction07 = #{filter.fraction07,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction08 != null">
+            AND r.fraction08 = #{filter.fraction08,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction09 != null">
+            AND r.fraction09 = #{filter.fraction09,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction10 != null">
+            AND r.fraction10 = #{filter.fraction10,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction11 != null">
+            AND r.fraction11 = #{filter.fraction11,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction12 != null">
+            AND r.fraction12 = #{filter.fraction12,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction13 != null">
+            AND r.fraction13 = #{filter.fraction13,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction14 != null">
+            AND r.fraction14 = #{filter.fraction14,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction15 != null">
+            AND r.fraction15 = #{filter.fraction15,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction16 != null">
+            AND r.fraction16 = #{filter.fraction16,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction17 != null">
+            AND r.fraction17 = #{filter.fraction17,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction18 != null">
+            AND r.fraction18 = #{filter.fraction18,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction19 != null">
+            AND r.fraction19 = #{filter.fraction19,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction20 != null">
+            AND r.fraction20 = #{filter.fraction20,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction21 != null">
+            AND r.fraction21 = #{filter.fraction21,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction22 != null">
+            AND r.fraction22 = #{filter.fraction22,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction23 != null">
+            AND r.fraction23 = #{filter.fraction23,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction24 != null">
+            AND r.fraction24 = #{filter.fraction24,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction25 != null">
+            AND r.fraction25 = #{filter.fraction25,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction26 != null">
+            AND r.fraction26 = #{filter.fraction26,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction27 != null">
+            AND r.fraction27 = #{filter.fraction27,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction28 != null">
+            AND r.fraction28 = #{filter.fraction28,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction29 != null">
+            AND r.fraction29 = #{filter.fraction29,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction30 != null">
+            AND r.fraction30 = #{filter.fraction30,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction31 != null">
+            AND r.fraction31 = #{filter.fraction31,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction32 != null">
+            AND r.fraction32 = #{filter.fraction32,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction33 != null">
+            AND r.fraction33 = #{filter.fraction33,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction34 != null">
+            AND r.fraction34 = #{filter.fraction34,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction35 != null">
+            AND r.fraction35 = #{filter.fraction35,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction36 != null">
+            AND r.fraction36 = #{filter.fraction36,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction37 != null">
+            AND r.fraction37 = #{filter.fraction37,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction38 != null">
+            AND r.fraction38 = #{filter.fraction38,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction39 != null">
+            AND r.fraction39 = #{filter.fraction39,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction40 != null">
+            AND r.fraction40 = #{filter.fraction40,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction41 != null">
+            AND r.fraction41 = #{filter.fraction41,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction42 != null">
+            AND r.fraction42 = #{filter.fraction42,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction43 != null">
+            AND r.fraction43 = #{filter.fraction43,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction44 != null">
+            AND r.fraction44 = #{filter.fraction44,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction45 != null">
+            AND r.fraction45 = #{filter.fraction45,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction46 != null">
+            AND r.fraction46 = #{filter.fraction46,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction47 != null">
+            AND r.fraction47 = #{filter.fraction47,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction48 != null">
+            AND r.fraction48 = #{filter.fraction48,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction49 != null">
+            AND r.fraction49 = #{filter.fraction49,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction50 != null">
+            AND r.fraction50 = #{filter.fraction50,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction51 != null">
+            AND r.fraction51 = #{filter.fraction51,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction52 != null">
+            AND r.fraction52 = #{filter.fraction52,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction53 != null">
+            AND r.fraction53 = #{filter.fraction53,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction54 != null">
+            AND r.fraction54 = #{filter.fraction54,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction55 != null">
+            AND r.fraction55 = #{filter.fraction55,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction56 != null">
+            AND r.fraction56 = #{filter.fraction56,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction57 != null">
+            AND r.fraction57 = #{filter.fraction57,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction58 != null">
+            AND r.fraction58 = #{filter.fraction58,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction59 != null">
+            AND r.fraction59 = #{filter.fraction59,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction60 != null">
+            AND r.fraction60 = #{filter.fraction60,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction61 != null">
+            AND r.fraction61 = #{filter.fraction61,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction62 != null">
+            AND r.fraction62 = #{filter.fraction62,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction63 != null">
+            AND r.fraction63 = #{filter.fraction63,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction64 != null">
+            AND r.fraction64 = #{filter.fraction64,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction65 != null">
+            AND r.fraction65 = #{filter.fraction65,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction66 != null">
+            AND r.fraction66 = #{filter.fraction66,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction67 != null">
+            AND r.fraction67 = #{filter.fraction67,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction68 != null">
+            AND r.fraction68 = #{filter.fraction68,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction69 != null">
+            AND r.fraction69 = #{filter.fraction69,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction70 != null">
+            AND r.fraction70 = #{filter.fraction70,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction71 != null">
+            AND r.fraction71 = #{filter.fraction71,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction72 != null">
+            AND r.fraction72 = #{filter.fraction72,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction73 != null">
+            AND r.fraction73 = #{filter.fraction73,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction74 != null">
+            AND r.fraction74 = #{filter.fraction74,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction75 != null">
+            AND r.fraction75 = #{filter.fraction75,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction76 != null">
+            AND r.fraction76 = #{filter.fraction76,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction77 != null">
+            AND r.fraction77 = #{filter.fraction77,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction78 != null">
+            AND r.fraction78 = #{filter.fraction78,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.fraction79 != null">
+            AND r.fraction79 = #{filter.fraction79,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.startDate!=null">
+            AND r.assessmentTime &gt; #{filter.startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="filter.endDate!=null ">
+            AND r.assessmentTime &lt; #{filter.endDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        t_service_org_star_rate r LEFT JOIN t_service_org s
+        ON r.serviceOrgId = s.id
+        where 1=1
+        <if test="areaName!=null and areaName!=''">
+            AND s.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="institutionName!=null and institutionName!=''">
+            AND s.institutionName like CONCAT('%',#{institutionName},'%' )
+        </if>
+        <if test="serviceOrgId != null">
+            AND r.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="userId != null">
+            AND r.userId = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="status != null">
+            AND r.status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="type != null">
+            AND r.type = #{type,jdbcType=INTEGER}
+        </if>
+        <if test="listDetail != null">
+            AND r.listDetail = #{listDetail,jdbcType=INTEGER}
+        </if>
+        <if test="totalScore != null">
+            AND r.totalScore = #{totalScore,jdbcType=INTEGER}
+        </if>
+        <if test="assessmentTime != null">
+            AND r.assessmentTime = #{assessmentTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="starClass != null">
+            AND r.starClass = #{starClass,jdbcType=INTEGER}
+        </if>
+        <if test="area != null">
+            AND r.area = #{area,jdbcType=VARCHAR}
+        </if>
+        <if test="proportRequirements != null">
+            AND r.proportRequirements = #{proportRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="educationalRequirements != null">
+            AND r.educationalRequirements = #{educationalRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="professionalRequirements != null">
+            AND r.professionalRequirements = #{professionalRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="proportion != null">
+            AND r.proportion = #{proportion,jdbcType=VARCHAR}
+        </if>
+        <if test="occupancyRate != null">
+            AND r.occupancyRate = #{occupancyRate,jdbcType=VARCHAR}
+        </if>
+        <if test="diningAreaRequirements != null">
+            AND r.diningAreaRequirements = #{diningAreaRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="rehabilitationAreaRequirements != null">
+            AND r.rehabilitationAreaRequirements = #{rehabilitationAreaRequirements,jdbcType=VARCHAR}
+        </if>
+        <if test="serviceItems != null">
+            AND r.serviceItems = #{serviceItems,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction01 != null">
+            AND r.fraction01 = #{fraction01,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction02 != null">
+            AND r.fraction02 = #{fraction02,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction03 != null">
+            AND r.fraction03 = #{fraction03,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction04 != null">
+            AND r.fraction04 = #{fraction04,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction05 != null">
+            AND r.fraction05 = #{fraction05,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction06 != null">
+            AND r.fraction06 = #{fraction06,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction07 != null">
+            AND r.fraction07 = #{fraction07,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction08 != null">
+            AND r.fraction08 = #{fraction08,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction09 != null">
+            AND r.fraction09 = #{fraction09,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction10 != null">
+            AND r.fraction10 = #{fraction10,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction11 != null">
+            AND r.fraction11 = #{fraction11,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction12 != null">
+            AND r.fraction12 = #{fraction12,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction13 != null">
+            AND r.fraction13 = #{fraction13,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction14 != null">
+            AND r.fraction14 = #{fraction14,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction15 != null">
+            AND r.fraction15 = #{fraction15,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction16 != null">
+            AND r.fraction16 = #{fraction16,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction17 != null">
+            AND r.fraction17 = #{fraction17,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction18 != null">
+            AND r.fraction18 = #{fraction18,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction19 != null">
+            AND r.fraction19 = #{fraction19,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction20 != null">
+            AND r.fraction20 = #{fraction20,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction21 != null">
+            AND r.fraction21 = #{fraction21,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction22 != null">
+            AND r.fraction22 = #{fraction22,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction23 != null">
+            AND r.fraction23 = #{fraction23,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction24 != null">
+            AND r.fraction24 = #{fraction24,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction25 != null">
+            AND r.fraction25 = #{fraction25,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction26 != null">
+            AND r.fraction26 = #{fraction26,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction27 != null">
+            AND r.fraction27 = #{fraction27,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction28 != null">
+            AND r.fraction28 = #{fraction28,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction29 != null">
+            AND r.fraction29 = #{fraction29,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction30 != null">
+            AND r.fraction30 = #{fraction30,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction31 != null">
+            AND r.fraction31 = #{fraction31,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction32 != null">
+            AND r.fraction32 = #{fraction32,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction33 != null">
+            AND r.fraction33 = #{fraction33,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction34 != null">
+            AND r.fraction34 = #{fraction34,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction35 != null">
+            AND r.fraction35 = #{fraction35,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction36 != null">
+            AND r.fraction36 = #{fraction36,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction37 != null">
+            AND r.fraction37 = #{fraction37,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction38 != null">
+            AND r.fraction38 = #{fraction38,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction39 != null">
+            AND r.fraction39 = #{fraction39,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction40 != null">
+            AND r.fraction40 = #{fraction40,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction41 != null">
+            AND r.fraction41 = #{fraction41,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction42 != null">
+            AND r.fraction42 = #{fraction42,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction43 != null">
+            AND r.fraction43 = #{fraction43,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction44 != null">
+            AND r.fraction44 = #{fraction44,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction45 != null">
+            AND r.fraction45 = #{fraction45,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction46 != null">
+            AND r.fraction46 = #{fraction46,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction47 != null">
+            AND r.fraction47 = #{fraction47,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction48 != null">
+            AND r.fraction48 = #{fraction48,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction49 != null">
+            AND r.fraction49 = #{fraction49,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction50 != null">
+            AND r.fraction50 = #{fraction50,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction51 != null">
+            AND r.fraction51 = #{fraction51,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction52 != null">
+            AND r.fraction52 = #{fraction52,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction53 != null">
+            AND r.fraction53 = #{fraction53,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction54 != null">
+            AND r.fraction54 = #{fraction54,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction55 != null">
+            AND r.fraction55 = #{fraction55,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction56 != null">
+            AND r.fraction56 = #{fraction56,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction57 != null">
+            AND r.fraction57 = #{fraction57,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction58 != null">
+            AND r.fraction58 = #{fraction58,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction59 != null">
+            AND r.fraction59 = #{fraction59,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction60 != null">
+            AND r.fraction60 = #{fraction60,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction61 != null">
+            AND r.fraction61 = #{fraction61,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction62 != null">
+            AND r.fraction62 = #{fraction62,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction63 != null">
+            AND r.fraction63 = #{fraction63,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction64 != null">
+            AND r.fraction64 = #{fraction64,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction65 != null">
+            AND r.fraction65 = #{fraction65,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction66 != null">
+            AND r.fraction66 = #{fraction66,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction67 != null">
+            AND r.fraction67 = #{fraction67,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction68 != null">
+            AND r.fraction68 = #{fraction68,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction69 != null">
+            AND r.fraction69 = #{fraction69,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction70 != null">
+            AND r.fraction70 = #{fraction70,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction71 != null">
+            AND r.fraction71 = #{fraction71,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction72 != null">
+            AND r.fraction72 = #{fraction72,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction73 != null">
+            AND r.fraction73 = #{fraction73,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction74 != null">
+            AND r.fraction74 = #{fraction74,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction75 != null">
+            AND r.fraction75 = #{fraction75,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction76 != null">
+            AND r.fraction76 = #{fraction76,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction77 != null">
+            AND r.fraction77 = #{fraction77,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction78 != null">
+            AND r.fraction78 = #{fraction78,jdbcType=VARCHAR}
+        </if>
+        <if test="fraction79 != null">
+            AND r.fraction79 = #{fraction79,jdbcType=VARCHAR}
+        </if>
+        <if test="startDate!=null">
+            AND r.assessmentTime &gt; #{startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate!=null ">
+            AND r.assessmentTime &lt; #{endDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+
+    <update id="updateListDetail" parameterType="java.lang.Integer">
+        update t_service_org_star_rate set listDetail = 0 WHERE serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.StarRatingOfInstitutions">
+        update t_service_org_star_rate
+        <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="listDetail != null">
+                listDetail = #{listDetail,jdbcType=INTEGER},
+            </if>
+            <if test="in09Score != null">
+                in09Score = #{in09Score,jdbcType=INTEGER},
+            </if>
+            <if test="in11Score != null">
+                in11Score = #{in11Score,jdbcType=INTEGER},
+            </if>
+            <if test="in18Score != null">
+                in18Score = #{in18Score,jdbcType=INTEGER},
+            </if>
+            <if test="in21Score != null">
+                in21Score = #{in21Score,jdbcType=INTEGER},
+            </if>
+            <if test="in26Score != null">
+                in26Score = #{in26Score,jdbcType=INTEGER},
+            </if>
+            <if test="in28Score != null">
+                in28Score = #{in28Score,jdbcType=INTEGER},
+            </if>
+            <if test="in32Score != null">
+                in32Score = #{in32Score,jdbcType=INTEGER},
+            </if>
+            <if test="in38Score != null">
+                in38Score = #{in38Score,jdbcType=INTEGER},
+            </if>
+            <if test="in39Score != null">
+                in39Score = #{in39Score,jdbcType=INTEGER},
+            </if>
+            <if test="in40Score != null">
+                in40Score = #{in40Score,jdbcType=INTEGER},
+            </if>
+            <if test="in54Score != null">
+                in54Score = #{in54Score,jdbcType=INTEGER},
+            </if>
+            <if test="in57Score != null">
+                in57Score = #{in57Score,jdbcType=INTEGER},
+            </if>
+            <if test="totalScore != null">
+                totalScore = #{totalScore,jdbcType=INTEGER},
+            </if>
+            <if test="assessmentTime != null">
+                assessmentTime = #{assessmentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="starClass != null">
+                starClass = #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="area != null and area!=''">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="proportRequirements != null and proportRequirements!=''">
+                proportRequirements = #{proportRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="educationalRequirements != null and educationalRequirements!=''">
+                educationalRequirements = #{educationalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="professionalRequirements != null and professionalRequirements!=''">
+                professionalRequirements = #{professionalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null and proportion!=''">
+                proportion = #{proportion,jdbcType=VARCHAR},
+            </if>
+            <if test="occupancyRate != null and occupancyRate!=''">
+                occupancyRate = #{occupancyRate,jdbcType=VARCHAR},
+            </if>
+            <if test="diningAreaRequirements != null and diningAreaRequirements!=''">
+                diningAreaRequirements = #{diningAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="rehabilitationAreaRequirements != null and rehabilitationAreaRequirements!=''">
+                rehabilitationAreaRequirements = #{rehabilitationAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItems != null and serviceItems!=''">
+                serviceItems = #{serviceItems,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction01 != null">
+                fraction01 = #{fraction01,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction02 != null">
+                fraction02 = #{fraction02,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction03 != null">
+                fraction03 = #{fraction03,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction04 != null">
+                fraction04 = #{fraction04,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction05 != null">
+                fraction05 = #{fraction05,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction06 != null">
+                fraction06 = #{fraction06,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction07 != null">
+                fraction07 = #{fraction07,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction08 != null">
+                fraction08 = #{fraction08,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction09 != null">
+                fraction09 = #{fraction09,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction10 != null">
+                fraction10 = #{fraction10,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction11 != null">
+                fraction11 = #{fraction11,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction12 != null">
+                fraction12 = #{fraction12,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction13 != null">
+                fraction13 = #{fraction13,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction14 != null">
+                fraction14 = #{fraction14,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction15 != null">
+                fraction15 = #{fraction15,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction16 != null">
+                fraction16 = #{fraction16,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction17 != null">
+                fraction17 = #{fraction17,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction18 != null">
+                fraction18 = #{fraction18,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction19 != null">
+                fraction19 = #{fraction19,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction20 != null">
+                fraction20 = #{fraction20,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction21 != null">
+                fraction21 = #{fraction21,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction22 != null">
+                fraction22 = #{fraction22,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction23 != null">
+                fraction23 = #{fraction23,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction24 != null">
+                fraction24 = #{fraction24,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction25 != null">
+                fraction25 = #{fraction25,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction26 != null">
+                fraction26 = #{fraction26,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction27 != null">
+                fraction27 = #{fraction27,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction28 != null">
+                fraction28 = #{fraction28,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction29 != null">
+                fraction29 = #{fraction29,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction30 != null">
+                fraction30 = #{fraction30,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction31 != null">
+                fraction31 = #{fraction31,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction32 != null">
+                fraction32 = #{fraction32,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction33 != null">
+                fraction33 = #{fraction33,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction34 != null">
+                fraction34 = #{fraction34,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction35 != null">
+                fraction35 = #{fraction35,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction36 != null">
+                fraction36 = #{fraction36,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction37 != null">
+                fraction37 = #{fraction37,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction38 != null">
+                fraction38 = #{fraction38,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction39 != null">
+                fraction39 = #{fraction39,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction40 != null">
+                fraction40 = #{fraction40,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction41 != null">
+                fraction41 = #{fraction41,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction42 != null">
+                fraction42 = #{fraction42,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction43 != null">
+                fraction43 = #{fraction43,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction44 != null">
+                fraction44 = #{fraction44,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction45 != null">
+                fraction45 = #{fraction45,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction46 != null">
+                fraction46 = #{fraction46,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction47 != null">
+                fraction47 = #{fraction47,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction48 != null">
+                fraction48 = #{fraction48,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction49 != null">
+                fraction49 = #{fraction49,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction50 != null">
+                fraction50 = #{fraction50,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction51 != null">
+                fraction51 = #{fraction51,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction52 != null">
+                fraction52 = #{fraction52,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction53 != null">
+                fraction53 = #{fraction53,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction54 != null">
+                fraction54 = #{fraction54,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction55 != null">
+                fraction55 = #{fraction55,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction56 != null">
+                fraction56 = #{fraction56,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction57 != null">
+                fraction57 = #{fraction57,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction58 != null">
+                fraction58 = #{fraction58,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction59 != null">
+                fraction59 = #{fraction59,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction60 != null">
+                fraction60 = #{fraction60,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction61 != null">
+                fraction61 = #{fraction61,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction62 != null">
+                fraction62 = #{fraction62,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction63 != null">
+                fraction63 = #{fraction63,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction64 != null">
+                fraction64 = #{fraction64,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction65 != null">
+                fraction65 = #{fraction65,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction66 != null">
+                fraction66 = #{fraction66,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction67 != null">
+                fraction67 = #{fraction67,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction68 != null">
+                fraction68 = #{fraction68,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction69 != null">
+                fraction69 = #{fraction69,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction70 != null">
+                fraction70 = #{fraction70,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction71 != null">
+                fraction71 = #{fraction71,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction72 != null">
+                fraction72 = #{fraction72,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction73 != null">
+                fraction73 = #{fraction73,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction74 != null">
+                fraction74 = #{fraction74,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction75 != null">
+                fraction75 = #{fraction75,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction76 != null">
+                fraction76 = #{fraction76,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction77 != null">
+                fraction77 = #{fraction77,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction78 != null">
+                fraction78 = #{fraction78,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction79 != null">
+                fraction79 = #{fraction79,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+        AND type = #{type,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStarRate" parameterType="com.fedtech.pension.org.entity.StarRatingOfInstitutions">
+        update t_service_org_star_rate
+        <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="listDetail != null">
+                listDetail = #{listDetail,jdbcType=INTEGER},
+            </if>
+            <if test="in09Score != null">
+                in09Score = #{in09Score,jdbcType=INTEGER},
+            </if>
+            <if test="in11Score != null">
+                in11Score = #{in11Score,jdbcType=INTEGER},
+            </if>
+            <if test="in18Score != null">
+                in18Score = #{in18Score,jdbcType=INTEGER},
+            </if>
+            <if test="in21Score != null">
+                in21Score = #{in21Score,jdbcType=INTEGER},
+            </if>
+            <if test="in26Score != null">
+                in26Score = #{in26Score,jdbcType=INTEGER},
+            </if>
+            <if test="in28Score != null">
+                in28Score = #{in28Score,jdbcType=INTEGER},
+            </if>
+            <if test="in32Score != null">
+                in32Score = #{in32Score,jdbcType=INTEGER},
+            </if>
+            <if test="in38Score != null">
+                in38Score = #{in38Score,jdbcType=INTEGER},
+            </if>
+            <if test="in39Score != null">
+                in39Score = #{in39Score,jdbcType=INTEGER},
+            </if>
+            <if test="in40Score != null">
+                in40Score = #{in40Score,jdbcType=INTEGER},
+            </if>
+            <if test="in54Score != null">
+                in54Score = #{in54Score,jdbcType=INTEGER},
+            </if>
+            <if test="in57Score != null">
+                in57Score = #{in57Score,jdbcType=INTEGER},
+            </if>
+            <if test="totalScore != null">
+                totalScore = #{totalScore,jdbcType=INTEGER},
+            </if>
+            <if test="assessmentTime != null">
+                assessmentTime = #{assessmentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="starClass != null">
+                starClass = #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="area != null and area!=''">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="proportRequirements != null and proportRequirements!=''">
+                proportRequirements = #{proportRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="educationalRequirements != null and educationalRequirements!=''">
+                educationalRequirements = #{educationalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="professionalRequirements != null and professionalRequirements!=''">
+                professionalRequirements = #{professionalRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null and proportion!=''">
+                proportion = #{proportion,jdbcType=VARCHAR},
+            </if>
+            <if test="occupancyRate != null and occupancyRate!=''">
+                occupancyRate = #{occupancyRate,jdbcType=VARCHAR},
+            </if>
+            <if test="diningAreaRequirements != null and diningAreaRequirements!=''">
+                diningAreaRequirements = #{diningAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="rehabilitationAreaRequirements != null and rehabilitationAreaRequirements!=''">
+                rehabilitationAreaRequirements = #{rehabilitationAreaRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItems != null and serviceItems!=''">
+                serviceItems = #{serviceItems,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction01 != null">
+                fraction01 = #{fraction01,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction02 != null">
+                fraction02 = #{fraction02,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction03 != null">
+                fraction03 = #{fraction03,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction04 != null">
+                fraction04 = #{fraction04,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction05 != null">
+                fraction05 = #{fraction05,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction06 != null">
+                fraction06 = #{fraction06,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction07 != null">
+                fraction07 = #{fraction07,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction08 != null">
+                fraction08 = #{fraction08,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction09 != null">
+                fraction09 = #{fraction09,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction10 != null">
+                fraction10 = #{fraction10,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction11 != null">
+                fraction11 = #{fraction11,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction12 != null">
+                fraction12 = #{fraction12,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction13 != null">
+                fraction13 = #{fraction13,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction14 != null">
+                fraction14 = #{fraction14,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction15 != null">
+                fraction15 = #{fraction15,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction16 != null">
+                fraction16 = #{fraction16,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction17 != null">
+                fraction17 = #{fraction17,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction18 != null">
+                fraction18 = #{fraction18,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction19 != null">
+                fraction19 = #{fraction19,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction20 != null">
+                fraction20 = #{fraction20,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction21 != null">
+                fraction21 = #{fraction21,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction22 != null">
+                fraction22 = #{fraction22,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction23 != null">
+                fraction23 = #{fraction23,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction24 != null">
+                fraction24 = #{fraction24,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction25 != null">
+                fraction25 = #{fraction25,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction26 != null">
+                fraction26 = #{fraction26,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction27 != null">
+                fraction27 = #{fraction27,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction28 != null">
+                fraction28 = #{fraction28,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction29 != null">
+                fraction29 = #{fraction29,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction30 != null">
+                fraction30 = #{fraction30,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction31 != null">
+                fraction31 = #{fraction31,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction32 != null">
+                fraction32 = #{fraction32,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction33 != null">
+                fraction33 = #{fraction33,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction34 != null">
+                fraction34 = #{fraction34,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction35 != null">
+                fraction35 = #{fraction35,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction36 != null">
+                fraction36 = #{fraction36,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction37 != null">
+                fraction37 = #{fraction37,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction38 != null">
+                fraction38 = #{fraction38,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction39 != null">
+                fraction39 = #{fraction39,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction40 != null">
+                fraction40 = #{fraction40,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction41 != null">
+                fraction41 = #{fraction41,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction42 != null">
+                fraction42 = #{fraction42,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction43 != null">
+                fraction43 = #{fraction43,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction44 != null">
+                fraction44 = #{fraction44,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction45 != null">
+                fraction45 = #{fraction45,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction46 != null">
+                fraction46 = #{fraction46,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction47 != null">
+                fraction47 = #{fraction47,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction48 != null">
+                fraction48 = #{fraction48,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction49 != null">
+                fraction49 = #{fraction49,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction50 != null">
+                fraction50 = #{fraction50,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction51 != null">
+                fraction51 = #{fraction51,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction52 != null">
+                fraction52 = #{fraction52,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction53 != null">
+                fraction53 = #{fraction53,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction54 != null">
+                fraction54 = #{fraction54,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction55 != null">
+                fraction55 = #{fraction55,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction56 != null">
+                fraction56 = #{fraction56,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction57 != null">
+                fraction57 = #{fraction57,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction58 != null">
+                fraction58 = #{fraction58,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction59 != null">
+                fraction59 = #{fraction59,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction60 != null">
+                fraction60 = #{fraction60,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction61 != null">
+                fraction61 = #{fraction61,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction62 != null">
+                fraction62 = #{fraction62,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction63 != null">
+                fraction63 = #{fraction63,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction64 != null">
+                fraction64 = #{fraction64,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction65 != null">
+                fraction65 = #{fraction65,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction66 != null">
+                fraction66 = #{fraction66,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction67 != null">
+                fraction67 = #{fraction67,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction68 != null">
+                fraction68 = #{fraction68,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction69 != null">
+                fraction69 = #{fraction69,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction70 != null">
+                fraction70 = #{fraction70,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction71 != null">
+                fraction71 = #{fraction71,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction72 != null">
+                fraction72 = #{fraction72,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction73 != null">
+                fraction73 = #{fraction73,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction74 != null">
+                fraction74 = #{fraction74,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction75 != null">
+                fraction75 = #{fraction75,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction76 != null">
+                fraction76 = #{fraction76,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction77 != null">
+                fraction77 = #{fraction77,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction78 != null">
+                fraction78 = #{fraction78,jdbcType=VARCHAR},
+            </if>
+            <if test="fraction79 != null">
+                fraction79 = #{fraction79,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions" parameterType="java.lang.Integer">
+        select *
+        from t_service_org_star_rate
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectTotalScoreByServiceOrgId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select totalScore
+        from t_service_org_star_rate
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+        AND type = 1
+    </select>
+
+    <select id="selectById" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions"
+            parameterType="java.lang.Integer">
+       select s.areaName,s.institutionName,r.* FROM t_service_org s LEFT JOIN t_service_org_star_rate r ON s.id = r.serviceOrgId
+        where r.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByTypeAndSod" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions"
+            parameterType="java.lang.Integer">
+       select s.areaName,s.institutionName,r.* FROM t_service_org s LEFT JOIN t_service_org_star_rate r ON s.id = r.serviceOrgId
+        where r.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER} AND r.type = 1
+    </select>
+
+    <select id="selectBySodAndType" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions"
+            parameterType="java.lang.Integer">
+       select s.areaName,s.institutionName,r.* FROM t_service_org s LEFT JOIN t_service_org_star_rate r ON s.id = r.serviceOrgId
+        where r.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER} AND r.type = 2
+    </select>
+
+    <select id="selectByServiceOrgId" resultType="com.fedtech.pension.org.entity.StarRatingOfInstitutions"
+            parameterType="java.lang.Integer">
+       select * from t_service_org_star_rate
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER} AND listDetail = 1
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_star_rate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_service_org_star_rate
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

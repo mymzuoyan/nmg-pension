@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgCardDataMapper">
+
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgCardData"
+            parameterType="java.lang.Integer">
+        select *
+        from t_service_org_card_data
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_card_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgCardData">
+        SELECT *
+        from t_service_org_card_data a
+        <where>
+            <if test="filter.accBookNo!=null and filter.accBookNo!=''">
+                 a.acc_book_no like CONCAT('%',#{filter.accBookNo},'%' )
+            </if>
+            <if test="filter.consumeId!=null and filter.consumeId!=''">
+                AND a.consume_id = #{filter.consumeId}
+            </if>
+            <if test="filter.startDate!=null">
+                AND a.write_date &gt; #{filter.startDate}
+            </if>
+            <if test="filter.endDate!=null">
+                AND a.write_date &lt; #{filter.endDate}
+            </if>
+            <if test="filter.bizName!=null and filter.bizName!=''">
+               AND a.biz_name like CONCAT('%',#{filter.bizName},'%' )
+            </if>
+            <if test="filter.certNo!=null and filter.certNo!=''">
+               AND a.cert_no like CONCAT('%',#{filter.certNo},'%' )
+            </if>
+            <if test="filter.personName!=null and filter.personName!=''">
+               AND a.person_name like CONCAT('%',#{filter.personName},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        from t_service_org_card_data a
+        <where>
+            <if test="accBookNo!=null and accBookNo!=''">
+                a.acc_book_no like CONCAT('%',#{accBookNo},'%' )
+            </if>
+            <if test="consumeId!=null and consumeId!=''">
+                AND a.consume_id = #{consumeId}
+            </if>
+            <if test="startDate!=null">
+                AND a.write_date &gt; #{startDate}
+            </if>
+            <if test="endDate!=null">
+                AND a.write_date &lt; #{endDate}
+            </if>
+            <if test="bizName!=null and bizName!=''">
+                AND a.biz_name like CONCAT('%',#{bizName},'%' )
+            </if>
+            <if test="certNo!=null and certNo!=''">
+                AND a.cert_no like CONCAT('%',#{certNo},'%' )
+            </if>
+            <if test="personName!=null and personName!=''">
+                AND a.person_name like CONCAT('%',#{personName},'%' )
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insertSomeMsg" parameterType="java.util.List">
+        insert into t_service_org_card_data
+        (acc_book_no, card_no,
+        consume_id, service_org_id, elderly_msg_id,
+        purchase_amount, payin_amount, discount_fee,
+        write_date, person_level, biz_id,
+        biz_name, contact, tel_no,
+        cert_no, person_name)
+        VALUES
+        <foreach collection="filters" item="filter" index="index" separator=",">
+            (#{filter.acc_book_no}, #{filter.card_no}, #{filter.consume_id},
+            #{filter.service_org_id}, #{filter.elderly_msg_id},
+            #{filter.purchase_amount}, #{filter.payin_amount}, #{filter.discount_fee},
+            #{filter.write_date},  #{filter.person_level},#{filter.biz_id},
+            #{filter.biz_name},
+            #{filter.contact},
+            #{filter.tel_no},
+            #{filter.cert_no},
+            #{filter.person_name}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

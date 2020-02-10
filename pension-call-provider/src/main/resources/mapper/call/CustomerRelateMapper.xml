@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.CustomerRelateMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.call.entity.CustomerRelate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="birthDate" property="birthDate" jdbcType="TIMESTAMP" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="relateCustomerId" property="relateCustomerId" jdbcType="INTEGER" />
+    <result column="relateType" property="relateType" jdbcType="VARCHAR" />
+    <result column="spareKey" property="spareKey" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, gender, birthDate, age, tel, phone, address, relateCustomerId, relateType,
+    spareKey
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from c_customer_relate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllRecode" resultMap="BaseResultMap" parameterType="com.fedtech.pension.call.entity.CustomerRelate" >
+    select
+    <include refid="Base_Column_List" />
+    from c_customer_relate
+    where id!=0
+    <if test="filter.relateCustomerId != null" >
+      and relateCustomerId=#{filter.relateCustomerId}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from c_customer_relate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.call.entity.CustomerRelate" >
+    insert into c_customer_relate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="birthDate != null" >
+        birthDate,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="relateCustomerId != null" >
+        relateCustomerId,
+      </if>
+      <if test="relateType != null" >
+        relateType,
+      </if>
+      <if test="spareKey != null" >
+        spareKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        #{birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCustomerId != null" >
+        #{relateCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="relateType != null" >
+        #{relateType,jdbcType=VARCHAR},
+      </if>
+      <if test="spareKey != null" >
+        #{spareKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.call.entity.CustomerRelate" >
+    update c_customer_relate
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        birthDate = #{birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCustomerId != null" >
+        relateCustomerId = #{relateCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="relateType != null" >
+        relateType = #{relateType,jdbcType=VARCHAR},
+      </if>
+      <if test="spareKey != null" >
+        spareKey = #{spareKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

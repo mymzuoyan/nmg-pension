@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- 继承自AuthorizingRealm的自定义Realm-->
+    <bean id="myRealm" class="com.fedtech.pension.shiro.UserRealm">
+    </bean>
+
+    <bean id="shiroSessionIdGenerator" class="com.fedtech.web.shiro.ShiroSessionIdGenerator"></bean>
+
+
+    <bean id="sessionValidationScheduler"
+          class="com.fedtech.pension.shiro.quartz.QuartzSessionValidationScheduler2">
+        <property name="sessionValidationInterval" value="1800000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="FEDTECHID"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+
+    <!-- 会话DAO -->
+    <bean id="RedisSessionDao" class="com.fedtech.web.shiro.session.RedisSessionDao">
+        <property name="cacheManager" ref="shiroCacheManager"></property>
+        <property name="sessionIdGenerator" ref="shiroSessionIdGenerator"></property>
+    </bean>
+
+    <bean id="shiroCacheManager" class="com.fedtech.web.shiro.session.ShiroCacheManager">
+    </bean>
+
+    <bean id="sessionManager" class="com.fedtech.web.shiro.session.SessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionDAO" ref="RedisSessionDao"></property>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionListeners">
+            <list>
+                <bean class="com.fedtech.web.shiro.session.ShiroSessionListener"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <!-- shiro session管理器 -->
+        <property name="sessionManager" ref="sessionManager"></property>
+    </bean>
+
+
+    <bean id="kickoutSessionControlFilter"
+          class="com.fedtech.pension.shiro.KickoutSessionControlFilter">
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <property name="sessionManager" ref="sessionManager"/>
+
+        <property name="kickoutAfter" value="false"/>
+        <property name="maxSession" value="1"/>
+        <property name="kickoutUrl" value="/admin/kickou"/>
+    </bean>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/admin/login.jsp"/>
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/admin/unauth.jsp"/>
+        <property name="filters">
+            <util:map>
+                <entry key="kickout" value-ref="kickoutSessionControlFilter"/>
+            </util:map>
+        </property>
+        <!--优先级顺序自上而下-->
+        <property name="filterChainDefinitions">
+            <value>
+                /admin/login=anon
+                /admin/beforeLogin=anon
+                /admin/isLogin=anon
+                /admin/api/serviceOrg/locationList=anon
+                /admin/api/serviceOrg/all=anon
+                /admin/api/area/getAreaLessLevel=anon
+                /admin/*/**=kickout,authc
+            </value>
+        </property>
+
+    </bean>
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+</beans>

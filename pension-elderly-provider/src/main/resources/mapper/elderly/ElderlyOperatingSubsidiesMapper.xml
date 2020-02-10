@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyOperatingSubsidiesMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="elderName" jdbcType="VARCHAR" property="eldername" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="sexDictId" jdbcType="INTEGER" property="sexdictid" />
+    <result column="realAddress" jdbcType="VARCHAR" property="realaddress" />
+    <result column="idcardno" jdbcType="VARCHAR" property="idcardno" />
+    <result column="check_in_time" jdbcType="VARCHAR" property="checkInTime" />
+    <result column="check_out_time" jdbcType="VARCHAR" property="checkOutTime" />
+    <result column="serviceOrgName" jdbcType="VARCHAR" property="serviceorgname" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="insConSuId" jdbcType="INTEGER" property="insconsuid" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, elderName, birthday, sexDictId, realAddress, idcardno, check_in_time, check_out_time, 
+    serviceOrgName, mobile, insConSuId,state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_operating_subsidies
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_operating_subsidies
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delByInsConSuld" parameterType="java.lang.Integer">
+    delete from t_elderly_operating_subsidies
+    where insConSuId = #{insConSuId,jdbcType=INTEGER}
+  </delete>
+
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_elderly_operating_subsidies
+    <where>
+      <if test="eldername != null and eldername !=''">
+        AND elderName like CONCAT('%',#{eldername},'%' )
+      </if>
+      <if test="birthday != null and birthday !=''">
+        AND birthday like CONCAT('%',#{birthday},'%' )
+      </if>
+      <if test="sexdictid!=null">
+        and sexDictId=#{sexdictid}
+      </if>
+      <if test="realaddress != null and realaddress !=''">
+        AND realAddress like CONCAT('%',#{realaddress},'%' )
+      </if>
+      <if test="idcardno != null and idcardno !=''">
+        AND idcardno like CONCAT('%',#{idcardno},'%' )
+      </if>
+      <if test="checkInTime != null and checkInTime !=''">
+        AND check_in_time like CONCAT('%',#{checkInTime},'%' )
+      </if>
+      <if test="checkOutTime != null and checkOutTime !=''">
+        AND check_out_time like CONCAT('%',#{checkOutTime},'%' )
+      </if>
+      <if test="serviceorgname != null and serviceorgname !=''">
+        AND serviceOrgName like CONCAT('%',#{serviceorgname},'%' )
+      </if>
+      <if test="mobile != null and mobile !=''">
+        AND mobile like CONCAT('%',#{mobile},'%' )
+      </if>
+      <if test="insconsuid!=null">
+        and insconsuid=#{insconsuid}
+      </if>
+      <if test="state != null and state !=''">
+        AND state like CONCAT('%',#{state},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    select
+    *
+    from t_elderly_operating_subsidies
+    <where>
+      <if test="filter.eldername != null and filter.eldername !=''">
+        AND elderName like CONCAT('%',#{filter.eldername},'%' )
+      </if>
+      <if test="filter.birthday != null and filter.birthday !=''">
+        AND birthday like CONCAT('%',#{filter.birthday},'%' )
+      </if>
+      <if test="filter.sexdictid!=null">
+        and sexDictId=#{filter.sexdictid}
+      </if>
+      <if test="filter.realaddress != null and filter.realaddress !=''">
+        AND realAddress like CONCAT('%',#{filter.realaddress},'%' )
+      </if>
+      <if test="filter.idcardno != null and filter.idcardno !=''">
+        AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+      </if>
+      <if test="filter.checkInTime != null and filter.checkInTime !=''">
+        AND check_in_time like CONCAT('%',#{filter.checkInTime},'%' )
+      </if>
+      <if test="filter.checkOutTime != null and filter.checkOutTime !=''">
+        AND check_out_time like CONCAT('%',#{filter.checkOutTime},'%' )
+      </if>
+      <if test="filter.serviceorgname != null and filter.serviceorgname !=''">
+        AND serviceOrgName like CONCAT('%',#{filter.serviceorgname},'%' )
+      </if>
+      <if test="filter.mobile != null and filter.mobile !=''">
+        AND mobile like CONCAT('%',#{filter.mobile},'%' )
+      </if>
+      <if test="filter.insconsuid!=null">
+        and insconsuid=#{filter.insconsuid}
+      </if>
+      <if test="filter.state != null and filter.state !=''">
+        AND state like CONCAT('%',#{filter.state},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+
+
+  <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    insert into t_elderly_operating_subsidies (id, elderName, birthday, 
+      sexDictId, realAddress, idcardno, 
+      check_in_time, check_out_time, serviceOrgName, 
+      mobile, insConSuId,state)
+    values (#{id,jdbcType=INTEGER}, #{eldername,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, 
+      #{sexdictid,jdbcType=INTEGER}, #{realaddress,jdbcType=VARCHAR}, #{idcardno,jdbcType=VARCHAR}, 
+      #{checkInTime,jdbcType=VARCHAR}, #{checkOutTime,jdbcType=VARCHAR}, #{serviceorgname,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{insconsuid,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    insert into t_elderly_operating_subsidies
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="eldername != null">
+        elderName,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="sexdictid != null">
+        sexDictId,
+      </if>
+      <if test="realaddress != null">
+        realAddress,
+      </if>
+      <if test="idcardno != null">
+        idcardno,
+      </if>
+      <if test="checkInTime != null">
+        check_in_time,
+      </if>
+      <if test="checkOutTime != null">
+        check_out_time,
+      </if>
+      <if test="serviceorgname != null">
+        serviceOrgName,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="insconsuid != null">
+        insConSuId,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eldername != null">
+        #{eldername,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="sexdictid != null">
+        #{sexdictid,jdbcType=INTEGER},
+      </if>
+      <if test="realaddress != null">
+        #{realaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null">
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInTime != null">
+        #{checkInTime,jdbcType=VARCHAR},
+      </if>
+      <if test="checkOutTime != null">
+        #{checkOutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceorgname != null">
+        #{serviceorgname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="insconsuid != null">
+        #{insconsuid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    update t_elderly_operating_subsidies
+    <set>
+      <if test="eldername != null">
+        elderName = #{eldername,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="sexdictid != null">
+        sexDictId = #{sexdictid,jdbcType=INTEGER},
+      </if>
+      <if test="realaddress != null">
+        realAddress = #{realaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null">
+        idcardno = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInTime != null">
+        check_in_time = #{checkInTime,jdbcType=VARCHAR},
+      </if>
+      <if test="checkOutTime != null">
+        check_out_time = #{checkOutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceorgname != null">
+        serviceOrgName = #{serviceorgname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="insconsuid != null">
+        insConSuId = #{insconsuid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.elderly.entity.ElderlyOperatingSubsidies">
+    update t_elderly_operating_subsidies
+    set elderName = #{eldername,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      sexDictId = #{sexdictid,jdbcType=INTEGER},
+      realAddress = #{realaddress,jdbcType=VARCHAR},
+      idcardno = #{idcardno,jdbcType=VARCHAR},
+      check_in_time = #{checkInTime,jdbcType=VARCHAR},
+      check_out_time = #{checkOutTime,jdbcType=VARCHAR},
+      serviceOrgName = #{serviceorgname,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      insConSuId = #{insconsuid,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

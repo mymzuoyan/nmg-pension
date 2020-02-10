@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.gold.mapper.GoldSendMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.gold.entity.GoldSend">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderName" property="goldElderly.elderlyMsg.elderName" jdbcType="VARCHAR"/>
+        <result column="areaId" property="goldElderly.elderlyMsg.areaId" jdbcType="INTEGER"/>
+        <result column="areaName" property="goldElderly.elderlyMsg.areaName" jdbcType="VARCHAR"/>
+        <result column="idcardno" property="goldElderly.elderlyMsg.idcardno" jdbcType="VARCHAR"/>
+        <result column="applyType" property="goldElderly.applyType" jdbcType="INTEGER"/>
+        <result column="bankCardno" property="goldElderly.bankCardno" jdbcType="VARCHAR"/>
+        <result column="bankCardOwner" property="goldElderly.bankCardOwner" jdbcType="VARCHAR"/>
+        <result column="remark" property="goldElderly.remark" jdbcType="VARCHAR"/>
+        <result column="fafangWay" property="goldElderly.fafangWay" jdbcType="INTEGER"/>
+        <result column="registerTime" property="goldElderly.registerTime" jdbcType="TIMESTAMP"/>
+        <result column="fafangTime" property="fafangTime" jdbcType="TIMESTAMP"/>
+        <result column="moneyStandard" property="goldSendStandard.moneyStandard" jdbcType="DOUBLE"/>
+        <result column="moneyStandard1" property="goldSendStandard.moneyStandard1" jdbcType="DOUBLE"/>
+        <result column="moneyStandard2" property="goldSendStandard.moneyStandard2" jdbcType="DOUBLE"/>
+        <result column="moneyStandard3" property="goldSendStandard.moneyStandard3" jdbcType="DOUBLE"/>
+        <result column="moneyStandard4" property="goldSendStandard.moneyStandard4" jdbcType="DOUBLE"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+        <result column="totalMoney" property="totalMoney" jdbcType="DOUBLE"/>
+        <result column="bufaMoney" property="bufaMoney" jdbcType="DOUBLE"/>
+        <result column="startTime" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="endTime" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="monthCount" property="monthCount" jdbcType="INTEGER"/>
+        <result column="monthCount1" property="monthCount1" jdbcType="INTEGER"/>
+        <result column="monthCount2" property="monthCount2" jdbcType="INTEGER"/>
+        <result column="monthCount3" property="monthCount3" jdbcType="INTEGER"/>
+        <result column="monthCount4" property="monthCount4" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectByIdCard" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+       select s.fafangTime
+       from t_gold_send s ,t_elderly_message m
+       where m.idcardno =#{idcardno}
+       and s.elderId =m.id
+       and s.money is not null
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        WHERE
+        s.elderId = e.id
+        AND e.id = m.id
+        AND s.money IS NOT NULL
+        <if test="elderName != null and elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{idcardno},'%' )
+        </if>
+        <if test="applyType != null">
+            AND e.applyType =#{applyType}
+        </if>
+        <if test="fafangTime != null">
+            <![CDATA[
+            AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{fafangTime}, '%Y-%m'),'%')
+            ]]>
+        </if>
+        <if test="areaName != null">
+            AND m.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        SELECT
+        s.*, e.applyType,
+        e.fafangWay,
+        e.bankCardno,
+        e.registerTime,
+        m.elderName,
+        m.idcardno,
+        m.areaName
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        where s.elderId=e.id and e.id=m.id
+        and s.money is not NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND e.applyType =#{filter.applyType}
+        </if>
+        <if test="filter.fafangTime != null">
+            <![CDATA[
+            AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.fafangTime}, '%Y-%m'),'%')
+            ]]>
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <!--银行发放列表-->
+    <select id="selectPageList2" resultMap="BaseResultMap">
+        SELECT
+        s.money, e.applyType,
+        e.fafangWay,
+        e.bankCardno,
+        m.elderName,
+        m.idcardno,
+        m.areaName,
+        e.bankCardOwner,
+        e.remark
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        where s.elderId=e.id and e.id=m.id
+        and s.money is not NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND e.applyType =#{filter.applyType}
+        </if>
+        <if test="filter.fafangTime != null ">
+            <![CDATA[
+            AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.fafangTime}, '%Y-%m'),'%')
+            ]]>
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.fafangWay != null">
+            AND e.fafangWay =#{filter.fafangWay}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count2" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        WHERE
+        s.elderId = e.id
+        AND e.id = m.id
+        AND s.money IS NOT NULL
+    <if test="elderName != null and elderName !=''">
+        AND m.elderName LIKE CONCAT('%',#{elderName},'%' )
+    </if>
+    <if test="idcardno != null and idcardno !=''">
+        AND m.idcardno LIKE CONCAT('%',#{idcardno},'%' )
+    </if>
+    <if test="applyType != null">
+        AND e.applyType =#{applyType}
+    </if>
+    <if test="fafangTime != null">
+        <![CDATA[
+        AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{fafangTime}, '%Y-%m'),'%')
+        ]]>
+    </if>
+    <if test="areaName != null">
+        AND m.areaName like CONCAT('%',#{areaName},'%' )
+    </if>
+    <if test="fafangWay != null">
+        AND e.fafangWay =#{fafangWay}
+    </if>
+    </select>
+
+    <select id="selectBankBufaList" resultMap="BaseResultMap">
+        SELECT
+        m.areaName,
+        m.elderName,
+        e.bankCardno,
+        s.startTime,
+        s.endTime,
+        (select s.monthCount where e.applyType=0) as monthCount1,
+        (select s.monthCount where e.applyType=1) as monthCount2,
+        (select s.monthCount where e.applyType=2) as monthCount3,
+        (select s.monthCount where e.applyType=3) as monthCount4,
+        e.applyType,
+        s.bufaMoney,
+        e.fafangWay,
+        e.registerTime,
+        m.idcardno,
+        e.bankCardOwner,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=0) as moneyStandard1,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=1) as moneyStandard2,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=2) as moneyStandard3,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=3) as moneyStandard4
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m,
+        t_gold_send_standard d
+        WHERE
+        s.elderId = e.id and e.id =m.id
+        AND s.bufaMoney IS NOT NULL
+        GROUP BY e.applyType
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.fafangWay != null">
+            AND e.fafangWay =#{filter.fafangWay}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="countBankBufa" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m,
+        t_gold_send_standard d
+        WHERE
+        s.elderId = e.id and e.id =m.id
+        AND d.areaName LIKE CONCAT ('%',m.areaName,'%')
+        AND d.applyType = e.applyType
+        AND s.bufaMoney IS NOT NULL
+        <if test="elderName != null and elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{idcardno},'%' )
+        </if>
+        <if test="areaName != null">
+            AND m.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="fafangWay != null">
+            AND e.fafangWay =#{fafangWay}
+        </if>
+    </select>
+
+    <!--补发查询-->
+    <select id="goldReissueList" resultMap="BaseResultMap">
+        SELECT
+        m.elderName,
+        m.idcardno,
+        m.areaName,
+        s.startTime,
+        s.endTime,
+        s.monthCount,
+        d.moneyStandard,
+        e.applyType,
+        s.totalMoney,
+        e.fafangWay,
+        e.bankCardno
+        FROM
+        t_elderly_message m,
+        t_gold_send s,
+        t_gold_send_standard d,
+        t_gold_elderly e
+        WHERE
+        s.elderId = e.id
+        AND e.id = m.id
+        AND d.areaName LIKE CONCAT ('%',m.areaName,'%')
+        AND e.applyType = d.applyType
+        AND s.totalMoney IS NOT NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count1" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        from t_elderly_message m,t_gold_send s,t_gold_send_standard d,t_gold_elderly e
+        where s.elderId=e.id
+        and e.id =m.id
+        and d.areaName LIKE CONCAT ('%',m.areaName,'%')
+        and e.applyType =d.applyType and s.totalMoney is NOT NULL
+        <if test="elderName != null and elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{idcardno},'%' )
+        </if>
+        <if test="areaName != null">
+            AND m.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+    </select>
+
+    <insert id="buFaMoney" parameterType="com.fedtech.pension.gold.entity.GoldSend" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into t_gold_send (id,elderId,startTime,endTime,bufaMoney,totalMoney,monthCount)
+        values (#{id,jdbcType=INTEGER},#{elderId,jdbcType=INTEGER},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{bufaMoney,jdbcType=DOUBLE}
+        ,#{totalMoney,jdbcType=DOUBLE},#{monthCount,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSome" parameterType="java.util.List">
+        INSERT INTO t_gold_elderly
+        (id, applyType, linkMan, linkManTel,bankCardno,bankCardOwner,relationElderly,fafangWay,remark
+        , registerTime)
+        VALUES
+        <foreach collection="filters" item="filter" index="index" separator=",">
+            (#{filter.id},#{filter.applyType},#{filter.linkMan},#{filter.linkManTel},
+            #{filter.bankCardno},#{filter.bankCardOwner},#{filter.relationElderly},#{filter.fafangWay},#{filter.remark},#{filter.registerTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertSomeGold" parameterType="java.util.List">
+        INSERT INTO t_gold_send
+        (id, elderId, fafangTime, money)
+        VALUES
+        <foreach collection="goldSends" item="goldSend" index="index" separator=",">
+            (#{goldSend.id},#{goldSend.elderId},#{goldSend.fafangTime},#{goldSend.money})
+        </foreach>
+    </insert>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.gold.entity.GoldSend"
+            parameterType="com.fedtech.pension.gold.entity.GoldSend">
+        SELECT
+        s.money,s.fafangTime, e.applyType,
+        e.fafangWay,
+        e.bankCardno,
+        e.registerTime,
+        m.elderName,
+        m.idcardno,
+        m.areaName
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        where s.elderId=e.id and e.id =m.id
+        and s.money is not NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null and filter.applyType !=''">
+            AND e.applyType =#{filter.applyType}
+        </if>
+        <if test="filter.fafangTime != null">
+            <![CDATA[
+            AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.fafangTime}, '%Y-%m'),'%')
+            ]]>
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+    </select>
+
+    <select id="getAllRecode2" resultType="com.fedtech.pension.gold.entity.GoldSend"
+            parameterType="com.fedtech.pension.gold.entity.GoldSend">
+        SELECT m.elderName,m.idcardno,m.areaName,s.startTime,s.endTime,s.monthCount,
+        d.moneyStandard,e.applyType,s.totalMoney,e.fafangWay,e.bankCardno
+        from t_elderly_message m,t_gold_send s,t_gold_send_standard d,t_gold_elderly e
+        where s.elderId=e.id and e.id =m.id and d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=e.applyType and s.totalMoney is not NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+    </select>
+
+    <select id="getAllRecode3" resultType="com.fedtech.pension.gold.entity.GoldSend"
+            parameterType="com.fedtech.pension.gold.entity.GoldSend">
+        SELECT
+        s.money, e.applyType,
+        e.fafangWay,
+        e.bankCardno,
+        m.elderName,
+        m.idcardno,
+        m.areaName,
+        e.bankCardOwner,
+        e.remark
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m
+        where s.elderId=e.id and e.id =m.id
+        and s.money is not NULL
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND e.applyType =#{filter.applyType}
+        </if>
+        <if test="filter.fafangTime != null">
+            <![CDATA[
+            AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.fafangTime}, '%Y-%m'),'%')
+            ]]>
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.fafangWay != null">
+            AND e.fafangWay =#{filter.fafangWay}
+        </if>
+    </select>
+
+    <select id="getAllRecode4" resultType="com.fedtech.pension.gold.entity.GoldSend"
+            parameterType="com.fedtech.pension.gold.entity.GoldSend">
+        SELECT
+        m.areaName,
+        m.elderName,
+        e.bankCardno,
+        s.startTime,
+        s.endTime,
+        (select s.monthCount where e.applyType=0) as monthCount1,
+        (select s.monthCount where e.applyType=1) as monthCount2,
+        (select s.monthCount where e.applyType=2) as monthCount3,
+        (select s.monthCount where e.applyType=3) as monthCount4,
+        e.applyType,
+        s.bufaMoney,
+        e.fafangWay,
+        e.registerTime,
+        m.idcardno,
+        e.bankCardOwner,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=0) as moneyStandard1,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=1) as moneyStandard2,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=2) as moneyStandard3,
+        (select d.moneyStandard  from t_gold_send_standard d where d.areaName LIKE CONCAT ('%',m.areaName,'%') and d.applyType=3) as moneyStandard4
+        FROM
+        t_gold_send s,
+        t_gold_elderly e,
+        t_elderly_message m,
+        t_gold_send_standard d
+        WHERE
+        s.elderId = e.id and e.id =m.id
+        AND s.bufaMoney IS NOT NULL
+        GROUP BY e.applyType
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.areaName != null">
+            AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.fafangWay != null">
+            AND e.fafangWay =#{filter.fafangWay}
+        </if>
+    </select>
+
+    <select id="statistic" resultType="com.fedtech.pension.gold.vo.GoldSendVo">
+        SELECT
+	      REVERSE(
+		    SUBSTRING_INDEX(
+			  REVERSE(
+				SUBSTRING_INDEX(m.areaName, ',', #{level})
+			  ),
+			',',
+			1
+		    )
+	      ) areaName,
+	    COUNT(*) count,
+	    sum(s.money) money,
+	    e.applyType
+        FROM
+	    t_gold_elderly e,
+	    t_gold_send s,
+	    t_elderly_message m
+        WHERE
+	    s.elderId = e.id and e.id =m.id
+	    and s.money is not NULL
+    <if test="filter.areaName != null">
+        AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+    </if>
+    <if test="filter.fafangTime != null">
+        <![CDATA[
+        AND DATE_FORMAT(s.fafangTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.fafangTime}, '%Y-%m'),'%')
+        ]]>
+    </if>
+    GROUP BY
+	REVERSE(
+		SUBSTRING_INDEX(
+			REVERSE(
+				SUBSTRING_INDEX(m.areaName, ',', #{level})
+			),
+			',',
+			1
+		)
+	),
+	e.applyType
+    </select>
+
+    <select id="buFaStatistic" resultType="com.fedtech.pension.gold.vo.GoldSendVo">
+        SELECT
+	REVERSE(
+		SUBSTRING_INDEX(
+			REVERSE(
+				SUBSTRING_INDEX(m.areaName, ',', #{level})
+			),
+			',',
+			1
+		)
+	) areaName,
+	COUNT(*) count,
+	sum(s.bufaMoney) bufaMoney,
+	e.applyType
+    FROM
+	t_gold_elderly e,
+	t_gold_send s,
+	t_elderly_message m
+    WHERE
+	s.elderId = e.id and e.id =m.id
+	and s.bufaMoney is not NULL
+    <if test="filter.areaName != null">
+        AND m.areaName like CONCAT('%',#{filter.areaName},'%' )
+    </if>
+    <if test="filter.startTime != null">
+        <![CDATA[
+        AND DATE_FORMAT(s.startTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.startTime}, '%Y-%m'),'%')
+        ]]>
+    </if>
+    <if test="filter.endTime != null">
+        <![CDATA[
+        AND DATE_FORMAT(s.endTime, '%Y-%m-%d') like CONCAT ('%', DATE_FORMAT(#{filter.endTime}, '%Y-%m'),'%')
+        ]]>
+    </if>
+    GROUP BY
+	REVERSE(
+		SUBSTRING_INDEX(
+			REVERSE(
+				SUBSTRING_INDEX(m.areaName, ',', #{level})
+			),
+			',',
+			1
+		)
+	),
+	e.applyType
+    </select>
+
+    <select id="goldSendCountByCity" resultType="java.lang.Integer">
+       select count(*) from t_elderly_message as tem,t_gold_send as tgs
+       where tgs.elderId=tem.id and YEAR(fafangTime)=YEAR(NOW()) and tem.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+    <select id="goldSendCountByYear" resultType="java.lang.Integer">
+      select count(*) from t_gold_send where YEAR (fafangTime)=YEAR (Now())
+    </select>
+
+    <select id="goldSendCountByDay" resultType="java.lang.Integer">
+        select count(*) from t_gold_send where DATE (fafangTime)=DATE (Now())
+    </select>
+
+    <select id="goldSendCountByCityAndYear" resultType="java.lang.Integer">
+        select count(*) from t_gold_send a ,t_elderly_message b where YEAR (a.fafangTime)=YEAR (Now())
+        and b.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+    <select id="goldSendCountByCityAndDay" resultType="java.lang.Integer">
+        select count(*) from t_gold_send a ,t_elderly_message b where DATE (a.fafangTime)=DATE (Now())
+        and b.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+</mapper>

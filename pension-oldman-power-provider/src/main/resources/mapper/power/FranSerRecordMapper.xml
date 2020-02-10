@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.FranSerRecordMapper">
+  <!--  <resultMap id="BaseResultMap" type="com.fedtech.pension.power.entity.FranSerRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="receiverServiceOrg" property="receiverServiceOrg" jdbcType="VARCHAR"/>
+        <result column="receiverName" property="receiverName" jdbcType="VARCHAR"/>
+        <result column="serviceTime" property="serviceTime" jdbcType="TIMESTAMP"/>
+        <result column="serviceType" property="serviceType" jdbcType="VARCHAR"/>
+        <result column="serviceName" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="source" property="source" jdbcType="VARCHAR"/>
+        <result column="lat" property="lat" jdbcType="DOUBLE"/>
+        <result column="lng" property="lng" jdbcType="DOUBLE"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="serviceAddress" property="serviceAddress" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="priceInfo" property="priceInfo" jdbcType="VARCHAR"/>
+        <result column="orderInfo" property="orderInfo" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+    </resultMap>-->
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.FranSerRecord">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content,a.createTime, a.creatorId,b.login_name as creatorName,b.phone creatorPhone,
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM t_franserrecord a ,t_user b,t_user_link_elder d
+        where a.creatorId=b.uid
+        and a.status!=0
+        and a.elderId=d.id
+        <if test="filter.status != null">
+            <if test="filter.status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="filter.status != -1">
+                and a.status = #{filter.status}
+            </if>
+        </if>
+        <if test="filter.elderName != null and filter.elderName!=''">
+            AND d.elderName like CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.number != null and filter.number!=''">
+            AND a.number like CONCAT('%',#{filter.number},'%' )
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.elderId != null">
+            and a.elderId = #{filter.elderId}
+        </if>
+        <if test="filter.creatorName != null and filter.creatorName!=''">
+            AND b.login_name like CONCAT('%',#{filter.creatorName},'%' )
+        </if>
+        <if test="filter.receiverServiceOrg != null and filter.receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{filter.receiverServiceOrg},'%' )
+        </if>
+        <if test="filter.receiverName != null and filter.receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{filter.receiverName},'%' )
+        </if>
+        <if test="filter.serviceType != null and filter.serviceType != ''">
+            and a.serviceType = #{filter.serviceType}
+        </if>
+        <if test="filter.serviceName != null and filter.serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+        </if>
+        <if test="filter.level != null">
+            and a.level = #{filter.level}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count"  resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_franserrecord a ,t_user b,t_user_link_elder d
+        where a.creatorId=b.uid
+        and a.status!=0
+        and a.elderId=d.id
+        <if test="status != null">
+            <if test="status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="status != -1">
+                and a.status = #{status}
+            </if>
+        </if>
+        <if test="elderName != null and elderName!=''">
+            AND d.elderName like CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="number != null and number!=''">
+            AND a.number like CONCAT('%',#{number},'%' )
+        </if>
+        <if test="creatorId != null">
+            and a.creatorId = #{creatorId}
+        </if>
+        <if test="elderId != null">
+            and a.elderId = #{elderId}
+        </if>
+        <if test="creatorName != null and creatorName!=''">
+            AND b.login_name like CONCAT('%',#{creatorName},'%' )
+        </if>
+        <if test="receiverServiceOrg != null and receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{receiverServiceOrg},'%' )
+        </if>
+        <if test="receiverName != null and receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{receiverName},'%' )
+        </if>
+        <if test="serviceType != null and serviceType != ''">
+            and a.serviceType = #{serviceType}
+        </if>
+        <if test="serviceName != null and serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{serviceName},'%' )
+        </if>
+        <if test="level != null">
+            and a.level = #{level}
+        </if>
+        <if test="source != null and source!=''">
+            <choose>
+                <when test="source=='app' or source=='web' or source=='beeper' or source=='tel'">
+                    and a.source = #{source}
+                </when>
+                <when test="source=='today_app'">
+                    and a.source = 'app' AND DATE (a.serviceTime)=DATE (now())
+                </when>
+                <when test="source=='today_web'">
+                    and a.source = 'web' AND DATE (a.serviceTime)=DATE (now())
+                </when>
+                <when test="source=='today_beeper'">
+                    and a.source = 'beeper' AND DATE (a.serviceTime)=DATE (now())
+                </when>
+                <when test="source=='today_tel'">
+                    and a.source = 'tel' AND DATE (a.serviceTime)=DATE (now())
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.FranSerRecord" parameterType="java.lang.Integer">
+        select
+        a.id, a.number,a.title,a.elderId,c.elderName,c.elderMobile,c.elderAge,
+        a.receiverServiceOrg, a.receiverName,a.serviceType,a.serviceTime,a.serviceName,
+        a.content,a.createTime, a.serviceAddress,a.creatorId,a.type,a.source, a.status,
+        b.login_name creatorName,b.phone creatorPhone,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        from t_franserrecord a LEFT  JOIN  t_user b on(a.creatorId=b.uid) LEFT JOIN t_user_link_elder c on(c.id = a.elderId)
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

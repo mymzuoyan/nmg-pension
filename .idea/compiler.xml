@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="commons" />
+        <module name="pension-call-api" />
+        <module name="pension-call-provider" />
+        <module name="pension-elderly-api" />
+        <module name="pension-elderly-provider" />
+        <module name="pension-nurse-api" />
+        <module name="pension-nurse-provider" />
+        <module name="pension-oldman-power-api" />
+        <module name="pension-oldman-power-provider" />
+        <module name="pension-org-api" />
+        <module name="pension-org-provider" />
+        <module name="pension-portal-api" />
+        <module name="pension-portal-provider" />
+        <module name="pension-respect-gold-api" />
+        <module name="pension-respect-gold-provider" />
+        <module name="pension-sys-api" />
+        <module name="pension-sys-provider" />
+        <module name="pension-task-api" />
+        <module name="pension-task-provider" />
+        <module name="pension-volunteer-api" />
+        <module name="pension-volunteer-provider" />
+        <module name="web-admin" />
+        <module name="web-datadock-api" />
+        <module name="web-mobile-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

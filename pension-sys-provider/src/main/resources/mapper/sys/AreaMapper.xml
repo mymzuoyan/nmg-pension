@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.AreaMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.Area" parameterType="java.lang.Integer">
+        SELECT id,name,parentId,level,districtId
+        FROM area
+        WHERE id = #{id}
+    </select>
+
+    <select id="getDepCode" parameterType="java.lang.Integer" resultType="java.lang.String">
+       SELECT districtId
+        FROM area
+        WHERE id = #{areaId}
+    </select>
+
+    <select id="findByDepCode" resultType="com.fedtech.pension.sys.entity.Area">
+        SELECT id,name,parentId,level,districtId
+        FROM area
+        WHERE districtId = #{code}
+    </select>
+
+    <select id="getAreaName" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select getAreaName(#{areaId})
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM area
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.Area" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO area
+        (name,parentId,level,districtId)
+        VALUES (#{name},#{parentId},#{level},#{districtId})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.Area">
+        UPDATE area
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+            <if test="districtId != null">
+                districtId = #{districtId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.Area" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM area
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM area
+    </select>
+
+    <select id="getArea" resultType="com.fedtech.pension.sys.entity.Area">
+            SELECT * FROM area
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.Area">
+        SELECT id,name,parentId,level,districtId
+        FROM area
+        <where>
+            <if test="filter.districtId!=null">
+                districtId like CONCAT('%',#{filter.districtId},'%' )
+            </if>
+            <if test="filter.level!=null">
+                and level = #{filter.level}
+            </if>
+            <if test="filter.parentId!=null">
+                and parentId = #{filter.parentId}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.sys.entity.Area"
+            resultType="com.fedtech.pension.sys.entity.Area">
+        SELECT id,name,parentId,level,districtId
+        FROM area
+        where id !=0
+        <if test="filter!=null">
+            <if test="filter.level!=null">
+                and level &lt;= #{filter.level}
+            </if>
+            <if test="filter.id!=null">
+                and id = #{filter.id}
+            </if>
+            <if test="filter.parentId!=null">
+                and parentId = #{filter.parentId}
+            </if>
+            <if test="filter.districtId!=null">
+                AND districtId like CONCAT('%',#{filter.districtId},'%' )
+            </if>
+        </if>
+    </select>
+
+    <select id="selectByParentId" parameterType="java.lang.Integer" resultType="com.fedtech.pension.sys.entity.Area">
+         SELECT id,name,parentId,level,districtId
+        FROM area
+        where parentId=#{parentId}
+    </select>
+
+    <select id="selectAreaIdByName" resultType="com.fedtech.pension.sys.entity.Area">
+        SELECT * FROM area WHERE name = #{name}
+    </select>
+
+    <select id="selectbyDistrictId" parameterType="java.lang.String" resultType="com.fedtech.pension.sys.entity.Area">
+    select
+    *
+    from area
+    where districtId = #{districtId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.CashPoolMapper">
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.CashPool" >
+        insert into t_cashPool
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+
+            <if test="areaName != null" >
+                areaName,
+            </if>
+            <if test="serviceOrgId != null" >
+                serviceOrgId,
+            </if>
+            <if test="serviceOrgName != null" >
+                serviceOrgName,
+            </if>
+
+            createUserId,
+            money,
+            createDate,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+            <if test="areaName != null" >
+                #{areaName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null" >
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgName != null" >
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null" >
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="money != null" >
+                #{money,jdbcType=DOUBLE},
+            </if>
+            now(),
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.CashPool">
+        UPDATE t_cashPool
+
+        <set>
+
+            <if test="areaName != null" >
+                areaName=#{areaName},
+            </if>
+            <if test="serviceOrgId != null" >
+                serviceOrgId=#{serviceOrgId},
+            </if>
+            <if test="serviceOrgName != null" >
+                serviceOrgName=#{serviceOrgName},
+            </if>
+
+            <if test="money != null" >
+                money=#{money},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_cashPool
+        WHERE id = #{id}
+    </delete>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.CashPool" parameterType="java.lang.Integer" >
+        select *
+        from t_cashPool
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.CashPool">
+        select
+        t.*,(select login_name from t_user u where t.createUserId=u.uid) as createUser
+        from t_cashPool t
+        <where>
+
+            <if test="filter.areaName!=null and filter.areaName!=''">
+                and areaName  like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                and serviceOrgId  =#{filter.serviceOrgId}
+            </if>
+
+            <if test="filter.startmoney!=null and filter.startmoney!=''">
+                and money  &gt;=#{filter.startmoney}
+            </if>
+            <if test="filter.endmoney!=null and filter.endmoney!=''">
+                and money  &lt;=#{filter.endmoney}
+            </if>
+
+            <if test="filter.startCreateDate!=null and filter.startCreateDate!=''">
+                and createDate  &gt;=#{filter.startCreateDate}
+            </if>
+            <if test="filter.endCreateDate!=null and filter.endCreateDate!=''">
+                and createDate  &lt;=#{filter.endCreateDate}
+            </if>
+
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.power.entity.CashPool" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_cashPool
+        <where>
+            <if test="areaName!=null and areaName!=''">
+                and areaName  like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="serviceOrgId!=null and serviceOrgId!=''">
+                and serviceOrgId  =#{serviceOrgId}
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="startmoney!=null and startmoney!=''">
+                and money  &gt;=#{startmoney}
+            </if>
+            <if test="endmoney!=null and endmoney!=''">
+                and money  &lt;=#{endmoney}
+            </if>
+
+            <if test="startCreateDate!=null and startCreateDate!=''">
+                and createDate  &gt;=#{startCreateDate}
+            </if>
+            <if test="endCreateDate!=null and endCreateDate!=''">
+                and createDate  &lt;=#{endCreateDate}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_cashPool
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.power.entity.CashPool"
+            resultType="com.fedtech.pension.power.entity.CashPool">
+        SELECT *
+        FROM t_cashPool
+        <where>
+            <if test="filter.areaName!=null and filter.areaName!=''">
+                and areaName  like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                and serviceOrgId=#{filter.serviceOrgId}
+            </if>
+            <if test="filter.startmoney!=null and filter.startmoney!=''">
+                and money  &gt;=#{filter.startmoney}
+            </if>
+            <if test="filter.endmoney!=null and filter.endmoney!=''">
+                and money  &lt;=#{filter.endmoney}
+            </if>
+
+            <if test="filter.startCreateDate!=null and filter.startCreateDate!=''">
+                and createDate  &gt;=#{filter.startCreateDate}
+            </if>
+            <if test="filter.endCreateDate!=null and filter.endCreateDate!=''">
+                and createDate  &lt;=#{filter.endCreateDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByEntity" parameterType="com.fedtech.pension.power.entity.CashPool"
+            resultType="com.fedtech.pension.power.entity.CashPool">
+        SELECT *
+        FROM t_cashPool
+        <where>
+
+            <if test="areaName!=null and areaName!=''">
+                and areaName  like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="startmoney!=null and startmoney!=''">
+                and money  &gt;=#{startmoney}
+            </if>
+            <if test="endmoney!=null and endmoney!=''">
+                and money  &lt;=#{endmoney}
+            </if>
+
+            <if test="startCreateDate!=null and startCreateDate!=''">
+                and createDate  &gt;=#{startCreateDate}
+            </if>
+            <if test="endCreateDate!=null and endCreateDate!=''">
+                and createDate  &lt;=#{endCreateDate}
+            </if>
+            <if test="id!=null and id!=''">
+                and id !=#{id}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <update id="updateServiceMoney" parameterType="com.fedtech.pension.power.entity.CashPool">
+        UPDATE t_service_org
+        <set>
+            <if test="money != null" >
+                servicemoney=(ifnull(servicemoney,0)+ ${money}),
+            </if>
+        </set>
+        WHERE id = #{serviceOrgId}
+    </update>
+
+</mapper>

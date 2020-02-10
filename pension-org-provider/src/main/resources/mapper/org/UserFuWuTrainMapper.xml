@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.UserFuWuTrainMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.UserFuWuTrain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="serviceOrgId" jdbcType="INTEGER" property="serviceOrgId" />
+    <result column="idcardno" jdbcType="VARCHAR" property="idcardno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="trainingInstitutions" jdbcType="VARCHAR" property="trainingInstitutions" />
+    <result column="trainingContents" jdbcType="VARCHAR" property="trainingContents" />
+    <result column="trainingTime" jdbcType="VARCHAR" property="trainingTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, serviceOrgId, idcardno, name, trainingInstitutions, trainingContents, trainingTime
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_fuwu_train
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user_fuwu_train
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.UserFuWuTrain" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_user_fuwu_train
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceOrgId != null">
+        serviceOrgId,
+      </if>
+      <if test="idcardno != null">
+        idcardno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="trainingInstitutions != null">
+        trainingInstitutions,
+      </if>
+      <if test="trainingContents != null">
+        trainingContents,
+      </if>
+      <if test="trainingTime != null">
+        trainingTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrgId != null">
+        #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingInstitutions != null">
+        #{trainingInstitutions,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingContents != null">
+        #{trainingContents,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingTime != null">
+        #{trainingTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.UserFuWuTrain">
+    update t_user_fuwu_train
+    <set>
+      <if test="serviceOrgId != null">
+        serviceOrgId=#{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        idcardno=#{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingInstitutions != null">
+        trainingInstitutions=#{trainingInstitutions,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingContents != null">
+        trainingContents=#{trainingContents,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingTime != null">
+        trainingTime=#{trainingTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_user_fuwu_train
+    <where>
+      <if test="serviceOrgId != null and serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{serviceOrgId},'%' )
+      </if>
+      <if test="idcardno != null and idcardno !=''">
+        AND idcardno like CONCAT('%',#{idcardno},'%' )
+      </if>
+      <if test="name != null and name !=''">
+        AND name like CONCAT('%',#{name},'%' )
+      </if>
+      <if test="trainingInstitutions != null and trainingInstitutions !=''">
+        AND trainingInstitutions like CONCAT('%',#{trainingInstitutions},'%' )
+      </if>
+      <if test="trainingContents != null and trainingContents !=''">
+        AND trainingContents like CONCAT('%',#{trainingContents},'%' )
+      </if>
+      <if test="trainingTime != null and trainingTime !=''">
+        AND trainingTime like CONCAT('%',#{trainingTime},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_user_fuwu_train
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.UserFuWuTrain">
+    select
+      *
+    from t_user_fuwu_train
+    <where>
+      <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{filter.serviceOrgId},'%' )
+      </if>
+      <if test="filter.idcardno != null and filter.idcardno !=''">
+        AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+      </if>
+      <if test="filter.name != null and filter.name !=''">
+        AND name like CONCAT('%',#{filter.name},'%' )
+      </if>
+      <if test="filter.trainingInstitutions != null and filter.trainingInstitutions !=''">
+        AND trainingInstitutions like CONCAT('%',#{filter.trainingInstitutions},'%' )
+      </if>
+      <if test="filter.trainingContents != null and filter.trainingContents !=''">
+        AND trainingContents like CONCAT('%',#{filter.trainingContents},'%' )
+      </if>
+      <if test="filter.trainingTime != null and filter.trainingTime !=''">
+        AND trainingTime like CONCAT('%',#{filter.trainingTime},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user_fuwu_train
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_user_fuwu_train
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+
+  </delete>
+
+</mapper>

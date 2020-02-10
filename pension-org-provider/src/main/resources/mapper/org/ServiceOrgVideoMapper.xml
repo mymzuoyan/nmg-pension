@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgVideoMapper">
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT max(id) FROM  t_video
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgVideo"
+            parameterType="java.lang.Integer">
+        select
+        *
+        from t_video WHERE id = #{id}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+      select count(1) from t_video
+  </select>
+    <select id="count" resultType="java.lang.Integer">
+
+        SELECT count(1) FROM t_video a
+        where a.orgId = #{orgId}
+        <if test="channelId!=null and channelId!=''">
+            and  a.channelId like CONCAT('%',#{channelId},'%' )
+        </if>
+
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgVideo" >
+        SELECT
+        a.*
+        FROM t_video a
+        where a.orgId = #{filter.orgId}
+        <if test="filter.channelId!=null and filter.channelId!=''">
+            and a.channelId like CONCAT('%',#{filter.channelId},'%' )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_video
+        where id = #{id}
+  </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgVideo" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into t_video (orgId,channelId)
+    values (#{orgId,jdbcType=INTEGER},#{channelId,jdbcType=VARCHAR})
+  </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgVideo">
+        update t_video
+        <set>
+            <if test="channelId != null">
+                channelId = #{channelId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="addServiceOrgVideo" parameterType="com.fedtech.pension.org.entity.ServiceOrgVideo">
+        update t_service_org
+        <set>
+            videoMonitors = ifnull(videoMonitors,0)+1
+        </set>
+        where id = #{orgId,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteServiceOrgVideo" parameterType="com.fedtech.pension.org.entity.ServiceOrgVideo">
+        update t_service_org
+        <set>
+            videoMonitors = ifnull(videoMonitors,0)-1
+        </set>
+        where id = #{orgId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllVideoById" resultType="com.fedtech.pension.org.entity.ServiceOrgVideo" parameterType="java.lang.Integer">
+      select * from t_video where orgId=#{orgId}
+  </select>
+
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderLinkManMapper">
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.ElderLinkMan" parameterType="java.lang.Integer">
+        select * from t_elder_linkman
+        where id = #{id}
+    </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderLinkMan">
+        select * from t_elder_linkman where elderId = #{filter.elderId}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+      select count(*) from t_elder_linkman where elderId = #{elderId}
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(*) from t_elder_linkman where elderId = #{elderId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elder_linkman
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderLinkMan">
+    insert into t_elder_linkman (elderId,linkName,linkTel,relationship,haveKey,remark)
+    values (#{elderId}, #{linkName},#{linkTel},#{relationship},#{haveKey},#{remark})
+  </insert>
+    <insert id="insertSome" parameterType="java.util.List">
+        insert into t_elder_linkman
+        (elderId,linkName,linkTel,relationship)
+        VALUES
+        <foreach collection="filters" item="filter" index="index"  separator="," >
+            (#{filter.elderId},#{filter.linkName},#{filter.linkTel},#{filter.relationship})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderLinkMan">
+        update t_elder_linkman
+        <set>
+            <if test="elderId!=null">
+                elderId=#{elderId},
+            </if>
+            <if test="linkName!=null">
+                linkName=#{linkName},
+            </if>
+            <if test="linkTel!=null">
+                linkTel=#{linkTel},
+            </if>
+            <if test="relationship!=null">
+                relationship=#{relationship},
+            </if>
+            <if test="haveKey!=null">
+                haveKey=#{haveKey},
+            </if>
+            <if test="remark!=null">
+                remark=#{remark}
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.elderly.entity.ElderLinkMan"
+            resultType="com.fedtech.pension.elderly.entity.ElderLinkMan">
+       select * from t_elder_linkman where elderId = #{filter.elderId}
+    </select>
+
+
+    <select id="selectByElderId" parameterType="int"
+            resultType="com.fedtech.pension.elderly.entity.ElderLinkMan">
+       select * from t_elder_linkman where elderId = #{elderId}
+    </select>
+</mapper>

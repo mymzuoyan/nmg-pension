@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgSocialDonationMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgSocialDonation" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="donor_pic" jdbcType="VARCHAR" property="donorPic" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="activity_leader" jdbcType="VARCHAR" property="activityLeader" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="donor_name" jdbcType="VARCHAR" property="donorName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="province_burg" jdbcType="VARCHAR" property="provinceBurg" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="donor_type" jdbcType="VARCHAR" property="donorType" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+        id, donor_pic, organization_name, activity_leader, begin_time, end_time, money,
+    remarks, donor_name, address, city, province_burg, phone,donor_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_service_org_social_donation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_service_org_social_donation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialDonation" >
+  insert into t_service_org_social_donation (id, donor_pic, organization_name,
+      activity_leader, begin_time, end_time,
+      money, remarks, donor_name,
+      address, city, province_burg,
+      phone,donor_type)
+    values (#{id,jdbcType=INTEGER}, #{donorPic,jdbcType=VARCHAR}, #{organizationName,jdbcType=VARCHAR},
+      #{activityLeader,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR},
+      #{money,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, #{donorName,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{provinceBurg,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR},#{donorType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialDonation" >
+    insert into t_service_org_project_more_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="donorPic != null">
+        donor_pic,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="activityLeader != null">
+        activity_leader,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="donorName != null">
+        donor_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="provinceBurg != null">
+        province_burg,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="donorType != null">
+        donor_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="id != null">
+      #{id,jdbcType=INTEGER},
+    </if>
+    <if test="donorPic != null">
+      #{donorPic,jdbcType=VARCHAR},
+    </if>
+    <if test="organizationName != null">
+      #{organizationName,jdbcType=VARCHAR},
+    </if>
+    <if test="activityLeader != null">
+      #{activityLeader,jdbcType=VARCHAR},
+    </if>
+    <if test="beginTime != null">
+      #{beginTime,jdbcType=VARCHAR},
+    </if>
+    <if test="endTime != null">
+      #{endTime,jdbcType=VARCHAR},
+    </if>
+    <if test="money != null">
+      #{money,jdbcType=DOUBLE},
+    </if>
+    <if test="remarks != null">
+      #{remarks,jdbcType=VARCHAR},
+    </if>
+    <if test="donorName != null">
+      #{donorName,jdbcType=VARCHAR},
+    </if>
+    <if test="address != null">
+      #{address,jdbcType=VARCHAR},
+    </if>
+    <if test="city != null">
+      #{city,jdbcType=VARCHAR},
+    </if>
+    <if test="provinceBurg != null">
+      #{provinceBurg,jdbcType=VARCHAR},
+    </if>
+    <if test="phone != null">
+      #{phone,jdbcType=VARCHAR},
+    </if>
+      <if test="donorType != null">
+        #{donorType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialDonation" >
+    update t_service_org_social_donation
+    <set>
+      <if test="donorPic != null">
+        donor_pic = #{donorPic,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLeader != null">
+        activity_leader = #{activityLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="donorName != null">
+        donor_name = #{donorName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceBurg != null">
+        province_burg = #{provinceBurg,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="donorType != null">
+        donor_type = #{donorType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_social_donation
+    <where>
+      <if test="donorPic != null and donorPic !=''">
+        AND donor_pic like CONCAT('%',#{donorPic},'%' )
+      </if>
+      <if test="organizationName != null and organizationName !=''">
+        AND organization_name like CONCAT('%',#{organizationName},'%' )
+      </if>
+      <if test="activityLeader != null and activityLeader !=''">
+        AND activity_leader like CONCAT('%',#{activityLeader},'%' )
+      </if>
+      <if test="beginTime!=null and beginTime!=''">
+        and begin_time like CONCAT('%',#{beginTime},'%' )
+      </if>
+      <if test="endTime!=null and endTime!=''">
+        and end_time like CONCAT('%',#{endTime},'%' )
+      </if>
+      <if test="money!=null and money!=''">
+        and money=#{money}
+      </if>
+      <if test="remarks != null and remarks !=''">
+        AND remarks like CONCAT('%',#{remarks},'%' )
+      </if>
+      <if test="donorName != null and donorName !=''">
+        AND donor_name like CONCAT('%',#{donorName},'%' )
+      </if>
+      <if test="address != null and address !=''">
+        AND address like CONCAT('%',#{address},'%' )
+      </if>
+      <if test="city != null and city !=''">
+        AND city like CONCAT('%',#{city},'%' )
+      </if>
+      <if test="provinceBurg != null and provinceBurg !=''">
+        AND province_burg like CONCAT('%',#{provinceBurg},'%' )
+      </if>
+      <if test="phone != null and phone !=''">
+        AND phone like CONCAT('%',#{phone},'%' )
+      </if>
+      <if test="donorType != null and donorType !=''">
+        AND donor_type like CONCAT('%',#{donorType},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_social_donation
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgSocialDonation">
+    select
+    *
+    from t_service_org_social_donation
+    <where>
+      <if test="filter.donorPic != null and filter.donorPic !=''">
+        AND donor_pic like CONCAT('%',#{filter.donorPic},'%' )
+      </if>
+      <if test="filter.organizationName != null and filter.organizationName !=''">
+        AND organization_name like CONCAT('%',#{filter.organizationName},'%' )
+      </if>
+      <if test="filter.activityLeader != null and filter.activityLeader !=''">
+        AND activity_leader like CONCAT('%',#{filter.activityLeader},'%' )
+      </if>
+      <if test="filter.beginTime!=null and filter.beginTime!=''">
+        and begin_time like CONCAT('%',#{filter.beginTime},'%' )
+      </if>
+      <if test="filter.endTime!=null and filter.endTime!=''">
+        and end_time like CONCAT('%',#{filter.endTime},'%' )
+      </if>
+      <if test="filter.money!=null and filter.money!=''">
+        and money=#{filter.money}
+      </if>
+      <if test="filter.remarks != null and filter.remarks !=''">
+        AND remarks like CONCAT('%',#{filter.remarks},'%' )
+      </if>
+      <if test="filter.donorName != null and filter.donorName !=''">
+        AND donor_name like CONCAT('%',#{filter.donorName},'%' )
+      </if>
+      <if test="filter.address != null and filter.address !=''">
+        AND address like CONCAT('%',#{filter.address},'%' )
+      </if>
+      <if test="filter.city != null and filter.city !=''">
+        AND city like CONCAT('%',#{filter.city},'%' )
+      </if>
+      <if test="filter.provinceBurg != null and filter.provinceBurg !=''">
+        AND province_burg like CONCAT('%',#{filter.provinceBurg},'%' )
+      </if>
+      <if test="filter.phone != null and filter.phone !=''">
+        AND phone like CONCAT('%',#{filter.phone},'%' )
+      </if>
+      <if test="filter.donorType != null and filter.donorType !=''">
+        AND donor_type like CONCAT('%',#{filter.donorType},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.org.entity.ServiceOrgSocialDonation" >
+  update t_service_org_social_donation
+    set donor_pic = #{donorPic,jdbcType=VARCHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR},
+      activity_leader = #{activityLeader,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      donor_name = #{donorName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province_burg = #{provinceBurg,jdbcType=VARCHAR},
+      donor_type = #{donorType,jdbcType=VARCHAR},
+
+
+      phone = #{phone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_service_org_social_donation
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

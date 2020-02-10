@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.CustomerMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.call.entity.Customer">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="idcardno" property="idcardno" jdbcType="INTEGER"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sexDictId" property="sexDictId" jdbcType="INTEGER"/>
+        <result column="beeperType" property="beeperType" jdbcType="INTEGER"/>
+        <result column="beeperId" property="beeperId" jdbcType="VARCHAR"/>
+        <result column="beeperName" property="beeperName" jdbcType="VARCHAR"/>
+        <result column="beeperNum" property="beeperNum" jdbcType="VARCHAR"/>
+        <result column="beeperTime" property="beeperTime" jdbcType="TIMESTAMP"/>
+        <result column="beeperAddress" property="beeperAddress" jdbcType="VARCHAR"/>
+        <result column="beeperMoreAddress" property="beeperMoreAddress" jdbcType="VARCHAR"/>
+        <result column="beeperStatus" property="beeperStatus" jdbcType="INTEGER"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        a.id,a.elderId,b.idcardno,b.elderName elderName, b.age,b.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status,
+        a.servicePer,a.serviceMobile,a.serviceWorkType,a.serviceWorkUnit,a.installNeed
+        from c_customer a LEFT JOIN t_elderly_message b on(a.elderId = b.id)
+        where a.id = #{id,jdbcType=INTEGER}
+        and a.status !=0
+    </select>
+
+    <select id="selectByElderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        a.id,a.elderId,b.idcardno,b.elderName elderName, b.age,b.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status
+        from c_customer a LEFT JOIN t_elderly_message b on(a.elderId = b.id)
+        where a.elderId = #{elderId}
+         and a.status !=0
+    </select>
+
+    <select id="selectByCallNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        a.id,a.elderId,b.idcardno,b.elderName elderName, b.age,b.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status
+        from c_customer a LEFT JOIN t_elderly_message b on(a.elderId = b.id)
+        where a.beeperNum = #{callNum}
+        and a.status !=0
+    </select>
+
+    <select id="selectByCallNums" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        a.id,a.elderId,b.idcardno,b.elderName elderName,
+        b.age,b.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status
+        from c_customer a LEFT JOIN t_elderly_message b on(a.elderId = b.id)
+        where a.beeperNum IN
+        <foreach collection="callNums" item="callNum" open="(" separator="," close=")">
+            #{callNum}
+        </foreach>
+        and a.status !=0
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        update  c_customer set status=0
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.call.entity.Customer" useGeneratedKeys="true" keyProperty="id">
+        insert into c_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="beeperType != null">
+                beeperType,
+            </if>
+            <if test="beeperId != null">
+                beeperId,
+            </if>
+            <if test="beeperNum != null">
+                beeperNum,
+            </if>
+            <if test="beeperTime != null">
+                beeperTime,
+            </if>
+            <if test="beeperAddress != null">
+                beeperAddress,
+            </if>
+            <if test="beeperMoreAddress != null">
+                beeperMoreAddress,
+            </if>
+            <if test="beeperStatus != null">
+                beeperStatus,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="beeperType != null">
+                #{beeperType},
+            </if>
+            <if test="beeperId != null">
+                #{beeperId},
+            </if>
+            <if test="beeperNum != null">
+                #{beeperNum},
+            </if>
+            <if test="beeperTime != null">
+                #{beeperTime},
+            </if>
+            <if test="beeperAddress != null">
+                #{beeperAddress},
+            </if>
+            <if test="beeperMoreAddress != null">
+                #{beeperMoreAddress},
+            </if>
+            <if test="beeperStatus != null">
+                #{beeperStatus},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertSome" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO c_customer
+        (id,elderId,beeperType,beeperId,beeperNum,beeperName,beeperTime,beeperAddress,
+        beeperMoreAddress,beeperStatus,creatorId,createTime,status,
+        servicePer,serviceMobile,serviceWorkType,serviceWorkUnit,installNeed)
+        VALUES
+        <foreach collection="filters" item="filter" index="index" separator=",">
+            (#{filter.id},#{filter.elderId},#{filter.beeperType},#{filter.beeperId},#{filter.beeperNum},#{filter.beeperName},#{filter.beeperTime},getAreaName(#{filter.areaId}),
+            #{filter.beeperMoreAddress},#{filter.beeperStatus},#{filter.creatorId},#{filter.createTime},#{filter.status},
+            #{filter.servicePer},#{filter.serviceMobile},#{filter.serviceWorkType},#{filter.serviceWorkUnit},#{filter.installNeed})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.call.entity.Customer">
+
+        update c_customer
+        <set>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="beeperType != null">
+                beeperType= #{beeperType},
+            </if>
+            <if test="beeperId != null">
+                beeperId= #{beeperId},
+            </if>
+            <if test="beeperNum != null">
+                beeperNum= #{beeperNum},
+            </if>
+            <if test="beeperTime != null">
+                beeperTime= #{beeperTime},
+            </if>
+            <if test="beeperAddress != null">
+                beeperAddress= #{beeperAddress},
+            </if>
+            <if test="beeperMoreAddress != null">
+                beeperMoreAddress= #{beeperMoreAddress},
+            </if>
+            <if test="beeperStatus != null">
+                beeperStatus= #{beeperStatus},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="servicePer != null">
+                servicePer = #{servicePer},
+            </if>
+            <if test="serviceMobile != null">
+                serviceMobile = #{serviceMobile},
+            </if>
+            <if test="serviceWorkType != null">
+                serviceWorkType = #{serviceWorkType},
+            </if>
+            <if test="serviceWorkUnit != null">
+                serviceWorkUnit = #{serviceWorkUnit},
+            </if>
+            <if test="installNeed != null">
+                installNeed = #{installNeed},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.call.entity.Customer" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT a.id)
+        FROM c_customer a
+        LEFT JOIN c_customer_link_group b on b.customerId=a.id
+        LEFT JOIN t_elderly_message c on a.elderId = c.id
+        where a.status !=0
+        <if test="elderName != null and elderName != ''">
+            and c.elderName = #{elderName}
+        </if>
+        <if test="sexDictId != null and sexDictId != ''">
+            and b.sexDictId = #{sex}
+        </if>
+        <if test="idcardno != null and idcardno != ''">
+            and c.idcardno = #{idcardno}
+        </if>
+        <if test="startAge != null">
+            and c.age &gt;= #{startAge}
+        </if>
+        <if test="endAge != null">
+            and c.age &lt;= #{endAge}
+        </if>
+        <if test="beeperNum != null and beeperNum != ''">
+            and a.beeperNum = #{beeperNum}
+        </if>
+        <if test="customerGroupId != null ">
+            and b.groupId = #{customerGroupId}
+        </if>
+        <if test="beeperAddress!=null and beeperAddress !=''">
+            and a.beeperAddress like CONCAT('%',#{beeperAddress},'%' )
+        </if>
+        <if test="beeperMoreAddress!=null and beeperMoreAddress !=''">
+            and a.beeperMoreAddress like CONCAT('%',#{beeperMoreAddress},'%' )
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM c_customer
+        where status !=0
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        SELECT
+        a.id,a.elderId,c.idcardno,c.elderName elderName,
+        c.age,c.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status,b.groupId
+        customerGroupId,
+        a.servicePer,a.serviceMobile,a.serviceWorkType,a.serviceWorkUnit
+        FROM c_customer a
+        LEFT JOIN c_customer_link_group b on b.customerId=a.id
+        LEFT JOIN t_elderly_message c
+        on(a.elderId = c.id)
+        where a.status !=0
+        <if test="filter.elderName != null and filter.elderName != ''">
+            and a.elderName = #{filter.elderName}
+        </if>
+        <if test="filter.sexDictId != null and filter.sexDictId != ''">
+            and b.sexDictId = #{filter.sex}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno != ''">
+            and c.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.startAge != null">
+            and c.age &gt;= #{filter.startAge}
+        </if>
+        <if test="filter.endAge != null">
+            and c.age &lt;= #{filter.endAge}
+        </if>
+        <if test="filter.beeperNum != null and filter.beeperNum != ''">
+            and c.beeperNum = #{filter.beeperNum}
+        </if>
+        <if test="filter.customerGroupId != null ">
+            and b.groupId = #{filter.customerGroupId}
+        </if>
+        <if test="filter.beeperAddress!=null and filter.beeperAddress !=''">
+            and a.beeperAddress like CONCAT('%',#{filter.beeperAddress},'%' )
+        </if>
+        <if test="filter.beeperMoreAddress!=null and filter.beeperMoreAddress !=''">
+            and a.beeperMoreAddress like CONCAT('%',#{filter.beeperMoreAddress},'%' )
+        </if>
+        <if test="page.orderField!=null ">
+            GROUP BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM c_customer_link_group
+        where groupId=#{groupId}
+    </select>
+
+    <select id="selectCustomerPageList" resultType="com.fedtech.pension.call.entity.Customer">
+        SELECT
+        a.id,a.elderId,c.idcardno,c.elderName elderName,
+        c.age,c.sexDictId,a.beeperType,a.beeperId,a.beeperName,a.beeperNum,a.beeperTime,a.beeperAddress,a.beeperMoreAddress,a.beeperStatus,a.creatorId,a.createTime,a.status,b.groupId
+        customerGroupId
+        FROM c_customer a LEFT JOIN c_customer_link_group b on(b.customerId=a.id) LEFT JOIN t_elderly_message c
+        on(a.elderId = c.id)
+        where b.groupId=#{groupId}
+        and a.status !=0
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countVisit" resultType="java.lang.Integer">
+        SELECT count(1)
+        from c_customer a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN
+        t_return_visit b on(b.visitorId = a.id and b.status=1 and b.visitorTYpe=6)
+        where c.status =1 and c.isDeath = 1
+        <if test="beeperAddress != null and beeperAddress !=''">
+            AND a.beeperAddress LIKE CONCAT('%',#{beeperAddress},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+    </select>
+
+    <select id="selectVisitPageList" resultType="com.fedtech.pension.call.vo.CustomerVisitVo">
+        select a.id
+        ,c.elderName,a.beeperAddress,a.beeperMoreAddress,c.age,c.sexDictId,a.beeperNum,b.status,b.visitResult
+        from c_customer a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN
+        t_return_visit b on(b.visitorId = a.elderId and b.status=1 and b.visitorTYpe=6)
+        where c.isDeath = 1
+        <if test="filter.beeperAddress != null and filter.beeperAddress !=''">
+            AND a.beeperAddress LIKE CONCAT('%',#{filter.beeperAddress},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName = #{filter.elderName}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+</mapper>

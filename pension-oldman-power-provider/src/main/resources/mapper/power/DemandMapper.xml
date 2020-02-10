@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.DemandMapper">
+    <resultMap id="serviceDemand" type="com.fedtech.pension.power.entity.Demand">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="impoverishedObject" property="impoverishedObject" jdbcType="INTEGER"/>
+        <result column="subsistenceObject" property="subsistenceObject" jdbcType="INTEGER"/>
+        <result column="liveAlone" property="liveAlone" jdbcType="INTEGER"/>
+        <result column="emptyNest" property="emptyNest" jdbcType="INTEGER"/>
+        <result column="livingChildren" property="livingChildren" jdbcType="INTEGER"/>
+        <result column="agaa" property="agaa" jdbcType="INTEGER"/>
+        <result column="ageb" property="ageb" jdbcType="INTEGER"/>
+        <result column="agec" property="agec" jdbcType="INTEGER"/>
+        <result column="aged" property="aged" jdbcType="INTEGER"/>
+        <result column="modelWorker" property="modelWorker" jdbcType="INTEGER"/>
+        <result column="preferentialObject" property="preferentialObject" jdbcType="INTEGER"/>
+        <result column="planObject" property="planObject" jdbcType="INTEGER"/>
+        <result column="minimumScore" property="minimumScore" jdbcType="INTEGER"/>
+        <result column="highestScore" property="highestScore" jdbcType="INTEGER"/>
+        <result column="secondMinimumScore" property="secondMinimumScore" jdbcType="INTEGER"/>
+        <result column="secondHighestScore" property="secondHighestScore" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, impoverishedObject, subsistenceObject, liveAlone, emptyNest, livingChildren, agaa,ageb, agec,
+    aged, modelWorker,preferentialObject, planObject, minimumScore,highestScore, secondMinimumScore,
+    secondHighestScore
+  </sql>
+    <select id="findDemand" resultMap="serviceDemand" >
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand  order by id desc limit 0,1
+    </select>
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Demand" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_demand (impoverishedObject, subsistenceObject, liveAlone, emptyNest, livingChildren, agaa,ageb, agec,
+    aged, modelWorker,preferentialObject, planObject, minimumScore,highestScore, secondMinimumScore,
+    secondHighestScore)
+    VALUES (#{impoverishedObject}, #{subsistenceObject},#{liveAlone}, #{emptyNest}, #{livingChildren}, #{agaa},#{ageb}, #{agec},
+    #{aged}, #{modelWorker},#{preferentialObject}, #{planObject}, #{minimumScore},#{highestScore}, #{secondMinimumScore},
+    #{secondHighestScore})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Demand">
+        update t_demand
+        <set>
+            <if test="impoverishedObject != null">
+                impoverishedObject = #{impoverishedObject,jdbcType=INTEGER},
+            </if>
+            <if test="subsistenceObject != null">
+                subsistenceObject = #{subsistenceObject,jdbcType=INTEGER},
+            </if>
+            <if test="liveAlone != null">
+                liveAlone = #{liveAlone,jdbcType=INTEGER},
+            </if>
+            <if test="emptyNest != null">
+                emptyNest = #{emptyNest,jdbcType=INTEGER},
+            </if>
+            <if test="livingChildren != null">
+                livingChildren = #{livingChildren,jdbcType=INTEGER},
+            </if>
+            <if test="agaa != null">
+                agaa = #{agaa,jdbcType=INTEGER},
+            </if>
+            <if test="ageb != null">
+                ageb = #{ageb,jdbcType=INTEGER},
+            </if>
+            <if test="agec != null">
+                agec = #{agec,jdbcType=INTEGER},
+            </if>
+            <if test="aged!=null">
+                aged=#{aged,jdbcType=INTEGER},
+            </if>
+            <if test="modelWorker!=null">
+                modelWorker=#{modelWorker,jdbcType=INTEGER},
+            </if>
+            <if test="preferentialObject!=null">
+                preferentialObject=#{preferentialObject,jdbcType=INTEGER},
+            </if>
+            <if test="planObject!=null">
+                planObject=#{planObject,jdbcType=INTEGER},
+            </if>
+            <if test="minimumScore!=null">
+                minimumScore=#{minimumScore,jdbcType=INTEGER},
+            </if>
+            <if test="highestScore!=null">
+                highestScore=#{highestScore,jdbcType=INTEGER},
+            </if>
+            <if test="secondMinimumScore!=null">
+                secondMinimumScore=#{secondMinimumScore,jdbcType=INTEGER},
+            </if><if test="secondHighestScore!=null">
+            secondHighestScore=#{secondHighestScore,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

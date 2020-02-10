@@ -1,0 +1,1845 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyMsgMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="photo" property="photo" jdbcType="VARCHAR"/>
+        <result column="elderName" property="elderName" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sexDictId" property="sexDictId" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="nationDictId" property="nationDictId" jdbcType="INTEGER"/>
+        <result column="idcardno" property="idcardno" jdbcType="VARCHAR"/>
+        <result column="homeTel" property="homeTel" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="regPlace" property="regPlace" jdbcType="VARCHAR"/>
+        <result column="realAddress" property="realAddress" jdbcType="VARCHAR"/>
+        <result column="maritalStatus" property="maritalStatus" jdbcType="INTEGER"/>
+        <result column="deptCode" property="deptCode" jdbcType="VARCHAR"/>
+        <result column="areaId" property="areaId" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="communityId" property="communityId" jdbcType="INTEGER"/>
+        <result column="ensureTreaDictId" property="ensureTreaDictId" jdbcType="INTEGER"/>
+        <result column="socialCardCode" property="socialCardCode" jdbcType="INTEGER"/>
+        <result column="liveTypeDictId" property="liveTypeDictId" jdbcType="INTEGER"/>
+        <result column="isLocation" property="isLocation" jdbcType="VARCHAR"/>
+        <result column="serialNumber" property="serialNumber" jdbcType="VARCHAR"/>
+        <result column="educationDictId" property="educationDictId" jdbcType="INTEGER"/>
+        <result column="liveYearDictId" property="liveYearDictId" jdbcType="INTEGER"/>
+        <result column="elderTypeDictIds" property="elderTypeDictIds" jdbcType="VARCHAR"/>
+        <result column="zipCode" property="zipCode" jdbcType="INTEGER"/>
+        <result column="jobDictId" property="jobDictId" jdbcType="INTEGER"/>
+        <result column="incomeSource" property="incomeSource" jdbcType="INTEGER"/>
+        <result column="childrenDictId" property="childrenDictId" jdbcType="INTEGER"/>
+        <result column="medicalType" property="medicalType" jdbcType="INTEGER"/>
+        <result column="residenceDictId" property="residenceDictId" jdbcType="INTEGER"/>
+        <result column="residenceRemark" property="residenceRemark" jdbcType="VARCHAR"/>
+        <result column="careCondition1" property="careCondition1" jdbcType="INTEGER"/>
+        <result column="careCondition2" property="careCondition2" jdbcType="INTEGER"/>
+        <result column="serviceNeed" property="serviceNeed" jdbcType="VARCHAR"/>
+        <result column="otherSlow" property="otherSlow" jdbcType="VARCHAR"/>
+        <result column="bodyDictId" property="bodyDictId" jdbcType="INTEGER"/>
+        <result column="inteDisabled" property="inteDisabled" jdbcType="INTEGER"/>
+        <result column="listenDictId" property="listenDictId" jdbcType="INTEGER"/>
+        <result column="manyDictId" property="manyDictId" jdbcType="INTEGER"/>
+        <result column="spiritDictId" property="spiritDictId" jdbcType="INTEGER"/>
+        <result column="speakDictId" property="speakdictid" jdbcType="INTEGER"/>
+        <result column="visionDictId" property="visionDictId" jdbcType="INTEGER"/>
+        <result column="socialActiDictId" property="socialActiDictId" jdbcType="INTEGER"/>
+        <result column="specialAbility" property="specialAbility" jdbcType="VARCHAR"/>
+        <result column="retiredType" property="retiredType" jdbcType="INTEGER"/>
+        <result column="elderDisease" property="elderDisease" jdbcType="VARCHAR"/>
+        <result column="specialDictIds" property="specialDictIds" jdbcType="INTEGER"/>
+        <result column="houseTypeDictId" property="houseTypeDictId" jdbcType="INTEGER"/>
+        <result column="otherSlowplus" property="otherSlowplus" jdbcType="VARCHAR"/>
+        <result column="roomTypeDictId" property="roomTypeDictId" jdbcType="INTEGER"/>
+        <result column="livingCondition1" property="livingCondition1" jdbcType="INTEGER"/>
+        <result column="livingCondition2" property="livingCondition2" jdbcType="INTEGER"/>
+        <result column="livingCondition3" property="livingCondition3" jdbcType="INTEGER"/>
+        <result column="livingCondition4" property="livingCondition4" jdbcType="INTEGER"/>
+        <result column="livingCondition5" property="livingCondition5" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="createUserId" property="createUserId" jdbcType="INTEGER"/>
+        <result column="createOrgId" property="createOrgId" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="objid" property="objid" jdbcType="INTEGER"/>
+        <result column="isImport80" property="isImport80" jdbcType="VARCHAR"/>
+        <result column="isDeath" property="isDeath" jdbcType="INTEGER"/>
+        <result column="updateUserId" property="updateUserId" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="psychologicDictId" property="psychologicDictId" jdbcType="INTEGER"/>
+        <result column="saTypeDictIds" property="saTypeDictIds" jdbcType="INTEGER"/>
+        <result column="hasElevator" property="hasElevator" jdbcType="INTEGER"/>
+        <result column="floor" property="floor" jdbcType="INTEGER"/>
+        <result column="hasToilet" property="hasToilet" jdbcType="INTEGER"/>
+        <result column="hasBath" property="hasBath" jdbcType="INTEGER"/>
+        <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+        <result column="qrCoder" property="qrCoder" jdbcType="VARCHAR"/>
+        <result column="deathTime" property="deathTime" jdbcType="TIMESTAMP"/>
+        <result column="cremationTime" property="cremationTime" jdbcType="TIMESTAMP"/>
+        <result column="bloodType" property="bloodType" jdbcType="INTEGER"/>
+        <result column="isOneChild" property="isOneChild" jdbcType="INTEGER"/>
+        <result column="houseNature" property="houseNature" jdbcType="INTEGER"/>
+        <result column="politics" property="politics" jdbcType="INTEGER"/>
+        <result column="healthStatus" property="healthStatus" jdbcType="INTEGER"/>
+        <result column="drugAllergy" property="drugAllergy" jdbcType="VARCHAR"/>
+        <result column="selfcareAbility" property="selfcareAbility" jdbcType="INTEGER"/>
+        <result column="page_num" property="page_num" jdbcType="INTEGER"/>
+        <result column="page_size" property="page_size" jdbcType="INTEGER"/>
+        <result column="page_ye" property="page_ye" jdbcType="INTEGER"/>
+        <result column="helpCardApplyFlag" property="helpCardApplyFlag" jdbcType="VARCHAR"/>
+        <result column="areaOrder" property="areaOrder" jdbcType="VARCHAR"/>
+        <result column="cremationUnit" property="cremationUnit" jdbcType="VARCHAR"/>
+        <result column="helpCardNo" property="helpCardNo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            parameterType="java.lang.Integer">
+          SELECT a.*
+            FROM t_elderly_message a
+           where a.id = #{id}
+    </select>
+
+    <select id="selectByNameAndCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where idcardno=#{idcardno} and elderName = #{elderName} limit 0,1
+    </select>
+
+    <select id="selectByMsg" parameterType="java.lang.Integer"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where areaId=#{areaId} limit #{page_ye},#{page_size}
+    </select>
+
+    <select id="selectAll" parameterType="java.lang.Integer"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message limit #{page_ye},#{page_size}
+    </select>
+
+    <select id="getAllBirth" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            parameterType="java.lang.String">
+          select id,birthday
+          FROM t_elderly_message
+          where birthday=#{birthDay}
+    </select>
+
+    <select id="selectGovBuyByPrimaryKey" resultType="com.fedtech.pension.elderly.vo.ElderlyMsgVo"
+            parameterType="java.lang.Integer">
+         SELECT a.*,(select id>0 from t_elderly_govbuy d where a.id =d.elderId) govBuy
+        FROM t_elderly_message a
+        where a.id = #{id}
+    </select>
+
+
+    <select id="selectBySomeId" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            parameterType="java.lang.Integer">
+        SELECT id,elderName,idcardno,mobile,qrCoder
+        FROM t_elderly_message a
+        where a.id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByQrCoder" resultType="java.util.HashMap" parameterType="java.lang.String">
+        SELECT id,elderName,sexDictId,age,realAddress,homeTel,idcardno,mobile FROM `t_elderly_message` WHERE qrCoder=#{qrCoder} and status = 1 and isDeath=1;
+    </select>
+
+    <select id="getIdAndIdCardno" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT id,elderName,areaName,age,sexDictId,mobile,idcardno,elderTypeDictIds,realAddress
+        FROM t_elderly_message
+        where status = 1 and isDeath=1
+        <if test="filter != null">
+            <if test="filter.isDeath != null">
+                AND isDeath = #{filter.isDeath}
+            </if>
+            <if test="filter.age != null">
+                AND age = #{filter.age}
+            </if>
+            <if test="filter.areaId != null and filter.areaId !=''">
+                AND areaId = #{filter.areaId}
+            </if>
+            <if test="filter.mobile != null and filter.mobile !=''">
+                AND mobile = #{filter.mobile}
+            </if>
+            <if test="filter.elderName != null and filter.elderName !=''">
+                AND elderName like CONCAT('%',#{filter.elderName},'%' )
+            </if>
+            <if test="filter.realAddress != null and filter.realAddress !=''">
+                AND realAddress like CONCAT('%',#{filter.realAddress},'%' )
+            </if>
+            <if test="filter.idcardno != null and filter.idcardno !=''">
+                AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+                AND serviceOrgId = #{filter.serviceOrgId}
+            </if>
+        </if>
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where status = 1
+        <if test="filter != null">
+            <if test="filter.isDeath != null">
+                AND isDeath = #{filter.isDeath}
+            </if>
+            <if test="filter.age != null">
+                AND age = #{filter.age}
+            </if>
+            <if test="filter.areaId != null and filter.areaId !=''">
+                AND areaId = #{filter.areaId}
+            </if>
+            <if test="filter.mobile != null and filter.mobile !=''">
+                AND mobile = #{filter.mobile}
+            </if>
+            <if test="filter.elderName != null and filter.elderName !=''">
+                AND elderName like CONCAT('%',#{filter.elderName},'%' )
+            </if>
+            <if test="filter.realAddress != null and filter.realAddress !=''">
+                AND realAddress like CONCAT('%',#{filter.realAddress},'%' )
+            </if>
+            <if test="filter.idcardno != null and filter.idcardno !=''">
+                AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+                AND serviceOrgId = #{filter.serviceOrgId}
+            </if>
+        </if>
+    </select>
+
+    <select id="selectByCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where idcardno=#{cardNo} and status = 1
+    </select>
+
+    <select id="selectByCardNoForGold" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message m ,t_gold_elderly g
+        where m.idcardno=#{cardNo} and m.status = 1 and m.id=g.id
+    </select>
+
+    <select id="findNameByIdcardno" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT elderName
+        FROM t_elderly_message
+        where idcardno=#{idcardno} and status = 1
+    </select>
+    <select id="selectGovBuyByCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.vo.ElderlyMsgVo">
+        SELECT a.*,(select id>0 from t_elderly_govbuy d where a.id =d.elderId) govBuy
+        FROM t_elderly_message a
+        where idcardno=#{cardNo} and status = 1
+    </select>
+
+    <select id="getEldersByAge" parameterType="java.lang.Integer"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT id,elderName,areaName,age,sexDictId,mobile,idcardno,elderTypeDictIds,realAddress
+        FROM t_elderly_message
+        where age=#{age} and status = 1 and isDeath=1
+    </select>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+       update t_elderly_message set status = 0
+        WHERE id = #{id}
+     </update>
+    <update id="deleteSomeMsg">
+        update t_elderly_message set status = 0
+        WHERE id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="isDeadElder" parameterType="java.lang.Integer">
+        update t_elderly_message set isDeath = 0,deathTime=now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateIsDeath">
+        UPDATE t_elderly_message
+        set isDeath = 0,deathTime=now()
+        WHERE id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_elderly_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="photo != null">
+                photo,
+            </if>
+            <if test="elderName != null">
+                elderName,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sexDictId != null">
+                sexDictId,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="nationDictId != null">
+                nationDictId,
+            </if>
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+            <if test="homeTel != null">
+                homeTel,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="regPlace != null">
+                regPlace,
+            </if>
+            <if test="realAddress != null">
+                realAddress,
+            </if>
+            <if test="maritalStatus != null">
+                maritalStatus,
+            </if>
+            <if test="deptCode != null">
+                deptCode,
+            </if>
+            <if test="areaId != null">
+                areaId,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="communityId != null">
+                communityId,
+            </if>
+            <if test="ensureTreaDictId != null">
+                ensureTreaDictId,
+            </if>
+            <if test="socialCardCode != null">
+                socialCardCode,
+            </if>
+            <if test="liveTypeDictId != null">
+                liveTypeDictId,
+            </if>
+            <if test="isLocation != null">
+                isLocation,
+            </if>
+            <if test="serialNumber != null">
+                serialNumber,
+            </if>
+            <if test="educationDictId != null">
+                educationDictId,
+            </if>
+            <if test="liveYearDictId != null">
+                liveYearDictId,
+            </if>
+            <if test="elderTypeDictIds != null">
+                elderTypeDictIds,
+            </if>
+            <if test="zipCode != null">
+                zipCode,
+            </if>
+            <if test="jobDictId != null">
+                jobDictId,
+            </if>
+            <if test="incomeSource != null">
+                incomeSource,
+            </if>
+            <if test="childrenDictId != null">
+                childrenDictId,
+            </if>
+            <if test="medicalType != null">
+                medicalType,
+            </if>
+            <if test="residenceDictId != null">
+                residenceDictId,
+            </if>
+            <if test="residenceRemark != null">
+                residenceRemark,
+            </if>
+            <if test="careCondition1 != null">
+                careCondition1,
+            </if>
+            <if test="careCondition2 != null">
+                careCondition2,
+            </if>
+            <if test="serviceNeed != null">
+                serviceNeed,
+            </if>
+            <if test="otherSlow != null">
+                otherSlow,
+            </if>
+            <if test="bodyDictId != null">
+                bodyDictId,
+            </if>
+            <if test="inteDisabled != null">
+                inteDisabled,
+            </if>
+            <if test="listenDictId != null">
+                listenDictId,
+            </if>
+            <if test="manyDictId != null">
+                manyDictId,
+            </if>
+            <if test="spiritDictId != null">
+                spiritDictId,
+            </if>
+            <if test="speakDictId != null">
+                speakDictId,
+            </if>
+            <if test="visionDictId != null">
+                visionDictId,
+            </if>
+            <if test="socialActiDictId != null">
+                socialActiDictId,
+            </if>
+            <if test="specialAbility != null">
+                specialAbility,
+            </if>
+            <if test="retiredType != null">
+                retiredType,
+            </if>
+            <if test="elderDisease != null">
+                elderDisease,
+            </if>
+            <if test="specialDictIds != null">
+                specialDictIds,
+            </if>
+            <if test="houseTypeDictId != null">
+                houseTypeDictId,
+            </if>
+            <if test="otherSlowplus != null">
+                otherSlowplus,
+            </if>
+            <if test="roomTypeDictId != null">
+                roomTypeDictId,
+            </if>
+            <if test="livingCondition1 != null">
+                livingCondition1,
+            </if>
+            <if test="livingCondition2 != null">
+                livingCondition2,
+            </if>
+            <if test="livingCondition3 != null">
+                livingCondition3,
+            </if>
+            <if test="livingCondition4 != null">
+                livingCondition4,
+            </if>
+            <if test="livingCondition5 != null">
+                livingCondition5,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUserId != null">
+                createUserId,
+            </if>
+            <if test="createOrgId != null">
+                createOrgId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="objid != null">
+                objid,
+            </if>
+            <if test="isImport80 != null">
+                isImport80,
+            </if>
+            <if test="isDeath != null">
+                isDeath,
+            </if>
+            <if test="updateUserId != null">
+                updateUserId,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="psychologicDictId != null">
+                psychologicDictId,
+            </if>
+            <if test="saTypeDictIds != null">
+                saTypeDictIds,
+            </if>
+            <if test="hasElevator != null">
+                hasElevator,
+            </if>
+            <if test="floor != null">
+                floor,
+            </if>
+            <if test="hasToilet != null">
+                hasToilet,
+            </if>
+            <if test="hasBath != null">
+                hasBath,
+            </if>
+            <if test="areaName != null">
+                areaName,
+            </if>
+            <if test="qrCoder != null">
+                qrCoder,
+            </if>
+            <if test="deathTime != null">
+                deathTime,
+            </if>
+            <if test="cremationTime != null">
+                cremationTime,
+            </if>
+            <if test="bloodType != null">
+                bloodType,
+            </if>
+            <if test="isOneChild != null">
+                isOneChild,
+            </if>
+            <if test="houseNature != null">
+                houseNature,
+            </if>
+            <if test="politics != null">
+                politics,
+            </if>
+            <if test="healthStatus != null">
+                healthStatus,
+            </if>
+            <if test="drugAllergy != null">
+                drugAllergy,
+            </if>
+            <if test="selfcareAbility != null">
+                selfcareAbility,
+            </if>
+            <if test="helpCardApplyFlag != null">
+                helpCardApplyFlag,
+            </if>
+            <if test="areaOrder != null">
+                areaOrder,
+            </if>
+            <if test="cremationUnit != null">
+                cremationUnit,
+            </if>
+            <if test="helpCardNo != null">
+                helpCardNo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="photo != null">
+                #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sexDictId != null">
+                #{sexDictId,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="nationDictId != null">
+                #{nationDictId,jdbcType=INTEGER},
+            </if>
+            <if test="idcardno != null">
+                #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="homeTel != null">
+                #{homeTel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="regPlace != null">
+                #{regPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddress != null">
+                #{realAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="maritalStatus != null">
+                #{maritalStatus,jdbcType=INTEGER},
+            </if>
+            <if test="deptCode != null">
+                #{deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="communityId != null">
+                #{communityId,jdbcType=INTEGER},
+            </if>
+            <if test="ensureTreaDictId != null">
+                #{ensureTreaDictId,jdbcType=INTEGER},
+            </if>
+            <if test="socialCardCode != null">
+                #{socialCardCode,jdbcType=INTEGER},
+            </if>
+            <if test="liveTypeDictId != null">
+                #{liveTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="isLocation != null">
+                #{isLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNumber != null">
+                #{serialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="educationDictId != null">
+                #{educationDictId,jdbcType=INTEGER},
+            </if>
+            <if test="liveYearDictId != null">
+                #{liveYearDictId,jdbcType=INTEGER},
+            </if>
+            <if test="elderTypeDictIds != null">
+                #{elderTypeDictIds,jdbcType=VARCHAR},
+            </if>
+            <if test="zipCode != null">
+                #{zipCode,jdbcType=INTEGER},
+            </if>
+            <if test="jobDictId != null">
+                #{jobDictId,jdbcType=INTEGER},
+            </if>
+            <if test="incomeSource != null">
+                #{incomeSource,jdbcType=INTEGER},
+            </if>
+            <if test="childrenDictId != null">
+                #{childrenDictId,jdbcType=INTEGER},
+            </if>
+            <if test="medicalType != null">
+                #{medicalType,jdbcType=INTEGER},
+            </if>
+            <if test="residenceDictId != null">
+                #{residenceDictId,jdbcType=INTEGER},
+            </if>
+            <if test="residenceRemark != null">
+                #{residenceRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="careCondition1 != null">
+                #{careCondition1,jdbcType=INTEGER},
+            </if>
+            <if test="careCondition2 != null">
+                #{careCondition2,jdbcType=INTEGER},
+            </if>
+            <if test="serviceNeed != null">
+                #{serviceNeed,jdbcType=VARCHAR},
+            </if>
+            <if test="otherSlow != null">
+                #{otherSlow},
+            </if>
+            <if test="bodyDictId != null">
+                #{bodyDictId,jdbcType=INTEGER},
+            </if>
+            <if test="inteDisabled != null">
+                #{inteDisabled,jdbcType=INTEGER},
+            </if>
+            <if test="listenDictId != null">
+                #{listenDictId,jdbcType=INTEGER},
+            </if>
+            <if test="manyDictId != null">
+                #{manyDictId,jdbcType=INTEGER},
+            </if>
+            <if test="spiritDictId != null">
+                #{spiritDictId,jdbcType=INTEGER},
+            </if>
+            <if test="speakDictId != null">
+                #{speakDictId,jdbcType=INTEGER},
+            </if>
+            <if test="visionDictId != null">
+                #{visionDictId,jdbcType=INTEGER},
+            </if>
+            <if test="socialActiDictId != null">
+                #{socialActiDictId,jdbcType=INTEGER},
+            </if>
+            <if test="specialAbility != null">
+                #{specialAbility,jdbcType=VARCHAR},
+            </if>
+            <if test="retiredType != null">
+                #{retiredType,jdbcType=INTEGER},
+            </if>
+            <if test="elderDisease != null">
+                #{elderDisease,jdbcType=VARCHAR},
+            </if>
+            <if test="specialDictIds != null">
+                #{specialDictIds,jdbcType=INTEGER},
+            </if>
+            <if test="houseTypeDictId != null">
+                #{houseTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="otherSlowplus != null">
+                #{otherSlowplus,jdbcType=VARCHAR},
+            </if>
+            <if test="roomTypeDictId != null">
+                #{roomTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="livingCondition1 != null">
+                #{livingCondition1,jdbcType=INTEGER},
+            </if>
+            <if test="livingCondition2 != null">
+                #{livingCondition2,jdbcType=INTEGER},
+            </if>
+            <if test="livingCondition3 != null">
+                #{livingCondition3,jdbcType=INTEGER},
+            </if>
+            <if test="livingCondition4 != null">
+                #{livingCondition4,jdbcType=INTEGER},
+            </if>
+            <if test="livingCondition5 != null">
+                #{livingCondition5,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createOrgId != null">
+                #{createOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="objid != null">
+                #{objid,jdbcType=INTEGER},
+            </if>
+            <if test="isImport80 != null">
+                #{isImport80,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeath != null">
+                #{isDeath,jdbcType=INTEGER},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="psychologicDictId != null">
+                #{psychologicDictId,jdbcType=INTEGER},
+            </if>
+            <if test="saTypeDictIds != null">
+                #{saTypeDictIds,jdbcType=INTEGER},
+            </if>
+            <if test="hasElevator != null">
+                #{hasElevator,jdbcType=INTEGER},
+            </if>
+            <if test="floor != null">
+                #{floor,jdbcType=INTEGER},
+            </if>
+            <if test="hasToilet != null">
+                #{hasToilet,jdbcType=INTEGER},
+            </if>
+            <if test="hasBath != null">
+                #{hasBath,jdbcType=INTEGER},
+            </if>
+            <if test="areaName != null">
+                #{areaName,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCoder != null">
+                #{qrCoder,jdbcType=VARCHAR},
+            </if>
+            <if test="deathTime != null">
+                #{deathTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cremationTime != null">
+                #{cremationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bloodType != null">
+                #{bloodType,jdbcType=INTEGER},
+            </if>
+            <if test="isOneChild != null">
+                #{isOneChild,jdbcType=INTEGER},
+            </if>
+            <if test="houseNature != null">
+                #{houseNature,jdbcType=INTEGER},
+            </if>
+            <if test="politics != null">
+                #{politics,jdbcType=INTEGER},
+            </if>
+            <if test="healthStatus != null">
+                #{healthStatus,jdbcType=INTEGER},
+            </if>
+            <if test="drugAllergy != null">
+                #{drugAllergy,jdbcType=VARCHAR},
+            </if>
+            <if test="selfcareAbility != null">
+                #{selfcareAbility,jdbcType=INTEGER},
+            </if>
+            <if test="helpCardApplyFlag != null">
+                #{helpCardApplyFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="areaOrder != null">
+                #{areaOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="cremationUnit != null">
+                #{cremationUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="helpCardNo != null">
+                #{helpCardNo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertSomeElder" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_elderly_message
+        (areaId,serviceOrgId,areaName,elderName,deptCode,age,sexDictId,birthday,idcardno,realAddress,homeTel,mobile,childrenDictId,elderTypeDictIds,residenceDictId,status,qrCoder,helpCardApplyFlag,areaOrder,isDeath,deathTime,cremationTime,cremationUnit)
+        VALUES
+        <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator=",">
+            (#{elderlyMsg.areaId},#{elderlyMsg.serviceOrgId},
+            <if test="areaName==null ">
+                getAreaName(#{elderlyMsg.areaId}),
+            </if>
+            <if test="areaName!=null">
+                #{areaName},
+            </if>
+            #{elderlyMsg.elderName},#{elderlyMsg.deptCode},#{elderlyMsg.age},#{elderlyMsg.sexDictId},#{elderlyMsg.birthday},#{elderlyMsg.idcardno},
+            #{elderlyMsg.realAddress},#{elderlyMsg.homeTel},#{elderlyMsg.mobile},#{elderlyMsg.childrenDictId},
+            #{elderlyMsg.elderTypeDictIds},#{elderlyMsg.residenceDictId},#{elderlyMsg.status},#{elderlyMsg.qrCoder},#{elderlyMsg.helpCardApplyFlag},#{elderlyMsg.areaOrder},#{elderlyMsg.isDeath},#{elderlyMsg.deathTime},#{elderlyMsg.cremationTime},#{elderlyMsg.cremationUnit})
+        </foreach>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_elderly_message
+        (areaId,areaName,elderName,age,sexDictId,birthday,idcardno,realAddress,nationDictId,mobile,deathTime,isDeath,createTime)
+        VALUES
+        <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator=",">
+            (#{elderlyMsg.areaId}, #{elderlyMsg.areaName}, #{elderlyMsg.elderName}, #{elderlyMsg.age},
+            #{elderlyMsg.sexDictId}, #{elderlyMsg.birthday},
+            #{elderlyMsg.idcardno}, #{elderlyMsg.realAddress},#{elderlyMsg.nationDictId},#{elderlyMsg.mobile},#{elderlyMsg.deathTime},#{elderlyMsg.isDeath}, now())
+        </foreach>
+    </insert>
+
+    <update id="updateSomeElder" parameterType="java.util.List">
+        UPDATE t_elderly_message
+        <set>
+            isDeath =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.isDeath}
+
+            </foreach>
+            ,deathTime =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.deathTime}
+
+            </foreach>
+            ,cremationTime =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.cremationTime}
+
+            </foreach>
+            ,helpCardApplyFlag =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.helpCardApplyFlag}
+
+            </foreach>
+            ,cremationUnit =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.cremationUnit}
+
+            </foreach>
+            ,age =
+            <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="" open="case id" close="end">
+
+                WHEN #{elderlyMsg.id}
+                THEN #{elderlyMsg.age}
+
+            </foreach>
+        </set>
+        where id IN
+        <foreach collection="elderlyMsgs" item="elderlyMsg" index="index" separator="," open="(" close=")">
+            #{elderlyMsg.id}
+        </foreach>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        UPDATE t_elderly_message
+        <set>
+            <if test="photo!=null and photo!=''">
+                photo = #{photo},
+            </if>
+            <if test="abilityAssess!=null and abilityAssess!=''">
+                abilityAssess = #{abilityAssess},
+            </if>
+            <if test="elderName != null and elderName != ''">
+                elderName = #{elderName},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age},
+            </if>
+            <if test="sexDictId != null">
+                sexDictId = #{sexDictId},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="nationDictId != null">
+                nationDictId = #{nationDictId},
+            </if>
+            <if test="idcardno != null and idcardno != ''">
+                idcardno = #{idcardno},
+            </if>
+            <if test="homeTel != null and homeTel != ''">
+                homeTel = #{homeTel},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="serviceOrgId != null and serviceOrgId != ''">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="regPlace != null and regPlace != ''">
+                regPlace = #{regPlace},
+            </if>
+            <if test="realAddress != null and realAddress != ''">
+                realAddress = #{realAddress},
+            </if>
+            <if test="maritalStatus != null">
+                maritalStatus = #{maritalStatus},
+            </if>
+            <if test="deptCode != null">
+                deptCode = #{deptCode},
+            </if>
+            <if test="areaId != null and areaId != ''">
+                areaId = #{areaId},
+            </if>
+            <if test="communityId != null and communityId != ''">
+                communityId = #{communityId},
+            </if>
+            <if test="ensureTreaDictId != null">
+                ensureTreaDictId = #{ensureTreaDictId},
+            </if>
+            <if test="socialCardCode != null">
+                socialCardCode = #{socialCardCode},
+            </if>
+            <if test="liveTypeDictId != null">
+                liveTypeDictId = #{liveTypeDictId},
+            </if>
+            <if test="isLocation != null">
+                isLocation = #{isLocation},
+            </if>
+            <if test="serialNumber != null">
+                serialNumber = #{serialNumber},
+            </if>
+            <if test="educationDictId != null">
+                educationDictId = #{educationDictId},
+            </if>
+            <if test="liveYearDictId != null">
+                liveYearDictId = #{liveYearDictId},
+            </if>
+            <if test="elderTypeDictIds != null">
+                elderTypeDictIds = #{elderTypeDictIds},
+            </if>
+            <if test="zipCode != null">
+                zipCode = #{zipCode},
+            </if>
+            <if test="jobDictId != null">
+                jobDictId = #{jobDictId},
+            </if>
+            <if test="incomeSource != null">
+                incomeSource = #{incomeSource},
+            </if>
+            <if test="childrenDictId != null">
+                childrenDictId = #{childrenDictId},
+            </if>
+            <if test="medicalType != null">
+                medicalType = #{medicalType},
+            </if>
+            <if test="residenceDictId != null">
+                residenceDictId = #{residenceDictId},
+            </if>
+            <if test="residenceRemark != null">
+                residenceRemark = #{residenceRemark},
+            </if>
+            <if test="careCondition1 != null">
+                careCondition1 = #{careCondition1},
+            </if>
+            <if test="careCondition2 != null">
+                careCondition2 = #{careCondition2},
+            </if>
+            <if test="serviceNeed != null">
+                serviceNeed = #{serviceNeed},
+            </if>
+            <if test="otherSlow != null">
+                otherSlow = #{otherSlow},
+            </if>
+            <if test="bodyDictId != null">
+                bodyDictId = #{bodyDictId},
+            </if>
+            <if test="inteDisabled != null">
+                inteDisabled = #{inteDisabled},
+            </if>
+            <if test="listenDictId != null">
+                listenDictId = #{listenDictId},
+            </if>
+            <if test="manyDictId != null">
+                manyDictId = #{manyDictId},
+            </if>
+            <if test="spiritDictId != null">
+                spiritDictId = #{spiritDictId},
+            </if>
+            <if test="speakDictId != null">
+                speakDictId = #{speakDictId},
+            </if>
+            <if test="visionDictId != null">
+                visionDictId = #{visionDictId},
+            </if>
+            <if test="socialActiDictId != null">
+                socialActiDictId = #{socialActiDictId},
+            </if>
+            <if test="specialAbility != null">
+                specialAbility = #{specialAbility},
+            </if>
+            <if test="retiredType != null">
+                retiredType = #{retiredType},
+            </if>
+            <if test="elderDisease != null">
+                elderDisease = #{elderDisease},
+            </if>
+            <if test="specialDictIds != null">
+                specialDictIds = #{specialDictIds},
+            </if>
+            <if test="otherSlowplus != null">
+                otherSlowplus = #{otherSlowplus},
+            </if>
+            <if test="houseTypeDictId != null">
+                houseTypeDictId = #{houseTypeDictId},
+            </if>
+            <if test="roomTypeDictId != null">
+                roomTypeDictId = #{roomTypeDictId},
+            </if>
+            <if test="livingCondition1 != null">
+                livingCondition1 = #{livingCondition1},
+            </if>
+            <if test="livingCondition2 != null">
+                livingCondition2 = #{livingCondition2},
+            </if>
+            <if test="livingCondition3 != null">
+                livingCondition3 = #{livingCondition3},
+            </if>
+            <if test="livingCondition4 != null">
+                livingCondition4 = #{livingCondition4},
+            </if>
+            <if test="livingCondition5 != null">
+                livingCondition5 = #{livingCondition5},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="createUserId != null">
+                createUserId = #{createUserId},
+            </if>
+            <if test="createOrgId != null">
+                createOrgId = #{createOrgId},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="objid != null">
+                objid = #{objid},
+            </if>
+            <if test="isImport80 != null">
+                isImport80 = #{isImport80},
+            </if>
+            <if test="isDeath != null">
+                isDeath = #{isDeath},
+            </if>
+            <if test="updateUserId != null">
+                updateUserId = #{updateUserId},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="psychologicDictId != null">
+                psychologicDictId = #{psychologicDictId},
+            </if>
+            <if test="saTypeDictIds != null">
+                saTypeDictIds = #{saTypeDictIds},
+            </if>
+            <if test="hasElevator != null">
+                hasElevator = #{hasElevator},
+            </if>
+            <if test="floor != null">
+                floor = #{floor},
+            </if>
+            <if test="hasToilet != null">
+                hasToilet = #{hasToilet},
+            </if>
+            <if test="hasBath != null">
+                hasBath = #{hasBath},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName},
+            </if>
+            <if test="deathTime!=null">
+                deathTime = #{deathTime},
+            </if>
+            <if test="cremationTime!=null">
+                cremationTime = #{cremationTime},
+            </if>
+            <if test="bloodType != null">
+                bloodType = #{bloodType},
+            </if>
+            <if test="isOneChild != null">
+                isOneChild = #{isOneChild},
+            </if>
+            <if test="houseNature != null">
+                houseNature = #{houseNature},
+            </if>
+            <if test="politics != null">
+                politics = #{politics},
+            </if>
+            <if test="healthStatus != null">
+                healthStatus = #{healthStatus},
+            </if>
+            <if test="drugAllergy != null">
+                drugAllergy = #{drugAllergy},
+            </if>
+            <if test="selfcareAbility != null">
+                selfcareAbility = #{selfcareAbility},
+            </if>
+            <if test="helpCardApplyFlag!=null">
+                helpCardApplyFlag = #{helpCardApplyFlag},
+            </if>
+            <if test="areaOrder != null">
+                areaOrder = #{areaOrder},
+            </if>
+            <if test="helpCardNo != null">
+                helpCardNo = #{helpCardNo}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectByAreaId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+          SELECT COUNT(*)
+        FROM t_elderly_message WHERE areaId = #{areaId}
+    </select>
+
+    <select id="selectCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+          SELECT COUNT(*)
+        FROM t_elderly_message
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM t_elderly_message a
+        WHERE status = 1
+        <if test="abilityAssess != null and abilityAssess != ''">
+            <if test="abilityAssess == 2">
+                AND abilityAssess IS NULL
+            </if>
+            <if test="abilityAssess == 1">
+                AND abilityAssess = #{abilityAssess}
+            </if>
+        </if>
+        <if test="areaId != null and areaId !=''">
+            AND a.areaId = #{areaId}
+        </if>
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND a.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND a.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="serialNumber != null and serialNumber !=''">
+            AND a.serialNumber = #{serialNumber}
+        </if>
+        <if test="homeTel != null and homeTel !=''">
+            AND a.homeTel = #{homeTel}
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND a.elderName = #{elderName}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND a.idcardno = #{idcardno}
+        </if>
+        <if test="isDeath != null">
+            AND a.isDeath = #{isDeath}
+        </if>
+        <if test="isDeath == null">
+            AND a.isDeath =1
+        </if>
+        <if test="regPlace != null and regPlace !=''">
+            AND a.regPlace like CONCAT('%',#{regPlace},'%' )
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND a.realAddress like CONCAT('%',#{realAddress},'%' )
+        </if>
+        <if test="sexDictId != null and sexDictId !=''">
+            AND a.sexDictId = #{sexDictId}
+        </if>
+        <if test="liveTypeDictId != null and liveTypeDictId !=''">
+            AND a.liveTypeDictId = #{liveTypeDictId}
+        </if>
+        <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+            AND a.elderTypeDictIds = #{elderTypeDictIds}
+        </if>
+        <if test="childrenDictId != null and childrenDictId !=''">
+            AND a.childrenDictId = #{childrenDictId}
+        </if>
+        <if test="residenceDictId != null and residenceDictId !=''">
+            AND a.residenceDictId = #{residenceDictId}
+        </if>
+        <if test="serviceNeed != null and serviceNeed !=''">
+            AND a.serviceNeed = #{serviceNeed}
+        </if>
+        <if test="startAge != null and startAge !=''">
+            AND a.age &gt;= #{startAge}
+        </if>
+        <if test="endAge != null and endAge !=''">
+            AND a.age &lt;= #{endAge}
+        </if>
+        <if test="serviceNeedCheckbox != null and serviceNeedCheckbox !=''">
+            AND a.serviceNeed in
+            <foreach collection="serviceNeedList" index="index" item="serviceNeed" open="(" separator="," close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="elderTypeDictIdsCheckbox != null and elderTypeDictIdsCheckbox !=''">
+            <foreach collection="elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},a.elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="deathTime!=null">
+            AND deathTime = #{deathTime}
+        </if>
+        <if test="cremationTime!=null">
+            AND cremationTime = #{cremationTime}
+        </if>
+    </select>
+
+    <select id="serviceCount" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM (SELECT DISTINCT a.id,a.areaId,a.serviceOrgId, a.serialNumber, a.elderName, a.idcardno,
+        a.age,a.elderTypeDictIds,a.isDeath,a.realAddress, a.residenceDictId, a.homeTel, a.mobile, a.childrenDictId,
+        a.sexDictId, a.areaName,
+        if(a.areaName='非南京户籍',a.areaName,substring_index(substr(a.areaName,5),',',1)) as Region1,
+        substring_index(substr(substr(a.areaName,5),char_length(substring_index(substr(a.areaName,5),',',1))+2,
+        char_length(substr(a.areaName,5))),',',1) Region2,
+        substr(substr(a.areaName,5),
+        char_length(substr(substr(a.areaName,5), char_length(substring_index(substr(a.areaName,5),',',2))))+1,
+        char_length(substr(a.areaName,5))) Region3,a.deathTime,a.cremationTime,a.cremationUnit
+        FROM t_elderly_message a
+        JOIN (SELECT
+        id,elderName
+        FROM
+        t_elderly_message
+        WHERE status = 1
+        <if test="areaId != null and areaId !=''">
+            AND areaId = #{areaId}
+        </if>
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="serialNumber != null and serialNumber !=''">
+            AND serialNumber = #{serialNumber}
+        </if>
+        <if test="homeTel != null and homeTel !=''">
+            AND homeTel = #{homeTel}
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND elderName LIKE CONCAT('%',#{elderName},'%')
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND idcardno = #{idcardno}
+        </if>
+        <if test="isDeath != null">
+            AND isDeath = #{isDeath}
+        </if>
+        <if test="isDeath == null">
+            AND isDeath =1
+        </if>
+        <if test="regPlace != null and regPlace !=''">
+            AND regPlace LIKE CONCAT('%',#{regPlace},'%')
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND realAddress LIKE CONCAT('%',#{realAddress},'%')
+        </if>
+        <if test="sexDictId != null and sexDictId !=''">
+            AND sexDictId = #{sexDictId}
+        </if>
+        <if test="liveTypeDictId != null and liveTypeDictId !=''">
+            AND liveTypeDictId = #{liveTypeDictId}
+        </if>
+        <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+            AND elderTypeDictIds = #{elderTypeDictIds}
+        </if>
+        <if test="childrenDictId != null and childrenDictId !=''">
+            AND childrenDictId = #{childrenDictId}
+        </if>
+        <if test="residenceDictId != null and residenceDictId !=''">
+            AND residenceDictId = #{residenceDictId}
+        </if>
+        <if test="serviceNeed != null and serviceNeed !=''">
+            AND serviceNeed = #{serviceNeed}
+        </if>
+        <if test="startAge != null and startAge !=''">
+            AND age &gt;= #{startAge}
+        </if>
+        <if test="endAge != null and endAge !=''">
+            AND age &lt;= #{endAge}
+        </if>
+        <if test="serviceNeedCheckbox != null and serviceNeedCheckbox !=''">
+            AND serviceNeed in
+            <foreach collection="serviceNeedList" index="index" item="serviceNeed" open="(" separator=","
+                     close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="elderTypeDictIdsCheckbox != null and elderTypeDictIdsCheckbox !=''">
+            <foreach collection="elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="deathTime!=null">
+            AND deathTime = #{deathTime}
+        </if>
+        <if test="cremationTime!=null">
+            AND cremationTime = #{cremationTime}
+        </if>) b ON a.id = b.id
+        JOIN t_health_service c ON a.id = c.elderId) aa
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_elderly_message where status = 1 and isDeath=1
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT a.id,a.areaId,a.serviceOrgId, a.serialNumber, a.elderName, a.idcardno,
+        a.age,a.elderTypeDictIds,a.isDeath,a.realAddress,a.regPlace, a.residenceDictId, a.homeTel, a.mobile,
+        a.childrenDictId,
+        a.sexDictId, a.areaName,
+        substring_index(substr(a.areaName,5),',',1) as Region1,
+        substring_index(substr(substr(a.areaName,5),char_length(substring_index(substr(a.areaName,5),',',1))+2,
+        char_length(substr(a.areaName,5))),',',1) Region2,
+        substr(substr(a.areaName,5),
+        char_length(substr(substr(a.areaName,5), char_length(substring_index(substr(a.areaName,5),',',2))))+1,
+        char_length(substr(a.areaName,5))) Region3,a.deathTime,a.cremationTime,a.cremationUnit,a.abilityAssess
+        FROM t_elderly_message a
+        JOIN (SELECT
+        id,elderName
+        FROM
+        t_elderly_message
+        WHERE status = 1
+        <if test="filter.abilityAssess != null and filter.abilityAssess != ''">
+            <if test="filter.abilityAssess == 2">
+                AND abilityAssess IS NULL
+            </if>
+            <if test="filter.abilityAssess == 1">
+                AND abilityAssess = #{filter.abilityAssess}
+            </if>
+        </if>
+        <if test="filter.areaId != null and filter.areaId !=''">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serialNumber != null and filter.serialNumber !=''">
+            AND serialNumber = #{filter.serialNumber}
+        </if>
+        <if test="filter.homeTel != null and filter.homeTel !=''">
+            AND homeTel = #{filter.homeTel}
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND elderName = #{filter.elderName}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.isDeath != null">
+            AND isDeath = #{filter.isDeath}
+        </if>
+        <if test="filter.isDeath == null">
+            AND isDeath =1
+        </if>
+        <if test="filter.regPlace != null and filter.regPlace !=''">
+            AND regPlace LIKE CONCAT('%',#{filter.regPlace},'%')
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND realAddress LIKE CONCAT('%',#{filter.realAddress},'%')
+        </if>
+        <if test="filter.sexDictId != null and filter.sexDictId !=''">
+            AND sexDictId = #{filter.sexDictId}
+        </if>
+        <if test="filter.liveTypeDictId != null and filter.liveTypeDictId !=''">
+            AND liveTypeDictId = #{filter.liveTypeDictId}
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.serviceNeed != null and filter.serviceNeed !=''">
+            AND serviceNeed = #{filter.serviceNeed}
+        </if>
+        <if test="filter.startAge != null and filter.startAge !=''">
+            AND age &gt;= #{filter.startAge}
+        </if>
+        <if test="filter.endAge != null and filter.endAge !=''">
+            AND age &lt;= #{filter.endAge}
+        </if>
+        <if test="filter.serviceNeedCheckbox != null and filter.serviceNeedCheckbox !=''">
+            AND serviceNeed in
+            <foreach collection="filter.serviceNeedList" index="index" item="serviceNeed" open="(" separator=","
+                     close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="filter.elderTypeDictIdsCheckbox != null and filter.elderTypeDictIdsCheckbox !=''">
+            <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="filter.deathTime!=null">
+            AND deathTime = #{filter.deathTime}
+        </if>
+        <if test="filter.cremationTime!=null">
+            AND cremationTime = #{filter.cremationTime}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            limit #{page.start}, #{page.length}
+        </if>) b ON a.id = b.id
+    </select>
+
+    <select id="selectPageServiceList" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT DISTINCT a.id,a.areaId,a.serviceOrgId, a.serialNumber, a.elderName, a.idcardno,
+        a.age,a.elderTypeDictIds,a.isDeath,a.realAddress, a.residenceDictId, a.homeTel, a.mobile, a.childrenDictId,
+        a.sexDictId, a.areaName,
+        substring_index(substr(a.areaName,5),',',1) as Region1,
+        substring_index(substr(substr(a.areaName,5),char_length(substring_index(substr(a.areaName,5),',',1))+2,
+        char_length(substr(a.areaName,5))),',',1) Region2,
+        substr(substr(a.areaName,5),
+        char_length(substr(substr(a.areaName,5), char_length(substring_index(substr(a.areaName,5),',',2))))+1,
+        char_length(substr(a.areaName,5))) Region3,a.deathTime,a.cremationTime,a.cremationUnit
+        FROM t_elderly_message a
+        JOIN (SELECT
+        id,elderName
+        FROM
+        t_elderly_message
+        WHERE status = 1
+        <if test="filter.areaId != null and filter.areaId !=''">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serialNumber != null and filter.serialNumber !=''">
+            AND serialNumber = #{filter.serialNumber}
+        </if>
+        <if test="filter.homeTel != null and filter.homeTel !=''">
+            AND homeTel = #{filter.homeTel}
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND elderName = #{filter.elderName}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.isDeath != null">
+            AND isDeath = #{filter.isDeath}
+        </if>
+        <if test="filter.isDeath == null">
+            AND isDeath =1
+        </if>
+        <if test="filter.regPlace != null and filter.regPlace !=''">
+            AND regPlace LIKE CONCAT('%',#{filter.regPlace},'%')
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND realAddress LIKE CONCAT('%',#{filter.realAddress},'%')
+        </if>
+        <if test="filter.sexDictId != null and filter.sexDictId !=''">
+            AND sexDictId = #{filter.sexDictId}
+        </if>
+        <if test="filter.liveTypeDictId != null and filter.liveTypeDictId !=''">
+            AND liveTypeDictId = #{filter.liveTypeDictId}
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.serviceNeed != null and filter.serviceNeed !=''">
+            AND serviceNeed = #{filter.serviceNeed}
+        </if>
+        <if test="filter.startAge != null and filter.startAge !=''">
+            AND age &gt;= #{filter.startAge}
+        </if>
+        <if test="filter.endAge != null and filter.endAge !=''">
+            AND age &lt;= #{filter.endAge}
+        </if>
+        <if test="filter.serviceNeedCheckbox != null and filter.serviceNeedCheckbox !=''">
+            AND serviceNeed in
+            <foreach collection="filter.serviceNeedList" index="index" item="serviceNeed" open="(" separator=","
+                     close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="filter.elderTypeDictIdsCheckbox != null and filter.elderTypeDictIdsCheckbox !=''">
+            <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="filter.deathTime!=null">
+            AND deathTime = #{filter.deathTime}
+        </if>
+        <if test="filter.cremationTime!=null">
+            AND cremationTime = #{filter.cremationTime}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            limit #{page.start}, #{page.length}
+        </if>) b ON a.id = b.id
+        JOIN t_health_service c ON a.id = c.elderId
+    </select>
+
+    <select id="selectGovBuyPageList" resultType="com.fedtech.pension.elderly.vo.ElderlyMsgVo">
+        SELECT a.id,a.areaId,a.serviceOrgId, a.serialNumber, a.elderName, a.idcardno,
+        a.age,a.elderTypeDictIds,a.isDeath,a.realAddress, a.residenceDictId, a.homeTel, a.mobile, a.childrenDictId,
+        a.sexDictId, a.areaName,a.deathTime,a.cremationTime,a.cremationUnit,(select id>0 from
+        t_elderly_govbuy d where a.id =d.elderId) govBuy
+        FROM t_elderly_message a
+        JOIN (SELECT
+        id
+        FROM
+        t_elderly_message
+        WHERE status = 1
+        <if test="filter.areaId != null and filter.areaId !=''">
+            AND areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serialNumber != null and filter.serialNumber !=''">
+            AND serialNumber = #{filter.serialNumber}
+        </if>
+        <if test="filter.homeTel != null and filter.homeTel !=''">
+            AND homeTel = #{filter.homeTel}
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND elderName = #{filter.elderName}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.isDeath != null">
+            AND isDeath = #{filter.isDeath}
+        </if>
+        <if test="filter.isDeath == null">
+            AND isDeath =1
+        </if>
+        <if test="filter.regPlace != null and filter.regPlace !=''">
+            AND regPlace LIKE CONCAT('%',#{filter.regPlace},'%')
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND realAddress LIKE CONCAT('%',#{filter.realAddress},'%')
+        </if>
+        <if test="filter.sexDictId != null and filter.sexDictId !=''">
+            AND sexDictId = #{filter.sexDictId}
+        </if>
+        <if test="filter.liveTypeDictId != null and filter.liveTypeDictId !=''">
+            AND liveTypeDictId = #{filter.liveTypeDictId}
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.serviceNeed != null and filter.serviceNeed !=''">
+            AND serviceNeed = #{filter.serviceNeed}
+        </if>
+        <if test="filter.startAge != null and filter.startAge !=''">
+            AND age &gt;= #{filter.startAge}
+        </if>
+        <if test="filter.endAge != null and filter.endAge !=''">
+            AND age &lt;= #{filter.endAge}
+        </if>
+        <if test="filter.serviceNeedCheckbox != null and filter.serviceNeedCheckbox !=''">
+            AND serviceNeed in
+            <foreach collection="filter.serviceNeedList" index="index" item="serviceNeed" open="(" separator=","
+                     close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="filter.elderTypeDictIdsCheckbox != null and filter.elderTypeDictIdsCheckbox !=''">
+            <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="filter.deathTime!=null">
+            AND deathTime = #{filter.deathTime}
+        </if>
+        <if test="filter.cremationTime!=null">
+            AND cremationTime = #{filter.cremationTime}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            limit #{page.start}, #{page.length}
+        </if>) b ON a.id = b.id
+    </select>
+
+    <select id="selectAssePageList" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT main.id, main.serialNumber, main.elderName, main.idcardno,main.areaName,
+        main.age,main.elderTypeDictIds,main.realAddress, main.residenceDictId, main.homeTel, main.mobile,
+        main.childrenDictId,
+        main.sexDictId, sub.resultScore, sub.resultDictId, sub.familyDate,main.areaId,main.serviceOrgId,
+        if(main.areaName='非南京户籍',main.areaName,substring_index(substr(main.areaName,5),',',1)) as Region1,
+        substring_index(substr(substr(main.areaName,5),char_length(substring_index(substr(main.areaName,5),',',1))+2,
+        char_length(substr(main.areaName,5))),',',1) Region2,
+        substr(substr(main.areaName,5),
+        char_length(substr(substr(main.areaName,5), char_length(substring_index(substr(main.areaName,5),',',2))))+1,
+        char_length(substr(main.areaName,5))) Region3
+        FROM t_elderly_message main LEFT JOIN t_elderly_assessment sub ON (main.id = sub.elderId )
+        JOIN (SELECT
+        a.id
+        FROM
+        t_elderly_message a LEFT JOIN t_elderly_assessment c ON (a.id = c.elderId and c.status =1)
+        WHERE a.status = 1
+        <if test="filter.areaId != null and filter.areaId !=''">
+            AND a.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND a.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serialNumber != null and filter.serialNumber !=''">
+            AND a.serialNumber = #{filter.serialNumber}
+        </if>
+        <if test="filter.homeTel != null and filter.homeTel !=''">
+            AND a.homeTel = #{filter.homeTel}
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND a.elderName = #{filter.elderName}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND a.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.isDeath != null">
+            AND a.isDeath = #{filter.isDeath}
+        </if>
+        <if test="filter.isDeath == null">
+            AND a.isDeath =1
+        </if>
+        <if test="filter.regPlace != null and filter.regPlace !=''">
+            AND a.regPlace LIKE CONCAT('%',#{filter.regPlace},'%')
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND a.realAddress LIKE CONCAT('%',#{filter.realAddress},'%')
+        </if>
+        <if test="filter.sexDictId != null and filter.sexDictId !=''">
+            AND a.sexDictId = #{filter.sexDictId}
+        </if>
+        <if test="filter.liveTypeDictId != null and filter.liveTypeDictId !=''">
+            AND a.liveTypeDictId = #{filter.liveTypeDictId}
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND a.elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND a.childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND a.residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.serviceNeed != null and filter.serviceNeed !=''">
+            AND a.serviceNeed = #{filter.serviceNeed}
+        </if>
+        <if test="filter.startAge != null and filter.startAge !=''">
+            AND a.age &gt;= #{filter.startAge}
+        </if>
+        <if test="filter.endAge != null and filter.endAge !=''">
+            AND a.age &lt;= #{filter.endAge}
+        </if>
+        <if test="filter.serviceNeedCheckbox != null and filter.serviceNeedCheckbox !=''">
+            AND a.serviceNeed in
+            <foreach collection="filter.serviceNeedList" index="index" item="serviceNeed" open="(" separator=","
+                     close=")">
+                #{serviceNeed}
+            </foreach>
+        </if>
+        <if test="filter.elderTypeDictIdsCheckbox != null and filter.elderTypeDictIdsCheckbox !=''">
+            <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                AND FIND_IN_SET(#{elderTypeDictIds},a.elderTypeDictIds)
+            </foreach>
+        </if>
+        <if test="map.resultScore1!=null and map.resultScore1!=''">
+            AND c.resultScore >= #{map.resultScore1}
+        </if>
+        <if test="map.resultScore2!=null and map.resultScore2!=''">
+            <![CDATA[AND c.resultScore <= #{map.resultScore2} ]]>
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+        ) b ON main.id = b.id
+    </select>
+
+    <select id="selectAsseAllPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT a.id, a.serialNumber, a.elderName, a.idcardno,
+        a.age,a.elderTypeDictIds,a.realAddress, a.residenceDictId, a.homeTel, a.mobile, a.childrenDictId,
+        a.sexDictId, c.resultScore, c.resultDictId, c.familyDate, c.tid, c.workerName1, c.workerName2,
+        if(a.areaName='非南京户籍',a.areaName,substring_index(substr(a.areaName,5),',',1)) as Region1,
+        substring_index(substr(substr(a.areaName,5),char_length(substring_index(substr(a.areaName,5),',',1))+2,
+        char_length(substr(a.areaName,5))),',',1) Region2,
+        substr(substr(a.areaName,5),
+        char_length(substr(substr(a.areaName,5), char_length(substring_index(substr(a.areaName,5),',',2))))+1,
+        char_length(substr(a.areaName,5))) Region3
+        FROM t_elderly_message a LEFT JOIN t_elderly_assessment c ON (a.id = c.elderId )
+        WHERE a.status = 1
+        and c.elderId = #{filter.id}
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countAssAll" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg"
+            resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM  t_elderly_message a LEFT JOIN t_elderly_assessment c ON (a.id = c.elderId )
+        WHERE a.status = 1
+        and c.elderId =  #{filter.id}
+    </select>
+
+    <select id="countAss" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsg" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_elderly_assessment a where a.elderId =  #{filter.id}
+    </select>
+
+    <select id="getCountByElderTypeDictIds" resultType="java.util.HashMap">
+        SELECT count(1) count, elderTypeDictIds elderTypeDictId FROM t_elderly_message
+        WHERE status = 1
+        <if test="filter != null">
+            <if test="filter.isDeath != null">
+                AND isDeath = #{filter.isDeath}
+            </if>
+            <if test="filter.areaId != null and filter.areaId !=''">
+                AND areaId = #{filter.areaId}
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+                AND serviceOrgId = #{filter.serviceOrgId}
+            </if>
+        </if>
+        GROUP BY elderTypeDictIds;
+    </select>
+
+    <select id="exportLowInsuranceElderly" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        select SUBSTRING_INDEX(SUBSTRING_INDEX(areaName,',',2),',',-1) AS Region1,
+        SUBSTRING_INDEX(SUBSTRING_INDEX(areaName,',',3),',',-1) AS Region2,
+        SUBSTRING_INDEX(SUBSTRING_INDEX(areaName,',',4),',',-1) as Region3,
+        elderName,idcardno,realAddress,SUBSTRING(idcardno,7,8) birthday from t_elderly_message
+        WHERE isDeath=1 and `status`=1 and elderTypeDictIds=#{filter.elderTypeDictIds} ORDER BY areaOrder
+    </select>
+
+    <select id="exportDeathElderly" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        select id,elderName,cremationTime,sexDictId,nationDictId,realAddress,zipCode,homeTel,mobile,cremationUnit,regPlace,areaName
+        from t_elderly_message WHERE isDeath=0 and `status`=1
+    </select>
+
+
+    <select id="findByHelpCardNo" resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+            SELECT *
+            FROM t_elderly_message
+           where helpCardNo = #{helpCardNo} and  isDeath=1 and `status`=1
+    </select>
+
+    <update id="updateHelpCardNoByIdcardno">
+          update t_elderly_message  set helpCardNo = #{helpCardNo}
+          where idcardno = #{idcardno}
+    </update>
+
+    <select id="selectByPhone" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where hometel=#{phone} or mobile=#{phone} limit 0,1
+    </select>
+
+    <select id="selectElderByCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.elderly.entity.ElderlyMsg">
+        SELECT *
+        FROM t_elderly_message
+        where idcardno = #{idcardno}
+    </select>
+</mapper>

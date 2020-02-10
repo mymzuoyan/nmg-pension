@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.ipccp.mapper.AbandonedMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.ipccp.entity.Abandoned" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qtime" property="qtime" jdbcType="TIMESTAMP" />
+    <result column="CallerID" property="callerid" jdbcType="VARCHAR" />
+    <result column="calldate" property="calldate" jdbcType="TIMESTAMP" />
+    <result column="uniqueid" property="uniqueid" jdbcType="VARCHAR" />
+    <result column="linkedid" property="linkedid" jdbcType="VARCHAR" />
+    <result column="Queue" property="queue" jdbcType="VARCHAR" />
+    <result column="Digits" property="digits" jdbcType="VARCHAR" />
+    <result column="HangupTime" property="hanguptime" jdbcType="TIMESTAMP" />
+    <result column="Position" property="position" jdbcType="INTEGER" />
+    <result column="Duration" property="duration" jdbcType="INTEGER" />
+    <result column="callbacked" property="callbacked" jdbcType="BIT" />
+    <result column="callbackDate" property="callbackdate" jdbcType="TIMESTAMP" />
+    <result column="callbackAgent" property="callbackagent" jdbcType="VARCHAR" />
+    <result column="IVRSelection" property="ivrselection" jdbcType="VARCHAR" />
+    <result column="BillingID" property="billingid" jdbcType="VARCHAR" />
+    <result column="recording" property="recording" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, qtime, CallerID, calldate, uniqueid, linkedid, Queue, Digits, HangupTime, Position, 
+    Duration, callbacked, callbackDate, callbackAgent, IVRSelection, BillingID, recording
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Abandoned
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByLinkedId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from Abandoned
+    where linkedid = #{linkedid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAbandonedCallerId" parameterType="com.fedtech.pension.ipccp.entity.Abandoned">
+    SELECT CallerID
+    FROM Abandoned
+    where id!=0
+    <if test="filter.callbacked!=null">
+      and callbacked=#{filter.callbacked}
+    </if>
+    <if test="filter.queue!=null">
+      and (Queue) in (#{filter.queue})
+    </if>
+  </select>
+
+  <select id="count" parameterType="com.fedtech.pension.ipccp.entity.Abandoned" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM Abandoned
+      where id!=0
+      <if test="callbacked!=null">
+          and callbacked=#{callbacked}
+      </if>
+      <if test="queue!=null">
+          and (Queue) in (#{queue})
+      </if>
+  </select>
+
+  <select id="getCountNotContains" parameterType="com.fedtech.pension.ipccp.entity.Abandoned" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM Abandoned
+    where id!=0
+    <if test="filter.callerid!=null">
+      and CallerID &lt;&gt; #{filter.callerid}
+    </if>
+    <if test="filter.callbacked!=null">
+      and callbacked=#{filter.callbacked}
+    </if>
+    <if test="filter.queue!=null">
+      and (Queue) in (#{filter.queue})
+    </if>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM Abandoned
+  </select>
+  
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM Abandoned
+    where id!=0
+    <if test="filter.callerid!=null">
+      and CallerID &lt;&gt; #{filter.callerid}
+    </if>
+    <if test="filter.callbacked!=null">
+      and callbacked=#{filter.callbacked}
+    </if>
+    <if test="filter.queue!=null">
+      and (Queue) in (#{filter.queue})
+    </if>
+  </select>
+
+  <select id="selectPageList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM Abandoned
+    where id!=0
+    <if test="filter.callerid!=null">
+      and CallerID &lt;&gt; #{filter.callerid}
+    </if>
+    <if test="filter.callbacked!=null">
+      and callbacked=#{filter.callbacked}
+    </if>
+    <if test="filter.queue!=null">
+      and (Queue) in (#{filter.queue})
+    </if>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Abandoned
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.ipccp.entity.Abandoned" >
+    insert into Abandoned
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qtime != null" >
+        qtime,
+      </if>
+      <if test="callerid != null" >
+        CallerID,
+      </if>
+      <if test="calldate != null" >
+        calldate,
+      </if>
+      <if test="uniqueid != null" >
+        uniqueid,
+      </if>
+      <if test="linkedid != null" >
+        linkedid,
+      </if>
+      <if test="queue != null" >
+        Queue,
+      </if>
+      <if test="digits != null" >
+        Digits,
+      </if>
+      <if test="hanguptime != null" >
+        HangupTime,
+      </if>
+      <if test="position != null" >
+        Position,
+      </if>
+      <if test="duration != null" >
+        Duration,
+      </if>
+      <if test="callbacked != null" >
+        callbacked,
+      </if>
+      <if test="callbackdate != null" >
+        callbackDate,
+      </if>
+      <if test="callbackagent != null" >
+        callbackAgent,
+      </if>
+      <if test="ivrselection != null" >
+        IVRSelection,
+      </if>
+      <if test="billingid != null" >
+        BillingID,
+      </if>
+      <if test="recording != null" >
+        recording,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qtime != null" >
+        #{qtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerid != null" >
+        #{callerid,jdbcType=VARCHAR},
+      </if>
+      <if test="calldate != null" >
+        #{calldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uniqueid != null" >
+        #{uniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedid != null" >
+        #{linkedid,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="digits != null" >
+        #{digits,jdbcType=VARCHAR},
+      </if>
+      <if test="hanguptime != null" >
+        #{hanguptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="callbacked != null" >
+        #{callbacked,jdbcType=BIT},
+      </if>
+      <if test="callbackdate != null" >
+        #{callbackdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackagent != null" >
+        #{callbackagent,jdbcType=VARCHAR},
+      </if>
+      <if test="ivrselection != null" >
+        #{ivrselection,jdbcType=VARCHAR},
+      </if>
+      <if test="billingid != null" >
+        #{billingid,jdbcType=VARCHAR},
+      </if>
+      <if test="recording != null" >
+        #{recording,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.ipccp.entity.Abandoned" >
+    update Abandoned
+    <set >
+      <if test="qtime != null" >
+        qtime = #{qtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerid != null" >
+        CallerID = #{callerid,jdbcType=VARCHAR},
+      </if>
+      <if test="calldate != null" >
+        calldate = #{calldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uniqueid != null" >
+        uniqueid = #{uniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedid != null" >
+        linkedid = #{linkedid,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        Queue = #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="digits != null" >
+        Digits = #{digits,jdbcType=VARCHAR},
+      </if>
+      <if test="hanguptime != null" >
+        HangupTime = #{hanguptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="position != null" >
+        Position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        Duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="callbacked != null" >
+        callbacked = #{callbacked,jdbcType=BIT},
+      </if>
+      <if test="callbackdate != null" >
+        callbackDate = #{callbackdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackagent != null" >
+        callbackAgent = #{callbackagent,jdbcType=VARCHAR},
+      </if>
+      <if test="ivrselection != null" >
+        IVRSelection = #{ivrselection,jdbcType=VARCHAR},
+      </if>
+      <if test="billingid != null" >
+        BillingID = #{billingid,jdbcType=VARCHAR},
+      </if>
+      <if test="recording != null" >
+        recording = #{recording,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

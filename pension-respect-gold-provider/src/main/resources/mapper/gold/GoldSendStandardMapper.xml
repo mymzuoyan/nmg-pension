@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.gold.mapper.GoldSendStandardMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.gold.entity.GoldSendStandard">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="moneyStandard" property="moneyStandard" jdbcType="DOUBLE"/>
+        <result column="areaId" property="areaId" jdbcType="INTEGER"/>
+        <result column="applyType" property="applyType" jdbcType="INTEGER"/>
+        <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select *
+        from t_gold_send_standard
+        where id=#{id}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from t_gold_send_standard
+        <where>
+        <if test="areaName != null">
+            areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="applyType != null">
+            AND applyType LIKE CONCAT('%',#{applyType},'%' )
+        </if>
+        </where>
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        select *
+        from t_gold_send_standard
+        <where>
+        <if test="filter.areaName != null">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND applyType LIKE CONCAT('%',#{filter.applyType},'%' )
+        </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_gold_send_standard
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.gold.entity.GoldSendStandard" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into t_gold_send_standard (id,moneyStandard,areaId,applyType,areaName)
+    values (#{id,jdbcType=INTEGER},#{moneyStandard,jdbcType=DOUBLE},#{areaId,jdbcType=INTEGER},
+    #{applyType,jdbcType=INTEGER},#{areaName,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_gold_send_standard
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.gold.entity.GoldSendStandard">
+        update t_gold_send_standard
+        <set>
+            <if test="moneyStandard != null">
+                moneyStandard = #{moneyStandard,jdbcType=DOUBLE},
+            </if>
+            <if test="areaId != null">
+                areaId = #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="applyType != null">
+                applyType = #{applyType,jdbcType=INTEGER},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

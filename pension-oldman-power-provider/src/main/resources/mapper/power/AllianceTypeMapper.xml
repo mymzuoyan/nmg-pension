@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.AllianceTypeMapper" >
+  <resultMap id="serviceType" type="com.fedtech.pension.power.entity.AllianceType" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="in_classic" property="inClassic" jdbcType="VARCHAR" />
+    <result column="in_type" property="inType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, in_classic, in_type
+  </sql>
+  <select id="selectIntype" resultMap="serviceType">
+    select in_type from t_providers_type where in_classic = #{inClassic}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="serviceType" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_providers_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_providers_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.power.entity.AllianceType" >
+    insert into t_providers_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="inClassic != null" >
+        in_classic,
+      </if>
+      <if test="inType != null" >
+        in_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="inClassic != null" >
+        #{inClassic,jdbcType=VARCHAR},
+      </if>
+      <if test="inType != null" >
+        #{inType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.AllianceType" >
+    update t_providers_type
+    <set >
+      <if test="inClassic != null" >
+        in_classic = #{inClassic,jdbcType=VARCHAR},
+      </if>
+      <if test="inType != null" >
+        in_type = #{inType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

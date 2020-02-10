@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyMsgAppMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyMsgApp">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="elderName" property="elderName" jdbcType="VARCHAR"/>
+        <result column="idcardno" property="idcardno" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="realAddress" property="realAddress" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.ElderlyMsgApp"
+            parameterType="java.lang.Integer">
+          SELECT a.*
+            FROM t_elderly_message_app a
+           where a.id = #{id}
+    </select>
+
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsgApp" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_elderly_message_app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="elderName != null">
+                elderName,
+            </if>
+
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+
+            <if test="mobile != null">
+                mobile,
+            </if>
+
+            <if test="realAddress != null">
+                realAddress,
+            </if>
+
+            <if test="userId != null">
+                userId,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+
+            <if test="idcardno != null">
+                #{idcardno,jdbcType=VARCHAR},
+            </if>
+
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+
+            <if test="realAddress != null">
+                #{realAddress,jdbcType=VARCHAR},
+            </if>
+
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+
+        </trim>
+    </insert>
+
+    <select id="selectCountList" resultType="com.fedtech.pension.elderly.entity.ElderlyMsgApp" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsgApp">
+        select *
+        from t_elderly_message_app
+        <where>
+            <if test="searchWord!=null and searchWord!=''">
+                and elderName like CONCAT('%',#{searchWord},'%' )
+                or idcardno like CONCAT('%',#{searchWord},'%' )
+            </if>
+            and userId=#{userId}
+        </where>
+
+            ORDER BY id desc
+            LIMIT 0, #{count}
+
+    </select>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyMsgApp">
+        UPDATE t_elderly_message_app
+        <set>
+            <if test="mobile!=null and mobile!=''">
+                mobile = #{mobile},
+            </if>
+            <if test="realAddress != null and realAddress != ''">
+                realAddress = #{realAddress},
+            </if>
+
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_elderly_message_app
+        WHERE id = #{id}
+    </update>
+</mapper>

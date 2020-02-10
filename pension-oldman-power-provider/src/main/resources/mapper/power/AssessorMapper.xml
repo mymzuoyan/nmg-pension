@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.AssessorMapper">
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Assessor" >
+        insert into t_old_man_power_assessor
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="loginName != null" >
+                loginName,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="area != null" >
+                area,
+            </if>
+            <if test="express != null" >
+                express,
+            </if>
+            <if test="useStatus != null" >
+                useStatus,
+            </if>
+            <if test="beginUseTime != null" >
+                beginUseTime,
+            </if>
+            <if test="endUseTime != null" >
+                endUseTime,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="sex != null" >
+                sex,
+            </if>
+            <if test="serverStatus != null" >
+                serverStatus,
+            </if>
+            <if test="photoId != null" >
+                photoId,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="secondPhone != null" >
+                secondPhone,
+            </if>
+            <if test="addressPhone != null" >
+                addressPhone,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="lifePlace != null" >
+                lifePlace,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="idCard != null" >
+                idCard,
+            </if>
+            <if test="nation != null" >
+                nation,
+            </if>
+            <if test="party != null" >
+                party,
+            </if>
+            <if test="education != null" >
+                education,
+            </if>
+            <if test="onDutyTime != null" >
+                onDutyTime,
+            </if>
+            <if test="leaveDutyTime != null" >
+                leaveDutyTime,
+            </if>
+            <if test="certNoId != null" >
+                certNoId,
+            </if>
+            <if test="certSmallId != null" >
+                certSmallId,
+            </if>
+            <if test="certMiddleId != null" >
+                certMiddleId,
+            </if>
+            <if test="certHighId != null" >
+                certHighId,
+            </if>
+            createDate,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="loginName != null" >
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null" >
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="express != null" >
+                #{express,jdbcType=VARCHAR},
+            </if>
+            <if test="useStatus != null" >
+                #{useStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="beginUseTime != null" >
+                #{beginUseTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endUseTime != null" >
+                #{endUseTime,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="serverStatus != null" >
+                #{serverStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="photoId != null" >
+                #{photoId,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="secondPhone != null" >
+                #{secondPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="addressPhone != null" >
+                #{addressPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="lifePlace != null" >
+                #{lifePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null" >
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="nation != null" >
+                #{nation,jdbcType=VARCHAR},
+            </if>
+            <if test="party != null" >
+                #{party,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null" >
+                #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="onDutyTime != null" >
+                #{onDutyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="leaveDutyTime != null" >
+                #{leaveDutyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="certNoId != null" >
+                #{certNoId,jdbcType=VARCHAR},
+            </if>
+            <if test="certSmallId != null" >
+                #{certSmallId,jdbcType=VARCHAR},
+            </if>
+            <if test="certMiddleId != null" >
+                #{certMiddleId,jdbcType=VARCHAR},
+            </if>
+            <if test="certHighId != null" >
+                #{certHighId,jdbcType=VARCHAR},
+            </if>
+            now(),
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Assessor">
+        UPDATE t_old_man_power_assessor
+        <set>
+            <if test="loginName != null" >
+                loginName=#{loginName},
+            </if>
+            <if test="password != null" >
+                password=#{password},
+            </if>
+            <if test="area != null" >
+                area=#{area},
+            </if>
+            <if test="express != null" >
+                express=#{express},
+            </if>
+            <if test="useStatus != null" >
+                useStatus=#{useStatus},
+            </if>
+            <if test="beginUseTime != null" >
+                beginUseTime=#{beginUseTime},
+            </if>
+            <if test="endUseTime != null" >
+                endUseTime=#{endUseTime},
+            </if>
+            <if test="name != null" >
+                name=#{name},
+            </if>
+            <if test="sex != null" >
+                sex=#{sex},
+            </if>
+            <if test="serverStatus != null" >
+                serverStatus=#{serverStatus},
+            </if>
+            <if test="photoId != null" >
+                photoId=#{photoId},
+            </if>
+            <if test="phone != null" >
+                phone=#{phone},
+            </if>
+            <if test="secondPhone != null" >
+                secondPhone=#{secondPhone},
+            </if>
+            <if test="addressPhone != null" >
+                addressPhone=#{addressPhone},
+            </if>
+            <if test="address != null" >
+                address=#{address},
+            </if>
+            <if test="lifePlace != null" >
+                lifePlace=#{lifePlace},
+            </if>
+            <if test="birthday != null" >
+                birthday=#{birthday},
+            </if>
+            <if test="idCard != null" >
+                idCard=#{idCard},
+            </if>
+            <if test="nation != null" >
+                nation=#{nation},
+            </if>
+            <if test="party != null" >
+                party=#{party},
+            </if>
+            <if test="education != null" >
+                education=#{education},
+            </if>
+            <if test="onDutyTime != null" >
+                onDutyTime=#{onDutyTime},
+            </if>
+            <if test="leaveDutyTime != null" >
+                leaveDutyTime=#{leaveDutyTime},
+            </if>
+            <if test="certNoId != null" >
+                certNoId=#{certNoId},
+            </if>
+            <if test="certSmallId != null" >
+                certSmallId=#{certSmallId},
+            </if>
+            <if test="certMiddleId != null" >
+                certMiddleId=#{certMiddleId},
+            </if>
+            <if test="certHighId != null" >
+                certHighId=#{certHighId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_old_man_power_assessor
+        WHERE id = #{id}
+    </delete>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Assessor" parameterType="java.lang.Integer" >
+        select *
+        from t_old_man_power_assessor
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.Assessor">
+        select
+        *
+        from t_old_man_power_assessor
+        <where>
+            <if test="filter.name!=null and filter.name!=''">
+                and name like CONCAT('%',#{filter.name},'%' )
+            </if>
+            <if test="filter.area!=null and filter.area!=''">
+                and area  like CONCAT('%',#{filter.area},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.power.entity.Assessor" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM t_old_man_power_assessor
+    <where>
+        <if test="name!=null and name!=''">
+            and name like CONCAT('%',#{name},'%' )
+        </if>
+        <if test="area!=null and area!=''">
+            and area  like CONCAT('%',#{area},'%' )
+        </if>
+    </where>
+</select>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_old_man_power_assessor
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.power.entity.Assessor"
+            resultType="com.fedtech.pension.power.entity.Assessor">
+        SELECT *
+        FROM t_old_man_power_assessor
+        <where>
+            <if test="filter.name!=null and filter.name!=''">
+                and name like CONCAT('%',#{filter.name},'%' )
+            </if>
+            <if test="filter.area!=null and filter.area!=''">
+                and area  like CONCAT('%',#{filter.area},'%' )
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.power.entity.Assessor">
+        SELECT *
+        FROM t_old_man_power_assessor
+        where idCard=#{idCard}
+    </select>
+
+    <insert id="insertSomeElder" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_old_man_power_assessor
+        (loginName,password,area, express,useStatus, beginUseTime,endUseTime,name,sex,serverStatus,phone,
+          secondPhone,addressPhone,address,lifePlace,birthday,idCard,nation,party,education,onDutyTime,leaveDutyTime,createDate)
+        VALUES
+        <foreach collection="assessors" item="assessor" index="index" separator=",">
+            (#{assessor.loginName},#{assessor.password},#{assessor.area},#{assessor.express},#{assessor.useStatus},#{assessor.beginUseTime},#{assessor.endUseTime},#{assessor.name},#{assessor.sex},
+            #{assessor.serverStatus},#{assessor.phone},#{assessor.secondPhone},#{assessor.addressPhone},
+            #{assessor.address},#{assessor.lifePlace},#{assessor.birthday},#{assessor.idCard},#{assessor.nation},#{assessor.party},#{assessor.education},#{assessor.onDutyTime},#{assessor.leaveDutyTime},now())
+        </foreach>
+    </insert>
+</mapper>

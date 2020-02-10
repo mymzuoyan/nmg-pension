@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.HealthRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.HealthRecords">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="clock" jdbcType="TIMESTAMP" property="clock" />
+    <result column="hepatitis" jdbcType="TIMESTAMP" property="hepatitis" />
+    <result column="dysentery" jdbcType="TIMESTAMP" property="dysentery" />
+    <result column="typhia" jdbcType="TIMESTAMP" property="typhia" />
+    <result column="tuberculosis" jdbcType="TIMESTAMP" property="tuberculosis" />
+    <result column="tetter" jdbcType="TIMESTAMP" property="tetter" />
+    <result column="heart" jdbcType="VARCHAR" property="heart" />
+    <result column="liver" jdbcType="VARCHAR" property="liver" />
+    <result column="spleen" jdbcType="VARCHAR" property="spleen" />
+    <result column="lung" jdbcType="VARCHAR" property="lung" />
+    <result column="rests" jdbcType="VARCHAR" property="rests" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, name,age,gender,clock, hepatitis, dysentery, typhia, tuberculosis, tetter, heart, liver, spleen,
+    lung, rests, sign
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from health_records
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from health_records
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.HealthRecords" useGeneratedKeys="true"  keyProperty="id">
+    insert into health_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="clock != null">
+        clock,
+      </if>
+      <if test="hepatitis != null">
+        hepatitis,
+      </if>
+      <if test="dysentery !=null">
+        dysentery,
+      </if>
+      <if test="typhia != null">
+        typhia,
+      </if>
+      <if test="tuberculosis != null">
+        tuberculosis,
+      </if>
+      <if test="tetter != null">
+        tetter,
+      </if>
+      <if test="heart != null">
+        heart,
+      </if>
+      <if test="liver != null">
+        liver,
+      </if>
+      <if test="spleen != null">
+        spleen,
+      </if>
+      <if test="lung != null">
+        lung,
+      </if>
+      <if test="rests != null">
+        rests,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="clock != null">
+        #{clock,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hepatitis != null">
+        #{hepatitis,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dysentery != null">
+        #{dysentery,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typhia != null">
+        #{typhia,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tuberculosis != null">
+        #{tuberculosis,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tetter != null">
+        #{tetter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="heart != null">
+        #{heart,jdbcType=VARCHAR},
+      </if>
+      <if test="liver != null">
+        #{liver,jdbcType=VARCHAR},
+      </if>
+      <if test="spleen != null">
+        #{spleen,jdbcType=VARCHAR},
+      </if>
+      <if test="lung != null">
+        #{lung,jdbcType=VARCHAR},
+      </if>
+      <if test="rests != null">
+        #{rests,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.HealthRecords">
+    update health_records
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+        clock = #{clock,jdbcType=TIMESTAMP},
+
+        hepatitis = #{hepatitis,jdbcType=TIMESTAMP},
+
+        dysentery = #{dysentery,jdbcType=TIMESTAMP},
+
+        typhia = #{typhia,jdbcType=TIMESTAMP},
+
+        tuberculosis = #{tuberculosis,jdbcType=TIMESTAMP},
+
+        tetter = #{tetter,jdbcType=TIMESTAMP},
+
+      <if test="heart != null">
+        heart = #{heart,jdbcType=VARCHAR},
+      </if>
+      <if test="liver != null">
+        liver = #{liver,jdbcType=VARCHAR},
+      </if>
+      <if test="spleen != null">
+        spleen = #{spleen,jdbcType=VARCHAR},
+      </if>
+      <if test="lung != null">
+        lung = #{lung,jdbcType=VARCHAR},
+      </if>
+      <if test="rests != null">
+        rests = #{rests,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from health_records
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from health_records
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.HealthRecords">
+    select
+    *
+    from health_records
+    <where>
+      <if test="filter.name != null and filter.name !=''">
+        AND name like CONCAT('%',#{filter.name},'%' )
+      </if>
+      <if test="filter.startAge != null and filter.startAge !=''">
+        AND age &gt;= #{filter.startAge}
+      </if>
+      <if test="filter.endAge != null and filter.endAge !=''">
+        AND age &lt;= #{filter.endAge}
+      </if>
+      <if test="filter.gender != null and filter.gender !=''">
+        AND gender like CONCAT('%',#{filter.gender},'%' )
+      </if>
+      <if test="filter.clock!=null ">
+        AND DATE(clock) = #{filter.clock}
+      </if>
+      <if test="filter.hepatitis!=null ">
+        AND DATE(hepatitis) = #{filter.hepatitis}
+      </if>
+      <if test="filter.dysentery!=null ">
+        AND DATE(dysentery) = #{filter.dysentery}
+      </if>
+      <if test="filter.typhia!=null ">
+        AND DATE(typhia) = #{filter.typhia}
+      </if>
+      <if test="filter.tuberculosis!=null ">
+        AND DATE(tuberculosis) = #{filter.tuberculosis}
+      </if>
+      <if test="filter.tetter!=null ">
+        AND DATE(tetter) = #{filter.tetter}
+      </if>
+      <if test="filter.heart != null and filter.heart !=''">
+        AND heart like CONCAT('%',#{filter.heart},'%' )
+      </if>
+      <if test="filter.liver != null and filter.liver !=''">
+        AND liver like CONCAT('%',#{filter.liver},'%' )
+      </if>
+      <if test="filter.spleen != null and filter.spleen !=''">
+        AND spleen like CONCAT('%',#{filter.spleen},'%' )
+      </if>
+      <if test="filter.lung != null and filter.lung !=''">
+        AND lung like CONCAT('%',#{filter.lung},'%' )
+      </if>
+      <if test="filter.rests != null and filter.rests !=''">
+        AND rests like CONCAT('%',#{filter.rests},'%' )
+      </if>
+      <if test="filter.sign != null and filter.sign !=''">
+        AND sign like CONCAT('%',#{filter.sign},'%' )
+      </if>
+      <if test="filter.signCheckbox != null and filter.signCheckbox !=''">
+        <foreach collection="filter.elderTypeList" index="index" item="sign">
+          AND FIND_IN_SET(#{sign},sign)
+        </foreach>
+      </if>
+    </where>
+
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from health_records
+    <where>
+
+      <if test="name != null and name !=''">
+        AND name like CONCAT('%',#{name},'%' )
+      </if>
+      <if test="age != null and age !=''">
+        AND age like CONCAT('%',#{age},'%' )
+      </if>
+      <if test="gender != null and gender !=''">
+        AND gender like CONCAT('%',#{gender},'%' )
+      </if>
+      <if test="clock!=null ">
+        AND DATE(clock) = #{clock}
+      </if>
+      <if test="hepatitis!=null ">
+        AND DATE(hepatitis) = #{hepatitis}
+      </if>
+      <if test="dysentery!=null ">
+        AND DATE(dysentery) = #{dysentery}
+      </if>
+      <if test="typhia!=null ">
+        AND DATE(typhia) = #{typhia}
+      </if>
+      <if test="tuberculosis!=null ">
+        AND DATE(tuberculosis) = #{tuberculosis}
+      </if>
+      <if test="tetter!=null ">
+        AND DATE(tetter) = #{tetter}
+      </if>
+      <if test="heart != null and heart !=''">
+        AND heart like CONCAT('%',#{heart},'%' )
+      </if>
+      <if test="liver != null and liver !=''">
+        AND liver like CONCAT('%',#{liver},'%' )
+      </if>
+      <if test="spleen != null and spleen !=''">
+        AND spleen like CONCAT('%',#{spleen},'%' )
+      </if>
+      <if test="lung != null and lung !=''">
+        AND lung like CONCAT('%',#{lung},'%' )
+      </if>
+      <if test="rests != null and rests !=''">
+        AND rests like CONCAT('%',#{rests},'%' )
+      </if>
+      <if test="sign != null and sign !=''">
+        AND sign like CONCAT('%',#{sign},'%' )
+      </if>
+    </where>
+  </select>
+</mapper>

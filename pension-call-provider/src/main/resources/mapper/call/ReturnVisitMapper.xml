@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.ReturnVisitMapper">
+
+    <sql id="Base_Column_List">
+        id,visitorId,visitorType,createTime,callInfoId,creatorId,visitResult,status
+    </sql>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.call.entity.ReturnVisit" parameterType="java.lang.Integer">
+        select
+        id,visitorId,visitorType,createTime,callInfoId,creatorId,visitResult,status
+        from t_return_visit
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        update  t_return_visit
+        set status=0
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.call.entity.ReturnVisit" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_return_visit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="visitorId != null">
+                visitorId,
+            </if>
+            <if test="visitorType != null">
+                visitorType,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="callInfoId != null">
+                callInfoId,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="visitResult != null">
+                visitResult,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="visitorId != null">
+                #{visitorId,jdbcType=INTEGER},
+            </if>
+            <if test="visitorType != null">
+                #{visitorType,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="callInfoId != null">
+                #{callInfoId,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="visitResult != null">
+                #{visitResult,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="java.lang.Integer">
+        update t_return_visit
+        <set>
+            <if test="visitorId != null">
+                visitorId = #{visitorId,jdbcType=INTEGER},
+            </if>
+            <if test="visitorType != null">
+                visitorType = #{visitorType,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="callInfoId != null">
+                callInfoId = #{callInfoId,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="visitResult != null">
+                visitResult = #{visitResult,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStatusByVisitorId">
+        update t_return_visit
+        set
+            status=#{status}
+        where visitorId = #{visitorId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateResultByCallInfoId">
+        update t_return_visit
+        set
+            visitResult = #{visitResult,jdbcType=INTEGER}
+        where  callInfoId = #{callInfoId,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.call.entity.ReturnVisit" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_return_visit
+        where status=1
+        <if test="visitorType != null">
+            and visitorType = #{visitorType }
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgRecreationalActivitiesMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgRecreationalActivities">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
+    <result column="activity_time" jdbcType="VARCHAR" property="activityTime" />
+    <result column="participants_number" jdbcType="INTEGER" property="participantsNumber" />
+    <result column="activity_content" jdbcType="VARCHAR" property="activityContent" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="organizer" jdbcType="VARCHAR" property="organizer" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, activity_name, activity_time, participants_number, activity_content, address, organizer, duration,organization_name
+  </sql>
+
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgRecreationalActivities" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_service_org_recreational_activities
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="activityName != null">
+        activity_name,
+      </if>
+      <if test="activityTime != null">
+        activity_time,
+      </if>
+      <if test="participantsNumber != null">
+        participants_number,
+      </if>
+      <if test="activityContent != null">
+        activity_content,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="organizer != null">
+        organizer,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null">
+        #{activityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="participantsNumber != null">
+        #{participantsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="activityContent != null">
+        #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgRecreationalActivities">
+    update t_service_org_recreational_activities
+    <set>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null">
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null">
+        activity_time = #{activityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="participantsNumber != null">
+        participants_number = #{participantsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="activityContent != null">
+        activity_content = #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        organizer = #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgRecreationalActivities">
+    select
+    *
+    from t_service_org_recreational_activities
+    <where>
+      <if test="filter.organizationName!=null and filter.organizationName!=''">
+        organization_name like CONCAT('%',#{filter.organizationName},'%' )
+      </if>
+      <if test="filter.activityName!=null and filter.activityName!=''">
+        activity_name like CONCAT('%',#{filter.activityName},'%' )
+      </if>
+      <if test="filter.activityTime!=null and filter.activityTime!=''">
+        and activity_time like CONCAT('%',#{filter.activityTime},'%' )
+      </if>
+      <if test="filter.participantsNumber!=null">
+        and participants_number = #{filter.participantsNumber}
+      </if>
+      <if test="filter.activityContent!=null and filter.activityContent!=''">
+        and activity_content like CONCAT('%',#{filter.activityContent},'%' )
+      </if>
+      <if test="filter.address!=null and filter.address!=''">
+        and address like CONCAT('%',#{filter.address},'%' )
+      </if>
+      <if test="filter.organizer!=null and filter.organizer!=''">
+        and organizer like CONCAT('%',#{filter.organizer},'%' )
+      </if>
+      <if test="filter.duration!=null and filter.duration!=''">
+        and duration like CONCAT('%',#{filter.duration},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_service_org_recreational_activities
+    <where>
+      <if test="organizationName!=null and organizationName!=''">
+        organization_name like CONCAT('%',#{organizationName},'%' )
+      </if>
+      <if test="activityName!=null and activityName!=''">
+        activity_name like CONCAT('%',#{activityName},'%' )
+      </if>
+      <if test="activityTime!=null and activityTime!=''">
+        and activity_time like CONCAT('%',#{activityTime},'%' )
+      </if>
+      <if test="participantsNumber!=null">
+        and participants_number = #{participantsNumber}
+      </if>
+      <if test="activityContent!=null and activityContent!=''">
+        and activity_content like CONCAT('%',#{activityContent},'%' )
+      </if>
+      <if test="address!=null and address!=''">
+        and address like CONCAT('%',#{address},'%' )
+      </if>
+      <if test="organizer!=null and organizer!=''">
+        and organizer like CONCAT('%',#{organizer},'%' )
+      </if>
+      <if test="duration!=null and duration!=''">
+        and duration like CONCAT('%',#{duration},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_service_org_recreational_activities
+  </select>
+
+  <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgRecreationalActivities"
+          parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_service_org_recreational_activities a where  a.id = #{id}
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_recreational_activities
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_service_org_recreational_activities
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+</mapper>

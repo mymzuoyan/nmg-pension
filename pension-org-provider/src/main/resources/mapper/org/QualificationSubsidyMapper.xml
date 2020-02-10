@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.QualificationSubsidyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.QualificationSubsidy">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="institutionName" property="institutionName" jdbcType="VARCHAR"/>
+        <result column="areaId" property="areaId" jdbcType="INTEGER"/>
+        <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+        <result column="qualificationAttach" property="qualificationAttach" jdbcType="VARCHAR"/>
+        <result column="healthAttach" property="healthAttach" jdbcType="VARCHAR"/>
+        <result column="idcardAttach" property="idcardAttach" jdbcType="VARCHAR"/>
+        <result column="liveAttach" property="liveAttach" jdbcType="VARCHAR"/>
+        <result column="sbAttach" property="sbAttach" jdbcType="VARCHAR"/>
+        <result column="applyAttach" property="applyAttach" jdbcType="VARCHAR"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="verityStatus" property="verityStatus" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="isFlag" property="isFlag" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.QualificationSubsidy">
+        insert into qualification_subsidy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="areaId != null">
+                areaId,
+            </if>
+            <if test="areaName != null">
+                areaName,
+            </if>
+            <if test="qualificationAttach != null">
+                qualificationAttach,
+            </if>
+            <if test="healthAttach != null">
+                healthAttach,
+            </if>
+            <if test="idcardAttach != null">
+                idcardAttach,
+            </if>
+            <if test="liveAttach != null">
+                liveAttach,
+            </if>
+            <if test="sbAttach != null">
+                sbAttach,
+            </if>
+            <if test="applyAttach != null">
+                applyAttach,
+            </if>
+            <if test="applyTime != null">
+                applyTime,
+            </if>
+            <if test="verityStatus != null">
+                verityStatus,
+            </if>
+            <if test="isFlag != null">
+                isFlag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="areaName != null">
+                #{areaName,jdbcType=VARCHAR},
+            </if>
+            <if test="qualificationAttach != null">
+                #{qualificationAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="healthAttach != null">
+                #{healthAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardAttach != null">
+                #{idcardAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="liveAttach != null">
+                #{liveAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="sbAttach != null">
+                #{sbAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyAttach != null">
+                #{applyAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="verityStatus != null">
+                #{verityStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isFlag != null">
+                #{isFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectPageList" resultMap="BaseResultMap">
+        select qs.*,
+        tso.institutionName institutionName,
+        a.name areaName
+        from qualification_subsidy qs
+        left join t_service_org tso on qs.serviceOrgId = tso.id
+        left join area a on qs.areaId = a.id
+        <where>
+            <if test="filter.verityStatus != null">
+                AND  verityStatus = #{filter.verityStatus,jdbcType=INTEGER}
+            </if>
+            <if test="filter.areaId != null">
+                AND  qs.areaId = #{filter.areaId,jdbcType=INTEGER}
+            </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from qualification_subsidy qs
+        left join t_service_org tso on qs.serviceOrgId = tso.id
+        left join area a on qs.areaId = a.id
+        <where>
+            <if test="verityStatus != null">
+                AND verityStatus = #{verityStatus,jdbcType=INTEGER}
+            </if>
+            <if test="areaId != null">
+                AND qs.areaId = #{areaId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.QualificationSubsidy"
+            parameterType="java.lang.Integer">
+        select
+         qs.*,
+         tso.institutionName institutionName
+        from qualification_subsidy qs
+        left join t_service_org tso on qs.serviceOrgId = tso.id
+        WHERE qs.id = #{id}
+    </select>
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from qualification_subsidy
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.QualificationSubsidy">
+        update qualification_subsidy
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="qualificationAttach != null">
+                qualificationAttach = #{qualificationAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="healthAttach != null">
+                healthAttach = #{healthAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardAttach != null">
+                idcardAttach = #{idcardAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="liveAttach != null">
+                liveAttach = #{liveAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="sbAttach != null">
+                sbAttach = #{sbAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyAttach != null">
+                applyAttach = #{applyAttach,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                applyTime = #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="verityStatus != null">
+                verityStatus = #{verityStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isFlag != null">
+                isFlag = #{isFlag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAreaId" parameterType="string" resultType="int">
+        select  id  from area  where name = #{areaName}
+    </select>
+    <select id="getListArea" resultType="com.fedtech.pension.sys.entity.Area">
+        select * from area where level = 2
+    </select>
+    <select id="getListAreaByParentId" resultType="com.fedtech.pension.sys.entity.Area">
+        select * from area where parentId = #{areaId}
+    </select>
+    <select id="selectAll" resultType="com.fedtech.pension.org.entity.QualificationSubsidy">
+        select * from qualification_subsidy
+    </select>
+    <select id="selectCount" resultType="map">
+        SELECT
+             verityStatus verityStatus,
+             count(1) count
+        FROM
+            qualification_subsidy
+        WHERE
+            areaName like CONCAT('%',#{areaName},'%' )
+        GROUP BY
+	        verityStatus
+    </select>
+</mapper>

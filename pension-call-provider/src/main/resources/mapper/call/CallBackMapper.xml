@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.CallBackMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.call.entity.CallBack" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="callerId" property="callerId" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="queueName" property="queueName" jdbcType="VARCHAR" />
+    <result column="monitorName" property="monitorName" jdbcType="VARCHAR" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, callerId, createTime,queueName, monitorName,  extension,type
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_call_back
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_call_back
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.call.entity.CallBack" useGeneratedKeys="true" keyProperty="id">
+    insert into t_call_back
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="callerId != null" >
+        callerId,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="queueName != null" >
+        queueName,
+      </if>
+      <if test="monitorName != null" >
+        monitorName,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="callerId != null" >
+        #{callerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queueName != null" >
+        #{queueName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorName != null" >
+        #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.call.entity.CallBack" >
+    update t_call_back
+    <set >
+      <if test="callerId != null" >
+        callerId = #{callInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queueName != null" >
+        queueName = #{queueName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorName != null" >
+        monitorName = #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{extension,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" parameterType="com.fedtech.pension.call.entity.CallBack" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM t_call_back
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM t_call_back
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.call.entity.CallBack">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_call_back
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+    </if>
+  </select>
+
+  <select id="getAllRecode" parameterType="com.fedtech.pension.call.entity.CallBack" resultType="com.fedtech.pension.call.entity.CallBack">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_call_back
+    <if test="filter.monitorName!=null">
+      where monitorName=#{filter.monitorName}
+    </if>
+  </select>
+
+</mapper>

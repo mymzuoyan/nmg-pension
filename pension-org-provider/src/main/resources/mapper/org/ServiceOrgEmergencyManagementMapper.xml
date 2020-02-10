@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgEmergencyManagementMapper" >
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement" >
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="eventType" jdbcType="VARCHAR" property="eventType" />
+        <result column="serviceOrgName" jdbcType="VARCHAR" property="serviceOrgName" />
+        <result column="occurrenceTime" jdbcType="VARCHAR" property="occurrenceTime" />
+        <result column="eventDescription" jdbcType="VARCHAR" property="eventDescription" />
+        <result column="eventPhoto" jdbcType="VARCHAR" property="eventPhoto" />
+        <result column="dealPeople" jdbcType="VARCHAR" property="dealPeople" />
+        <result column="dealTime" jdbcType="VARCHAR" property="dealTime" />
+        <result column="dealResult" jdbcType="VARCHAR" property="dealResult" />
+        <result column="dealPhoto" jdbcType="VARCHAR" property="dealPhoto" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, eventType, serviceOrgName, occurrenceTime, eventDescription, eventPhoto, dealPeople,
+    dealTime, dealResult, dealPhoto
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_service_emergency_management
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_service_emergency_management
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement" >
+  insert into t_service_emergency_management (id, eventType, serviceOrgName,
+      occurrenceTime, eventDescription, eventPhoto,
+      dealPeople, dealTime, dealResult,
+      dealPhoto)
+    values (#{id,jdbcType=INTEGER}, #{eventType,jdbcType=VARCHAR}, #{serviceOrgName,jdbcType=VARCHAR},
+      #{occurrenceTime,jdbcType=VARCHAR}, #{eventDescription,jdbcType=VARCHAR}, #{eventPhoto,jdbcType=VARCHAR},
+      #{dealPeople,jdbcType=VARCHAR}, #{dealTime,jdbcType=VARCHAR}, #{dealResult,jdbcType=VARCHAR},
+      #{dealPhoto,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement" >
+        insert into t_service_emergency_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="eventType != null">
+                eventType,
+            </if>
+            <if test="serviceOrgName != null">
+                serviceOrgName,
+            </if>
+            <if test="occurrenceTime != null">
+                occurrenceTime,
+            </if>
+            <if test="eventDescription != null">
+                eventDescription,
+            </if>
+            <if test="eventPhoto != null">
+                eventPhoto,
+            </if>
+            <if test="dealPeople != null">
+                dealPeople,
+            </if>
+            <if test="dealTime != null">
+                dealTime,
+            </if>
+            <if test="dealResult != null">
+                dealResult,
+            </if>
+            <if test="dealPhoto != null">
+                dealPhoto,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="eventType != null">
+                #{eventType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgName != null">
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="occurrenceTime != null">
+                #{occurrenceTime,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDescription != null">
+                #{eventDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="eventPhoto != null">
+                #{eventPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="dealPeople != null">
+                #{dealPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="dealTime != null">
+                #{dealTime,jdbcType=VARCHAR},
+            </if>
+            <if test="dealResult != null">
+                #{dealResult,jdbcType=VARCHAR},
+            </if>
+            <if test="dealPhoto != null">
+                #{dealPhoto,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement" >
+        update t_service_emergency_management
+        <set>
+            <if test="eventType != null">
+                eventType = #{eventType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgName != null">
+                serviceOrgName = #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="occurrenceTime != null">
+                occurrenceTime = #{occurrenceTime,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDescription != null">
+                eventDescription = #{eventDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="eventPhoto != null">
+                eventPhoto = #{eventPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="dealPeople != null">
+                dealPeople = #{dealPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="dealTime != null">
+                dealTime = #{dealTime,jdbcType=VARCHAR},
+            </if>
+            <if test="dealResult != null">
+                dealResult = #{dealResult,jdbcType=VARCHAR},
+            </if>
+            <if test="dealPhoto != null">
+                dealPhoto = #{dealPhoto,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        from t_service_emergency_management
+        <where>
+            <if test="eventType != null and eventType !=''">
+                AND eventType like CONCAT('%',#{eventType},'%' )
+            </if>
+            <if test="serviceOrgName != null and serviceOrgName !=''">
+                AND serviceOrgName like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="occurrenceTime != null and occurrenceTime !=''">
+                AND occurrenceTime like CONCAT('%',#{occurrenceTime},'%' )
+            </if>
+            <if test="eventDescription!=null and eventDescription!=''">
+                and eventDescription like CONCAT('%',#{eventDescription},'%' )
+            </if>
+            <if test="eventPhoto!=null and eventPhoto!=''">
+                and eventPhoto like CONCAT('%',#{eventPhoto},'%' )
+            </if>
+            <if test="dealPeople!=null and dealPeople!=''">
+                and dealPeople like CONCAT('%',#{dealPeople},'%' )
+            </if>
+            <if test="dealTime != null and dealTime !=''">
+                AND dealTime like CONCAT('%',#{dealTime},'%' )
+            </if>
+            <if test="dealResult != null and dealResult !=''">
+                AND dealResult like CONCAT('%',#{dealResult},'%' )
+            </if>
+            <if test="dealPhoto != null and dealPhoto !=''">
+                AND dealPhoto like CONCAT('%',#{dealPhoto},'%' )
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_emergency_management
+  </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement">
+        select
+        *
+        from t_service_emergency_management
+        <where>
+            <if test="filter.eventType != null and filter.eventType !=''">
+                AND eventType like CONCAT('%',#{filter.eventType},'%' )
+            </if>
+            <if test="filter.serviceOrgName != null and filter.serviceOrgName !=''">
+                AND serviceOrgName like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.occurrenceTime != null and filter.occurrenceTime !=''">
+                AND occurrenceTime like CONCAT('%',#{filter.occurrenceTime},'%' )
+            </if>
+            <if test="filter.eventDescription!=null and filter.eventDescription!=''">
+                and eventDescription like CONCAT('%',#{filter.eventDescription},'%' )
+            </if>
+            <if test="filter.eventPhoto!=null and filter.eventPhoto!=''">
+                and eventPhoto like CONCAT('%',#{filter.eventPhoto},'%' )
+            </if>
+            <if test="filter.dealPeople!=null and filter.dealPeople!=''">
+                and dealPeople like CONCAT('%',#{filter.dealPeople},'%' )
+            </if>
+            <if test="filter.dealTime != null and filter.dealTime !=''">
+                AND dealTime like CONCAT('%',#{filter.dealTime},'%' )
+            </if>
+            <if test="filter.dealResult != null and filter.dealResult !=''">
+                AND dealResult like CONCAT('%',#{filter.dealResult},'%' )
+            </if>
+            <if test="filter.dealPhoto != null and filter.dealPhoto !=''">
+                AND dealPhoto like CONCAT('%',#{filter.dealPhoto},'%' )
+            </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.org.entity.ServiceOrgEmergencyManagement" >
+  update t_service_emergency_management
+    set eventType = #{eventType,jdbcType=VARCHAR},
+      serviceOrgName = #{serviceOrgName,jdbcType=VARCHAR},
+      occurrenceTime = #{occurrenceTime,jdbcType=VARCHAR},
+      eventDescription = #{eventDescription,jdbcType=VARCHAR},
+      eventPhoto = #{eventPhoto,jdbcType=VARCHAR},
+      dealPeople = #{dealPeople,jdbcType=VARCHAR},
+      dealTime = #{dealTime,jdbcType=VARCHAR},
+      dealResult = #{dealResult,jdbcType=VARCHAR},
+      dealPhoto = #{dealPhoto,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_service_emergency_management
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.gold.mapper.GoldElderlyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.gold.entity.GoldElderly">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="applyType" property="applyType" jdbcType="INTEGER"/>
+        <result column="registerTime" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="cancelTime" property="cancelTime" jdbcType="TIMESTAMP"/>
+        <result column="elderName" property="elderlyMsg.elderName" jdbcType="VARCHAR"/>
+        <result column="sexDictId" property="elderlyMsg.sexDictId" jdbcType="INTEGER"/>
+        <result column="areaId" property="elderlyMsg.areaId" jdbcType="INTEGER"/>
+        <result column="areaName" property="elderlyMsg.areaName" jdbcType="VARCHAR"/>
+        <result column="idcardno" property="elderlyMsg.idcardno" jdbcType="VARCHAR"/>
+        <result column="realAddress" property="elderlyMsg.realAddress" jdbcType="VARCHAR"/>
+        <result column="sexDictId" property="elderlyMsg.sexDictId" jdbcType="INTEGER"/>
+        <result column="realAddress" property="elderlyMsg.realAddress" jdbcType="VARCHAR"/>
+        <result column="linkMan" property="linkMan" jdbcType="VARCHAR"/>
+        <result column="linkManTel" property="linkManTel" jdbcType="VARCHAR"/>
+        <result column="bankCardno" property="bankCardno" jdbcType="VARCHAR"/>
+        <result column="bankCardOwner" property="bankCardOwner" jdbcType="VARCHAR"/>
+        <result column="relationElderly" property="relationElderly" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="fafangWay" property="fafangWay" jdbcType="INTEGER"/>
+        <result column="moneyStandard" property="goldSendStandard.moneyStandard" jdbcType="DOUBLE"/>
+        <result column="cancelReason" property="cancelReason" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select g.*,m.* from t_gold_elderly g,t_elderly_message m
+        where g.id =m.id and g.id = #{id}
+    </select>
+
+    <select id="selectAllId" resultMap="BaseResultMap">
+        SELECT e.id, s.moneyStandard
+        FROM t_gold_elderly e ,t_gold_send_standard s ,t_elderly_message m
+        where e.applyType =s.applyType and s.areaName LIKE CONCAT ('%',m.areaName,'%')
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+      select count(*) from t_gold_elderly g,t_elderly_message m
+        WHERE g.id =m.id
+        <if test="elderName != null and elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{idcardno},'%' )
+        </if>
+        <if test="applyType != null">
+            AND g.applyType LIKE CONCAT('%',#{applyType},'%' )
+        </if>
+        <if test="areaName!=null">
+            AND m.areaName LIKE concat('%',#{areaName},'%')
+        </if>
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        select
+        g.id,
+        m.elderName,
+        m.sexDictId,
+        g.applyType,
+        m.areaName,
+        m.realAddress,
+        m.idcardno,
+        g.registerTime,
+        g.cancelTime
+        FROM
+        t_gold_elderly g,
+        t_elderly_message m
+        WHERE
+        g.id = m.id
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND g.applyType LIKE CONCAT('%',#{filter.applyType},'%' )
+        </if>
+        <if test="filter.areaName!=null">
+            AND m.areaName LIKE concat('%',#{filter.areaName},'%')
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_gold_elderly
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.gold.entity.GoldElderly" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_gold_elderly (id,applyType,linkMan,linkManTel,bankCardno,bankCardOwner,relationElderly,fafangWay,remark,registerTime,cancelReason,status)
+        values (#{id,jdbcType=INTEGER},#{applyType,jdbcType=INTEGER},#{linkMan,jdbcType=VARCHAR},#{linkManTel,jdbcType=VARCHAR},
+        #{bankCardno,jdbcType=VARCHAR},#{bankCardOwner,jdbcType=VARCHAR},#{relationElderly,jdbcType=INTEGER}
+        ,#{fafangWay,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{registerTime,jdbcType=TIMESTAMP},#{cancelReason,jdbcType=TIMESTAMP},#{status,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteSome" parameterType="java.util.List">
+        delete from t_gold_elderly
+        where id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.gold.entity.GoldElderly">
+        update t_gold_elderly
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="applyType != null">
+                applyType = #{applyType,jdbcType=INTEGER},
+            </if>
+            <if test="linkMan != null">
+                linkMan = #{linkMan,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManTel != null">
+                linkManTel = #{linkManTel,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCardno != null">
+                bankCardno = #{bankCardno,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCardOwner != null">
+                bankCardOwner = #{bankCardOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="relationElderly != null">
+                relationElderly = #{relationElderly,jdbcType=INTEGER},
+            </if>
+            <if test="fafangWay != null">
+                fafangWay = #{fafangWay,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByIds">
+        update t_gold_elderly
+        set applyType=#{applyType}
+        WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="insertSome" parameterType="java.util.List">
+        INSERT INTO t_gold_elderly
+        (id, applyType, linkMan, linkManTel,bankCardno,bankCardOwner,relationElderly,fafangWay,remark
+        , registerTime)
+        VALUES
+        <foreach collection="filters" item="filter" index="index" separator=",">
+            (#{filter.id},#{filter.applyType},#{filter.linkMan},#{filter.linkManTel},
+            #{filter.bankCardno},#{filter.bankCardOwner},#{filter.relationElderly},#{filter.fafangWay},#{filter.remark},#{filter.registerTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertSomeGoldElderly" parameterType="java.util.List">
+        INSERT INTO t_gold_elderly
+        (id, applyType, registerTime)
+        VALUES
+        <foreach collection="goldElderlies" item="goldElderly" index="index" separator=",">
+            (#{goldElderly.id},#{goldElderly.applyType},#{goldElderly.registerTime})
+        </foreach>
+    </insert>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.gold.entity.GoldElderly"
+            parameterType="com.fedtech.pension.gold.entity.GoldElderly">
+        SELECT
+        g.id,
+        m.elderName,
+        m.sexDictId,
+        g.applyType,
+        m.areaName,
+        m.realAddress,
+        m.idcardno,
+        g.registerTime,
+        g.cancelTime
+        FROM
+        t_gold_elderly g,
+        t_elderly_message m
+        WHERE
+        g.id = m.id
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND m.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND m.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.applyType != null">
+            AND g.applyType LIKE CONCAT('%',#{filter.applyType},'%' )
+        </if>
+        <if test="filter.areaName!=null">
+            AND m.areaName LIKE concat('%',#{filter.areaName},'%')
+        </if>
+    </select>
+
+    <select id="selectByCardNoForGoldSend" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select m.elderName,e.bankCardno,e.applyType,e.fafangWay,s.moneyStandard
+        from t_gold_elderly e,t_gold_send_standard s,t_elderly_message m
+        where m.idcardno=#{cardNo} and m.status=1 and m.id=e.id and s.applyType=e.applyType
+        and s.areaName LIKE CONCAT ('%',m.areaName,'%')
+    </select>
+
+</mapper>

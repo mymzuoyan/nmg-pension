@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.ElderlyWalletMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.task.entity.ElderlyWallet" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, idcardno, balance, createTime, updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_elderly_wallet
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_elderly_wallet
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.task.entity.ElderlyWallet" useGeneratedKeys="true" keyColumn="id" >
+    insert into t_elderly_wallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="idcardno != null" >
+        idcardno,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.task.entity.ElderlyWallet" >
+    update t_elderly_wallet
+    <set >
+      <if test="idcardno != null" >
+        idcardno = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_elderly_govbuy a INNER JOIN t_elderly_message b on (a.elderId=b.id) INNER  JOIN t_elderly_wallet c on (c.idcardno=b.idcardno)
+    <where>
+      <if test="idcardno != null and idcardno !=''">
+        c.idcardno = #{idcardno,jdbcType=VARCHAR}
+      </if>
+      <if test="areaName != null">
+        AND b.areaName LIKE CONCAT('%',#{areaName},'%' )
+      </if>
+      <if test="elderName != null and elderName !=''">
+        AND b.elderName LIKE CONCAT('%',#{elderName},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_elderly_wallet
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.task.entity.ElderlyWallet">
+    select
+    c.id,b.elderName,b.areaName,b.age,b.sexDictId,b.realAddress, c.idcardno, c.balance, c.createTime, c.updateTime
+    from t_elderly_govbuy a
+    INNER JOIN t_elderly_message b on (a.elderId=b.id)
+    INNER JOIN t_elderly_wallet c on (c.idcardno=b.idcardno)
+    <where>
+      <if test="filter.idcardno != null and filter.idcardno !='' ">
+        c.idcardno = #{filter.idcardno,jdbcType=VARCHAR}
+      </if>
+      <if test="filter.areaName != null">
+        AND b.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+      </if>
+      <if test="filter.elderName != null and filter.elderName !=''">
+        AND b.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.CommunityPensionStarsMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.CommunityPensionStars">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="service_org_id" jdbcType="INTEGER" property="serviceOrgId" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+
+    <result column="pg_type" jdbcType="INTEGER" property="pgType" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="application_status" jdbcType="INTEGER" property="applicationStatus" />
+
+    <result column="organization_names" jdbcType="VARCHAR" property="organizationNames" />
+    <result column="star_rating" jdbcType="VARCHAR" property="starRating" />
+    <result column="application_time" jdbcType="VARCHAR" property="applicationTime" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="safety_score1" jdbcType="VARCHAR" property="safetyScore1" />
+    <result column="safety_score2" jdbcType="VARCHAR" property="safetyScore2" />
+    <result column="safety_score3" jdbcType="VARCHAR" property="safetyScore3" />
+    <result column="safety_score4" jdbcType="VARCHAR" property="safetyScore4" />
+    <result column="safety_score5" jdbcType="VARCHAR" property="safetyScore5" />
+    <result column="safety_score6" jdbcType="VARCHAR" property="safetyScore6" />
+    <result column="safety_score7" jdbcType="VARCHAR" property="safetyScore7" />
+    <result column="safety_score8" jdbcType="VARCHAR" property="safetyScore8" />
+    <result column="safety_score9" jdbcType="VARCHAR" property="safetyScore9" />
+    <result column="safety_score10" jdbcType="VARCHAR" property="safetyScore10" />
+    <result column="safety_score11" jdbcType="VARCHAR" property="safetyScore11" />
+    <result column="safety_score12" jdbcType="VARCHAR" property="safetyScore12" />
+    <result column="safety_score13" jdbcType="VARCHAR" property="safetyScore13" />
+    <result column="safety_score14" jdbcType="VARCHAR" property="safetyScore14" />
+    <result column="safety_score15" jdbcType="VARCHAR" property="safetyScore15" />
+    <result column="service_score1" jdbcType="VARCHAR" property="serviceScore1" />
+    <result column="service_score2" jdbcType="VARCHAR" property="serviceScore2" />
+    <result column="service_score3" jdbcType="VARCHAR" property="serviceScore3" />
+    <result column="service_score4" jdbcType="VARCHAR" property="serviceScore4" />
+    <result column="service_score5" jdbcType="VARCHAR" property="serviceScore5" />
+    <result column="service_score6" jdbcType="VARCHAR" property="serviceScore6" />
+    <result column="service_score7" jdbcType="VARCHAR" property="serviceScore7" />
+    <result column="service_score8" jdbcType="VARCHAR" property="serviceScore8" />
+    <result column="manage_score1" jdbcType="VARCHAR" property="manageScore1" />
+    <result column="manage_score2" jdbcType="VARCHAR" property="manageScore2" />
+    <result column="manage_score3" jdbcType="VARCHAR" property="manageScore3" />
+    <result column="manage_score4" jdbcType="VARCHAR" property="manageScore4" />
+    <result column="manage_score5" jdbcType="VARCHAR" property="manageScore5" />
+    <result column="manage_score6" jdbcType="VARCHAR" property="manageScore6" />
+    <result column="manage_score7" jdbcType="VARCHAR" property="manageScore7" />
+    <result column="manage_score8" jdbcType="VARCHAR" property="manageScore8" />
+    <result column="manage_score9" jdbcType="VARCHAR" property="manageScore9" />
+    <result column="facility_score1" jdbcType="VARCHAR" property="facilityScore1" />
+    <result column="facility_score2" jdbcType="VARCHAR" property="facilityScore2" />
+    <result column="facility_score3" jdbcType="VARCHAR" property="facilityScore3" />
+    <result column="facility_score4" jdbcType="VARCHAR" property="facilityScore4" />
+    <result column="facility_score5" jdbcType="VARCHAR" property="facilityScore5" />
+    <result column="facility_score6" jdbcType="VARCHAR" property="facilityScore6" />
+    <result column="facility_score7" jdbcType="VARCHAR" property="facilityScore7" />
+    <result column="facility_score8" jdbcType="VARCHAR" property="facilityScore8" />
+    <result column="facility_score9" jdbcType="VARCHAR" property="facilityScore9" />
+    <result column="facility_score10" jdbcType="VARCHAR" property="facilityScore10" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, area, service_org_id, pg_type,user_id,organization_names, star_rating, application_time, application_status,
+    total_score, safety_score1, safety_score2, safety_score3, safety_score4, safety_score5,
+    safety_score6, safety_score7, safety_score8, safety_score9, safety_score10, safety_score11,
+    safety_score12, safety_score13, safety_score14, safety_score15, service_score1, service_score2,
+    service_score3, service_score4, service_score5, service_score6, service_score7, service_score8,
+    manage_score1, manage_score2, manage_score3, manage_score4, manage_score5, manage_score6,
+    manage_score7, manage_score8, manage_score9, facility_score1, facility_score2, facility_score3,
+    facility_score4, facility_score5, facility_score6, facility_score7, facility_score8,
+    facility_score9, facility_score10
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_service_org_community_pension_stars
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_community_pension_stars
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.CommunityPensionStars" useGeneratedKeys="true"
+          keyProperty="id">
+      insert into t_service_org_community_pension_stars
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceOrgId != null">
+        service_org_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="pgType != null">
+        pg_type,
+      </if>
+
+      <if test="area != null">
+        area,
+      </if>
+      <if test="organizationNames != null">
+        organization_names,
+      </if>
+      <if test="starRating != null">
+        star_rating,
+      </if>
+      <if test="applicationTime != null">
+        application_time,
+      </if>
+      <if test="applicationStatus != null">
+        application_status,
+      </if>
+      <if test="totalScore != null">
+        total_score,
+      </if>
+      <if test="safetyScore1 != null">
+        safety_score1,
+      </if>
+      <if test="safetyScore2 != null">
+        safety_score2,
+      </if>
+      <if test="safetyScore3 != null">
+        safety_score3,
+      </if>
+      <if test="safetyScore4 != null">
+        safety_score4,
+      </if>
+      <if test="safetyScore5 != null">
+        safety_score5,
+      </if>
+      <if test="safetyScore6 != null">
+        safety_score6,
+      </if>
+      <if test="safetyScore7 != null">
+        safety_score7,
+      </if>
+      <if test="safetyScore8 != null">
+        safety_score8,
+      </if>
+      <if test="safetyScore9 != null">
+        safety_score9,
+      </if>
+      <if test="safetyScore10 != null">
+        safety_score10,
+      </if>
+      <if test="safetyScore11 != null">
+        safety_score11,
+      </if>
+      <if test="safetyScore12 != null">
+        safety_score12,
+      </if>
+      <if test="safetyScore13 != null">
+        safety_score13,
+      </if>
+      <if test="safetyScore14 != null">
+        safety_score14,
+      </if>
+      <if test="safetyScore15 != null">
+        safety_score15,
+      </if>
+      <if test="serviceScore1 != null">
+        service_score1,
+      </if>
+      <if test="serviceScore2 != null">
+        service_score2,
+      </if>
+      <if test="serviceScore3 != null">
+        service_score3,
+      </if>
+      <if test="serviceScore4 != null">
+        service_score4,
+      </if>
+      <if test="serviceScore5 != null">
+        service_score5,
+      </if>
+      <if test="serviceScore6 != null">
+        service_score6,
+      </if>
+      <if test="serviceScore7 != null">
+        service_score7,
+      </if>
+      <if test="serviceScore8 != null">
+        service_score8,
+      </if>
+      <if test="manageScore1 != null">
+        manage_score1,
+      </if>
+      <if test="manageScore2 != null">
+        manage_score2,
+      </if>
+      <if test="manageScore3 != null">
+        manage_score3,
+      </if>
+      <if test="manageScore4 != null">
+        manage_score4,
+      </if>
+      <if test="manageScore5 != null">
+        manage_score5,
+      </if>
+      <if test="manageScore6 != null">
+        manage_score6,
+      </if>
+      <if test="manageScore7 != null">
+        manage_score7,
+      </if>
+      <if test="manageScore8 != null">
+        manage_score8,
+      </if>
+      <if test="manageScore9 != null">
+        manage_score9,
+      </if>
+      <if test="facilityScore1 != null">
+        facility_score1,
+      </if>
+      <if test="facilityScore2 != null">
+        facility_score2,
+      </if>
+      <if test="facilityScore3 != null">
+        facility_score3,
+      </if>
+      <if test="facilityScore4 != null">
+        facility_score4,
+      </if>
+      <if test="facilityScore5 != null">
+        facility_score5,
+      </if>
+      <if test="facilityScore6 != null">
+        facility_score6,
+      </if>
+      <if test="facilityScore7 != null">
+        facility_score7,
+      </if>
+      <if test="facilityScore8 != null">
+        facility_score8,
+      </if>
+      <if test="facilityScore9 != null">
+        facility_score9,
+      </if>
+      <if test="facilityScore10 != null">
+        facility_score10,
+      </if>
+    </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+        <if test="serviceOrgId != null">
+          #{serviceOrgId,jdbcType=INTEGER},
+        </if>
+        <if test="userId != null">
+          #{userId,jdbcType=INTEGER},
+        </if>
+        <if test="pgType != null">
+          #{pgType,jdbcType=INTEGER},
+        </if>
+
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNames != null">
+        #{organizationNames,jdbcType=VARCHAR},
+      </if>
+      <if test="starRating != null">
+        #{starRating,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null">
+        #{applicationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationStatus != null">
+        #{applicationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="safetyScore1 != null">
+        #{safetyScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore2 != null">
+        #{safetyScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore3 != null">
+        #{safetyScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore4 != null">
+        #{safetyScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore5 != null">
+        #{safetyScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore6 != null">
+        #{safetyScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore7 != null">
+        #{safetyScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore8 != null">
+        #{safetyScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore9 != null">
+        #{safetyScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore10 != null">
+        #{safetyScore10,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore11 != null">
+        #{safetyScore11,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore12 != null">
+        #{safetyScore12,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore13 != null">
+        #{safetyScore13,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore14 != null">
+        #{safetyScore14,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore15 != null">
+        #{safetyScore15,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore1 != null">
+        #{serviceScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore2 != null">
+        #{serviceScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore3 != null">
+        #{serviceScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore4 != null">
+        #{serviceScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore5 != null">
+        #{serviceScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore6 != null">
+        #{serviceScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore7 != null">
+        #{serviceScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore8 != null">
+        #{serviceScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore1 != null">
+        #{manageScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore2 != null">
+        #{manageScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore3 != null">
+        #{manageScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore4 != null">
+        #{manageScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore5 != null">
+        #{manageScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore6 != null">
+        #{manageScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore7 != null">
+        #{manageScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore8 != null">
+        #{manageScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore9 != null">
+        #{manageScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore1 != null">
+        #{facilityScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore2 != null">
+        #{facilityScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore3 != null">
+        #{facilityScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore4 != null">
+        #{facilityScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore5 != null">
+        #{facilityScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore6 != null">
+        #{facilityScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore7 != null">
+        #{facilityScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore8 != null">
+        #{facilityScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore9 != null">
+        #{facilityScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore10 != null">
+        #{facilityScore10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.CommunityPensionStars">
+    update t_service_org_community_pension_stars
+    <set>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrgId != null">
+        service_org_id = #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pgType != null">
+        pg_type = #{pgType,jdbcType=INTEGER},
+      </if>
+      <if test="organizationNames != null">
+        organization_names = #{organizationNames,jdbcType=VARCHAR},
+      </if>
+      <if test="starRating != null">
+        star_rating = #{starRating,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null">
+        application_time = #{applicationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationStatus != null">
+        application_status = #{applicationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="safetyScore1 != null">
+        safety_score1 = #{safetyScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore2 != null">
+        safety_score2 = #{safetyScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore3 != null">
+        safety_score3 = #{safetyScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore4 != null">
+        safety_score4 = #{safetyScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore5 != null">
+        safety_score5 = #{safetyScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore6 != null">
+        safety_score6 = #{safetyScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore7 != null">
+        safety_score7 = #{safetyScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore8 != null">
+        safety_score8 = #{safetyScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore9 != null">
+        safety_score9 = #{safetyScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore10 != null">
+        safety_score10 = #{safetyScore10,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore11 != null">
+        safety_score11 = #{safetyScore11,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore12 != null">
+        safety_score12 = #{safetyScore12,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore13 != null">
+        safety_score13 = #{safetyScore13,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore14 != null">
+        safety_score14 = #{safetyScore14,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyScore15 != null">
+        safety_score15 = #{safetyScore15,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore1 != null">
+        service_score1 = #{serviceScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore2 != null">
+        service_score2 = #{serviceScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore3 != null">
+        service_score3 = #{serviceScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore4 != null">
+        service_score4 = #{serviceScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore5 != null">
+        service_score5 = #{serviceScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore6 != null">
+        service_score6 = #{serviceScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore7 != null">
+        service_score7 = #{serviceScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScore8 != null">
+        service_score8 = #{serviceScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore1 != null">
+        manage_score1 = #{manageScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore2 != null">
+        manage_score2 = #{manageScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore3 != null">
+        manage_score3 = #{manageScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore4 != null">
+        manage_score4 = #{manageScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore5 != null">
+        manage_score5 = #{manageScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore6 != null">
+        manage_score6 = #{manageScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore7 != null">
+        manage_score7 = #{manageScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore8 != null">
+        manage_score8 = #{manageScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScore9 != null">
+        manage_score9 = #{manageScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore1 != null">
+        facility_score1 = #{facilityScore1,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore2 != null">
+        facility_score2 = #{facilityScore2,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore3 != null">
+        facility_score3 = #{facilityScore3,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore4 != null">
+        facility_score4 = #{facilityScore4,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore5 != null">
+        facility_score5 = #{facilityScore5,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore6 != null">
+        facility_score6 = #{facilityScore6,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore7 != null">
+        facility_score7 = #{facilityScore7,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore8 != null">
+        facility_score8 = #{facilityScore8,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore9 != null">
+        facility_score9 = #{facilityScore9,jdbcType=VARCHAR},
+      </if>
+      <if test="facilityScore10 != null">
+        facility_score10 = #{facilityScore10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_community_pension_stars
+    <where>
+
+      <if test="area != null and area !=''">
+        AND area like CONCAT('%',#{area},'%' )
+      </if>
+      <if test="organizationNames != null and organizationNames !=''">
+        AND organization_names like CONCAT('%',#{organizationNames},'%' )
+      </if>
+      <if test="starRating != null and starRating !=''">
+        AND star_rating like CONCAT('%',#{starRating},'%' )
+      </if>
+      <if test="applicationTime != null and applicationTime !=''">
+        AND application_time like CONCAT('%',#{applicationTime},'%' )
+      </if>
+
+
+      <if test="applicationStatus!=null">
+        and application_status=#{totalScore}
+      </if>
+      <if test="totalScore!=null">
+        and total_score=#{totalScore}
+      </if>
+      <if test="safetyScore1!=null and safetyScore1 !=''">
+        and safety_score1 like CONCAT('%',#{safetyScore1},'%' )
+      </if>
+      <if test="safetyScore2!=null and safetyScore2 !=''">
+        and safety_score2 like CONCAT('%',#{safetyScore2},'%' )
+      </if>
+      <if test="safetyScore3!=null and safetyScore3 !=''">
+        and safety_score3 like CONCAT('%',#{safetyScore3},'%' )
+      </if>
+      <if test="safetyScore4!=null and safetyScore4 !=''">
+        and safety_score4 like CONCAT('%',#{safetyScore4},'%' )
+      </if>
+      <if test="safetyScore5!=null and safetyScore5 !=''">
+        and safety_score5 like CONCAT('%',#{safetyScore5},'%' )
+      </if>
+      <if test="safetyScore6!=null and safetyScore6 !=''">
+        and safety_score6 like CONCAT('%',#{safetyScore6},'%' )
+      </if>
+      <if test="safetyScore7!=null and safetyScore7 !=''">
+        and safety_score7 like CONCAT('%',#{safetyScore7},'%' )
+      </if>
+      <if test="safetyScore8!=null and safetyScore8 !=''">
+        and safety_score8 like CONCAT('%',#{safetyScore8},'%' )
+      </if>
+      <if test="safetyScore9!=null and safetyScore9 !=''">
+        and safety_score9 like CONCAT('%',#{safetyScore9},'%' )
+      </if>
+      <if test="safetyScore10!=null and safetyScore10 !=''">
+        and safety_score10 like CONCAT('%',#{safetyScore10},'%' )
+      </if>
+      <if test="safetyScore11!=null and safetyScore11 !=''">
+        and safety_score11 like CONCAT('%',#{safetyScore11},'%' )
+      </if>
+      <if test="safetyScore12!=null and safetyScore12 !=''">
+        and safety_score12 like CONCAT('%',#{safetyScore12},'%' )
+      </if>
+      <if test="safetyScore13!=null and safetyScore13 !=''">
+        and safety_score13 like CONCAT('%',#{safetyScore13},'%' )
+      </if>
+      <if test="safetyScore14!=null and safetyScore14 !=''">
+        and safety_score14 like CONCAT('%',#{safetyScore14},'%' )
+      </if>
+      <if test="safetyScore15!=null and safetyScore15 !=''">
+        and safety_score15 like CONCAT('%',#{safetyScore15},'%' )
+      </if>
+      <if test="serviceScore1!=null and serviceScore1 !=''">
+        and service_score1 like CONCAT('%',#{serviceScore1},'%' )
+      </if>
+      <if test="serviceScore2!=null and serviceScore2 !=''">
+        and service_score2 like CONCAT('%',#{serviceScore2},'%' )
+      </if>
+      <if test="serviceScore3!=null and serviceScore3 !=''">
+        and service_score3 like CONCAT('%',#{serviceScore3},'%' )
+      </if>
+      <if test="serviceScore4!=null and serviceScore4 !=''">
+        and service_score4 like CONCAT('%',#{serviceScore4},'%' )
+      </if>
+      <if test="serviceScore5!=null and serviceScore5 !=''">
+        and service_score5 like CONCAT('%',#{serviceScore5},'%' )
+      </if>
+      <if test="serviceScore6!=null and serviceScore6 !=''">
+        and service_score6 like CONCAT('%',#{serviceScore6},'%' )
+      </if>
+      <if test="serviceScore7!=null and serviceScore7 !=''">
+        and service_score7 like CONCAT('%',#{serviceScore7},'%' )
+      </if>
+      <if test="serviceScore8!=null and serviceScore8 !=''">
+        and service_score8 like CONCAT('%',#{serviceScore8},'%' )
+      </if>
+      <if test="manageScore1!=null and manageScore1 !=''">
+        and manage_score1 like CONCAT('%',#{manageScore1},'%' )
+      </if>
+      <if test="manageScore2!=null and manageScore2 !=''">
+        and manage_score2 like CONCAT('%',#{manageScore2},'%' )
+      </if>
+      <if test="manageScore3!=null and manageScore3 !=''">
+        and manage_score3 like CONCAT('%',#{manageScore3},'%' )
+      </if>
+      <if test="manageScore4!=null and manageScore4 !=''">
+        and manage_score4 like CONCAT('%',#{manageScore4},'%' )
+      </if>
+      <if test="manageScore5!=null and manageScore5 !=''">
+        and manage_score5 like CONCAT('%',#{manageScore5},'%' )
+      </if>
+      <if test="manageScore6!=null and manageScore6 !=''">
+        and manage_score6 like CONCAT('%',#{manageScore6},'%' )
+      </if>
+      <if test="manageScore7!=null and manageScore7 !=''">
+        and manage_score7 like CONCAT('%',#{manageScore7},'%' )
+      </if>
+      <if test="manageScore8!=null and manageScore8 !=''">
+        and manage_score8 like CONCAT('%',#{manageScore8},'%' )
+      </if>
+      <if test="manageScore9!=null and manageScore9 !=''">
+        and manage_score9 like CONCAT('%',#{manageScore9},'%' )
+      </if>
+      <if test="facilityScore1!=null and facilityScore1 !=''">
+        and facility_score1 like CONCAT('%',#{facilityScore1},'%' )
+      </if>
+      <if test="facilityScore2!=null and facilityScore2 !=''">
+        and facility_score2 like CONCAT('%',#{facilityScore2},'%' )
+      </if>
+      <if test="facilityScore3!=null and facilityScore3 !=''">
+        and facility_score3 like CONCAT('%',#{facilityScore3},'%' )
+      </if>
+      <if test="facilityScore4!=null and facilityScore4 !=''">
+        and facility_score4 like CONCAT('%',#{facilityScore4},'%' )
+      </if>
+      <if test="facilityScore5!=null and facilityScore5 !=''">
+        and facility_score5 like CONCAT('%',#{facilityScore5},'%' )
+      </if>
+      <if test="facilityScore6!=null and facilityScore6 !=''">
+        and facility_score6 like CONCAT('%',#{facilityScore6},'%' )
+      </if>
+      <if test="facilityScore7!=null and facilityScore7 !=''">
+        and facility_score7 like CONCAT('%',#{facilityScore7},'%' )
+      </if>
+      <if test="facilityScore8!=null and facilityScore8 !=''">
+        and facility_score8 like CONCAT('%',#{facilityScore8},'%' )
+      </if>
+      <if test="facilityScore9!=null and facilityScore9 !=''">
+        and facility_score9 like CONCAT('%',#{facilityScore9},'%' )
+      </if>
+      <if test="facilityScore10!=null and facilityScore10 !=''">
+        and facility_score10 like CONCAT('%',#{facilityScore10},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_community_pension_stars
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.CommunityPensionStars">
+    select
+    *
+    from t_service_org_community_pension_stars
+    <where>
+      <if test="filter.area != null and filter.area !=''">
+        AND area like CONCAT('%',#{filter.area},'%' )
+      </if>
+      <if test="filter.userId!=null">
+        and user_d=#{filter.userId}
+      </if>
+      <if test="filter.pgType!=null">
+        and pg_type=#{filter.pgType}
+      </if>
+      <if test="filter.serviceOrgId!=null">
+        and service_org_id=#{filter.serviceOrgId}
+      </if>
+
+      <if test="filter.applicationStatus!=null">
+        and application_status=#{filter.applicationStatus}
+      </if>
+      <if test="filter.organizationNames != null and filter.organizationNames !=''">
+        AND organization_names like CONCAT('%',#{filter.organizationNames},'%' )
+      </if>
+      <if test="filter.starRating != null and filter.starRating !=''">
+        AND star_rating like CONCAT('%',#{filter.starRating},'%' )
+      </if>
+      <if test="filter.applicationTime != null and filter.applicationTime !=''">
+        AND application_time like CONCAT('%',#{filter.applicationTime},'%' )
+      </if>
+      <if test="filter.totalScore!=null">
+        and total_score=#{filter.totalScore}
+      </if>
+      <if test="filter.safetyScore1!=null and filter.safetyScore1 !=''">
+        and safety_score1 like CONCAT('%',#{filter.safetyScore1},'%' )
+      </if>
+      <if test="filter.safetyScore2!=null and filter.safetyScore2 !=''">
+        and safety_score2 like CONCAT('%',#{filter.safetyScore2},'%' )
+      </if>
+      <if test="filter.safetyScore3!=null and filter.safetyScore3 !=''">
+        and safety_score3 like CONCAT('%',#{filter.safetyScore3},'%' )
+      </if>
+      <if test="filter.safetyScore4!=null and filter.safetyScore4 !=''">
+        and safety_score4 like CONCAT('%',#{filter.safetyScore4},'%' )
+      </if>
+      <if test="filter.safetyScore5!=null and filter.safetyScore5 !=''">
+        and safety_score5 like CONCAT('%',#{filter.safetyScore5},'%' )
+      </if>
+      <if test="filter.safetyScore6!=null and filter.safetyScore6 !=''">
+        and safety_score6 like CONCAT('%',#{filter.safetyScore6},'%' )
+      </if>
+      <if test="filter.safetyScore7!=null and filter.safetyScore7 !=''">
+        and safety_score7 like CONCAT('%',#{filter.safetyScore7},'%' )
+      </if>
+      <if test="filter.safetyScore8!=null and filter.safetyScore8 !=''">
+        and safety_score8 like CONCAT('%',#{filter.safetyScore8},'%' )
+      </if>
+      <if test="filter.safetyScore9!=null and filter.safetyScore9 !=''">
+        and safety_score9 like CONCAT('%',#{filter.safetyScore9},'%' )
+      </if>
+      <if test="filter.safetyScore10!=null and filter.safetyScore10 !=''">
+        and safety_score10 like CONCAT('%',#{filter.safetyScore10},'%' )
+      </if>
+      <if test="filter.safetyScore11!=null and filter.safetyScore11 !=''">
+        and safety_score11 like CONCAT('%',#{filter.safetyScore11},'%' )
+      </if>
+      <if test="filter.safetyScore12!=null and filter.safetyScore12 !=''">
+        and safety_score12 like CONCAT('%',#{filter.safetyScore12},'%' )
+      </if>
+      <if test="filter.safetyScore13!=null and filter.safetyScore13 !=''">
+        and safety_score13 like CONCAT('%',#{filter.safetyScore13},'%' )
+      </if>
+      <if test="filter.safetyScore14!=null and filter.safetyScore14 !=''">
+        and safety_score14 like CONCAT('%',#{filter.safetyScore14},'%' )
+      </if>
+      <if test="filter.safetyScore15!=null and filter.safetyScore15 !=''">
+        and safety_score15 like CONCAT('%',#{filter.safetyScore15},'%' )
+      </if>
+      <if test="filter.serviceScore1!=null and filter.serviceScore1 !=''">
+        and service_score1 like CONCAT('%',#{filter.serviceScore1},'%' )
+      </if>
+      <if test="filter.serviceScore2!=null and filter.serviceScore2 !=''">
+        and service_score2 like CONCAT('%',#{filter.serviceScore2},'%' )
+      </if>
+      <if test="filter.serviceScore3!=null and filter.serviceScore3 !=''">
+        and service_score3 like CONCAT('%',#{filter.serviceScore3},'%' )
+      </if>
+      <if test="filter.serviceScore4!=null and filter.serviceScore4 !=''">
+        and service_score4 like CONCAT('%',#{filter.serviceScore4},'%' )
+      </if>
+      <if test="filter.serviceScore5!=null and filter.serviceScore5 !=''">
+        and service_score5 like CONCAT('%',#{filter.serviceScore5},'%' )
+      </if>
+      <if test="filter.serviceScore6!=null and filter.serviceScore6 !=''">
+        and service_score6 like CONCAT('%',#{filter.serviceScore6},'%' )
+      </if>
+      <if test="filter.serviceScore7!=null and filter.serviceScore7 !=''">
+        and service_score7 like CONCAT('%',#{filter.serviceScore7},'%' )
+      </if>
+      <if test="filter.serviceScore8!=null and filter.serviceScore8 !=''">
+        and service_score8 like CONCAT('%',#{filter.serviceScore8},'%' )
+      </if>
+      <if test="filter.manageScore1!=null and filter.manageScore1 !=''">
+        and manage_score1 like CONCAT('%',#{filter.manageScore1},'%' )
+      </if>
+      <if test="filter.manageScore2!=null and filter.manageScore2 !=''">
+        and manage_score2 like CONCAT('%',#{filter.manageScore2},'%' )
+      </if>
+      <if test="filter.manageScore3!=null and filter.manageScore3 !=''">
+        and manage_score3 like CONCAT('%',#{filter.manageScore3},'%' )
+      </if>
+      <if test="filter.manageScore4!=null and filter.manageScore4 !=''">
+        and manage_score4 like CONCAT('%',#{filter.manageScore4},'%' )
+      </if>
+      <if test="filter.manageScore5!=null and filter.manageScore5 !=''">
+        and manage_score5 like CONCAT('%',#{filter.manageScore5},'%' )
+      </if>
+      <if test="filter.manageScore6!=null and filter.manageScore6 !=''">
+        and manage_score6 like CONCAT('%',#{filter.manageScore6},'%' )
+      </if>
+      <if test="filter.manageScore7!=null and filter.manageScore7 !=''">
+        and manage_score7 like CONCAT('%',#{filter.manageScore7},'%' )
+      </if>
+      <if test="filter.manageScore8!=null and filter.manageScore8 !=''">
+        and manage_score8 like CONCAT('%',#{filter.manageScore8},'%' )
+      </if>
+      <if test="filter.manageScore9!=null and filter.manageScore9 !=''">
+        and manage_score9 like CONCAT('%',#{filter.manageScore9},'%' )
+      </if>
+      <if test="filter.facilityScore1!=null and filter.facilityScore1 !=''">
+        and facility_score1 like CONCAT('%',#{filter.facilityScore1},'%' )
+      </if>
+      <if test="filter.facilityScore2!=null and filter.facilityScore2 !=''">
+        and facility_score2 like CONCAT('%',#{filter.facilityScore2},'%' )
+      </if>
+      <if test="filter.facilityScore3!=null and filter.facilityScore3 !=''">
+        and facility_score3 like CONCAT('%',#{filter.facilityScore3},'%' )
+    </if>
+      <if test="filter.facilityScore4!=null and filter.facilityScore4 !=''">
+        and facility_score4 like CONCAT('%',#{filter.facilityScore4},'%' )
+      </if>
+      <if test="filter.facilityScore5!=null and filter.facilityScore5 !=''">
+        and facility_score5 like CONCAT('%',#{filter.facilityScore5},'%' )
+      </if>
+      <if test="filter.facilityScore6!=null and filter.facilityScore6 !=''">
+        and facility_score6 like CONCAT('%',#{filter.facilityScore6},'%' )
+      </if>
+      <if test="filter.facilityScore7!=null and filter.facilityScore7 !=''">
+        and facility_score7 like CONCAT('%',#{filter.facilityScore7},'%' )
+      </if>
+      <if test="filter.facilityScore8!=null and filter.facilityScore8 !=''">
+        and facility_score8 like CONCAT('%',#{filter.facilityScore8},'%' )
+      </if>
+      <if test="filter.facilityScore9!=null and filter.facilityScore9 !=''">
+        and facility_score9 like CONCAT('%',#{filter.facilityScore9},'%' )
+      </if>
+      <if test="filter.facilityScore10!=null and filter.facilityScore10 !=''">
+        and facility_score10 like CONCAT('%',#{filter.facilityScore10},'%' )
+      </if>
+      application_status=0
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_service_org_community_pension_stars
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

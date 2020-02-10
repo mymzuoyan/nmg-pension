@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.NurseAlarmMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.NurseAlarm" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="elderId" property="elderId" jdbcType="INTEGER" />
+    <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER" />
+    <result column="alarmType" property="alarmType" jdbcType="VARCHAR" />
+    <result column="alarmTime" property="alarmTime" jdbcType="TIMESTAMP" />
+    <result column="fenceName" property="fenceName" jdbcType="VARCHAR" />
+    <result column="fenceType" property="fenceType" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="floor" property="floor" jdbcType="VARCHAR" />
+    <result column="signType" property="signType" jdbcType="INTEGER" />
+    <result column="signResult" property="signResult" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="lat" property="lat" jdbcType="DOUBLE"/>
+    <result column="lng" property="lng" jdbcType="DOUBLE"/>
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, number, elderId,serviceOrgId, alarmType, alarmTime, fenceName, fenceType, building, floor,signType,signResult,
+    createTime,lat,lng
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_nurse_alarm
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_nurse_alarm
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.NurseAlarm" >
+    insert into t_nurse_alarm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="elderId != null" >
+        elderId,
+      </if>
+      <if test="serviceOrgId != null" >
+        serviceOrgId,
+      </if>
+      <if test="alarmType != null" >
+        alarmType,
+      </if>
+      <if test="alarmTime != null" >
+        alarmTime,
+      </if>
+      <if test="fenceName != null" >
+        fenceName,
+      </if>
+      <if test="fenceType != null" >
+        fenceType,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="signType != null" >
+        signType,
+      </if>
+      <if test="signResult != null" >
+        signResult,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="elderId != null" >
+        #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrgId != null" >
+        #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmType != null" >
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null" >
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fenceName != null" >
+        #{fenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="fenceType != null" >
+        #{fenceType,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null" >
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signResult != null" >
+        #{signResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.NurseAlarm" >
+    update t_nurse_alarm
+    <set>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="elderId != null" >
+        elderId = #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrgId != null" >
+        serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmType != null" >
+        alarmType = #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null" >
+        alarmTime = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fenceName != null" >
+        fenceName = #{fenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="fenceType != null" >
+        fenceType = #{fenceType,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null" >
+        signType = #{signType,jdbcType=VARCHAR},
+      </if>
+      <if test="signResult != null" >
+        signResult = #{signResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.NurseAlarm">
+    select
+    a.id, a.number, a.elderId,a.serviceOrgId, b.elderName, a.alarmType, a.alarmTime, a.fenceName, a.fenceType, a.building, a.floor,
+    a.signType,a.signResult,
+    a.createTime,a.lat,a.lng
+    from t_nurse_alarm a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="filter.elderName!=null and filter.elderName!=''">
+        b.elderName like CONCAT('%',#{filter.elderName},'%' )
+      </if>
+      <if test="filter.alarmType!=null">
+        and a.alarmType = #{filter.alarmType}
+      </if>
+      <if test="filter.startTime!=null">
+        and a.alarmTime &gt;= #{filter.startTime}
+      </if>
+      <if test="filter.endTime!=null">
+        and a.alarmTime &lt;= #{filter.endTime}
+      </if>
+      <!-- 以下字段只用于处理心率信息过滤 -->
+      <!-- ***************特殊字段开始*************** -->
+      <if test="filter.gx!=null and filter.gx!=''" >
+        and (a.fenceType = 'hrm_abnor_loc' or a.fenceType = 'hrm_reg_loc')
+      </if>
+      <if test="filter.jhrXm!=null and filter.jhrXm!=''">
+        and a.signResult <![CDATA[ >= ]]> #{filter.jhrXm}
+      </if>
+      <if test="filter.jhrPhone!=null and filter.jhrPhone!=''">
+        and a.signResult <![CDATA[ <= ]]> #{filter.jhrPhone}
+      </if>
+      <!-- ***************特殊字段结束*************** -->
+      <if test="filter.fenceName!=null and filter.fenceName!='' ">
+        and a.fenceName like CONCAT('%',#{filter.fenceName},'%' )
+      </if>
+      <if test="filter.number!=null and filter.number!=''">
+        and a.number like CONCAT('%',#{filter.number},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_nurse_alarm a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="elderName!=null and elderName!=''">
+        b.elderName like CONCAT('%',#{elderName},'%' )
+      </if>
+      <if test="alarmType!=null and alarmType!=''">
+        and a.alarmType = #{alarmType}
+      </if>
+      <if test="startTime!=null">
+        and a.alarmTime &gt;= #{startTime}
+      </if>
+      <if test="endTime!=null">
+        and a.alarmTime &lt;= #{endTime}
+      </if>
+      <!-- 以下字段只用于处理心率信息过滤 -->
+      <!-- ***************特殊字段开始*************** -->
+      <if test="gx!=null">
+        and (a.fenceType = 'hrm_abnor_loc' or a.fenceType = 'hrm_reg_loc')
+      </if>
+      <if test="jhrXm!=null and jhrXm!=''">
+        and a.signResult <![CDATA[ >= ]]> #{jhrXm}
+      </if>
+      <if test="jhrPhone!=null and jhrPhone!=''">
+        and a.signResult <![CDATA[ <= ]]> #{jhrPhone}
+      </if>
+      <!-- ***************特殊字段结束*************** -->
+      <if test="fenceName!=null and fenceName != ''">
+        and a.fenceName like CONCAT('%',#{fenceName},'%' )
+      </if>
+      <if test="number!=null and number != ''">
+        and a.number like CONCAT('%',#{number},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_nurse_alarm
+  </select>
+  <select id="getCountByType" resultType="java.util.HashMap" parameterType="java.util.List" >
+   select alarmType,count(*) count
+   from  t_nurse_alarm
+    <where>
+      <if test="filter.startTime!=null">
+        alarmTime &gt;= #{filter.startTime}
+      </if>
+      <if test="filter.endTime!=null ">
+        and alarmTime &lt;= #{filter.endTime}
+      </if>
+    </where>
+   GROUP by alarmType
+  </select>
+</mapper>

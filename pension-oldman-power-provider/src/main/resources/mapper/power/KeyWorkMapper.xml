@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.KeyWorkMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.power.entity.KeyWork" >
+
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="worktype" property="worktype" jdbcType="VARCHAR" />
+    <result column="alarmTime" property="alarmTime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, content,worktype, alarmTime,fundtype,aimNum,finishNum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_keywork
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_keywork
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.power.entity.KeyWork" useGeneratedKeys="true"  keyProperty="id">
+    insert into t_keywork
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+
+      <if test="worktype != null" >
+        worktype,
+      </if>
+      <if test="alarmTime != null" >
+        alarmTime,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+
+      <if test="createTime != null" >
+        createTime,
+      </if>
+
+      <if test="fundtype != null" >
+        fundtype,
+      </if>
+      <if test="aimNum != null" >
+        aimNum,
+      </if>
+
+      <if test="finishNum != null" >
+        finishNum
+      </if>
+
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="worktype != null" >
+        #{worktype,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null" >
+        #{alarmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="fundtype != null" >
+        #{fundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="aimNum != null" >
+        #{aimNum,jdbcType=VARCHAR},
+      </if>
+      <if test="finishNum != null" >
+        #{finishNum,jdbcType=VARCHAR}
+      </if>
+
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.KeyWork" >
+    update t_keywork
+    <set>
+      <if test="worktype != null" >
+        worktype = #{worktype,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null" >
+        alarmTime = #{alarmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR}
+      </if>
+
+      <if test="fundtype != null" >
+        fundtype = #{fundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="aimNum != null" >
+        aimNum = #{aimNum,jdbcType=VARCHAR},
+      </if>
+
+      <if test="finishNum != null" >
+        finishNum = #{finishNum,jdbcType=VARCHAR}
+      </if>
+
+
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPageList" resultType="com.fedtech.pension.power.entity.KeyWork">
+    select *
+    from t_keywork
+
+    <where>
+      <if test="filter.title!=null and filter.title!=''">
+        and title like CONCAT('%',#{filter.title},'%' )
+      </if>
+      <!--<if test="filter.worktype!=null and filter.worktype!=''">-->
+        <!--and worktype  like CONCAT('%',#{filter.worktype},'%' )-->
+      <!--</if>-->
+      <if test="filter.fundtype!=null and filter.fundtype!=''">
+        and fundtype  like CONCAT('%',#{filter.fundtype},'%' )
+      </if>
+
+
+
+      <if test="filter.worktypeCheckbox != null and filter.worktypeCheckbox !=''">
+        AND (
+        <trim prefixOverrides="or">
+          <foreach collection="filter.worktypeList" index="index" item="worktype">
+            OR FIND_IN_SET(#{worktype},worktype)
+          </foreach>
+        </trim>
+        )
+      </if>
+
+
+
+    </where>
+
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" parameterType="com.fedtech.pension.power.entity.KeyWork"  resultType="java.lang.Integer">
+    select count(*)
+    from t_keywork
+    <where>
+      <if test="title!=null and title!=''">
+        and title like CONCAT('%',#{title},'%' )
+      </if>
+      <!--<if test="worktype!=null and worktype!=''">-->
+        <!--and worktype  like CONCAT('%',#{worktype},'%' )-->
+      <!--</if>-->
+      <if test="fundtype!=null and fundtype!=''">
+        and fundtype  like CONCAT('%',#{fundtype},'%' )
+      </if>
+
+
+      <if test="worktypeCheckbox != null and worktypeCheckbox !=''">
+        AND (
+        <trim  prefixOverrides="or">
+          <foreach collection="worktypeList" index="index" item="worktype">
+            OR FIND_IN_SET(#{worktype},worktype)
+          </foreach>
+        </trim>
+        )
+      </if>
+
+    </where>
+
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_keywork
+  </select>
+
+  <select id="getAllRecode" resultType="com.fedtech.pension.power.entity.KeyWork">
+    select
+   *
+    from t_keywork  a
+    <where>
+      <if test="filter.title!=null">
+        and a.title like CONCAT('%',#{filter.title},'%' )
+      </if>
+
+
+      <if test="filter.worktypeCheckbox != null ">
+        AND (
+        <trim prefixOverrides="or">
+          <foreach collection="filter.worktypeList" index="index" item="worktype">
+            OR FIND_IN_SET(#{worktype},worktype)
+          </foreach>
+        </trim>
+        )
+      </if>
+
+      <if test="filter.fundtype!=null">
+        and fundtype  like CONCAT('%',#{filter.fundtype},'%' )
+      </if>
+
+    </where>
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_keywork
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.cdr.mapper.CdrMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.cdr.entity.Cdr">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="calldate" property="calldate" jdbcType="TIMESTAMP"/>
+        <result column="clid" property="clid" jdbcType="VARCHAR"/>
+        <result column="src" property="src" jdbcType="VARCHAR"/>
+        <result column="dst" property="dst" jdbcType="VARCHAR"/>
+        <result column="dcontext" property="dcontext" jdbcType="VARCHAR"/>
+        <result column="channel" property="channel" jdbcType="VARCHAR"/>
+        <result column="dstchannel" property="dstchannel" jdbcType="VARCHAR"/>
+        <result column="lastapp" property="lastapp" jdbcType="VARCHAR"/>
+        <result column="lastdata" property="lastdata" jdbcType="VARCHAR"/>
+        <result column="start" property="start" jdbcType="TIMESTAMP"/>
+        <result column="answer" property="answer" jdbcType="TIMESTAMP"/>
+        <result column="end" property="end" jdbcType="TIMESTAMP"/>
+        <result column="duration" property="duration" jdbcType="INTEGER"/>
+        <result column="billsec" property="billsec" jdbcType="INTEGER"/>
+        <result column="disposition" property="disposition" jdbcType="VARCHAR"/>
+        <result column="amaflags" property="amaflags" jdbcType="INTEGER"/>
+        <result column="accountcode" property="accountcode" jdbcType="VARCHAR"/>
+        <result column="peeraccount" property="peeraccount" jdbcType="VARCHAR"/>
+        <result column="uniqueid" property="uniqueid" jdbcType="VARCHAR"/>
+        <result column="linkedid" property="linkedid" jdbcType="VARCHAR"/>
+        <result column="userfield" property="userfield" jdbcType="VARCHAR"/>
+        <result column="sequence" property="sequence" jdbcType="VARCHAR"/>
+        <result column="billingid" property="billingid" jdbcType="VARCHAR"/>
+        <result column="billed" property="billed" jdbcType="TINYINT"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="samecall" property="samecall" jdbcType="VARCHAR"/>
+        <result column="succ" property="succ" jdbcType="INTEGER"/>
+        <result column="bill" property="bill" jdbcType="DECIMAL"/>
+        <result column="musictype" property="musictype" jdbcType="BIT"/>
+        <result column="servicelevel" property="servicelevel" jdbcType="BIT"/>
+        <result column="agentid" property="agentid" jdbcType="VARCHAR"/>
+        <result column="recording" property="recording" jdbcType="VARCHAR"/>
+        <result column="option" property="option" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, calldate, clid, src, dst, dcontext, channel, dstchannel, lastapp, lastdata, start,
+        answer, end, duration, billsec, disposition, amaflags, accountcode, peeraccount,
+        uniqueid, linkedid, userfield, sequence, billingid, billed, city, samecall, succ,
+        bill, musictype, servicelevel, agentid, recording, 'option'
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from cdr
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUniqueId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from cdr
+        where uniqueid = #{uniqueId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultType="java.util.Map" >
+        select a.*,g.groupname from cti_agent a left join cti_group g on a.groupid=g.id
+    </select>
+
+    <select id="selectChatCount" resultType="java.lang.Integer" >
+        select count(0) from cti_cdr_queue_detail
+    </select>
+
+    <select id="selectQueueCount" resultType="java.lang.Integer" >
+        select count(0) from cti_cdr_call  WHERE access_num = "079212349" and agent_duration > 0
+    </select>
+
+    <select id="selectMyRecord" resultType="java.util.Map" parameterType="java.lang.String">
+        select c.id,c.call_type,c.caller_num,c.callee_num,c.start_time,c.end_time,r.record_file_name from cti_cdr_call c left join cti_record r on c.call_uuid=r.customer_uuid where
+        <if test="pstnnumber != null">
+            caller_num=#{pstnnumber} or callee_num=#{pstnnumber} or
+        </if>
+         caller_agent_num = #{agentnum} or callee_agent_num = #{agentnum} order by c.id desc
+    </select>
+
+    <select id="selectStatusByAgent" resultType="java.lang.Integer"  parameterType="java.lang.String">
+        select status_id from cti_agent_status_change_sum where id=(select max(id) from cti_agent_status_change_sum where agentnum = #{agentnum})
+    </select>
+
+    <select id="selectQueueData" resultType="java.util.Map"  parameterType="java.lang.String">
+        select * from cti_cdr_queue_detail where queue_name = #{queueName} and exit_queue_reason!=1
+    </select>
+
+    <select id="selectGroups" resultType="java.util.Map" >
+        select * from cti_group
+    </select>
+
+    <select id="selectCurPhone" resultType="java.lang.String"  parameterType="java.lang.String">
+        select callee_num from cti_cdr_call where id=(select max(id) from cti_cdr_call where caller_agent_num = #{agentnum})
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from cdr
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.cdr.entity.Cdr">
+        insert into cdr (id, calldate, clid,
+          src, dst, dcontext,
+          channel, dstchannel, lastapp,
+          lastdata, start, answer,
+          end, duration, billsec,
+          disposition, amaflags, accountcode,
+          peeraccount, uniqueid, linkedid,
+          userfield, sequence, billingid,
+          billed, city, samecall,
+          succ, bill, musictype,
+          servicelevel, agentid, recording,
+          option)
+        values (#{id,jdbcType=INTEGER}, #{calldate,jdbcType=TIMESTAMP}, #{clid,jdbcType=VARCHAR},
+          #{src,jdbcType=VARCHAR}, #{dst,jdbcType=VARCHAR}, #{dcontext,jdbcType=VARCHAR},
+          #{channel,jdbcType=VARCHAR}, #{dstchannel,jdbcType=VARCHAR}, #{lastapp,jdbcType=VARCHAR},
+          #{lastdata,jdbcType=VARCHAR}, #{start,jdbcType=TIMESTAMP}, #{answer,jdbcType=TIMESTAMP},
+          #{end,jdbcType=TIMESTAMP}, #{duration,jdbcType=INTEGER}, #{billsec,jdbcType=INTEGER},
+          #{disposition,jdbcType=VARCHAR}, #{amaflags,jdbcType=INTEGER}, #{accountcode,jdbcType=VARCHAR},
+          #{peeraccount,jdbcType=VARCHAR}, #{uniqueid,jdbcType=VARCHAR}, #{linkedid,jdbcType=VARCHAR},
+          #{userfield,jdbcType=VARCHAR}, #{sequence,jdbcType=VARCHAR}, #{billingid,jdbcType=VARCHAR},
+          #{billed,jdbcType=TINYINT}, #{city,jdbcType=VARCHAR}, #{samecall,jdbcType=VARCHAR},
+          #{succ,jdbcType=INTEGER}, #{bill,jdbcType=DECIMAL}, #{musictype,jdbcType=BIT},
+          #{servicelevel,jdbcType=BIT}, #{agentid,jdbcType=VARCHAR}, #{recording,jdbcType=VARCHAR},
+          #{option,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.fedtech.pension.cdr.entity.Cdr">
+        insert into cdr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="calldate != null">
+                calldate,
+            </if>
+            <if test="clid != null">
+                clid,
+            </if>
+            <if test="src != null">
+                src,
+            </if>
+            <if test="dst != null">
+                dst,
+            </if>
+            <if test="dcontext != null">
+                dcontext,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="dstchannel != null">
+                dstchannel,
+            </if>
+            <if test="lastapp != null">
+                lastapp,
+            </if>
+            <if test="lastdata != null">
+                lastdata,
+            </if>
+            <if test="start != null">
+                start,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="end != null">
+                end,
+            </if>
+            <if test="duration != null">
+                duration,
+            </if>
+            <if test="billsec != null">
+                billsec,
+            </if>
+            <if test="disposition != null">
+                disposition,
+            </if>
+            <if test="amaflags != null">
+                amaflags,
+            </if>
+            <if test="accountcode != null">
+                accountcode,
+            </if>
+            <if test="peeraccount != null">
+                peeraccount,
+            </if>
+            <if test="uniqueid != null">
+                uniqueid,
+            </if>
+            <if test="linkedid != null">
+                linkedid,
+            </if>
+            <if test="userfield != null">
+                userfield,
+            </if>
+            <if test="sequence != null">
+                sequence,
+            </if>
+            <if test="billingid != null">
+                billingid,
+            </if>
+            <if test="billed != null">
+                billed,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="samecall != null">
+                samecall,
+            </if>
+            <if test="succ != null">
+                succ,
+            </if>
+            <if test="bill != null">
+                bill,
+            </if>
+            <if test="musictype != null">
+                musictype,
+            </if>
+            <if test="servicelevel != null">
+                servicelevel,
+            </if>
+            <if test="agentid != null">
+                agentid,
+            </if>
+            <if test="recording != null">
+                recording,
+            </if>
+            <if test="option != null">
+                option,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="calldate != null">
+                #{calldate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="clid != null">
+                #{clid,jdbcType=VARCHAR},
+            </if>
+            <if test="src != null">
+                #{src,jdbcType=VARCHAR},
+            </if>
+            <if test="dst != null">
+                #{dst,jdbcType=VARCHAR},
+            </if>
+            <if test="dcontext != null">
+                #{dcontext,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="dstchannel != null">
+                #{dstchannel,jdbcType=VARCHAR},
+            </if>
+            <if test="lastapp != null">
+                #{lastapp,jdbcType=VARCHAR},
+            </if>
+            <if test="lastdata != null">
+                #{lastdata,jdbcType=VARCHAR},
+            </if>
+            <if test="start != null">
+                #{start,jdbcType=TIMESTAMP},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end != null">
+                #{end,jdbcType=TIMESTAMP},
+            </if>
+            <if test="duration != null">
+                #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="billsec != null">
+                #{billsec,jdbcType=INTEGER},
+            </if>
+            <if test="disposition != null">
+                #{disposition,jdbcType=VARCHAR},
+            </if>
+            <if test="amaflags != null">
+                #{amaflags,jdbcType=INTEGER},
+            </if>
+            <if test="accountcode != null">
+                #{accountcode,jdbcType=VARCHAR},
+            </if>
+            <if test="peeraccount != null">
+                #{peeraccount,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueid != null">
+                #{uniqueid,jdbcType=VARCHAR},
+            </if>
+            <if test="linkedid != null">
+                #{linkedid,jdbcType=VARCHAR},
+            </if>
+            <if test="userfield != null">
+                #{userfield,jdbcType=VARCHAR},
+            </if>
+            <if test="sequence != null">
+                #{sequence,jdbcType=VARCHAR},
+            </if>
+            <if test="billingid != null">
+                #{billingid,jdbcType=VARCHAR},
+            </if>
+            <if test="billed != null">
+                #{billed,jdbcType=TINYINT},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="samecall != null">
+                #{samecall,jdbcType=VARCHAR},
+            </if>
+            <if test="succ != null">
+                #{succ,jdbcType=INTEGER},
+            </if>
+            <if test="bill != null">
+                #{bill,jdbcType=DECIMAL},
+            </if>
+            <if test="musictype != null">
+                #{musictype,jdbcType=BIT},
+            </if>
+            <if test="servicelevel != null">
+                #{servicelevel,jdbcType=BIT},
+            </if>
+            <if test="agentid != null">
+                #{agentid,jdbcType=VARCHAR},
+            </if>
+            <if test="recording != null">
+                #{recording,jdbcType=VARCHAR},
+            </if>
+            <if test="option != null">
+                #{option,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.cdr.entity.Cdr">
+        update cdr
+        <set>
+            <if test="calldate != null">
+                calldate = #{calldate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="clid != null">
+                clid = #{clid,jdbcType=VARCHAR},
+            </if>
+            <if test="src != null">
+                src = #{src,jdbcType=VARCHAR},
+            </if>
+            <if test="dst != null">
+                dst = #{dst,jdbcType=VARCHAR},
+            </if>
+            <if test="dcontext != null">
+                dcontext = #{dcontext,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="dstchannel != null">
+                dstchannel = #{dstchannel,jdbcType=VARCHAR},
+            </if>
+            <if test="lastapp != null">
+                lastapp = #{lastapp,jdbcType=VARCHAR},
+            </if>
+            <if test="lastdata != null">
+                lastdata = #{lastdata,jdbcType=VARCHAR},
+            </if>
+            <if test="start != null">
+                start = #{start,jdbcType=TIMESTAMP},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end != null">
+                end = #{end,jdbcType=TIMESTAMP},
+            </if>
+            <if test="duration != null">
+                duration = #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="billsec != null">
+                billsec = #{billsec,jdbcType=INTEGER},
+            </if>
+            <if test="disposition != null">
+                disposition = #{disposition,jdbcType=VARCHAR},
+            </if>
+            <if test="amaflags != null">
+                amaflags = #{amaflags,jdbcType=INTEGER},
+            </if>
+            <if test="accountcode != null">
+                accountcode = #{accountcode,jdbcType=VARCHAR},
+            </if>
+            <if test="peeraccount != null">
+                peeraccount = #{peeraccount,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueid != null">
+                uniqueid = #{uniqueid,jdbcType=VARCHAR},
+            </if>
+            <if test="linkedid != null">
+                linkedid = #{linkedid,jdbcType=VARCHAR},
+            </if>
+            <if test="userfield != null">
+                userfield = #{userfield,jdbcType=VARCHAR},
+            </if>
+            <if test="sequence != null">
+                sequence = #{sequence,jdbcType=VARCHAR},
+            </if>
+            <if test="billingid != null">
+                billingid = #{billingid,jdbcType=VARCHAR},
+            </if>
+            <if test="billed != null">
+                billed = #{billed,jdbcType=TINYINT},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="samecall != null">
+                samecall = #{samecall,jdbcType=VARCHAR},
+            </if>
+            <if test="succ != null">
+                succ = #{succ,jdbcType=INTEGER},
+            </if>
+            <if test="bill != null">
+                bill = #{bill,jdbcType=DECIMAL},
+            </if>
+            <if test="musictype != null">
+                musictype = #{musictype,jdbcType=BIT},
+            </if>
+            <if test="servicelevel != null">
+                servicelevel = #{servicelevel,jdbcType=BIT},
+            </if>
+            <if test="agentid != null">
+                agentid = #{agentid,jdbcType=VARCHAR},
+            </if>
+            <if test="recording != null">
+                recording = #{recording,jdbcType=VARCHAR},
+            </if>
+            <if test="option != null">
+                option = #{option,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.cdr.entity.Cdr">
+        update cdr
+        set calldate = #{calldate,jdbcType=TIMESTAMP},
+          clid = #{clid,jdbcType=VARCHAR},
+          src = #{src,jdbcType=VARCHAR},
+          dst = #{dst,jdbcType=VARCHAR},
+          dcontext = #{dcontext,jdbcType=VARCHAR},
+          channel = #{channel,jdbcType=VARCHAR},
+          dstchannel = #{dstchannel,jdbcType=VARCHAR},
+          lastapp = #{lastapp,jdbcType=VARCHAR},
+          lastdata = #{lastdata,jdbcType=VARCHAR},
+          start = #{start,jdbcType=TIMESTAMP},
+          answer = #{answer,jdbcType=TIMESTAMP},
+          end = #{end,jdbcType=TIMESTAMP},
+          duration = #{duration,jdbcType=INTEGER},
+          billsec = #{billsec,jdbcType=INTEGER},
+          disposition = #{disposition,jdbcType=VARCHAR},
+          amaflags = #{amaflags,jdbcType=INTEGER},
+          accountcode = #{accountcode,jdbcType=VARCHAR},
+          peeraccount = #{peeraccount,jdbcType=VARCHAR},
+          uniqueid = #{uniqueid,jdbcType=VARCHAR},
+          linkedid = #{linkedid,jdbcType=VARCHAR},
+          userfield = #{userfield,jdbcType=VARCHAR},
+          sequence = #{sequence,jdbcType=VARCHAR},
+          billingid = #{billingid,jdbcType=VARCHAR},
+          billed = #{billed,jdbcType=TINYINT},
+          city = #{city,jdbcType=VARCHAR},
+          samecall = #{samecall,jdbcType=VARCHAR},
+          succ = #{succ,jdbcType=INTEGER},
+          bill = #{bill,jdbcType=DECIMAL},
+          musictype = #{musictype,jdbcType=BIT},
+          servicelevel = #{servicelevel,jdbcType=BIT},
+          agentid = #{agentid,jdbcType=VARCHAR},
+          recording = #{recording,jdbcType=VARCHAR},
+          option = #{option,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

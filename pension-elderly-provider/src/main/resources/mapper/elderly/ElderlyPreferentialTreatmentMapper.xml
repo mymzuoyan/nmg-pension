@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyPreferentialTreatmentMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyPreferentialTreatment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="areaId" property="areaId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="organization" property="organization" jdbcType="VARCHAR" />
+    <result column="valid" property="valid" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,number, areaId,areaName,name,avatar, nation, sex, birthday, address, idcardno, organization, valid, creator_id,
+    create_time, status, update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_preferential_treatment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findByLastNumber" resultType="java.lang.String" parameterType="java.lang.String">
+    select
+    number
+    from t_elderly_preferential_treatment
+    where number like CONCAT(#{number},"%")
+    ORDER by id DESC
+    LIMIT 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_elderly_preferential_treatment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyPreferentialTreatment" >
+    insert into t_elderly_preferential_treatment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="areaId != null" >
+        areaId,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="idcardno != null" >
+        idcardno,
+      </if>
+      <if test="organization != null" >
+        organization,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyPreferentialTreatment" >
+    update t_elderly_preferential_treatment
+    <set >
+      <if test="areaId != null" >
+        areaId = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        idcardno = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_elderly_preferential_treatment
+    <where>
+      <if test="areaName != null and areaName != ''">
+        areaName like CONCAT('%',#{areaName},'%' )
+      </if>
+      <if test="name != null  and name!=''">
+        and name like CONCAT('%',#{name},'%' )
+      </if>
+      <if test="idcardno != null  and idcardno!=''">
+        AND idcardno like CONCAT('%',#{idcardno},'%' )
+      </if>
+      <if test="sex != null  and sex!=''">
+        AND sex =#{sex}
+      </if>
+      <if test="address != null  and address!=''">
+        AND address like CONCAT('%',#{address},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_elderly_preferential_treatment
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyPreferentialTreatment">
+    select
+    a.id,a.number,a.areaId, a.name,a.areaName,a.avatar, a.nation, a.sex,a. birthday, a.address,a. idcardno, a.organization, a.valid, a.creator_id,
+    a.create_time, a.status,a. update_id, a.update_time
+    from t_elderly_preferential_treatment  a LEFT JOIN  area b on (a.areaId=b.id)
+    <where>
+      <if test="filter.areaName != null and filter.areaName != ''">
+        a.areaName like CONCAT('%',#{filter.areaName},'%' )
+      </if>
+      <if test="filter.name != null  and filter.name!=''">
+        and a.name like CONCAT('%',#{filter.name},'%' )
+      </if>
+      <if test="filter.idcardno != null  and filter.idcardno!=''">
+        AND a.idcardno like CONCAT('%',#{filter.idcardno},'%' )
+      </if>
+      <if test="filter.sex != null  and filter.sex!=''">
+        AND a.sex =#{filter.sex}
+      </if>
+      <if test="filter.address != null  and filter.address!=''">
+        AND a.address like CONCAT('%',#{filter.address},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+    </if>
+  </select>
+</mapper>

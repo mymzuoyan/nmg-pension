@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.TaskReceivePlanMapper">
+
+    <insert id="insert" parameterType="com.fedtech.pension.task.entity.TaskReceivePlan">
+        insert into t_task_receive_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="taskId != null">
+                taskId,
+            </if>
+            <if test="receiverId != null">
+                receiverId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="completeTime != null">
+                completeTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="register != null">
+                register,
+            </if>
+            <if test="remind != null">
+                remind
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="completeTime != null">
+                #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="register != null">
+                #{register},
+            </if>
+            <if test="remind != null">
+                #{remind}
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

@@ -1,0 +1,406 @@
+#map-wrap {
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    left: 80%;
+    top: 45%;
+    margin-top: -200px;
+    margin-left: -250px;
+    /* overflow: hidden;*/
+    background: #fff;
+    /*overflow: hidden;*/
+}
+
+#map-wrap-area {
+    width: 100%;
+    height: 400px;
+}
+
+#thisLink{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+}
+
+#thisLink:first-child{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+#map-wrap img {
+    height: 80%;
+    display:block;
+}
+body {
+    overflow-x: hidden;
+}
+.kangping,.faku ,.shenbeixinqu ,.dadong ,.shenhe ,.hunnan ,.sujiatun ,.huanggu ,.heping ,.yuhong ,.tiexi ,.xinmin ,.liaozhong{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    transition: all 1s ease;
+    color: #3e3e3e;
+    z-index: 10;
+}
+/*页面加载*/
+/*康平县*/
+.kangping-active {
+    height: 150%;
+    left: -44%;
+    top: 4%;
+}
+
+/*康平县*/
+#link_box .kangping_link_warp {
+    left: -24%;
+    top: 22%;
+}
+
+.kangping span{
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    z-index: 999;
+}
+
+
+/*法库*/
+.faku-active {
+    top: -10%;
+    left: 1.5%
+}
+
+/*法库*/
+#link_box .faku_link_warp {
+    left: 9%;
+    top: 16%;
+}
+
+.faku span{
+    position: absolute;
+    top: 25%;
+    right: 20%;
+    z-index: 999;
+}
+
+/*沈北新区*/
+.shenbeixinqu-active {
+    left: 19%;
+    top: -34%;
+    height: 120%;
+}
+
+/*沈北新区*/
+#link_box .shenbeixinqu_link_warp {
+    left: 39%;
+    top: 17%;
+}
+.shenbeixinqu span{
+    position: absolute;
+    top: 43%;
+    right: -15%;
+    z-index: 999;
+}
+/*大东区*/
+/*.dadong-active{
+    height: 180%;
+    left: -15%;
+    top: -37%;
+}*/
+.dadong-active{
+    height: 240%;
+    left: -25%;
+    top: -70%;
+}
+
+/*皇姑区*/
+
+
+
+
+
+
+
+/*大东区*/
+#link_box .dadong_link_warp {
+    left: 23%;
+    top: 54%;
+
+}
+.dadong{
+    z-index: 999;
+}
+.dadong span{
+    position: absolute;
+    top: 51%;
+    right: -115%;
+    z-index: 999;
+}
+/*!*沈河*!*/
+/*.shenhe-active {*/
+    /*left: 10%;*/
+    /*top: 9%;*/
+/*}*/
+
+/*沈河*/
+#link_box .shenhe_link_warp {
+    top: 60%;
+    left: 23%;
+}
+
+.shenhe span{
+    position: absolute;
+    top: 54%;
+    right: -115%;
+    z-index: 999;
+}
+
+/*浑南 */
+.hunnan-active{
+    left: 15%;
+    top: -16%;
+    height: 135%;
+}
+/*浑南*/
+#link_box .hunnan_link_warp {
+    top: 60%;
+    left: 39%;
+}
+
+.hunnan span{
+    position: absolute;
+    top: 55%;
+    right: -35%;
+    z-index: 999;
+}
+/*苏家屯*/
+.sujiatun-active{
+    top: -14%;
+    left: -6%;
+    height: 170%;
+}
+
+/*苏家屯*/
+#link_box .sujiatun_link_warp {
+    top: 92%;
+    left: 25%;
+}
+
+.sujiatun span{
+    position: absolute;
+    top: 62%;
+    right: -40%;
+    z-index: 999;
+}
+
+
+/*皇姑*/
+.huanggu-active{
+    /*top: -3%;*/
+    /*left: -39%;*/
+    /*height: 170%;*/
+}
+/*皇姑*/
+#link_box .huanggu_link_warp {
+    top: 51%;
+    left: 17%;
+}
+.huanggu{
+    z-index: 999;
+}
+.huanggu span{
+    position: absolute;
+    top: 50%;
+    right: -90%;
+}
+
+/*!*和平*!*/
+/*.heping-active{*/
+    /*top: -3%;*/
+    /*left: -39%;*/
+    /*height: 170%;*/
+/*}*/
+/*和平*/
+#link_box .heping_link_warp {
+    top: 65%;
+    left: 18%;
+}
+.heping{
+    z-index: 999;
+}
+.heping span{
+    position: absolute;
+    top: 56%;
+    right: -90%;
+    z-index: 999;
+}
+/*于洪*/
+/*.yuhong-active{*/
+    /*top: -3%;*/
+    /*left: -39%;*/
+    /*height: 170%;*/
+/*}*/
+
+/*于洪*/
+#link_box .yuhong_link_warp {
+    top: 49%;
+    left: 8%;
+}
+
+.yuhong span{
+    position: absolute;
+    top: 50%;
+    right: -55%;
+}
+
+/*!*铁西*!*/
+/*.tiexi-active{*/
+    /*top: -3%;*/
+    /*left: -39%;*/
+    /*height: 170%;*/
+/*}*/
+
+/*铁西*/
+#link_box .tiexi_link_warp {
+    top: 66%;
+    left: 4%;
+}
+.tiexi span{
+    position: absolute;
+    top: 57%;
+    right: -35%;
+    z-index: 999;
+}
+/*新民*/
+.xinmin-active{
+    left: -23%;
+}
+
+
+/*新民*/
+#link_box .xinmin_link_warp {
+    top: 60%;
+    left: -24%;
+}
+
+.xinmin span{
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    z-index: 999;
+}
+
+/*辽中*/
+.liaozhong-active {
+    left: -12%;
+    top: 24%;
+}
+
+
+/*辽中*/
+#link_box .liaozhong_link_warp {
+    top: 85%;
+    left: -14%;
+}
+
+
+.liaozhong span{
+    position: absolute;
+    top: 60%;
+    left: 15%;
+    z-index: 999;
+}
+
+
+/*页面加载*/
+.和平区{
+    background: url("/assets/admin/pages/img/map/hepingMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+.浑南区{
+    background: url("/assets/admin/pages/img/map/hunnanMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+.大东区{
+    background: url("/assets/admin/pages/img/map/dadongMap.png") no-repeat 40%;
+    background-size: 200px;
+}
+.法库县{
+    background: url("/assets/admin/pages/img/map/fakuMap.png") no-repeat 40%;
+    background-size: 300px;
+}
+.康平县{
+    background: url("/assets/admin/pages/img/map/kangpingMap.png") no-repeat 40%;
+    background-size: 300px;
+}
+.辽中区{
+    background: url("/assets/admin/pages/img/map/liaozhongMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+.沈北新区{
+    background: url("/assets/admin/pages/img/map/shenbeiMap.png") no-repeat 40%;
+    background-size: 300px;
+}
+.苏家屯区{
+    background: url("/assets/admin/pages/img/map/sujiaMap.png") no-repeat 40%;
+    background-size: 350px;
+}
+.铁西区{
+    background: url("/assets/admin/pages/img/map/tiexiMap.png") no-repeat 40%;
+    background-size: 300px;
+}
+.新民市{
+    background: url("/assets/admin/pages/img/map/xinminMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+.于洪区{
+    background: url("/assets/admin/pages/img/map/yuhongMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+.沈河区{
+    background: url("/assets/admin/pages/img/map/shenheMap.png") no-repeat 40%;
+    background-size: 300px;
+}
+.皇姑区{
+    background: url("/assets/admin/pages/img/map/huangguMap.png") no-repeat 40%;
+    background-size: 250px;
+}
+
+
+
+
+.linkBox {
+    display: none;
+}
+
+.linkBox a {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #3e3e3e;
+    background: -webkit-linear-gradient(white, white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #020202;
+    -webkit-text-stroke: 3px transparent;
+}
+
+
+
+
+#btn_wrap{
+    color: #3e3e3e;
+    cursor: pointer;
+    top: 1%;
+    position: absolute;
+    z-index: 150;
+    left: 1%;
+}
+#btn_wrap a{
+    display: block;
+    line-height: 1.4em;
+}

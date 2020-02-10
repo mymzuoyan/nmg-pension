@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.ipccp.mapper.IpccpcdrMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.ipccp.entity.Ipccpcdr">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="channel" property="channel" jdbcType="VARCHAR"/>
+        <result column="CallerID" property="callerid" jdbcType="VARCHAR"/>
+        <result column="calldate" property="calldate" jdbcType="TIMESTAMP"/>
+        <result column="CustomerID" property="customerid" jdbcType="VARCHAR"/>
+        <result column="SheetID" property="sheetid" jdbcType="VARCHAR"/>
+        <result column="Queue" property="queue" jdbcType="VARCHAR"/>
+        <result column="uniqueid" property="uniqueid" jdbcType="VARCHAR"/>
+        <result column="linkedid" property="linkedid" jdbcType="VARCHAR"/>
+        <result column="qtime" property="qtime" jdbcType="TIMESTAMP"/>
+        <result column="Digits" property="digits" jdbcType="VARCHAR"/>
+        <result column="AgentID" property="agentid" jdbcType="VARCHAR"/>
+        <result column="Name" property="name" jdbcType="VARCHAR"/>
+        <result column="RingTime" property="ringtime" jdbcType="TIMESTAMP"/>
+        <result column="AnswerTime" property="answertime" jdbcType="TIMESTAMP"/>
+        <result column="waittime" property="waittime" jdbcType="INTEGER"/>
+        <result column="HangupTime" property="hanguptime" jdbcType="TIMESTAMP"/>
+        <result column="Duration" property="duration" jdbcType="INTEGER"/>
+        <result column="Extension" property="extension" jdbcType="VARCHAR"/>
+        <result column="servicelevel" property="servicelevel" jdbcType="INTEGER"/>
+        <result column="BillingID" property="billingid" jdbcType="VARCHAR"/>
+        <result column="IVRSelection" property="ivrselection" jdbcType="VARCHAR"/>
+        <result column="musictype" property="musictype" jdbcType="BIT"/>
+        <result column="HangupReason" property="hangupreason" jdbcType="VARCHAR"/>
+        <result column="recording" property="recording" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, channel, CallerID, calldate, CustomerID, SheetID, Queue, uniqueid, linkedid,
+        qtime, Digits, AgentID, Name, RingTime, AnswerTime, waittime, HangupTime, Duration,
+        Extension, servicelevel, BillingID, IVRSelection, musictype, HangupReason, recording
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ipccpcdr
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectOneByAgentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from ipccpcdr
+        where AgentID = #{agentID}
+        ORDER by id DESC
+        limit 1
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from ipccpcdr
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.ipccp.entity.Ipccpcdr">
+        insert into ipccpcdr (id, channel, CallerID,
+          calldate, CustomerID, SheetID,
+          Queue, uniqueid, linkedid,
+          qtime, Digits, AgentID,
+          Name, RingTime, AnswerTime,
+          waittime, HangupTime, Duration,
+          Extension, servicelevel, BillingID,
+          IVRSelection, musictype, HangupReason,
+          recording)
+        values (#{id,jdbcType=INTEGER}, #{channel,jdbcType=VARCHAR}, #{callerid,jdbcType=VARCHAR},
+          #{calldate,jdbcType=TIMESTAMP}, #{customerid,jdbcType=VARCHAR}, #{sheetid,jdbcType=VARCHAR},
+          #{queue,jdbcType=VARCHAR}, #{uniqueid,jdbcType=VARCHAR}, #{linkedid,jdbcType=VARCHAR},
+          #{qtime,jdbcType=TIMESTAMP}, #{digits,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR},
+          #{name,jdbcType=VARCHAR}, #{ringtime,jdbcType=TIMESTAMP}, #{answertime,jdbcType=TIMESTAMP},
+          #{waittime,jdbcType=INTEGER}, #{hanguptime,jdbcType=TIMESTAMP}, #{duration,jdbcType=INTEGER},
+          #{extension,jdbcType=VARCHAR}, #{servicelevel,jdbcType=INTEGER}, #{billingid,jdbcType=VARCHAR},
+          #{ivrselection,jdbcType=VARCHAR}, #{musictype,jdbcType=BIT}, #{hangupreason,jdbcType=VARCHAR},
+          #{recording,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.fedtech.pension.ipccp.entity.Ipccpcdr">
+        insert into ipccpcdr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="callerid != null">
+                CallerID,
+            </if>
+            <if test="calldate != null">
+                calldate,
+            </if>
+            <if test="customerid != null">
+                CustomerID,
+            </if>
+            <if test="sheetid != null">
+                SheetID,
+            </if>
+            <if test="queue != null">
+                Queue,
+            </if>
+            <if test="uniqueid != null">
+                uniqueid,
+            </if>
+            <if test="linkedid != null">
+                linkedid,
+            </if>
+            <if test="qtime != null">
+                qtime,
+            </if>
+            <if test="digits != null">
+                Digits,
+            </if>
+            <if test="agentid != null">
+                AgentID,
+            </if>
+            <if test="name != null">
+                Name,
+            </if>
+            <if test="ringtime != null">
+                RingTime,
+            </if>
+            <if test="answertime != null">
+                AnswerTime,
+            </if>
+            <if test="waittime != null">
+                waittime,
+            </if>
+            <if test="hanguptime != null">
+                HangupTime,
+            </if>
+            <if test="duration != null">
+                Duration,
+            </if>
+            <if test="extension != null">
+                Extension,
+            </if>
+            <if test="servicelevel != null">
+                servicelevel,
+            </if>
+            <if test="billingid != null">
+                BillingID,
+            </if>
+            <if test="ivrselection != null">
+                IVRSelection,
+            </if>
+            <if test="musictype != null">
+                musictype,
+            </if>
+            <if test="hangupreason != null">
+                HangupReason,
+            </if>
+            <if test="recording != null">
+                recording,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="callerid != null">
+                #{callerid,jdbcType=VARCHAR},
+            </if>
+            <if test="calldate != null">
+                #{calldate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="customerid != null">
+                #{customerid,jdbcType=VARCHAR},
+            </if>
+            <if test="sheetid != null">
+                #{sheetid,jdbcType=VARCHAR},
+            </if>
+            <if test="queue != null">
+                #{queue,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueid != null">
+                #{uniqueid,jdbcType=VARCHAR},
+            </if>
+            <if test="linkedid != null">
+                #{linkedid,jdbcType=VARCHAR},
+            </if>
+            <if test="qtime != null">
+                #{qtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="digits != null">
+                #{digits,jdbcType=VARCHAR},
+            </if>
+            <if test="agentid != null">
+                #{agentid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ringtime != null">
+                #{ringtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="answertime != null">
+                #{answertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="waittime != null">
+                #{waittime,jdbcType=INTEGER},
+            </if>
+            <if test="hanguptime != null">
+                #{hanguptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="duration != null">
+                #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="extension != null">
+                #{extension,jdbcType=VARCHAR},
+            </if>
+            <if test="servicelevel != null">
+                #{servicelevel,jdbcType=INTEGER},
+            </if>
+            <if test="billingid != null">
+                #{billingid,jdbcType=VARCHAR},
+            </if>
+            <if test="ivrselection != null">
+                #{ivrselection,jdbcType=VARCHAR},
+            </if>
+            <if test="musictype != null">
+                #{musictype,jdbcType=BIT},
+            </if>
+            <if test="hangupreason != null">
+                #{hangupreason,jdbcType=VARCHAR},
+            </if>
+            <if test="recording != null">
+                #{recording,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.ipccp.entity.Ipccpcdr">
+        update ipccpcdr
+        <set>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="callerid != null">
+                CallerID = #{callerid,jdbcType=VARCHAR},
+            </if>
+            <if test="calldate != null">
+                calldate = #{calldate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="customerid != null">
+                CustomerID = #{customerid,jdbcType=VARCHAR},
+            </if>
+            <if test="sheetid != null">
+                SheetID = #{sheetid,jdbcType=VARCHAR},
+            </if>
+            <if test="queue != null">
+                Queue = #{queue,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueid != null">
+                uniqueid = #{uniqueid,jdbcType=VARCHAR},
+            </if>
+            <if test="linkedid != null">
+                linkedid = #{linkedid,jdbcType=VARCHAR},
+            </if>
+            <if test="qtime != null">
+                qtime = #{qtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="digits != null">
+                Digits = #{digits,jdbcType=VARCHAR},
+            </if>
+            <if test="agentid != null">
+                AgentID = #{agentid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ringtime != null">
+                RingTime = #{ringtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="answertime != null">
+                AnswerTime = #{answertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="waittime != null">
+                waittime = #{waittime,jdbcType=INTEGER},
+            </if>
+            <if test="hanguptime != null">
+                HangupTime = #{hanguptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="duration != null">
+                Duration = #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="extension != null">
+                Extension = #{extension,jdbcType=VARCHAR},
+            </if>
+            <if test="servicelevel != null">
+                servicelevel = #{servicelevel,jdbcType=INTEGER},
+            </if>
+            <if test="billingid != null">
+                BillingID = #{billingid,jdbcType=VARCHAR},
+            </if>
+            <if test="ivrselection != null">
+                IVRSelection = #{ivrselection,jdbcType=VARCHAR},
+            </if>
+            <if test="musictype != null">
+                musictype = #{musictype,jdbcType=BIT},
+            </if>
+            <if test="hangupreason != null">
+                HangupReason = #{hangupreason,jdbcType=VARCHAR},
+            </if>
+            <if test="recording != null">
+                recording = #{recording,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.ipccp.entity.Ipccpcdr">
+    update ipccpcdr
+        set channel = #{channel,jdbcType=VARCHAR},
+          CallerID = #{callerid,jdbcType=VARCHAR},
+          calldate = #{calldate,jdbcType=TIMESTAMP},
+          CustomerID = #{customerid,jdbcType=VARCHAR},
+          SheetID = #{sheetid,jdbcType=VARCHAR},
+          Queue = #{queue,jdbcType=VARCHAR},
+          uniqueid = #{uniqueid,jdbcType=VARCHAR},
+          linkedid = #{linkedid,jdbcType=VARCHAR},
+          qtime = #{qtime,jdbcType=TIMESTAMP},
+          Digits = #{digits,jdbcType=VARCHAR},
+          AgentID = #{agentid,jdbcType=VARCHAR},
+          Name = #{name,jdbcType=VARCHAR},
+          RingTime = #{ringtime,jdbcType=TIMESTAMP},
+          AnswerTime = #{answertime,jdbcType=TIMESTAMP},
+          waittime = #{waittime,jdbcType=INTEGER},
+          HangupTime = #{hanguptime,jdbcType=TIMESTAMP},
+          Duration = #{duration,jdbcType=INTEGER},
+          Extension = #{extension,jdbcType=VARCHAR},
+          servicelevel = #{servicelevel,jdbcType=INTEGER},
+          BillingID = #{billingid,jdbcType=VARCHAR},
+          IVRSelection = #{ivrselection,jdbcType=VARCHAR},
+          musictype = #{musictype,jdbcType=BIT},
+          HangupReason = #{hangupreason,jdbcType=VARCHAR},
+          recording = #{recording,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.UserFuWuPrizeMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.UserFuWuPrize">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="serviceOrgId" jdbcType="INTEGER" property="serviceOrgId" />
+    <result column="idcardno" jdbcType="VARCHAR" property="idcardno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="prizeName" jdbcType="VARCHAR" property="prizeName" />
+    <result column="prizeTime" jdbcType="VARCHAR" property="prizeTime" />
+    <result column="winningUnit" jdbcType="VARCHAR" property="winningUnit" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, serviceOrgId, idcardno, name, prizeName, prizeTime, winningUnit
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_fuwu_prize
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user_fuwu_prize
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.UserFuWuPrize" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_user_fuwu_prize
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceOrgId != null">
+        serviceOrgId,
+      </if>
+      <if test="idcardno != null">
+        idcardno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="prizeName != null">
+        prizeName,
+      </if>
+      <if test="prizeTime != null">
+        prizeTime,
+      </if>
+      <if test="winningUnit != null">
+        winningUnit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrgId != null">
+        #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeName != null">
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeTime != null">
+        #{prizeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="winningUnit != null">
+        #{winningUnit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.UserFuWuPrize">
+    update t_user_fuwu_prize
+    <set>
+      <if test="serviceOrgId != null">
+        serviceOrgId=#{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        idcardno=#{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeName != null">
+        prizeName=#{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeTime != null">
+        prizeTime=#{prizeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="winningUnit != null">
+        winningUnit=#{winningUnit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_user_fuwu_prize
+    <where>
+      <if test="serviceOrgId != null and serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{serviceOrgId},'%' )
+      </if>
+      <if test="idcardno != null and idcardno !=''">
+        AND idcardno like CONCAT('%',#{idcardno},'%' )
+      </if>
+      <if test="name != null and name !=''">
+        AND name like CONCAT('%',#{name},'%' )
+      </if>
+      <if test="prizeName != null and prizeName !=''">
+        AND prizeName like CONCAT('%',#{prizeName},'%' )
+      </if>
+      <if test="prizeTime != null and prizeTime !=''">
+        AND prizeTime like CONCAT('%',#{prizeTime},'%' )
+      </if>
+      <if test="winningUnit != null and winningUnit !=''">
+        AND winningUnit like CONCAT('%',#{winningUnit},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_user_fuwu_prize
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.UserFuWuPrize">
+    select
+      *
+    from t_user_fuwu_prize
+    <where>
+      <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{filter.serviceOrgId},'%' )
+      </if>
+      <if test="filter.idcardno != null and filter.idcardno !=''">
+        AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+      </if>
+      <if test="filter.name != null and filter.name !=''">
+        AND name like CONCAT('%',#{filter.name},'%' )
+      </if>
+      <if test="filter.prizeName != null and filter.prizeName !=''">
+        AND prizeName like CONCAT('%',#{filter.prizeName},'%' )
+      </if>
+      <if test="filter.prizeTime != null and filter.prizeTime !=''">
+        AND prizeTime like CONCAT('%',#{filter.prizeTime},'%' )
+      </if>
+      <if test="filter.winningUnit != null and filter.winningUnit !=''">
+        AND winningUnit like CONCAT('%',#{filter.winningUnit},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user_fuwu_prize
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_user_fuwu_prize
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+
+  </delete>
+
+</mapper>

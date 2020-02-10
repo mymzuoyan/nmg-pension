@@ -1,0 +1,157 @@
+/**{
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: '微软雅黑';
+    color: #333333;
+}*/
+.alert_wrap{
+    display: table;
+    position: fixed;
+    z-index: 999999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+.alert_main{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.alert_wrap_con{
+    display: inline-block;
+    width: 400px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,.7);
+}
+.alert_head_wrap{
+    padding: 0 20px;
+    height: 46px;
+    background: #20abff;
+    line-height: 46px;
+    text-align: left;
+    color: #fff;
+    position: relative;
+}
+.alert_head_wrap h2{
+    font-weight: 400;
+}
+.alert_head_wrap a{
+    position: absolute;
+    right: 20px;
+    top: 0;
+    height: 46px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #fff;
+}
+.alert_info_con{
+    padding: 18px 28px;
+}
+.alert_info_con div{
+    text-align: left;
+    padding-left: 60px;
+    line-height: 40px;
+ }
+.alert_info_con img{
+    margin-bottom: 12px;
+}
+.alert_info_con b{
+    margin:  25px 0;
+    display: block;
+    color: #333;
+}
+.alert_info_con p{
+    line-height: 20px;
+    margin: 5px 0;
+    font-size: 18px;
+}
+.alert_info_con span{
+    font-size: 14px;
+    color: #999999;
+}
+.alert_btm_con{
+    padding: 0px 28px 20px 28px;
+}
+.alert_btm_con a{
+    color: #fff;
+    line-height: 46px;
+    height: 46px;
+    display: inline-block;
+    width: 40%;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 0 4%;
+}
+.alert_btm_con a.confirm{
+    background: #00d582;
+}
+.alert_btm_con a.cancel{
+    background: #b3b3b3;
+}
+.alert_btm_con a.lg_btn{
+   width: 100%;
+    margin: 0;
+}
+
+
+/*地图定位*/
+.MapLocation{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.MapLocation .alert_head_wrap h2{
+    font-size: 14px;
+}
+.MapLocation .MapLocation_con{
+    padding: 8px 0;
+}
+.MapLocation .MapLocation_con_list{
+    overflow: hidden;
+    padding: 4px 20px;
+    font-size: 12px;
+    text-align: left;
+    color: #808080;
+}
+.MapLocation .MapLocation_con_list img{
+    vertical-align: top;
+    height: 16px;
+    margin-top: 2px;
+}
+.MapLocation .MapLocation_con_list p{
+    display: inline-block;
+    width: 250px;
+    margin-left: 8px;
+
+}
+.MapLocation .MapLocation_con_list  strong{
+    font-weight: 400;
+    color: #333333;
+}
+.MapLocation .MapLocation_con_list div{
+    height: 44px;
+    display: inline-block;
+    width: 250px;
+    overflow: auto;
+    margin-left: 8px;
+    line-height: 22px;
+}
+.maplocation_horn{
+    position: absolute;
+    bottom: -20px;
+    left: 30px;
+}
+.maplocation_horn img{
+    display: block;
+}
+
+

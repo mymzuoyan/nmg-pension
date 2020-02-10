@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.nurse.mapper.BodyWeightMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.BodyWeight">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="hight_vlaue" jdbcType="DOUBLE" property="hightVlaue" />
+    <result column="weight_value" jdbcType="DOUBLE" property="weightValue" />
+    <result column="bmi" jdbcType="DOUBLE" property="bmi" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, hight_vlaue, weight_value, bmi, level, level_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from body_weight
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from body_weight
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.BodyWeight" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into body_weight
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hightVlaue != null">
+        hight_vlaue,
+      </if>
+      <if test="weightValue != null">
+        weight_value,
+      </if>
+      <if test="bmi != null">
+        bmi,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="hightVlaue != null">
+        #{hightVlaue,jdbcType=DOUBLE},
+      </if>
+      <if test="weightValue != null">
+        #{weightValue,jdbcType=DOUBLE},
+      </if>
+      <if test="bmi != null">
+        #{bmi,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.BodyWeight">
+    update body_weight
+    <set>
+      <if test="hightVlaue != null">
+        hight_vlaue = #{hightVlaue,jdbcType=DOUBLE},
+      </if>
+      <if test="weightValue != null">
+        weight_value = #{weightValue,jdbcType=DOUBLE},
+      </if>
+      <if test="bmi != null">
+        bmi = #{bmi,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from blood_sugar
+    <where>
+      <if test="hightVlaue!=null">
+        and hight_vlaue=#{hightVlaue}
+      </if>
+      <if test="weightValue!=null">
+        and weight_value=#{weightValue}
+      </if>
+      <if test="bmi!=null">
+        and bmi=#{bmi}
+      </if>
+      <if test="level!=null">
+        and level=#{level}
+      </if>
+      <if test="levelName != null and levelName !=''">
+        AND level_name like CONCAT('%',#{levelName},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from body_weight
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.BodyWeight">
+    select
+    *
+    from body_weight
+    <where>
+      <if test="filter.hightVlaue!=null">
+        and hight_vlaue=#{filter.hightVlaue}
+      </if>
+      <if test="filter.weightValue!=null">
+        and weight_value=#{filter.weightValue}
+      </if>
+      <if test="filter.bmi!=null">
+        and bmi=#{filter.bmi}
+      </if>
+      <if test="filter.level!=null">
+        and level=#{filter.level}
+      </if>
+      <if test="filter.levelName != null and filter.levelName !=''">
+        AND level_name like CONCAT('%',#{filter.levelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from body_weight
+  </select>
+</mapper>

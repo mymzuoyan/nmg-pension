@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.MoneyFlowMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.MoneyFlow"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_moneyFlow a where  a.id = #{id}
+    </select>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.MoneyFlow">
+        SELECT m.*,e.elderName FROM t_moneyflow m LEFT JOIN t_elderly_message e
+        on m.oldmanId=e.id  left join t_service_org s on m.serviceOrgId=s.id
+         <where>
+             <if test="filter.elderName!=null and filter.elderName!=''">
+                 and e.elderName like CONCAT('%',#{filter.elderName},'%' )
+             </if>
+            <if test="filter.cardId!=null and filter.cardId!=''">
+                and m.cardId like CONCAT('%',#{filter.cardId},'%' )
+            </if>
+             <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                 and m.serviceOrgId= #{filter.serviceOrgId}
+             </if>
+
+           <if test="filter.serverNum!=null and filter.serverNum!=''">
+                and m.serverNum  like CONCAT('%',#{filter.serverNum},'%' )
+            </if>
+             <if test="filter.startCreateDate!=null and filter.startCreateDate!=''">
+                 and m.uptime  &gt;=#{filter.startCreateDate}
+             </if>
+             <if test="filter.endCreateDate!=null and filter.endCreateDate!=''">
+                 and m.uptime  &lt;=#{filter.endCreateDate} "23:59:59"
+             </if>
+             <!--<if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+                 AND e.elderTypeDictIds=#{filter.elderTypeDictIds}
+             </if>-->
+             <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+                 AND (
+                 <trim  prefixOverrides="or">
+                     <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                         OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                     </foreach>
+                 </trim>
+                 )
+             </if>
+             <if test="filter.areaName != null and filter.areaName !=''">
+                 AND s.areaName like CONCAT('%',#{filter.areaName},'%' )
+             </if>
+             <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                 and m.serviceOrgName  like CONCAT('%',#{filter.serviceOrgName},'%' )
+             </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.power.entity.MoneyFlow" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_moneyflow m  left join t_elderly_message e on m.oldManId=e.id left join t_service_org s on m.serviceOrgId=s.id
+          <where>
+            <if test="elderName!=null and elderName!=''">
+                and e.elderName like CONCAT('%',#{elderName},'%' )
+            </if>
+            <if test="cardId!=null and cardId!=''">
+                and m.cardId like CONCAT('%',#{cardId},'%' )
+            </if>
+
+              <if test="serviceOrgId!=null and serviceOrgId!=''">
+                  and m.serviceOrgId= #{serviceOrgId}
+              </if>
+
+            <if test="serverNum!=null and serverNum!=''">
+                and m.serverNum  like CONCAT('%',#{serverNum},'%' )
+            </if>
+            <if test="startCreateDate!=null and startCreateDate!=''">
+                and m.uptime  &gt;=#{startCreateDate}
+            </if>
+            <if test="endCreateDate!=null and endCreateDate!=''">
+                and m.uptime  &lt;=#{endCreateDate} "23:59:59"
+            </if>
+             <!-- <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                  AND e.elderTypeDictIds=#{elderTypeDictIds}
+              </if>-->
+              <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                  AND (
+                  <trim  prefixOverrides="or">
+                      <foreach collection="elderTypeList" index="index" item="elderTypeDictIds">
+                          OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                      </foreach>
+                  </trim>
+                  )
+              </if>
+              <if test="areaName != null and areaName !=''">
+                  AND s.areaName like CONCAT('%',#{areaName},'%' )
+              </if>
+              <if test="serviceOrgName!=null and serviceOrgName!=''">
+                  and m.serviceOrgName  like CONCAT('%',#{serviceOrgName},'%' )
+              </if>
+
+        </where>
+    </select>
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.MoneyFlow" >
+        insert into t_moneyflow
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="oldmanId != null" >
+                oldmanId,
+            </if>
+            <if test="cardId != null" >
+                cardId,
+            </if>
+            <if test="serverNum != null" >
+                serverNum,
+            </if>
+            <if test="serviceOrgId != null" >
+                serviceOrgId,
+            </if>
+            <if test="serviceOrgName != null" >
+                serviceOrgName,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+                uptime,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="oldmanId != null" >
+                #{oldmanId,jdbcType=INTEGER},
+            </if>
+            <if test="cardId != null" >
+                #{cardId,jdbcType=VARCHAR},
+            </if>
+            <if test="serverNum != null" >
+                #{serverNum,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null" >
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgName != null" >
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <!--<if test="area != null" >-->
+                <!--#{area,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <if test="amount != null" >
+                #{amount,jdbcType=DOUBLE},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+
+    <select id="countMoneyFlowBydate" parameterType="String" resultType="java.lang.Integer">
+        select COUNT(*) from t_bill
+                where  dissipate like CONCAT('%',#{date},'%' )
+    </select>
+
+
+
+
+</mapper>

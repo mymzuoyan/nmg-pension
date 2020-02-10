@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+    <!-- 业务对象 -->
+    <bean id="scheduler" class="com.fedtech.pension.task.Scheduler" />
+
+    <!-- 线程执行器配置，用于任务注册 -->
+	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="100" />
+		<property name="queueCapacity" value="500" />
+	</bean>
+
+	<!-- 调度业务 -->
+	<bean id="heartRhythmTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="scheduler" />
+		<property name="targetMethod" value="realHeartRhythmTask" />
+	</bean>
+
+	<!-- 调度触发器，设置自己想要的时间规则 -->
+	<bean id="timingScheduleTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="heartRhythmTask"/>
+		<property name="cronExpression" value="0 0/30 * * * ?" />
+	</bean>
+
+	<!-- 加入调度工厂 ,设置调度触发器即可-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="timingScheduleTrigger"/>
+			</list>
+		</property>
+	</bean>
+
+</beans>

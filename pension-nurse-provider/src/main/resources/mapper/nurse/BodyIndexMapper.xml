@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.BodyIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.BodyIndex" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="body_fat_value" property="bodyFatValue" jdbcType="DOUBLE" />
+    <result column="bmi" property="bmi" jdbcType="DOUBLE" />
+    <result column="bmr" property="bmr" jdbcType="DOUBLE" />
+    <result column="body_water" property="bodyWater" jdbcType="DOUBLE" />
+    <result column="bone" property="bone" jdbcType="DOUBLE" />
+    <result column="skin_fat" property="skinFat" jdbcType="DOUBLE" />
+    <result column="visceral_fat" property="visceralFat" jdbcType="DOUBLE" />
+    <result column="muscle" property="muscle" jdbcType="DOUBLE" />
+    <result column="body_age" property="bodyAge" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="bmi_level" property="bmiLevel" jdbcType="INTEGER" />
+    <result column="bmi_level_name" property="bmiLevelName" jdbcType="VARCHAR" />
+    <result column="bmr_level" property="bmrLevel" jdbcType="INTEGER" />
+    <result column="bmr_level_name" property="bmrLevelName" jdbcType="VARCHAR" />
+    <result column="body_water_level" property="bodyWaterLevel" jdbcType="INTEGER" />
+    <result column="body_water_level_name" property="bodyWaterLevelName" jdbcType="VARCHAR" />
+    <result column="bone_level" property="boneLevel" jdbcType="INTEGER" />
+    <result column="bone_level_name" property="boneLevelName" jdbcType="VARCHAR" />
+    <result column="skin_fat_level" property="skinFatLevel" jdbcType="INTEGER" />
+    <result column="skin_fat_level_name" property="skinFatLevelName" jdbcType="VARCHAR" />
+    <result column="visceral_fat_level" property="visceralFatLevel" jdbcType="INTEGER" />
+    <result column="visceral_fat_level_name" property="visceralFatLevelName" jdbcType="VARCHAR" />
+    <result column="muscle_level" property="muscleLevel" jdbcType="INTEGER" />
+    <result column="muscle_level_name" property="muscleLevelName" jdbcType="VARCHAR" />
+    <result column="body_age_level" property="bodyAgeLevel" jdbcType="INTEGER" />
+    <result column="body_age_level_name" property="bodyAgeLevelName" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, body_fat_value, bmi,bmr,body_water,bone,skin_fat,visceral_fat,muscle,body_age,level,level_name,bmi_level,
+    bmi_level_name,bmr_level,bmr_level_name,body_water_level,body_water_level_name,bone_level,bone_level_name,skin_fat_level,
+    skin_fat_level_name,visceral_fat_level,visceral_fat_level_name,muscle_level,muscle_level_name,body_age_level,body_age_level_name
+  </sql>
+
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.BodyIndex" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_body_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bodyFatValue != null" >
+        body_fat_value,
+      </if>
+      <if test="bmi != null" >
+        bmi,
+      </if>
+      <if test="bmr != null" >
+        bmr,
+      </if>
+      <if test="bodyWater != null" >
+        body_water,
+      </if>
+      <if test="bone != null" >
+        bone,
+      </if>
+      <if test="skinFat != null" >
+        skin_fat,
+      </if>
+      <if test="visceralFat != null" >
+        visceral_fat,
+      </if>
+      <if test="muscle != null" >
+        muscle,
+      </if>
+      <if test="bodyAge != null" >
+        body_age,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+      <if test="bmiLevel != null" >
+        bmi_level,
+      </if>
+      <if test="bmiLevelName != null" >
+        bmi_level_name,
+      </if>
+      <if test="bmrLevel != null" >
+        bmr_level,
+      </if>
+      <if test="bmrLevelName != null" >
+        bmr_level_name,
+      </if>
+      <if test="bodyWaterLevel != null" >
+        body_water_level,
+      </if>
+      <if test="bodyWaterLevelName != null" >
+        body_water_level_name,
+      </if>
+      <if test="boneLevel != null" >
+        bone_level,
+      </if>
+      <if test="boneLevelName != null" >
+        bone_level_name,
+      </if>
+      <if test="skinFatLevel != null" >
+        skin_fat_level,
+      </if>
+      <if test="skinFatLevelName != null" >
+        skin_fat_level_name,
+      </if>
+      <if test="visceralFatLevel != null" >
+        visceral_fat_level,
+      </if>
+      <if test="visceralFatLevelName != null" >
+        visceral_fat_level_name,
+      </if>
+      <if test="muscleLevel != null" >
+        muscle_level,
+      </if>
+      <if test="muscleLevelName != null" >
+        muscle_level_name,
+      </if>
+      <if test="bodyAgeLevel != null" >
+        body_age_level,
+      </if>
+      <if test="bodyAgeLevelName != null" >
+        body_age_level_name,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bodyFatValue != null" >
+        #{bodyFatValue,jdbcType=DOUBLE},
+      </if>
+      <if test="bmi != null" >
+        #{bmi,jdbcType=DOUBLE},
+      </if>
+      <if test="bmr != null" >
+        #{bmr,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyWater != null" >
+        #{bodyWater,jdbcType=DOUBLE},
+      </if>
+      <if test="bone != null" >
+        #{bone,jdbcType=DOUBLE},
+      </if>
+      <if test="skinFat != null" >
+        #{skinFat,jdbcType=DOUBLE},
+      </if>
+      <if test="visceralFat != null" >
+        #{visceralFat,jdbcType=DOUBLE},
+      </if>
+      <if test="muscle != null" >
+        #{muscle,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyAge != null" >
+        #{bodyAge,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bmiLevel != null" >
+        #{bmiLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bmiLevelName != null" >
+        #{bmiLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bmrLevel != null" >
+        #{bmrLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bmrLevelName != null" >
+        #{bmrLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyWaterLevel != null" >
+        #{bodyWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bodyWaterLevelName != null" >
+        #{bodyWaterLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="boneLevel != null" >
+        #{boneLevel,jdbcType=INTEGER},
+      </if>
+      <if test="boneLevelName != null" >
+        #{boneLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="skinFatLevel != null" >
+        #{skinFatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="skinFatLevelName != null" >
+        #{skinFatLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="visceralFatLevel != null" >
+        #{visceralFatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="visceralFatLevelName != null" >
+        #{visceralFatLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="muscleLevel != null" >
+        #{muscleLevel,jdbcType=INTEGER},
+      </if>
+      <if test="muscleLevelName != null" >
+        #{muscleLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyAgeLevel != null" >
+        #{bodyAgeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bodyAgeLevelName != null" >
+        #{bodyAgeLevelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.BodyIndex" >
+    update t_body_index
+    <set>
+      <if test="bodyFatValue != null" >
+        body_fat_value = #{bodyFatValue,jdbcType=DOUBLE},
+      </if>
+      <if test="bmi != null" >
+        bmi = #{bmi,jdbcType=DOUBLE},
+      </if>
+      <if test="bmr != null" >
+        bmr = #{bmr,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyWater != null" >
+        body_water = #{bodyWater,jdbcType=DOUBLE},
+      </if>
+      <if test="bone != null" >
+        bone = #{bone,jdbcType=DOUBLE},
+      </if>
+      <if test="skinFat != null" >
+        skin_fat = #{skinFat,jdbcType=DOUBLE},
+      </if>
+      <if test="visceralFat != null" >
+        visceral_fat = #{visceralFat,jdbcType=DOUBLE},
+      </if>
+      <if test="muscle != null" >
+        muscle = #{muscle,jdbcType=DOUBLE},
+      </if>
+      <if test="bodyAge != null" >
+        body_age = #{bodyAge,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bmiLevel != null" >
+        bmi_level = #{bmiLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bmiLevelName != null" >
+        bmi_level_name = #{bmiLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bmrLevel != null" >
+        bmr_level = #{bmrLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bmrLevelName != null" >
+        bmr_level_name = #{bmrLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyWaterLevel != null" >
+        bmr_level_name = #{bodyWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bodyWaterLevelName != null" >
+        body_water_level_name = #{bodyWaterLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="boneLevel != null" >
+        bone_level = #{boneLevel,jdbcType=INTEGER},
+      </if>
+      <if test="boneLevelName != null" >
+        bone_level_name = #{boneLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="skinFatLevel != null" >
+        skin_fat_level = #{skinFatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="skinFatLevelName != null" >
+        skin_fat_level_name = #{skinFatLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="visceralFatLevel != null" >
+        visceral_fat_level = #{visceralFatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="visceralFatLevelName != null" >
+        visceral_fat_level_name = #{visceralFatLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="muscleLevel != null" >
+        muscle_level = #{muscleLevel,jdbcType=INTEGER},
+      </if>
+      <if test="muscleLevelName != null" >
+        muscle_level_name = #{muscleLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyAgeLevel != null" >
+        body_age_level = #{bodyAgeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bodyAgeLevelName != null" >
+        body_age_level_name = #{bodyAgeLevelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.BodyIndex">
+    select
+    *
+    from t_body_index
+    <where>
+      <if test="filter.bodyFatValue!=null and filter.bodyFatValue!=''">
+        body_fat_value = #{filter.bodyFatValue}
+      </if>
+      <if test="filter.bmi!=null">
+        and bmi = #{filter.bmi}
+      </if>
+      <if test="filter.bmr!=null">
+        and bmr = #{filter.bmr}
+      </if>
+      <if test="filter.bodyWater!=null">
+        and body_water = #{filter.bodyWater}
+      </if>
+      <if test="filter.bone!=null">
+        and bone = #{filter.bone}
+      </if>
+      <if test="filter.skinFat!=null">
+        and skin_fat = #{filter.skinFat}
+      </if>
+      <if test="filter.visceralFat!=null">
+        and visceral_fat = #{filter.visceralFat}
+      </if>
+      <if test="filter.muscle!=null">
+        and muscle = #{filter.muscle}
+      </if>
+      <if test="filter.bodyAge!=null">
+        and body_age = #{filter.bodyAge}
+      </if>
+      <if test="filter.level!=null">
+        and level = #{filter.level}
+      </if>
+      <if test="filter.levelName!=null and filter.levelName!=''">
+        and levelName like CONCAT('%',#{filter.levelName},'%' )
+      </if>
+      <if test="filter.bmiLevel!=null">
+        and bmi_level = #{filter.bmiLevel}
+      </if>
+      <if test="filter.bmiLevelName!=null and filter.bmiLevelName!=''">
+        and bmi_level_name like CONCAT('%',#{filter.bmiLevelName},'%' )
+      </if>
+      <if test="filter.bmrLevel!=null">
+        and bmi_level = #{filter.bmrLevel}
+      </if>
+      <if test="filter.bmrLevelName!=null and filter.bmrLevelName!=''">
+        and bmi_level_name like CONCAT('%',#{filter.bmrLevelName},'%' )
+      </if>
+      <if test="filter.bodyWaterLevel!=null">
+        and body_water_level = #{filter.bodyWaterLevel}
+      </if>
+      <if test="filter.bodyWaterLevelName!=null and filter.bodyWaterLevelName!=''">
+        and body_water_level_name like CONCAT('%',#{filter.bodyWaterLevelName},'%' )
+      </if>
+      <if test="filter.boneLevel!=null">
+        and bone_level = #{filter.boneLevel}
+      </if>
+      <if test="filter.boneLevelName!=null and filter.boneLevelName!=''">
+        and bone_level_name like CONCAT('%',#{filter.boneLevelName},'%' )
+      </if>
+      <if test="filter.skinFatLevel!=null">
+        and skin_fat_level = #{filter.skinFatLevel}
+      </if>
+      <if test="filter.skinFatLevelName!=null and filter.skinFatLevelName!=''">
+        and skin_fat_level_name like CONCAT('%',#{filter.leveskinFatLevelNamelName},'%' )
+      </if>
+      <if test="filter.visceralFatLevel!=null">
+        and visceral_fat_level = #{filter.visceralFatLevel}
+      </if>
+      <if test="filter.visceralFatLevelName!=null and filter.visceralFatLevelName!=''">
+        and visceral_fat_level_name like CONCAT('%',#{filter.visceralFatLevelName},'%' )
+      </if>
+      <if test="filter.muscleLevel!=null">
+        and muscle_level = #{filter.muscleLevel}
+      </if>
+      <if test="filter.muscleLevelName!=null and filter.muscleLevelName!=''">
+        and muscle_level_name like CONCAT('%',#{filter.muscleLevelName},'%' )
+      </if>
+      <if test="filter.bodyAgeLevel!=null">
+        and body_age_level = #{filter.bodyAgeLevel}
+      </if>
+      <if test="filter.bodyAgeLevelName!=null and filter.bodyAgeLevelName!=''">
+        and body_age_level_name like CONCAT('%',#{filter.bodyAgeLevelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_body_index
+    <where>
+      <if test="bodyFatValue!=null and bodyFatValue!=''">
+        body_fat_value = #{bodyFatValue}
+      </if>
+      <if test="bmi!=null">
+        and bmi = #{bmi}
+      </if>
+      <if test="bmr!=null">
+        and bmr = #{bmr}
+      </if>
+      <if test="bodyWater!=null">
+        and body_water = #{bodyWater}
+      </if>
+      <if test="bone!=null">
+        and bone = #{bone}
+      </if>
+      <if test="skinFat!=null">
+        and skin_fat = #{skinFat}
+      </if>
+      <if test="visceralFat!=null">
+        and visceral_fat = #{visceralFat}
+      </if>
+      <if test="muscle!=null">
+        and muscle = #{muscle}
+      </if>
+      <if test="bodyAge!=null">
+        and body_age = #{bodyAge}
+      </if>
+      <if test="level!=null">
+        and level = #{level}
+      </if>
+      <if test="levelName!=null and levelName!=''">
+        and levelName like CONCAT('%',#{levelName},'%' )
+      </if>
+      <if test="bmiLevel!=null">
+        and bmi_level = #{bmiLevel}
+      </if>
+      <if test="bmiLevelName!=null and bmiLevelName!=''">
+        and bmi_level_name like CONCAT('%',#{bmiLevelName},'%' )
+      </if>
+      <if test="bmrLevel!=null">
+        and bmi_level = #{bmrLevel}
+      </if>
+      <if test="bmrLevelName!=null and bmrLevelName!=''">
+        and bmi_level_name like CONCAT('%',#{bmrLevelName},'%' )
+      </if>
+      <if test="bodyWaterLevel!=null">
+        and body_water_level = #{bodyWaterLevel}
+      </if>
+      <if test="bodyWaterLevelName!=null and bodyWaterLevelName!=''">
+        and body_water_level_name like CONCAT('%',#{bodyWaterLevelName},'%' )
+      </if>
+      <if test="boneLevel!=null">
+        and bone_level = #{boneLevel}
+      </if>
+      <if test="boneLevelName!=null and boneLevelName!=''">
+        and bone_level_name like CONCAT('%',#{boneLevelName},'%' )
+      </if>
+      <if test="skinFatLevel!=null">
+        and skin_fat_level = #{skinFatLevel}
+      </if>
+      <if test="skinFatLevelName!=null and skinFatLevelName!=''">
+        and skin_fat_level_name like CONCAT('%',#{leveskinFatLevelNamelName},'%' )
+      </if>
+      <if test="visceralFatLevel!=null">
+        and visceral_fat_level = #{visceralFatLevel}
+      </if>
+      <if test="visceralFatLevelName!=null and visceralFatLevelName!=''">
+        and visceral_fat_level_name like CONCAT('%',#{visceralFatLevelName},'%' )
+      </if>
+      <if test="muscleLevel!=null">
+        and muscle_level = #{muscleLevel}
+      </if>
+      <if test="muscleLevelName!=null and muscleLevelName!=''">
+        and muscle_level_name like CONCAT('%',#{muscleLevelName},'%' )
+      </if>
+      <if test="bodyAgeLevel!=null">
+        and body_age_level = #{bodyAgeLevel}
+      </if>
+      <if test="bodyAgeLevelName!=null and bodyAgeLevelName!=''">
+        and body_age_level_name like CONCAT('%',#{bodyAgeLevelName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_body_index
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_body_index
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

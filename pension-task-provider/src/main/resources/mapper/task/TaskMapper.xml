@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.task.entity.Task">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="receiverServiceOrg" property="receiverServiceOrg" jdbcType="VARCHAR"/>
+        <result column="receiverName" property="receiverName" jdbcType="VARCHAR"/>
+        <result column="serviceTime" property="serviceTime" jdbcType="TIMESTAMP"/>
+        <result column="serviceType" property="serviceType" jdbcType="VARCHAR"/>
+        <result column="serviceName" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="source" property="source" jdbcType="VARCHAR"/>
+        <result column="lat" property="lat" jdbcType="DOUBLE"/>
+        <result column="lng" property="lng" jdbcType="DOUBLE"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="serviceAddress" property="serviceAddress" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="priceInfo" property="priceInfo" jdbcType="VARCHAR"/>
+        <result column="orderInfo" property="orderInfo" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="ServiceOrgTaskMoneyVo" type="com.fedtech.pension.task.vo.ServiceOrgTaskMoneyVo">
+        <id column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="serviceOrgName" property="serviceOrgName" jdbcType="VARCHAR"/>
+        <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+        <collection property="taskMoneyVos" ofType="com.fedtech.pension.task.vo.TaskMoneyVo">
+            <id column="t_type" property="type" jdbcType="INTEGER"/>
+            <result column="t_money" property="money" jdbcType="DOUBLE"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.task.entity.Task" parameterType="java.lang.Integer">
+        select
+        a.id, a.number,a.title,a.elderId,c.elderName,c.elderMobile,c.elderAge,
+        a.receiverServiceOrg, a.receiverName,a.serviceType,a.serviceTime,a.serviceName,
+        a.content,a.createTime, a.serviceAddress,a.creatorId,a.type,a.source, a.status,
+        b.login_name creatorName,b.phone creatorPhone,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        from t_task a LEFT  JOIN  t_user b on(a.creatorId=b.uid) LEFT JOIN t_user_link_elder c on(c.id = a.elderId)
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByNumber"  resultType="com.fedtech.pension.task.entity.Task" >
+         select
+        a.id, a.number,a.title,a.elderId,c.elderName,c.elderMobile,c.elderAge,
+        a.receiverServiceOrg, a.receiverName,a.serviceType,a.serviceTime,a.serviceName,
+        a.content,a.createTime, a.serviceAddress,a.creatorId,a.type,a.source, a.status,
+        b.login_name creatorName,b.phone creatorPhone,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        from t_task a LEFT  JOIN  t_user b on(a.creatorId=b.uid) LEFT JOIN t_user_link_elder c on(c.id = a.elderId)
+        where a.number = #{number,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectPageListForWallet" resultType="com.fedtech.pension.task.entity.Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content,a.createTime, a.creatorId,b.login_name as creatorName,b.phone creatorPhone,
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM t_task a
+        left join t_user b on a.creatorId=b.uid
+        left join t_user_link_elder d on a.elderId=d.id
+        left join t_elderly_wallet e on e.idcardno =d.elderCardNo
+        where a.status!=0
+        <if test="filter.status != null">
+            <if test="filter.status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="filter.status != -1">
+                and a.status = #{filter.status}
+            </if>
+        </if>
+        <if test="filter.elderName != null and filter.elderName!=''">
+            AND d.elderName like CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.idcardno != null">
+            and e.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.elderId != null">
+            and a.elderId = #{filter.elderId}
+        </if>
+        <if test="filter.creatorName != null and filter.creatorName!=''">
+            AND b.login_name like CONCAT('%',#{filter.creatorName},'%' )
+        </if>
+        <if test="filter.receiverServiceOrg != null and filter.receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{filter.receiverServiceOrg},'%' )
+        </if>
+        <if test="filter.receiverName != null and filter.receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{filter.receiverName},'%' )
+        </if>
+        <if test="filter.serviceType != null and filter.serviceType != ''">
+            AND a.serviceType like CONCAT('%',#{filter.serviceType},'%' )
+        </if>
+        <if test="filter.serviceName != null and filter.serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+        </if>
+        <if test="filter.level != null">
+            and a.level = #{filter.level}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countForWallet" parameterType="com.fedtech.pension.task.entity.Task" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_task a
+        left join t_user b on a.creatorId=b.uid
+        left join t_user_link_elder d on a.elderId=d.id
+        left join t_elderly_wallet e on e.idcardno =d.elderCardNo
+        where a.status!=0
+        <if test="status != null">
+            <if test="status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="status != -1">
+                and a.status = #{status}
+            </if>
+        </if>
+        <if test="elderName != null and elderName!=''">
+            AND d.elderName like CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="idcardno != null">
+            and e.idcardno = #{idcardno}
+        </if>
+        <if test="creatorId != null">
+            and a.creatorId = #{creatorId}
+        </if>
+        <if test="elderId != null">
+            and a.elderId = #{elderId}
+        </if>
+        <if test="creatorName != null and creatorName!=''">
+            AND b.login_name like CONCAT('%',#{creatorName},'%' )
+        </if>
+        <if test="receiverServiceOrg != null and receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{receiverServiceOrg},'%' )
+        </if>
+        <if test="receiverName != null and receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{receiverName},'%' )
+        </if>
+        <if test="serviceType != null and serviceType != ''">
+            and a.serviceType = #{serviceType}
+        </if>
+        <if test="serviceName != null and serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{serviceName},'%' )
+        </if>
+        <if test="level != null">
+            and a.level = #{level}
+        </if>
+    </select>
+
+    <select id="getTaskCountByIdCard" resultType="java.lang.Integer">
+       select count(1)
+        from t_task a  LEFT JOIN t_user_link_elder c on(c.id = a.elderId)
+        where a.id = #{id,jdbcType=INTEGER} and c.elderCardNo=#{idcard,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update  t_task
+    set status=0
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.task.entity.Task" useGeneratedKeys="true" keyProperty="id">
+        insert into t_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="receiverId != null">
+                receiverId,
+            </if>
+            <if test="receiverName != null">
+                receiverName,
+            </if>
+            <if test="serviceOrgId != null and serviceOrgId!=''">
+                serviceOrgId,
+            </if>
+            <if test="receiverServiceOrg != null">
+                receiverServiceOrg,
+            </if>
+            <if test="serviceType != null">
+                serviceType,
+            </if>
+            <if test="serviceTime != null">
+                serviceTime,
+            </if>
+            <if test="serviceName != null">
+                serviceName,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="lat != null">
+                lat,
+            </if>
+            <if test="lng != null">
+                lng,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="serviceAddress != null">
+                serviceAddress,
+            </if>
+            <if test="priceInfo != null">
+                priceInfo,
+            </if>
+            <if test="orderInfo != null">
+                orderInfo,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="payType != null">
+                payType,
+            </if>
+            <if test="payTime != null">
+                payTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null and serviceOrgId != ''">
+                #{serviceOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverServiceOrg != null">
+                #{receiverServiceOrg,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null">
+                #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTime != null">
+                #{serviceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceName != null">
+                #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="lat != null">
+                #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="lng != null">
+                #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="comment != null">
+                #{comment},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="source != null">
+                #{source,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="serviceAddress != null">
+                #{serviceAddress},
+            </if>
+            <if test="priceInfo != null">
+                #{priceInfo},
+            </if>
+            <if test="orderInfo != null">
+                #{orderInfo},
+            </if>
+            <if test="money != null">
+                #{money},
+            </if>
+            <if test="payType != null">
+                #{payType},
+            </if>
+            <if test="payTime != null">
+                #{payTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="java.lang.Integer">
+        update t_task
+        <set>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                receiverId = #{receiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                receiverName = #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverServiceOrg != null">
+                receiverServiceOrg = #{receiverServiceOrg,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTime != null">
+                serviceTime = #{serviceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceType != null">
+                serviceType = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceName != null">
+                serviceName = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="source != null">
+                source = #{source,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="lat != null">
+                lat = #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="lng != null">
+                lng = #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="serviceAddress != null">
+                serviceAddress=#{serviceAddress},
+            </if>
+            <if test="priceInfo != null">
+                priceInfo=#{priceInfo},
+            </if>
+            <if test="orderInfo != null">
+                orderInfo=#{orderInfo},
+            </if>
+            <if test="money != null">
+                money=#{money},
+            </if>
+            <if test="payType != null">
+                payType=#{payType},
+            </if>
+            <if test="payTime != null">
+                payTime=#{payTime},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateTaskByNumber" parameterType="java.lang.Integer">
+        update t_task
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverName != null">
+                receiverName = #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverServiceOrg != null">
+                receiverServiceOrg = #{receiverServiceOrg,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTime != null">
+                serviceTime = #{serviceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceType != null">
+                serviceType = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceName != null">
+                serviceName = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="source != null">
+                source = #{source,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="lat != null">
+                lat = #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="lng != null">
+                lng = #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="serviceAddress != null">
+                serviceAddress=#{serviceAddress},
+            </if>
+            <if test="priceInfo != null">
+                priceInfo=#{priceInfo},
+            </if>
+            <if test="orderInfo != null">
+                orderInfo=#{orderInfo},
+            </if>
+            <if test="money != null">
+                money=#{money},
+            </if>
+            <if test="payType != null">
+                payType=#{payType},
+            </if>
+            <if test="payTime != null">
+                payTime=#{payTime},
+            </if>
+        </set>
+        where number = #{number,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.task.entity.Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content,a.createTime, a.creatorId,b.login_name as 'creatorName',b.phone as 'creatorPhone',
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM
+        t_task a
+        left join t_user b on a.creatorId = b.uid
+        left join t_user_link_elder d on a.elderId = d.id
+        left join t_service_org e on e.id = a.serviceOrgId
+        where a.status!=0
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            and e.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.status != null">
+            <if test="filter.status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="filter.status != -1">
+                and a.status = #{filter.status}
+            </if>
+        </if>
+        <if test="filter.elderName != null and filter.elderName!=''">
+            AND d.elderName like CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.number != null and filter.number!=''">
+            AND a.number like CONCAT('%',#{filter.number},'%' )
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.elderId != null">
+            and a.elderId = #{filter.elderId}
+        </if>
+        <if test="filter.creatorName != null and filter.creatorName!=''">
+            AND b.login_name like CONCAT('%',#{filter.creatorName},'%' )
+        </if>
+        <if test="filter.receiverServiceOrg != null and filter.receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{filter.receiverServiceOrg},'%' )
+        </if>
+        <if test="filter.receiverName != null and filter.receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{filter.receiverName},'%' )
+        </if>
+        <if test="filter.serviceType != null and filter.serviceType != ''">
+            and a.serviceType = #{filter.serviceType}
+        </if>
+        <if test="filter.serviceName != null and filter.serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+        </if>
+        <if test="filter.comment != null and filter.comment != ''">
+            AND a.comment like CONCAT('%',#{filter.comment},'%' )
+        </if>
+        <if test="filter.level != null">
+            and a.level = #{filter.level}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectRecordList" resultType="Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content,a.createTime, a.creatorId,b.login_name as 'creatorName',b.phone as 'creatorPhone',
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM
+        t_task a
+        left join t_user b on a.creatorId = b.uid
+        LEFT JOIN t_task_receive c ON a.id = c.taskId
+        left join t_user_link_elder d on a.elderId = d.id
+        left join t_service_org e on e.id = a.serviceOrgId
+        where a.status!=0
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            and e.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.receiverId!=null and filter.receiverId!=''">
+            and c.receiverId = #{filter.receiverId}
+        </if>
+        <if test="filter.status != null">
+            <if test="filter.status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="filter.status != -1">
+                and a.status = #{filter.status}
+            </if>
+        </if>
+        <if test="filter.elderName != null and filter.elderName!=''">
+            AND d.elderName like CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.number != null and filter.number!=''">
+            AND a.number like CONCAT('%',#{filter.number},'%' )
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.elderId != null">
+            and a.elderId = #{filter.elderId}
+        </if>
+        <if test="filter.creatorName != null and filter.creatorName!=''">
+            AND b.login_name like CONCAT('%',#{filter.creatorName},'%' )
+        </if>
+        <if test="filter.receiverServiceOrg != null and filter.receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{filter.receiverServiceOrg},'%' )
+        </if>
+        <if test="filter.receiverName != null and filter.receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{filter.receiverName},'%' )
+        </if>
+        <if test="filter.serviceType != null and filter.serviceType != ''">
+            and a.serviceType = #{filter.serviceType}
+        </if>
+        <if test="filter.serviceName != null and filter.serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+        </if>
+        <if test="filter.comment != null and filter.comment != ''">
+            AND a.comment like CONCAT('%',#{filter.comment},'%' )
+        </if>
+        <if test="filter.level != null">
+            and a.level = #{filter.level}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="recordCount" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM
+        t_task a
+        left join t_user b on a.creatorId = b.uid
+        LEFT JOIN t_task_receive c ON a.id = c.taskId
+        left join t_user_link_elder d on a.elderId = d.id
+        left join t_service_org e on e.id = a.serviceOrgId
+        where a.status!=0
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            and e.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.receiverId!=null and filter.receiverId!=''">
+            and c.receiverId = #{filter.receiverId}
+        </if>
+        <if test="filter.status != null">
+            <if test="filter.status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="filter.status != -1">
+                and a.status = #{filter.status}
+            </if>
+        </if>
+        <if test="filter.elderName != null and filter.elderName!=''">
+            AND d.elderName like CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.number != null and filter.number!=''">
+            AND a.number like CONCAT('%',#{filter.number},'%' )
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.elderId != null">
+            and a.elderId = #{filter.elderId}
+        </if>
+        <if test="filter.creatorName != null and filter.creatorName!=''">
+            AND b.login_name like CONCAT('%',#{filter.creatorName},'%' )
+        </if>
+        <if test="filter.receiverServiceOrg != null and filter.receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{filter.receiverServiceOrg},'%' )
+        </if>
+        <if test="filter.receiverName != null and filter.receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{filter.receiverName},'%' )
+        </if>
+        <if test="filter.serviceType != null and filter.serviceType != ''">
+            and a.serviceType = #{filter.serviceType}
+        </if>
+        <if test="filter.serviceName != null and filter.serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+        </if>
+        <if test="filter.comment != null and filter.comment != ''">
+            AND a.comment like CONCAT('%',#{filter.comment},'%' )
+        </if>
+        <if test="filter.level != null">
+            and a.level = #{filter.level}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+    </select>
+
+    <select id="countPool" resultType="Task">
+        SELECT
+        a.createTime,
+        COUNT(1) AS 'count'
+        FROM
+        `t_task` a
+        left join t_service_org b on b.id = a.serviceOrgId
+        WHERE
+        a.`status` != 0
+        <if test="starDate != null and endDate != null">
+            AND DATE_FORMAT(a.createTime, '%Y-%m-%d') >= #{starDate}
+            AND #{endDate} >= DATE_FORMAT(a.createTime, '%Y-%m-%d')
+        </if>
+        <if test="areaName != null and areaName != ''">
+            AND b.areaName LIKE CONCAT("%",#{areaName},"%")
+        </if>
+        <if test="orgName != null and orgName != ''">
+            AND a.receiverServiceOrg LIKE CONCAT("%",#{orgName},"%")
+        </if>
+        GROUP BY
+        DATE_FORMAT(a.createTime, '%Y-%m-%d')
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.task.entity.Task" resultType="com.fedtech.pension.task.entity.Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,c.elderName,c.elderSex,c.elderMobile,c.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content, a.createTime, a.creatorId,b.login_name as creatorName,b.phone creatorPhone,
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM t_task a LEFT JOIN t_user b on (a.creatorId=b.uid) LEFT JOIN t_user_link_elder c on (a.elderId=c.id)
+        where a.status!=0
+        <if test="filter.status != null">
+            and a.status = #{filter.status}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+        <if test="filter.receiverServiceOrg != null">
+            and a.receiverServiceOrg = #{filter.receiverServiceOrg}
+        </if>
+        <if test="filter.receiverName != null">
+            and a.receiverName = #{filter.receiverName}
+        </if>
+        <if test="filter.serviceName != null">
+            and a.serviceName = #{filter.serviceName}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.task.entity.Task" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM
+        t_task a
+        left join t_user b on a.creatorId = b.uid
+        left join t_user_link_elder d on a.elderId = d.id
+        left join t_service_org e on e.id = a.serviceOrgId
+        where a.status!=0
+        <if test="areaName!=null and areaName!=''">
+            and e.areaName = #{areaName}
+        </if>
+        <if test="status != null">
+            <if test="status ==-1">
+                and a.status in (3,5,6,7,11)
+            </if>
+            <if test="status != -1">
+                and a.status = #{status}
+            </if>
+        </if>
+        <if test="elderName != null and elderName!=''">
+            AND d.elderName like CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="number != null and number!=''">
+            AND a.number like CONCAT('%',#{number},'%' )
+        </if>
+        <if test="creatorId != null">
+            and a.creatorId = #{creatorId}
+        </if>
+        <if test="elderId != null">
+            and a.elderId = #{elderId}
+        </if>
+        <if test="creatorName != null and creatorName!=''">
+            AND b.login_name like CONCAT('%',#{creatorName},'%' )
+        </if>
+        <if test="receiverServiceOrg != null and receiverServiceOrg!=''">
+            AND a.receiverServiceOrg like CONCAT('%',#{receiverServiceOrg},'%' )
+        </if>
+        <if test="receiverName != null and receiverName!=''">
+            AND a.receiverName like CONCAT('%',#{receiverName},'%' )
+        </if>
+        <if test="serviceType != null and serviceType != ''">
+            and a.serviceType = #{serviceType}
+        </if>
+        <if test="serviceName != null and serviceName != ''">
+            AND a.serviceName like CONCAT('%',#{serviceName},'%' )
+        </if>
+        <if test="comment != null and comment != ''">
+            AND a.comment like CONCAT('%',#{comment},'%' )
+        </if>
+        <if test="level != null">
+            and a.level = #{level}
+        </if>
+        <if test="type != null">
+            and a.type = #{type}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_task
+        where   status!=0
+    </select>
+
+    <select id="selectPageListByReceiveId" resultType="com.fedtech.pension.task.entity.Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,
+        a.content,a.serviceAddress,a.type,
+        a.createTime,a.creatorId,b.login_name as creatorName, b.phone
+        creatorPhone,a.status,a.type,a.source,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM
+        t_task a
+        left join t_user b on  (a.creatorId = b.uid)
+        left join t_user_link_elder d on  (a.elderId = d.id)
+        where   a.status!=0
+        <if test="filter.status != null">
+            and a.status = #{filter.status}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="filter.creatorName != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countTaskByReceiveId" resultType="java.lang.Integer">
+        SELECT COUNT(a.id)
+        FROM
+        t_task a
+        left join t_user b on  (a.creatorId = b.uid)
+        left join t_user_link_elder d on  (a.elderId = d.id)
+        where   a.status!=0
+        <if test="filter.status != null">
+            and a.status = #{filter.status}
+        </if>
+        <if test="filter.type != null">
+            and a.type = #{filter.type}
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+    </select>
+
+    <select id="getSendCountByUids" resultType="java.util.HashMap" parameterType="java.util.List">
+        SELECT creatorId uid ,COUNT(id) as sendCount
+        FROM t_task
+        where status!=0
+        and creatorId IN
+        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">
+            <if test="user.uid!=null">
+                #{user.uid}
+            </if>
+        </foreach>
+        GROUP BY creatorId
+    </select>
+
+    <select id="selectUnDoTask" resultType="com.fedtech.pension.task.entity.Task">
+        SELECT
+        a.id, a.number,a.title,a.elderId,d.elderName,d.elderSex,d.elderMobile,d.elderAge,a.receiverServiceOrg,
+        a.receiverName,a.serviceTime,a.serviceType,a.serviceName,a.serviceAddress,
+        a.content,a.createTime, c.creatorId,b.login_name as creatorName,b.phone creatorPhone,
+        a.status,a.type,a.source,a.lat,a.lng,a.updateTime,a.comment,a.level,a.money,a.payType,a.payTime,a.priceInfo,a.orderInfo
+        FROM
+        t_task a
+        left join t_task_receive c on  (a.id=c.taskId)
+        left join t_user b on  (c.creatorId=b.uid)
+        left join t_user_link_elder d on  (a.elderId = d.id)
+        where   a.status!=0
+        and c.creatorId = #{userId} and a.status &lt;8 and a.type=1
+        ORDER BY a.id DESC
+        <if test="start!=-1">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <select id="countUnDoTask" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM t_task a
+        where a.creatorId = #{userId} and a.status &lt;8 and a.type=1 and  a.status!=0
+    </select>
+
+    <select id="getTaskServiceTypeStatistics" resultType="java.util.HashMap">
+        select serviceType,count(id) count
+        from t_task
+	    GROUP BY serviceType
+
+    </select>
+
+    <select id="countMoney" resultType="java.lang.Double">
+        SELECT
+        sum(money)
+        FROM
+        t_task
+        where status  in (9,10)
+        <if test="task.receiverServiceOrg != null">
+            and receiverServiceOrg = #{task.receiverServiceOrg}
+        </if>
+        <if test="task.payType != null">
+            and payType = #{task.payType}
+        </if>
+        <if test="startTime != null">
+            and payTime &gt; #{startTime}
+        </if>
+        <if test="endTime != null">
+            and payTime &lt; #{endTime}
+        </if>
+    </select>
+
+    <select id="countByOrgMoney" resultType="java.lang.Integer">
+        select count(DISTINCT a.id)
+        FROM
+            t_service_org a
+        LEFT JOIN t_task b ON a.id = b.serviceOrgId
+        WHERE
+            a.`status` = 1
+        AND b.`status` in (9,10)
+    </select>
+
+    <select id="selectPageListByOrgMoney" resultMap="ServiceOrgTaskMoneyVo">
+        SELECT
+        a.id serviceOrgId ,
+        a.institutionName serviceOrgName ,
+        areaName ,
+        b.payType t_type,
+        sum(b.money) t_money
+        FROM
+        t_service_org a
+        LEFT JOIN t_task b ON a.id = b.serviceOrgId
+        WHERE
+        a.`status` = 1
+        AND b.`status` in (9,10)
+        GROUP BY
+        b.payType
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="taskCountByCity" resultType="java.lang.Integer">
+      select count(*) from t_task t,t_service_org s
+      where t.receiverServiceOrg=s.institutionName
+      and s.`status`=1
+      and YEAR(t.serviceTime)=YEAR(NOW())
+      and s.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+    <select id="getCountByYear" resultType="java.lang.Integer">
+        select count(*) from t_task where YEAR (serviceTime)=YEAR (NOW())
+    </select>
+
+    <select id="getCountByDate" resultType="java.lang.Integer">
+        select count(*) from t_task where DATE (serviceTime)=DATE (NOW())
+    </select>
+
+    <select id="taskCountByCityForYear" resultType="java.lang.Integer">
+        select count(*) from t_task t,t_service_org s
+      where t.id = s.serviceOrgId
+      and s.`status`=1
+      and YEAR(t.serviceTime)=YEAR(NOW())
+      and s.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+    <select id="taskCountByCityForDay" resultType="java.lang.Integer">
+        select count(*)
+        from t_task t,t_service_org s
+      where t.id = s.serviceOrgId
+      and s.`status`=1
+      and DATE (t.serviceTime)=DATE (NOW())
+      and s.areaName like CONCAT("%",#{city},"%")
+    </select>
+
+    <select id="selectAllKindCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select  count(0)  from t_task where 1=1 ${where}
+    </select>
+
+    <select id="selectCounts" resultType="com.fedtech.pension.task.entity.Count" >
+        SELECT a1.appCount,a2.todayAppCount,b1.webCount ,b2.todayWebCount,0 telCount,0 todayTelCount,0 beeperCount,0 todayBeeperCount,e1.undone,e2.doing,e3.done from
+        (SELECT count(*) appCount from t_elderly_order_app where sourceType=0) as a1 ,
+        (SELECT count(*) todayAppCount from t_elderly_order_app where  sourceType=0 and sendTime like  concat('%',date(now()) ,'%')  ) as a2,
+        (SELECT count(*) webCount from t_elderly_order_app where sourceType=1) as b1 ,
+        (SELECT count(*) todayWebCount from t_elderly_order_app where  sourceType=1 and sendTime like  concat('%',date(now()) ,'%')  ) as b2,
+        (SELECT count(*) telCount from t_elderly_order_app) as c1 ,
+        (SELECT count(*) todayTelCount from t_elderly_order_app where sendTime like  concat('%',date(now()) ,'%')  ) as c2,
+        (SELECT count(*) beeperCount from t_elderly_order_app) as d1 ,
+        (SELECT count(*) todayBeeperCount from t_elderly_order_app where sendTime like  concat('%',date(now()) ,'%')  ) as d2,
+        (SELECT count(*) undone from t_elderly_order_app where orderStatus =0 and sendTime like  concat('%',date(now()) ,'%')  ) as e1,
+        (SELECT count(*) doing from t_elderly_order_app where ((orderStatus >= 1 and <![CDATA[ orderStatus < 4  ]]> ) or orderStatus = 11) and sendTime like  concat('%',date(now()) ,'%')  ) as e2,
+        (SELECT count(*) done from t_elderly_order_app where (orderStatus>= 4 and <![CDATA[ orderStatus < 6  ]]>   ) and sendTime like  concat('%',date(now()) ,'%')  ) as e3
+    </select>
+</mapper>

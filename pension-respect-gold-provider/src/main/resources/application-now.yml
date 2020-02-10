@@ -1,0 +1,54 @@
+debug:
+  true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Root!!2018
+  db:
+    readsize: 3
+    read0:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  dubbo:
+    application:
+      name: gold-provider
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20884
+    scan: com.fedtech.pension.gold.service
+server:
+  port: 8084
+
+

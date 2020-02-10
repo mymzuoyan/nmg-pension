@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.UserFuwuMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.UserFuWu"
+            parameterType="java.lang.Integer">
+       SELECT
+        a.*,b.institutionName serviceOrgName,b.type as serviceOrgType
+        FROM
+        t_user_fuwu a left join t_service_org b on (a.serviceOrgId = b.id)
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByIdCardNo" resultType="com.fedtech.pension.org.entity.UserFuWu" parameterType="java.lang.String">
+        SELECT
+        a.*,b.institutionName serviceOrgName,b.type as serviceOrgType
+        FROM
+        t_user_fuwu a left join t_service_org b on (a.serviceOrgId = b.id)
+        where a.idcardno = #{idcardno,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByIdCardNoAndServiceOrgId" resultType="com.fedtech.pension.org.entity.UserFuWu" parameterType="com.fedtech.pension.org.entity.UserFuWu">
+        select * from t_user_fuwu where idcardno = #{idcardno} AND serviceOrgId = #{serviceOrgId}
+    </select>
+
+    <select id="selectByUserId" resultType="com.fedtech.pension.org.entity.UserFuWu" parameterType="java.lang.Integer">
+        select
+        a.*,b.startLevel as startLevel,c.avatar as avatar,d.institutionName serviceOrgName,d.type as serviceOrgType
+        from t_user_fuwu a,(select AVG(b.level) as startLevel from t_task_receive a,t_task b where a.taskId = b.id and a.receiverId = #{userId} and b.status>9) b,t_user c
+        ,t_service_org d
+        where a.userId = c.uid and a.userId = #{userId} and a.serviceOrgId = d.id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_user_fuwu
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteSomeUser" parameterType="java.lang.Integer">
+        delete from t_user_fuwu
+        where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByServiceOrgIds" parameterType="java.lang.Integer">
+        delete from t_user_fuwu
+        where serviceOrgId in
+        <foreach collection="serviceOrgIds" index="index" item="serviceOrgId" open="(" separator="," close=")">
+            #{serviceOrgId}
+        </foreach>
+    </delete>
+
+    <select id="selectServiceType" resultType="java.util.Map">
+       SELECT * from t_service_type where status=1
+    </select>
+
+    <select id="selectByLoginNameandPwd" resultType="com.fedtech.pension.org.entity.UserFuWu" parameterType="java.lang.String">
+        SELECT
+        *
+        FROM t_user_fuwu
+        WHERE mobile=#{loginName} AND password=#{password} and status=1
+    </select>
+    <select id="selectByServiceOrgId" resultType="com.fedtech.pension.org.entity.UserFuWu"
+            parameterType="java.lang.Integer">
+       SELECT
+        a.*,b.institutionName serviceOrgName,b.type as serviceOrgType
+        FROM
+        t_user_fuwu a left join t_service_org b on (a.serviceOrgId = b.id)
+        where a.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.UserFuWu" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_user_fuwu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="volunteerId != null">
+                volunteerId,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="gender !=null">
+                gender,
+            </if>
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="QQ != null">
+                QQ,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="realAddress != null">
+                realAddress,
+            </if>
+            <if test="cityAddress != null">
+                cityAddress,
+            </if>
+            <if test="volFlag != null">
+                volFlag,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="areaName != null">
+                areaName,
+            </if>
+            <if test="idPhotos != null">
+                idPhotos,
+            </if>
+            <if test="idPhotos2 != null">
+                idPhotos2,
+            </if>
+            <if test="idPhotos3 != null">
+                idPhotos3,
+            </if>
+            <if test="idPhotos4 != null">
+                idPhotos4,
+            </if>
+            <if test="serviceType != null">
+                serviceType,
+            </if>
+            <if test="serviceProject!=null">
+                serviceProject,
+            </if>
+            <if test="adminFlag!=null">
+                adminFlag,
+            </if>
+            <if test="workType!=null">
+                workType,
+            </if>
+            <if test="userType!=null">
+                userType,
+            </if>
+            <if test="userLevel!=null">
+                userLevel,
+            </if>
+            <if test="certificate!=null">
+                certificate,
+            </if>
+            <if test="train!=null">
+                train,
+            </if>
+            <if test="entryTime != null">
+                entryTime,
+            </if>
+            <if test="socialTime != null">
+                socialTime,
+            </if>
+            <if test="certificateTime != null">
+                certificateTime,
+            </if>
+            <if test="educationTime != null">
+                educationTime,
+            </if>
+            <if test="namePy != null">
+                namePy,
+            </if>
+            <if test="namePySx != null">
+                namePySx,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="headImage != null">
+                headImage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="volunteerId != null">
+                #{volunteerId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="gender!=null">
+                #{gender},
+            </if>
+            <if test="idcardno != null">
+                #{idcardno},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="QQ != null">
+                #{QQ},
+            </if>
+            <if test="mobile != null">
+                #{mobile},
+            </if>
+            <if test="realAddress != null">
+                #{realAddress},
+            </if>
+            <if test="cityAddress != null">
+                #{cityAddress},
+            </if>
+            <if test="volFlag != null">
+                #{volFlag},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId},
+            </if>
+            <if test="areaName != null">
+                #{areaName},
+            </if>
+            <if test="idPhotos != null">
+                #{idPhotos},
+            </if>
+            <if test="idPhotos2 != null">
+                #{idPhotos2},
+            </if>
+            <if test="idPhotos3 != null">
+                #{idPhotos3},
+            </if>
+            <if test="idPhotos4 != null">
+                #{idPhotos4},
+            </if>
+            <if test="serviceType != null">
+                #{serviceType},
+            </if>
+            <if test="serviceProject!=null">
+                #{serviceProject},
+            </if>
+            <if test="adminFlag!=null">
+                #{adminFlag},
+            </if>
+            <if test="workType!=null">
+                #{workType},
+            </if>
+            <if test="userType!=null">
+                #{userType},
+            </if>
+            <if test="userLevel!=null">
+                #{userLevel},
+            </if>
+            <if test="certificate!=null">
+                #{certificate},
+            </if>
+            <if test="train!=null">
+                #{train},
+            </if>
+            <if test="entryTime != null">
+                #{entryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="socialTime != null">
+                #{socialTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificateTime != null">
+                #{certificateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="educationTime != null">
+                #{educationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="namePy != null">
+                #{namePy},
+            </if>
+            <if test="namePySx != null">
+                #{namePySx},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="headImage != null">
+                #{headImage}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectDutyTypeList"  resultType="com.fedtech.pension.org.entity.UserFuWu" parameterType="com.fedtech.pension.org.entity.UserFuWu">
+        select  tuf.id,tuf.headImage,tuf.name,tuf.mobile,tuf.gender,tuf.serviceType,tuf.lng,tuf.lat,
+        IFNULL(t.onNum,0) onServerNum,(select institutionName from t_service_org where id=#{serviceOrgId}) as serviceOrgName
+        from  t_user_fuwu  tuf LEFT JOIN  ( select  *,count(1) onNum from  t_elderly_order_app
+         where  serviceOrgId=#{serviceOrgId} and(orderStatus=1 or orderStatus=11 or orderStatus=2 )
+         GROUP BY(serviceUserId) ) t on t.serviceUserId=tuf.id where tuf.serviceOrgId=#{serviceOrgId}
+         and tuf.status=1 and  tuf.serviceType  like  CONCAT(&apos;%&apos;,#{serviceType},&apos;%&apos;)
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.UserFuWu">
+        update t_user_fuwu
+        <set>
+            <if test="userId != null">
+                <if test="userId == 0">
+                    userId = NULL ,
+                </if>
+                <if test="userId != 0">
+                    userId = #{userId,jdbcType=INTEGER},
+                </if>
+            </if>
+            <if test="volunteerId != null">
+                volunteerId = #{volunteerId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="QQ != null">
+                QQ = #{QQ},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="realAddress != null">
+                realAddress = #{realAddress},
+            </if>
+            <if test="cityAddress != null">
+                cityAddress = #{cityAddress},
+            </if>
+            <if test="volFlag != null">
+                volFlag = #{volFlag},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName},
+            </if>
+            <if test="idPhotos != null">
+                idPhotos=#{idPhotos},
+            </if>
+            <if test="idPhotos2 != null">
+                idPhotos2=#{idPhotos2},
+            </if>
+            <if test="idPhotos3 != null">
+                idPhotos3=#{idPhotos3},
+            </if>
+            <if test="idPhotos4 != null">
+                idPhotos4=#{idPhotos4},
+            </if>
+            <if test="serviceType != null">
+                serviceType=#{serviceType},
+            </if>
+            <if test="serviceProject!=null">
+                serviceProject=#{serviceProject},
+            </if>
+            <if test="adminFlag!=null">
+                adminFlag=#{adminFlag},
+            </if>
+            <if test="workType!=null">
+                workType= #{workType},
+            </if>
+            <if test="userType!=null">
+                userType= #{userType},
+            </if>
+            <if test="userLevel!=null">
+                userLevel= #{userLevel},
+            </if>
+            <if test="certificate!=null">
+                certificate=#{certificate},
+            </if>
+            <if test="train!=null">
+                train= #{train},
+            </if>
+            <if test="entryTime != null">
+                entryTime = #{entryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="socialTime != null">
+                socialTime = #{socialTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificateTime != null">
+                certificateTime = #{certificateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="educationTime != null">
+                educationTime = #{educationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="namePy!=null">
+                namePy= #{namePy},
+            </if>
+            <if test="namePySx!=null">
+                namePySx= #{namePySx},
+            </if>
+            <if test="password!=null">
+                password= #{password},
+            </if>
+            <if test="status!=null">
+                status= #{status},
+            </if>
+            <if test="headImage!=null">
+                headImage= #{headImage},
+            </if>
+            <if test="lng!=null">
+                lng= #{lng},
+            </if>
+            <if test="lat!=null">
+                lat= #{lat},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByUserId" parameterType="com.fedtech.pension.org.entity.UserFuWu">
+        update t_user_fuwu
+        <set>
+            <if test="volunteerId != null">
+                volunteerId = #{volunteerId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="gender!=null">
+                gender = #{gender},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="QQ != null">
+                QQ = #{QQ},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="realAddress != null">
+                realAddress = #{realAddress},
+            </if>
+            <if test="cityAddress != null">
+                cityAddress = #{cityAddress},
+            </if>
+            <if test="volFlag != null">
+                volFlag = #{volFlag},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId},
+            </if>
+            <if test="areaName != null">
+                areaName = #{areaName},
+            </if>
+            <if test="idPhotos != null">
+                idPhotos=#{idPhotos},
+            </if>
+            <if test="idPhotos2 != null">
+                idPhotos2=#{idPhotos2},
+            </if>
+            <if test="idPhotos3 != null">
+                idPhotos3=#{idPhotos3},
+            </if>
+            <if test="idPhotos4 != null">
+                idPhotos4=#{idPhotos4},
+            </if>
+            <if test="serviceType != null">
+                serviceType=#{serviceType},
+            </if>
+            <if test="serviceProject!=null">
+                serviceProject=#{serviceProject},
+            </if>
+            <if test="adminFlag!=null">
+                adminFlag=#{adminFlag},
+            </if>
+            <if test="workType!=null">
+                workType= #{workType},
+            </if>
+            <if test="userType!=null">
+                userType= #{userType},
+            </if>
+            <if test="userLevel!=null">
+                userLevel= #{userLevel},
+            </if>
+            <if test="certificate!=null">
+                certificate=#{certificate},
+            </if>
+            <if test="train!=null">
+                train= #{train},
+            </if>
+            <if test="entryTime != null">
+                entryTime = #{entryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="socialTime != null">
+                socialTime = #{socialTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificateTime != null">
+                certificateTime = #{certificateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="educationTime != null">
+                educationTime = #{educationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="namePy!=null">
+                namePy= #{namePy},
+            </if>
+            <if test="namePySx!=null">
+                namePySx= #{namePySx},
+            </if>
+            <if test="headImage!=null">
+                headImage= #{headImage},
+            </if>
+        </set>
+        where userId = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateNullByUserId" parameterType="java.lang.Integer">
+        update t_user_fuwu set userId=NULL where userId=#{userId}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.org.entity.UserFuWu" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        t_user_fuwu a left join t_service_org b on (a.serviceOrgId = b.id)
+        where 1=1
+            <if test="serviceOrgId!=null and serviceOrgId!=''">
+                AND a.serviceOrgId = #{serviceOrgId}
+            </if>
+            <if test="serviceOrgType!=null and serviceOrgType!=''">
+                AND b.type = #{serviceOrgType}
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                AND b.institutionName like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="areaName != null">
+                AND a.areaName like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="name!=null and name!=''">
+                AND a.name = #{name}
+            </if>
+            <if test="idcardno!=null and idcardno!=''">
+                AND a.idcardno =#{idcardno}
+            </if>
+            <if test="adminFlag!=null and adminFlag!=''">
+                AND a.adminFlag =#{adminFlag}
+            </if>
+            <if test="serviceType!=null and serviceType!=''">
+                AND a.serviceType like CONCAT('%',#{serviceType},'%' )
+            </if>
+            <if test="userId==''">
+                AND a.userId is NULL
+            </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_fuwu
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.UserFuWu">
+        SELECT
+        a.*,
+        b.institutionName as serviceOrgName,
+        b.type as serviceOrgType
+        FROM
+        t_user_fuwu a
+        left join t_service_org b on a.serviceOrgId = b.id
+        where 1=1
+        <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.serviceOrgType!=null and filter.serviceOrgType!=''">
+            AND b.type = #{filter.serviceOrgType}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.areaName != null">
+            and a.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.name!=null and filter.name!=''">
+            AND a.name like CONCAT('%',#{filter.name},'%' )
+        </if>
+        <if test="filter.idcardno!=null and filter.idcardno!=''">
+            AND a.idcardno like CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.adminFlag!=null and filter.adminFlag!=''">
+            AND a.adminFlag =#{filter.adminFlag}
+        </if>
+        <if test="filter.serviceType!=null and filter.serviceType!=''">
+            AND a.serviceType like CONCAT('%',#{filter.serviceType},'%' )
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectRecordList" resultType="UserFuWu">
+        SELECT
+
+        (SELECT
+        COUNT(1)
+        FROM
+        t_task_receive t
+        LEFT JOIN t_task t1 ON t1.id = t.taskId
+        WHERE t.receiverId = a.userId)  AS 'scCount',
+
+        (SELECT
+        COUNT(1)
+        FROM
+        t_task_receive_plan r
+        LEFT JOIN t_task_plan r1 ON r.taskId = r1.id
+        WHERE r.receiverId = a.userId)  AS 'jhCount',
+
+        a.userId,
+        a.name,
+        a.idcardno,
+        a.mobile,
+        b.institutionName AS serviceOrgName
+        FROM
+        t_user_fuwu a
+        LEFT JOIN t_service_org b ON a.serviceOrgId = b.id
+        WHERE
+        a.userId is not null
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND b.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.name!=null and filter.name!=''">
+            AND a.name = #{filter.name}
+        </if>
+        <if test="filter.idcardno!=null and filter.idcardno!=''">
+            AND a.idcardno =#{filter.idcardno}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectFeedbackList" resultType="UserFuWu">
+        SELECT
+        (SELECT COUNT(1) FROM t_task WHERE id IN
+          (SELECT taskId FROM t_task_receive WHERE receiverId in (a.userId)) AND level >= 3) /
+        (SELECT COUNT(2) FROM t_task WHERE id IN
+          (SELECT taskId FROM t_task_receive WHERE receiverId in (a.userId))) AS 'favorableRate',
+
+        a.userId,
+        a.name,
+        a.idcardno,
+        a.mobile,
+        b.institutionName AS serviceOrgName
+        FROM
+        t_user_fuwu a
+        LEFT JOIN t_service_org b ON a.serviceOrgId = b.id
+        WHERE
+        a.userId is not null
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND b.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.name!=null and filter.name!=''">
+            AND a.name = #{filter.name}
+        </if>
+        <if test="filter.idcardno!=null and filter.idcardno!=''">
+            AND a.idcardno =#{filter.idcardno}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectByCardNo" parameterType="java.lang.String"
+            resultType="com.fedtech.pension.org.entity.UserFuWu">
+        SELECT *
+        FROM t_user_fuwu
+        where idcardno=#{idcardno}
+    </select>
+
+    <select id="selectRecordCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        t_user_fuwu a
+        LEFT JOIN t_service_org b ON a.serviceOrgId = b.id
+        WHERE
+        a.userId is not null
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND b.areaName = #{filter.areaName}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.name!=null and filter.name!=''">
+            AND a.name = #{filter.name}
+        </if>
+        <if test="filter.idcardno!=null and filter.idcardno!=''">
+            AND a.idcardno =#{filter.idcardno}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.org.entity.UserFuWu">
+        SELECT
+        a.*,b.institutionName serviceOrgName,b.type as serviceOrgType
+        FROM
+        t_user_fuwu a left join t_service_org b on (a.serviceOrgId = b.id)
+        <where>
+            <if test="filter.mobile!=null and filter.mobile!=''">
+                AND a.mobile = #{filter.mobile}
+            </if>
+            <if test="filter.serviceOrgType!=null and filter.serviceOrgType!=''">
+                AND b.type = #{filter.serviceOrgType}
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                AND b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                AND a.serviceOrgId = #{filter.serviceOrgId}
+            </if>
+            <if test="filter.name!=null and filter.name!=''">
+                AND a.name = #{filter.name}
+            </if>
+            <if test="filter.idcardno!=null and filter.idcardno!=''">
+                AND a.idcardno = #{filter.idcardno}
+            </if>
+        </where>
+    </select>
+</mapper>

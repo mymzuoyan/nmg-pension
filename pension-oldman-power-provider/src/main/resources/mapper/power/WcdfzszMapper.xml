@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.WcdfzszMapper">
+    <resultMap id="serviceWcdfzsz" type="com.fedtech.pension.power.entity.Wcdfzsz">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="oldman_name" property="oldman_name" jdbcType="INTEGER"/>
+        <result column="id_card" property="id_card" jdbcType="INTEGER"/>
+        <result column="oldman_preferential_card" property="oldman_preferential_card" jdbcType="INTEGER"/>
+        <result column="phone1" property="phone1" jdbcType="INTEGER"/>
+        <result column="phone2" property="phone2" jdbcType="INTEGER"/>
+        <result column="oldman_photo" property="oldman_photo" jdbcType="INTEGER"/>
+        <result column="degree_of_education" property="degree_of_education" jdbcType="INTEGER"/>
+        <result column="conservation_time" property="conservation_time" jdbcType="INTEGER"/>
+        <result column="domicile_address" property="domicile_address" jdbcType="INTEGER"/>
+        <result column="now_address" property="now_address" jdbcType="INTEGER"/>
+        <result column="emergency_contact1" property="emergency_contact1" jdbcType="INTEGER"/>
+        <result column="emergency_contact1_relatives" property="emergency_contact1_relatives" jdbcType="INTEGER"/>
+        <result column="emergency_contact1_tel" property="emergency_contact1_tel" jdbcType="INTEGER"/>
+        <result column="is_key1" property="is_key1" jdbcType="INTEGER"/>
+        <result column="emergency_contact2" property="emergency_contact2" jdbcType="INTEGER"/>
+        <result column="emergency_contact2_relatives" property="emergency_contact2_relatives" jdbcType="INTEGER"/>
+        <result column="emergency_contact2_tel" property="emergency_contact2_tel" jdbcType="INTEGER"/>
+        <result column="is_key2" property="is_key2" jdbcType="INTEGER"/>
+        <result column="emergency_contact3" property="emergency_contact3" jdbcType="INTEGER"/>
+        <result column="emergency_contact3_relatives" property="emergency_contact3_relatives" jdbcType="INTEGER"/>
+        <result column="emergency_contact3_tel" property="emergency_contact3_tel" jdbcType="INTEGER"/>
+        <result column="is_key3" property="is_key3" jdbcType="INTEGER"/>
+        <result column="oldman_zy" property="oldman_zy" jdbcType="INTEGER"/>
+        <result column="oldman_category" property="oldman_category" jdbcType="INTEGER"/>
+        <result column="special_object" property="special_object" jdbcType="INTEGER"/>
+        <result column="sources_of_income" property="sources_of_income" jdbcType="INTEGER"/>
+        <result column="status_of_children" property="status_of_children" jdbcType="INTEGER"/>
+        <result column="medical_category" property="medical_category" jdbcType="INTEGER"/>
+        <result column="residential_status" property="residential_status" jdbcType="INTEGER"/>
+        <result column="housing_nature" property="housing_nature" jdbcType="INTEGER"/>
+        <result column="habitable_room" property="habitable_room" jdbcType="INTEGER"/>
+        <result column="floor_lift" property="floor_lift" jdbcType="INTEGER"/>
+        <result column="residential_floor" property="residential_floor" jdbcType="INTEGER"/>
+        <result column="indoor_toilet" property="indoor_toilet" jdbcType="INTEGER"/>
+        <result column="indoor_bath_equipment" property="indoor_bath_equipment" jdbcType="INTEGER"/>
+        <result column="care_situation" property="care_situation" jdbcType="INTEGER"/>
+        <result column="government_purchase" property="government_purchase" jdbcType="INTEGER"/>
+        <result column="services_requested" property="services_requested" jdbcType="INTEGER"/>
+        <result column="physiclal_health_status" property="physiclal_health_status" jdbcType="INTEGER"/>
+        <result column="physiclal_illness_status" property="physiclal_illness_status" jdbcType="INTEGER"/>
+        <result column="physiclal_chronic_status" property="physiclal_chronic_status" jdbcType="INTEGER"/>
+        <result column="psychologic_status" property="psychologic_status" jdbcType="INTEGER"/>
+        <result column="social_activities" property="social_activities" jdbcType="INTEGER"/>
+        <result column="social_activities_type" property="social_activities_type" jdbcType="INTEGER"/>
+        <result column="day_activity1" property="day_activity1" jdbcType="INTEGER"/>
+        <result column="day_activity2" property="day_activity2" jdbcType="INTEGER"/>
+        <result column="day_activity3" property="day_activity3" jdbcType="INTEGER"/>
+        <result column="day_activity4" property="day_activity4" jdbcType="INTEGER"/>
+        <result column="day_activity5" property="day_activity5" jdbcType="INTEGER"/>
+        <result column="day_activity6" property="day_activity6" jdbcType="INTEGER"/>
+        <result column="day_activity7" property="day_activity7" jdbcType="INTEGER"/>
+        <result column="cognitive_ability1" property="cognitive_ability1" jdbcType="INTEGER"/>
+        <result column="cognitive_ability2" property="cognitive_ability2" jdbcType="INTEGER"/>
+        <result column="cognitive_ability3" property="cognitive_ability3" jdbcType="INTEGER"/>
+        <result column="cognitive_ability4" property="cognitive_ability4" jdbcType="INTEGER"/>
+        <result column="mood_action1" property="mood_action1" jdbcType="INTEGER"/>
+        <result column="mood_action2" property="mood_action2" jdbcType="INTEGER"/>
+        <result column="mood_action3" property="mood_action3" jdbcType="INTEGER"/>
+        <result column="audiovisual1" property="audiovisual1" jdbcType="INTEGER"/>
+        <result column="audiovisual2" property="audiovisual2" jdbcType="INTEGER"/>
+        <result column="areaId" property="areaId" jdbcType="INTEGER"/>
+        <result column="community" property="community" jdbcType="INTEGER"/>
+        <result column="sign" property="sign" jdbcType="INTEGER"/>
+        <result column="judge_sign" property="judge_sign" jdbcType="INTEGER"/>
+        <!--新增字段-->
+
+
+        <result column="foolStatus" property="foolStatus" jdbcType="INTEGER"/>
+        <result column="spiritStatus" property="spiritStatus" jdbcType="INTEGER"/>
+        <result column="accident1" property="accident1" jdbcType="INTEGER"/>
+        <result column="accident2" property="accident2" jdbcType="INTEGER"/>
+        <result column="accident3" property="accident3" jdbcType="INTEGER"/>
+        <result column="accident4" property="accident4" jdbcType="INTEGER"/>
+        <result column="accidentOther" property="accidentOther" jdbcType="INTEGER"/>
+        <result column="day_activity8" property="day_activity8" jdbcType="INTEGER"/>
+        <result column="day_activity9" property="day_activity9" jdbcType="INTEGER"/>
+        <result column="day_activity10" property="day_activity10" jdbcType="INTEGER"/>
+        <result column="audiovisual3" property="audiovisual3" jdbcType="INTEGER"/>
+        <result column="audiovisual4" property="audiovisual4" jdbcType="INTEGER"/>
+        <result column="audiovisual5" property="audiovisual5" jdbcType="INTEGER"/>
+
+
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, oldman_name, id_card, oldman_preferential_card, phone1, phone2, oldman_photo,degree_of_education, conservation_time,
+    domicile_address, now_address,emergency_contact1, emergency_contact1_relatives, emergency_contact1_tel,is_key1, emergency_contact2,
+    emergency_contact2_relatives, emergency_contact2_tel, is_key2, emergency_contact3, emergency_contact3_relatives,
+    emergency_contact3_tel,is_key3, oldman_zy,oldman_category, special_object,sources_of_income, status_of_children, medical_category,
+    residential_status,housing_nature, habitable_room, floor_lift, residential_floor, indoor_toilet, indoor_bath_equipment,
+    care_situation,government_purchase,services_requested, physiclal_health_status, physiclal_illness_status,physiclal_chronic_status,
+    psychologic_status,social_activities,social_activities_type,day_activity1, day_activity2, day_activity3, day_activity4,
+    day_activity5, day_activity6, day_activity7,cognitive_ability1, cognitive_ability2, cognitive_ability3, cognitive_ability4,
+    mood_action1, mood_action2, mood_action3,audiovisual1,audiovisual2, areaId, community, sign, judge_sign,
+    foolStatus,spiritStatus,accident1,accident2,accident3,accident4,accidentOther,day_activity8,day_activity9,day_activity10,
+    audiovisual3,audiovisual4,audiovisual5
+  </sql>
+
+    <select id="findWcdfzsz" resultMap="serviceWcdfzsz" >
+        select
+        <include refid="Base_Column_List"/>
+        from t_wcdfzsz  order by id desc limit 0,1
+    </select>
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Wcdfzsz" useGeneratedKeys="true"  keyProperty="id">
+        INSERT INTO t_wcdfzsz
+        (
+        id, oldman_name, id_card, oldman_preferential_card, phone1, phone2, oldman_photo,degree_of_education, conservation_time,
+        domicile_address, now_address,emergency_contact1, emergency_contact1_relatives, emergency_contact1_tel,is_key1, emergency_contact2,
+        emergency_contact2_relatives, emergency_contact2_tel, is_key2, emergency_contact3, emergency_contact3_relatives,
+        emergency_contact3_tel,is_key3, oldman_zy,oldman_category, special_object,sources_of_income, status_of_children, medical_category,
+        residential_status,housing_nature, habitable_room, floor_lift, residential_floor, indoor_toilet, indoor_bath_equipment,
+        care_situation,government_purchase,services_requested, physiclal_health_status, physiclal_illness_status,physiclal_chronic_status,
+        psychologic_status,social_activities,social_activities_type,day_activity1, day_activity2, day_activity3, day_activity4,
+        day_activity5, day_activity6, day_activity7,cognitive_ability1, cognitive_ability2, cognitive_ability3, cognitive_ability4,
+        mood_action1, mood_action2, mood_action3,audiovisual1,audiovisual2, areaId, community, sign,  judge_sign,
+        foolStatus, spiritStatus, accident1, accident2, accident3, accident4, accidentOther, day_activity8, day_activity9,
+        day_activity10, audiovisual3,  audiovisual4, audiovisual5
+        )
+        VALUES
+       (
+       #{id}, #{oldman_name}, #{id_card}, #{oldman_preferential_card}, #{phone1}, #{phone2}, #{oldman_photo},#{degree_of_education}, #{conservation_time},
+     #{domicile_address}, #{now_address},#{emergency_contact1}, #{emergency_contact1_relatives}, #{emergency_contact1_tel},#{is_key1}, #{emergency_contact2},
+     #{emergency_contact2_relatives}, #{emergency_contact2_tel}, #{is_key2}, #{emergency_contact3}, #{emergency_contact3_relatives},
+     #{emergency_contact3_tel},#{is_key3}, #{oldman_zy},#{oldman_category}, #{special_object},#{sources_of_income}, #{status_of_children}, #{medical_category},
+     #{residential_status},#{housing_nature}, #{habitable_room}, #{floor_lift}, #{residential_floor}, #{indoor_toilet}, #{indoor_bath_equipment},
+     #{care_situation},#{government_purchase},#{services_requested}, #{physiclal_health_status}, #{physiclal_illness_status},#{physiclal_chronic_status},
+     #{psychologic_status},#{social_activities},#{social_activities_type},#{day_activity1}, #{day_activity2}, #{day_activity3}, #{day_activity4},
+     #{day_activity5}, #{day_activity6}, #{day_activity7},#{cognitive_ability1}, #{cognitive_ability2}, #{cognitive_ability3}, #{cognitive_ability4},
+    #{ mood_action1}, #{mood_action2}, #{mood_action3},#{audiovisual1},#{audiovisual2}, #{areaId}, #{community}, #{sign}, #{judge_sign},
+    #{foolStatus}, #{spiritStatus}, #{accident1}, #{accident2}, #{accident3}, #{accident4}, #{accidentOther}, #{day_activity8},
+     #{day_activity9}, #{day_activity10},
+    #{audiovisual3}, #{audiovisual4}, #{audiovisual5}
+
+
+       )
+
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Wcdfzsz">
+        UPDATE t_wcdfzsz set
+
+    oldman_name= #{oldman_name},id_card= #{id_card},oldman_preferential_card= #{oldman_preferential_card},phone1= #{phone1}, phone2=#{phone2},oldman_photo= #{oldman_photo},
+    degree_of_education=#{degree_of_education}, conservation_time=#{conservation_time},
+     domicile_address=#{domicile_address}, now_address=#{now_address},emergency_contact1=#{emergency_contact1}, emergency_contact1_relatives=#{emergency_contact1_relatives},
+     emergency_contact1_tel=#{emergency_contact1_tel},is_key1=#{is_key1}, emergency_contact2=#{emergency_contact2},
+     emergency_contact2_relatives=#{emergency_contact2_relatives}, emergency_contact2_tel=#{emergency_contact2_tel}, is_key2=#{is_key2}, emergency_contact3=#{emergency_contact3},
+     emergency_contact3_relatives= #{emergency_contact3_relatives},
+    emergency_contact3_tel= #{emergency_contact3_tel},is_key3=#{is_key3}, oldman_zy=#{oldman_zy},oldman_category=#{oldman_category}, special_object=#{special_object},
+    sources_of_income=#{sources_of_income},status_of_children= #{status_of_children}, medical_category=#{medical_category},
+    residential_status= #{residential_status},housing_nature=#{housing_nature}, habitable_room=#{habitable_room},floor_lift= #{floor_lift}, residential_floor=#{residential_floor},
+    indoor_toilet=#{indoor_toilet}, indoor_bath_equipment=#{indoor_bath_equipment},
+     care_situation=#{care_situation},government_purchase=#{government_purchase},services_requested=#{services_requested}, physiclal_health_status=#{physiclal_health_status},
+      physiclal_illness_status=#{physiclal_illness_status},physiclal_chronic_status=#{physiclal_chronic_status},
+     psychologic_status=#{psychologic_status},social_activities=#{social_activities},social_activities_type=#{social_activities_type},day_activity1=#{day_activity1},day_activity2= #{day_activity2},
+     day_activity3= #{day_activity3}, day_activity4=#{day_activity4},
+     day_activity5=#{day_activity5}, day_activity6=#{day_activity6}, day_activity7=#{day_activity7},cognitive_ability1=#{cognitive_ability1}, cognitive_ability2=#{cognitive_ability2},
+      cognitive_ability3=#{cognitive_ability3}, cognitive_ability4=#{cognitive_ability4},
+    mood_action1=#{ mood_action1}, mood_action2=#{mood_action2}, mood_action3=#{mood_action3},audiovisual1=#{audiovisual1},audiovisual2=#{audiovisual2},
+    areaId= #{areaId},community= #{community},sign= #{sign},judge_sign= #{judge_sign},
+     foolStatus=#{foolStatus},spiritStatus=#{spiritStatus},accident1=#{accident1},accident2=#{accident2},accident3=#{accident3},accident4=#{accident4},accidentOther=#{accidentOther},
+     day_activity8=#{day_activity8},
+     day_activity9=#{day_activity9}, day_activity10=#{day_activity10}, audiovisual3=#{audiovisual3},audiovisual4=#{audiovisual4},audiovisual5=#{audiovisual5}
+
+
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

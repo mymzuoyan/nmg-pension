@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.UserLogMapper" >
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.sys.entity.UserLog" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="uid" property="uid" jdbcType="INTEGER" />
+        <result column="action" property="action" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, uid, action,description, ip, create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_userlog
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_userlog
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.UserLog" >
+        insert into t_userlog
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="uid != null" >
+                uid,
+            </if>
+            <if test="action != null" >
+                action,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="ip != null" >
+                ip,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null" >
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="action != null" >
+                #{action,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null" >
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.UserLog" >
+        update t_userlog
+        <set >
+            <if test="uid != null" >
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="action != null" >
+                action = #{action,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{action,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null" >
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.UserLog" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_userlog a
+        LEFT JOIN t_user b on a.uid=b.uid
+        LEFT JOIN t_user_role c on b.uid=c.userId
+        WHERE status != 2
+        <if test="uname!=null and uname!=''">
+            AND b.nick_name like CONCAT('%',#{uname},'%' )
+        </if>
+        <if test="uRoleId!=null">
+            AND c.roleId = #{uRoleId}
+        </if>
+        <if test="uid!=null">
+            AND a.uid = #{uid}
+        </if>
+        <if test="description!=null and description!=''">
+            AND a.description = #{description}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_userlog
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        SELECT
+        a.id ,
+        a.uid ,
+        d.uname ,
+        a.action ,
+        a.description ,
+        a.ip ,
+        a.create_time
+        FROM
+        t_userlog a
+        JOIN(
+            SELECT sub.id,b.nick_name uname
+            FROM t_userlog sub
+            LEFT JOIN t_user b ON sub.uid = b.uid
+            LEFT JOIN t_user_role c ON sub.uid = c.userId
+            <where>
+                <if test="filter.uname!=null and filter.uname!=''">
+                     b.nick_name like CONCAT('%',#{filter.uname},'%' )
+                </if>
+                <if test="filter.uRoleId!=null">
+                    AND c.roleId = #{filter.uRoleId}
+                </if>
+                <if test="filter.uid!=null">
+                    AND sub.uid = #{filter.uid}
+                </if>
+                <if test="filter.description!=null and filter.description!=''">
+                    AND sub.description = #{filter.description}
+                </if>
+            </where>
+            <if test="page.orderField!=null">
+                ORDER BY ${page.orderField} ${page.orderDir}
+            </if>
+            <if test="page.start!=null">
+                LIMIT #{page.start},#{page.length}
+            </if>
+        ) d ON d.id = a.id
+    </select>
+
+</mapper>

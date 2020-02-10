@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.MonitorMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.call.entity.Monitor">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="groupId" property="groupId" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="isLeader" property="isLeader" jdbcType="BIT"/>
+        <result column="queueName" property="queueName" jdbcType="VARCHAR"/>
+        <result column="extension" property="extension" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,groupId,userId,isLeader,queueName,extension
+    </sql>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.call.entity.Monitor" parameterType="java.lang.Integer">
+        SELECT
+        a.id,a.name,a.extension,a.groupName,b.nick_name account,b.areaName areaName
+        FROM c_monitor a left outer join t_user b
+        on a.userId=b.uid
+        where  a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultType="com.fedtech.pension.call.entity.Monitor" >
+        SELECT
+        a.id,a.name,a.extension,a.groupName,b.nick_name account,a.userId,queueName,a.pstnnumber
+        FROM c_monitor a left outer join t_user b
+        on a.userId=b.uid order by a.extension
+    </select>
+
+    <select id="selectByMonitorId" resultType="com.fedtech.pension.call.entity.Monitor" parameterType="java.lang.Integer">
+        SELECT
+        a.id,a.name,a.extension,a.groupName,b.nick_name account,a.userId,queueName,a.pstnnumber
+        FROM c_monitor a left outer join t_user b
+        on a.userId=b.uid
+        where  a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserId" resultType="com.fedtech.pension.call.entity.Monitor" parameterType="java.lang.Integer">
+        SELECT
+        id,groupId,groupName,userId,name,isLeader,queueName,extension,password,pstnnumber
+        FROM c_monitor
+        where userId = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE
+         FROM c_monitor
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteMonitor" parameterType="java.lang.Integer">
+        DELETE
+        FROM c_monitor
+        where userId = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.call.entity.Monitor">
+        insert into c_monitor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="groupId != null">
+                groupId,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="isLeader != null">
+                isLeader,
+            </if>
+            <if test="queueName != null">
+                queueName,
+            </if>
+            <if test="extension != null">
+                extension,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                #{groupId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="isLeader != null">
+                #{isLeader},
+            </if>
+            <if test="queueName != null">
+                #{queueName},
+            </if>
+            <if test="extension != null">
+                #{extension},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertAgent" parameterType="com.fedtech.pension.call.entity.Monitor">
+        insert into c_monitor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="groupId != null">
+                groupId,
+            </if>
+            <if test="extension != null">
+                extension,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="groupName != null">
+                groupName,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="isLeader != null">
+                isLeader,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                #{groupId},
+            </if>
+            <if test="extension != null">
+                #{extension},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="groupName != null">
+                #{groupName},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="isLeader != null">
+                #{isLeader},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.call.entity.Monitor">
+        update c_monitor
+        <set>
+            <if test="groupId != null">
+                groupId = #{groupId},
+            </if>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="isLeader != null">
+                isLeader = #{isLeader},
+            </if>
+            <if test="queueName != null">
+                queueName = #{queueName},
+            </if>
+            <if test="extension != null">
+                extension = #{extension},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByUserId" parameterType="com.fedtech.pension.call.entity.Monitor">
+        update c_monitor
+        <set>
+            <if test="groupId != null">
+                groupId = #{groupId},
+            </if>
+            <if test="isLeader != null">
+                isLeader = #{isLeader},
+            </if>
+            <if test="queueName != null">
+                queueName = #{queueName},
+            </if>
+            <if test="extension != null">
+                extension = #{extension},
+            </if>
+        </set>
+        where userId = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateMonitorUser" >
+        update c_monitor set userId=#{uid},queueName=#{queueName},pstnnumber = #{pstnnumber} where id=#{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateAgent" parameterType="com.fedtech.pension.call.entity.Monitor">
+        update c_monitor
+        <set>
+            <if test="groupId != null">
+                groupId = #{groupId},
+            </if>
+            <if test="groupName != null">
+                groupName = #{groupName},
+            </if>
+            <if test="extension != null">
+                extension = #{extension},
+            </if>
+            <if test="isLeader != null">
+                isLeader = #{isLeader},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="queueName != null">
+                queueName = #{queueName},
+            </if>
+            <if test="pstnnumber != null">
+                pstnnumber = #{pstnnumber},
+            </if>
+        </set>
+        where userId = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.call.entity.Monitor" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM c_monitor a left outer join t_user b
+        on a.userId=b.uid where 1=1
+        <if test="name != null and name != ''">
+            and a.name like CONCAT('%',#{name},'%' )
+        </if>
+        <if test="extension != null and extension != ''">
+            and a.extension = #{extension}
+        </if>
+        <if test="pstnnumber != null and pstnnumber != ''">
+            and a.pstnnumber = #{pstnnumber}
+        </if>
+        <if test="groupName != null and groupName != ''">
+            and a.groupName like CONCAT('%',#{groupName},'%' )
+        </if>
+        <if test="account != null and account != ''">
+            and b.nick_name like CONCAT('%',#{account},'%' )
+        </if>
+        <if test="isLeader != null">
+            and a.isLeader = #{isLeader}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT id FROM c_monitor
+    </select>
+
+    <select id="selectExist" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM c_monitor
+    </select>
+
+    <select id="selectByAgentNum" resultType="com.fedtech.pension.call.entity.Monitor"  parameterType="java.lang.String">
+        SELECT * FROM c_monitor where  extension = #{agentnum}
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.call.entity.Monitor">
+        SELECT
+        a.id,a.groupName,a.name,a.userId,b.nick_name account,
+        a.isLeader,a.queueName,a.extension
+        FROM c_monitor a left outer join t_user b
+        on a.userId=b.uid where 1=1
+        <if test="filter.name != null and filter.name != ''">
+            and a.name like CONCAT('%',#{filter.name},'%' )
+        </if>
+        <if test="filter.extension != null and filter.extension != ''">
+            and a.extension = #{filter.extension}
+        </if>
+        <if test="filter.pstnnumber != null and filter.pstnnumber != ''">
+            and a.pstnnumber = #{filter.pstnnumber}
+        </if>
+        <if test="filter.groupName != null and filter.groupName != ''">
+            and a.groupName like CONCAT('%',#{filter.groupName},'%' )
+        </if>
+        <if test="filter.account != null and filter.account != ''">
+            and b.nick_name like CONCAT('%',#{filter.account},'%' )
+        </if>
+        <if test="filter.isLeader != null">
+            and a.isLeader = #{filter.isLeader}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="selectMonitorByAccount" resultType="com.fedtech.pension.call.entity.Monitor" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from c_monitor
+        where account = #{account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.call.entity.Monitor"
+            resultType="com.fedtech.pension.call.entity.Monitor">
+        SELECT
+        a.id,a.groupId,a.groupName,a.userId,b.login_name account,b.nick_name name,b.phone phone,b.areaName areaName,isLeader,a.queueName,a.extension
+        FROM c_monitor a left join t_user b
+        on b.uid=a.userId where 1=1
+        <if test="filter.areaName != null and filter.areaName != ''">
+            and b.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+    </select>
+
+</mapper>

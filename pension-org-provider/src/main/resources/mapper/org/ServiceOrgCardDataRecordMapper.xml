@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgCardDataRecordMapper">
+
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgCardDataRecord"
+            parameterType="java.lang.Integer">
+        select *
+        from t_service_org_card_data_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_card_data_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgCardDataRecord">
+        SELECT *
+        from t_service_org_card_data_record a
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        from t_service_org_card_data_record a
+    </select>
+
+    <insert id="insert" parameterType="java.util.List">
+        insert into t_service_org_card_data_record
+        (result, create_time)
+        VALUES(#{result}, #{createTime})
+    </insert>
+
+</mapper>

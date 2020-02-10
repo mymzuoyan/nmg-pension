@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.UserLinkElderMapper">
+
+    <sql id="Base_Column_List">
+        id, userId,elderName, elderAge,elderSex,elderMobile,elderCardNo,elderArea,elderAddress,status
+    </sql>
+
+    <select id="selectLinkElderList" resultType="UserLinkElder">
+        SELECT
+        a.id, a.userId, a.elderName, a.elderAge, a.elderSex, a.elderMobile, a.elderCardNo, a.elderArea, a.elderAddress, a.status
+        ,b.receiverServiceOrg as 'task.receiverServiceOrg'
+        FROM
+        t_user_link_elder a
+        left join t_task b on a.id = b.elderId
+        where
+        a.status = 1
+        <if test="elder.task != null and elder.task.receiverServiceOrg != null and elder.task.receiverServiceOrg != ''">
+            and b.receiverServiceOrg = #{elder.task.receiverServiceOrg}
+        </if>
+        <if test="elder.elderName != null and elder.elderName != ''">
+            AND a.elderName like CONCAT('%',#{elder.elderName},'%' )
+        </if>
+        <if test="elder.elderSex != null">
+            and a.elderSex = #{elder.elderSex}
+        </if>
+        <if test="elder.elderMobile != null and elder.elderMobile != ''">
+            and a.elderMobile = #{elder.elderMobile}
+        </if>
+        <if test="elder.elderAddress != null and elder.elderAddress != ''">
+            AND a.elderAddress like CONCAT('%',#{elder.elderAddress},'%' )
+        </if>
+        GROUP BY a.id
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectPageCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(distinct(a.id))
+        FROM
+        t_user_link_elder a
+        left join t_task b on a.id = b.elderId
+        where
+        a.status = 1
+        <if test="elder.task != null and elder.task.receiverServiceOrg != null and elder.task.receiverServiceOrg != ''">
+            and b.receiverServiceOrg = #{elder.task.receiverServiceOrg}
+        </if>
+        <if test="elder.elderName != null and elder.elderName != ''">
+            AND a.elderName like CONCAT('%',#{elder.elderName},'%' )
+        </if>
+        <if test="elder.elderSex != null">
+            and a.elderSex = #{elder.elderSex}
+        </if>
+        <if test="elder.elderMobile != null and elder.elderMobile != ''">
+            and a.elderMobile = #{elder.elderMobile}
+        </if>
+        <if test="elder.elderAddress != null and elder.elderAddress != ''">
+            AND a.elderAddress like CONCAT('%',#{elder.elderAddress},'%' )
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.task.entity.UserLinkElder" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_link_elder
+        WHERE id = #{id} and status=1
+    </select>
+
+    <select id="selectByUserId" resultType="com.fedtech.pension.task.entity.UserLinkElder">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_link_elder
+        WHERE userId = #{userId} and status=1
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        update t_user_link_elder set status=0
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.task.entity.UserLinkElder" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user_link_elder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="elderName != null">
+                elderName,
+            </if>
+            <if test="elderAge != null">
+                elderAge,
+            </if>
+            <if test="elderSex != null">
+                elderSex,
+            </if>
+            <if test="elderMobile != null">
+                elderMobile,
+            </if>
+            <if test="elderCardNo != null">
+                elderCardNo,
+            </if>
+            <if test="elderArea != null">
+                elderArea,
+            </if>
+            <if test="elderAddress != null">
+                elderAddress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="elderAge != null">
+                #{elderAge,jdbcType=INTEGER},
+            </if>
+            <if test="elderSex != null">
+                #{elderSex,jdbcType=INTEGER},
+            </if>
+            <if test="elderMobile != null">
+                #{elderMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="elderCardNo != null">
+                #{elderCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="elderArea != null">
+                #{elderArea,jdbcType=VARCHAR},
+            </if>
+            <if test="elderAddress != null">
+                #{elderAddress,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.task.entity.UserLinkElder">
+        UPDATE t_user_link_elder
+        <set>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="elderName != null">
+                elderName = #{elderName},
+            </if>
+            <if test="elderAge != null">
+                elderAge = #{elderAge},
+            </if>
+            <if test="elderSex != null">
+                elderSex = #{elderSex},
+            </if>
+            <if test="elderMobile != null">
+                elderMobile = #{elderMobile},
+            </if>
+            <if test="elderCardNo != null">
+                elderCardNo = #{elderCardNo},
+            </if>
+            <if test="elderArea != null">
+                elderArea = #{elderCardNo},
+            </if>
+            <if test="elderAddress != null">
+                elderAddress = #{elderAddress},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.task.entity.UserLinkElder" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_link_elder
+        where status=1
+        <if test="userId!=null">
+            and userId = #{userId}
+        </if>
+        <if test="elderName!=null">
+            and elderName = #{elderName}
+        </if>
+        <if test="elderMobile!=null">
+            and elderMobile = #{elderMobile}
+        </if>
+        <if test="elderCardNo!=null">
+            and elderCardNo = #{elderCardNo}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_link_elder
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.task.entity.UserLinkElder">
+        SELECT
+        id, userId,elderName, elderAge,elderSex,elderMobile,elderCardNo,elderAddress
+        FROM t_user_link_elder
+        where status=1
+        <if test="filter.userId!=null">
+            and userId = #{filter.userId}
+        </if>
+        <if test="filter.elderName!=null">
+            and elderName = #{filter.elderName}
+        </if>
+        <if test="filter.elderMobile!=null">
+            and elderMobile = #{filter.elderMobile}
+        </if>
+        <if test="filter.elderCardNo!=null">
+            and elderCardNo = #{filter.elderCardNo}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.task.entity.UserLinkElder"
+            resultType="com.fedtech.pension.task.entity.UserLinkElder">
+        SELECT
+        id, userId,elderName, elderAge,elderSex,elderMobile,elderCardNo,elderArea,elderAddress
+        FROM t_user_link_elder
+        where status=1
+        <if test="filter!=null">
+            <if test="filter.userId!=null">
+                and userId = #{filter.userId}
+            </if>
+            <if test="filter.elderName!=null">
+                and elderName = #{filter.elderName}
+            </if>
+            <if test="filter.elderAge!=null">
+                and elderAge = #{filter.elderAge}
+            </if>
+            <if test="filter.elderSex!=null">
+                and elderSex = #{filter.elderSex}
+            </if>
+            <if test="filter.elderMobile!=null">
+                and elderMobile = #{filter.elderMobile}
+            </if>
+            <if test="filter.elderCardNo!=null">
+                and elderCardNo = #{filter.elderCardNo}
+            </if>
+            <if test="filter.elderArea!=null">
+                and elderArea = #{filter.elderArea}
+            </if>
+            <if test="filter.elderAddress!=null">
+                and elderAddress = #{filter.elderAddress}
+            </if>
+        </if>
+    </select>
+
+</mapper>

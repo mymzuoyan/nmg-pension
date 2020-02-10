@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.NurseElderlySignMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.NurseElderlySign" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="elderId" property="elderId" jdbcType="INTEGER" />
+    <result column="signType" property="signType" jdbcType="INTEGER" />
+    <result column="signResult" property="signResult" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="sourceNumber" property="sourceNumber" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, elderId, signType, signResult, source, sourceNumber, status, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_nurse_elderly_sign
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_nurse_elderly_sign
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.NurseElderlySign" >
+    insert into t_nurse_elderly_sign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="elderId != null" >
+        elderId,
+      </if>
+      <if test="signType != null" >
+        signType,
+      </if>
+      <if test="signResult != null" >
+        signResult,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="sourceNumber != null" >
+        sourceNumber,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="elderId != null" >
+        #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="signType != null" >
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signResult != null" >
+        #{signResult,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceNumber != null" >
+        #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.NurseElderlySign" >
+    update t_nurse_elderly_sign
+    <set >
+      <if test="elderId != null" >
+        elderId = #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="signType != null" >
+        signType = #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signResult != null" >
+        signResult = #{signResult,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceNumber != null" >
+        sourceNumber = #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.NurseElderlySign">
+    select
+    a.id, a.elderId,b.elderName, a.signType, a.signResult, a.source, a.sourceNumber,a. status, a.createTime,b.sexDictId elderSex,b.age elderAge
+    from t_nurse_elderly_sign a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="filter.elderName!=null and filter.elderName!=''">
+        b.elderName like CONCAT('%',#{filter.elderName},'%' )
+      </if>
+      <if test="filter.sourceNumber!=null and filter.sourceNumber!=''">
+        a.sourceNumber like CONCAT('%',#{filter.sourceNumber},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_nurse_elderly_sign a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="elderName!=null and elderName!=''">
+        b.elderName like CONCAT('%',#{elderName},'%' )
+      </if>
+      <if test="sourceNumber!=null and sourceNumber!=''">
+        a.sourceNumber like CONCAT('%',#{sourceNumber},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_nurse_elderly_sign
+  </select>
+  <select id="getAllRecode" resultType="com.fedtech.pension.nurse.entity.NurseElderlySign">
+    select
+    a.id, a.elderId, a.signType, a.signResult, a.source, a.sourceNumber,a. status, a.createTime,b.sexDictId elderSex,b.age elderAge
+    from t_nurse_elderly_sign a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="filter.elderName!=null and filter.elderName!=''">
+        b.elderName like CONCAT('%',#{filter.elderName},'%' )
+      </if>
+    </where>
+  </select>
+
+</mapper>

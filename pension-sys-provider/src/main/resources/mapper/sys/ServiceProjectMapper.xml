@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.ServiceProjectMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.sys.entity.ServiceProject">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceType" property="serviceType" jdbcType="INTEGER"/>
+        <result column="serviceName" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="serviceCode" property="serviceCode" jdbcType="VARCHAR"/>
+        <result column="serviceUnit" property="serviceUnit" jdbcType="VARCHAR"/>
+        <result column="moreService" property="moreService" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, serviceType, serviceName, serviceCode,  serviceUnit, moreService,status,creator,createTime
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_project
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllRecode" resultMap="BaseResultMap">
+        select
+        a.id, a.serviceType,b.name serviceTypeName, serviceName,serviceCode, serviceUnit,
+        moreService,a.status,a.creator,a.createTime
+        from t_service_project a
+        LEFT JOIN t_service_type b ON (b.id=a.serviceType)
+        <where>
+            <if test="filter.status!=null">
+                AND a.status = #{filter.status}
+            </if>
+            <if test="filter.serviceType!=null">
+                AND a.serviceType = #{filter.serviceType}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_service_project
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.ServiceProject">
+        insert into t_service_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceType != null">
+                serviceType,
+            </if>
+            <if test="serviceName != null">
+                serviceName,
+            </if>
+            <if test="serviceCode != null">
+                serviceCode,
+            </if>
+            <if test="serviceUnit != null">
+                serviceUnit,
+            </if>
+            <if test="moreService != null">
+                moreService,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceType != null">
+                #{serviceType,jdbcType=INTEGER},
+            </if>
+            <if test="serviceName != null">
+                #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCode != null">
+                #{serviceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceUnit != null">
+                #{serviceUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="moreService != null">
+                #{moreService,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.ServiceProject">
+        update t_service_project
+        <set>
+            <if test="serviceType != null">
+                serviceType = #{serviceType,jdbcType=INTEGER},
+            </if>
+            <if test="serviceName != null">
+                serviceName = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCode != null">
+                serviceCode = #{serviceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceUnit != null">
+                serviceUnit = #{serviceUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="moreService != null">
+                moreService = #{moreService,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        from t_service_project a LEFT JOIN t_service_type b ON (b.id=a.serviceType)
+        <where>
+            <if test="serviceType != null">
+                a.serviceType = #{serviceType}
+            </if>
+            <if test="status != null">
+                a.status = #{status}
+            </if>
+            <if test="serviceTypeName != null  and serviceTypeName!=''">
+                AND b.name like CONCAT('%',#{serviceTypeName},'%' )
+            </if>
+            <if test="serviceName != null  and serviceName!=''">
+                AND a.serviceName like CONCAT('%',#{serviceName},'%' )
+            </if>
+        </where>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT  COUNT (*)
+        from t_service_project
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.ServiceProject">
+        select a.id, a.serviceType,b.name serviceTypeName,serviceName, serviceCode, serviceUnit,
+        moreService,a.status,a.creator,a.createTime,u.serviceOrgName serviceOrgName
+        from t_service_project a
+        LEFT JOIN t_service_type b ON (b.id=a.serviceType)
+        LEFT JOIN t_user u ON (u.uid=a.creator)
+        <where>
+            <if test="filter.serviceType != null">
+                a.serviceType = #{filter.serviceType}
+            </if>
+            <if test="filter.status != null">
+                a.status = #{filter.status}
+            </if>
+            <if test="filter.serviceTypeName != null  and filter.serviceTypeName!=''">
+                AND b.name like CONCAT('%',#{filter.serviceTypeName},'%' )
+            </if>
+            <if test="filter.serviceName != null  and filter.serviceName!=''">
+                AND a.serviceName like CONCAT('%',#{filter.serviceName},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getServiceProjectsByType" resultType="com.fedtech.pension.sys.entity.ServiceProject">
+        select  a.id, a.serviceType,b.name serviceTypeName,serviceName, serviceCode,  serviceUnit, moreService,a.status,a.creator,a.createTime
+        from t_service_project a LEFT  JOIN t_service_type b ON (b.id=a.serviceType)
+        where b.name in (#{types})
+    </select>
+
+    <select id="selectByTypeAndServiceOrgId" resultType="com.fedtech.pension.sys.entity.ServiceProject">
+        select  a.id,a.status,a.creator,a.createTime，
+        b.name serviceTypeName,serviceName, serviceCode,  serviceUnit, moreService,
+        c.id as priceId, a.serviceType,
+         c.price servicePrice ,c.moreInfo  moreInfo
+        from t_service_project a
+        LEFT  JOIN t_service_type b ON b.id=a.serviceType
+        LEFT  JOIN t_service_org_price c ON (a.id=c.serviceProjectId and c.serviceOrgId=#{serviceOrgId})
+        where a.serviceType in (#{types})
+    </select>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.UserRoleMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.UserRole" parameterType="java.lang.Long">
+        SELECT id,userId,roleId
+        FROM t_user_role
+        WHERE id = #{id}
+    </select>
+
+    <select id="getUserRolesByUserId" resultType="com.fedtech.pension.sys.entity.UserRole"
+            parameterType="java.lang.Integer">
+        SELECT id,userId,roleId
+        FROM t_user_role
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_user_role
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteByRoleID" parameterType="java.lang.Integer">
+        DELETE FROM t_user_role
+        WHERE roleId = #{roleId}
+    </update>
+
+    <update id="deleteByUserID" parameterType="java.lang.Integer">
+        DELETE FROM t_user_role
+        WHERE userId = #{userId}
+    </update>
+
+    <update id="updateUsrRole" parameterType="com.fedtech.pension.sys.entity.UserRole">
+        UPDATE t_user_role
+        <set>
+            <if test="roleId != null">
+                roleId = #{roleId},
+            </if>
+        </set>
+        WHERE userId = #{userId}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.UserRole" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO t_user_role
+        (userId,roleId)
+        VALUES (#{userId},#{roleId})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.UserRole">
+        UPDATE t_user_role
+        <set>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="roleId != null">
+                roleId = #{roleId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.UserRole" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_role
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_role
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.UserRole">
+        SELECT id,userId,roleId
+        FROM t_user_role
+        <if test="page.orderField!=null">
+            ORDER BY #{page.orderField} #{page.orderDir}
+        </if>
+        LIMIT #{page.start},#{page.length}
+    </select>
+
+    <insert id="insertSomeUserRole" parameterType="java.util.List">
+        INSERT INTO t_user_role
+        (userId,roleId)
+        VALUES
+        <foreach collection="userRoles" item="userRole" index="index" separator=",">
+            (#{userRole.userId},#{userRole.roleId})
+        </foreach>
+    </insert>
+
+    <select id="selectUserIdsByRoles" parameterType="java.util.List">
+        SELECT
+        userId
+        FROM t_user_role
+        WHERE roleId IN
+        <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </select>
+
+</mapper>

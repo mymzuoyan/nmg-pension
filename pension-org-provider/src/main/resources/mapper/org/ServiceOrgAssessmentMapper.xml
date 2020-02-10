@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgAssessmentMapper">
+    <resultMap id="serviceOrgAssessment" type="com.fedtech.pension.org.entity.ServiceOrgAssessment">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="generalRequirement" property="generalRequirement" jdbcType="VARCHAR"/>
+        <result column="gThumb" property="gThumb" jdbcType="VARCHAR"/>
+        <result column="qualification" property="qualification" jdbcType="VARCHAR"/>
+        <result column="qThumb" property="qThumb" jdbcType="VARCHAR"/>
+        <result column="basicFunction" property="basicFunction" jdbcType="VARCHAR"/>
+        <result column="bThumb" property="bThumb" jdbcType="VARCHAR"/>
+        <result column="projectAndScale" property="projectAndScale" jdbcType="VARCHAR"/>
+        <result column="pasThumb" property="pasThumb" jdbcType="VARCHAR"/>
+        <result column="servicePerformance" property="servicePerformance" jdbcType="VARCHAR"/>
+        <result column="spThumb" property="spThumb" jdbcType="VARCHAR"/>
+        <result column="securityAssurance" property="securityAssurance" jdbcType="VARCHAR"/>
+        <result column="sThumb" property="sThumb" jdbcType="VARCHAR"/>
+        <result column="infrastructure" property="infrastructure" jdbcType="VARCHAR"/>
+        <result column="iThumb" property="iThumb" jdbcType="VARCHAR"/>
+        <result column="personnelAllocation" property="personnelAllocation" jdbcType="VARCHAR"/>
+        <result column="paThumb" property="paThumb" jdbcType="VARCHAR"/>
+        <result column="regulatoryFramework" property="regulatoryFramework" jdbcType="VARCHAR"/>
+        <result column="rThumb" property="rThumb" jdbcType="VARCHAR"/>
+        <result column="supervision" property="supervision" jdbcType="VARCHAR"/>
+        <result column="suThumb" property="suThumb" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <result column="gradeDictId" property="gradeDictId" jdbcType="INTEGER"/>
+        <result column="standard" property="standard" jdbcType="INTEGER"/>
+        <result column="qustandard" property="qustandard" jdbcType="INTEGER"/>
+        <result column="standard1" property="standard1" jdbcType="INTEGER"/>
+        <result column="standard2" property="standard2" jdbcType="INTEGER"/>
+        <result column="standard3" property="standard3" jdbcType="INTEGER"/>
+        <result column="standard4" property="standard4" jdbcType="INTEGER"/>
+        <result column="standard5" property="standard5" jdbcType="INTEGER"/>
+        <result column="standard6" property="standard6" jdbcType="INTEGER"/>
+        <result column="standard7" property="standard7" jdbcType="INTEGER"/>
+        <result column="standard8" property="standard8" jdbcType="INTEGER"/>
+        <result column="standard9" property="standard9" jdbcType="INTEGER"/>
+        <result column="standard10" property="standard10" jdbcType="INTEGER"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="qucontent" property="qucontent" jdbcType="VARCHAR"/>
+        <result column="content1" property="content1" jdbcType="VARCHAR"/>
+        <result column="content2" property="content2" jdbcType="VARCHAR"/>
+        <result column="content3" property="content3" jdbcType="VARCHAR"/>
+        <result column="content4" property="content4" jdbcType="VARCHAR"/>
+        <result column="content5" property="content5" jdbcType="VARCHAR"/>
+        <result column="content6" property="content6" jdbcType="VARCHAR"/>
+        <result column="content7" property="content7" jdbcType="VARCHAR"/>
+        <result column="content8" property="content8" jdbcType="VARCHAR"/>
+        <result column="content9" property="content9" jdbcType="VARCHAR"/>
+        <result column="content10" property="content10" jdbcType="VARCHAR"/>
+        <result column="flag" property="flag" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        serviceOrgId,generalRequirement,gThumb,qualification,qThumb,basicFunction,bThumb,projectAndScale,paThumb,servicePerformance,spThumb,securityAssurance,sThumb,infrastructure,iThumb,
+        personnelAllocation,paThumb,regulatoryFramework,rThumb,supervision,suThumb,createTime,gradeDictId,qustandard,standard,standard1,standard2,standard3,standard4,standard5,standard6,standard7,
+        standard8,standard9,standard10,qucontent,content,content1,content2,content3,content4,content5,content6,content7,content8,content9,content10,flag,updateTime
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="serviceOrgAssessment" parameterType="java.lang.Integer">
+        SELECT a.*,b.institutionName FROM `t_serviceorg_assessment` a,t_service_org b
+        where a.id=#{id,jdbcType=INTEGER} and a.serviceOrgId = b.id;
+    </select>
+    <select id="selectByServiceOrgId" resultMap="serviceOrgAssessment" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_serviceorg_assessment
+        where serviceOrgId = #{id,jdbcType=INTEGER} and qustandard=2
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_service_org a,t_serviceorg_assessment b
+        where a.id = b.serviceOrgId
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from t_service_org a,t_serviceorg_assessment b
+        where a.id = b.serviceOrgId
+        <if test="roleId==4">
+            <if test="serviceOrgId!=null and serviceOrgId!=''">
+                AND a.id = #{serviceOrgId}
+            </if>
+        </if>
+        <if test="areaName!=null and areaName!=''">
+            AND a.areaName LIKE CONCAT('%',#{areaName},'%')
+        </if>
+        <if test="areaId!=null and areaId!=''">
+            AND a.areaId = #{areaId}
+        </if>
+        <if test="institutionName!=null and institutionName!=''">
+            AND a.institutionName LIKE CONCAT('%',#{institutionName},'%')
+        </if>
+        <if test="startDate!=null ">
+            AND DATE(b.updateTime) &gt;= #{startDate}
+        </if>
+        <if test="endDate!=null ">
+            AND DATE(b.updateTime) &lt;= #{endDate}
+        </if>
+        <if test="standard!=null ">
+            AND b.standard = #{standard}
+        </if>
+        <if test="qustandard!=null ">
+            AND b.qustandard = #{qustandard}
+        </if>
+        <if test="gradeDictId!=null ">
+            <if test="gradeDictId==12">
+                AND b.gradeDictId in (0,1,2)
+            </if>
+            <if test="gradeDictId!=12">
+                AND b.gradeDictId = #{gradeDictId}
+            </if>
+        </if>
+    </select>
+
+    <select id="selectPageList" resultMap="serviceOrgAssessment">
+        select b.*,a.areaName,a.institutionName
+        from t_service_org a,t_serviceorg_assessment b
+        where a.id = b.serviceOrgId
+        <if test="filter.roleId==4">
+            <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                AND a.id = #{filter.serviceOrgId}
+            </if>
+        </if>
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND a.areaName LIKE CONCAT('%',#{filter.areaName},'%')
+        </if>
+        <if test="filter.areaId!=null and filter.areaId!=''">
+            AND a.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.institutionName!=null and filter.institutionName!=''">
+            AND a.institutionName LIKE CONCAT('%',#{filter.institutionName},'%')
+        </if>
+        <if test="filter.startDate!=null ">
+            AND DATE(b.createTime) &gt;= #{filter.startDate}
+        </if>
+        <if test="filter.endDate!=null ">
+            AND DATE(b.createTime) &lt;= #{filter.endDate}
+        </if>
+        <if test="filter.standard!=null ">
+            AND b.standard = #{filter.standard}
+        </if>
+        <if test="filter.qustandard!=null ">
+            AND b.qustandard = #{filter.qustandard}
+        </if>
+        <if test="filter.gradeDictId!=null ">
+            <if test="filter.gradeDictId==12">
+                AND b.gradeDictId in (0,1,2)
+            </if>
+            <if test="filter.gradeDictId!=12">
+                AND b.gradeDictId = #{filter.gradeDictId}
+            </if>
+        </if>
+        ORDER BY b.id desc
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultMap="serviceOrgAssessment">
+        select b.id,a.areaName,a.institutionName,b.gradeDictId,b.createTime,b.standard
+        from t_service_org a,t_serviceorg_assessment b
+        where a.id = b.serviceOrgId
+        <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+            AND a.id = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            AND a.areaName LIKE CONCAT('%',#{filter.areaName},'%')
+        </if>
+        <if test="filter.areaId!=null and filter.areaId!=''">
+            AND a.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.institutionName!=null and filter.institutionName!=''">
+            AND a.institutionName LIKE CONCAT('%',#{filter.institutionName},'%')
+        </if>
+        <if test="filter.startDate!=null ">
+            AND DATE(b.createTime) &gt;= #{filter.startDate}
+        </if>
+        <if test="filter.endDate!=null ">
+            AND DATE(b.createTime) &lt;= #{filter.endDate}
+        </if>
+        <if test="filter.standard!=null ">
+            AND b.standard = #{filter.standard}
+        </if>
+        <if test="filter.qustandard!=null ">
+            AND b.qustandard = #{filter.qustandard}
+        </if>
+        <if test="filter.gradeDictId!=null ">
+            AND b.gradeDictId = #{filter.gradeDictId}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_serviceorg_assessment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgAssessment">
+    insert into t_serviceorg_assessment (serviceOrgId, generalRequirement,gThumb,qualification,qThumb,basicFunction,bThumb,projectAndScale,pasThumb,servicePerformance,spThumb,securityAssurance,sThumb,infrastructure,iThumb,
+    personnelAllocation,paThumb,regulatoryFramework,rThumb,supervision,suThumb,createTime,gradeDictId,qustandard,standard,content1,content2,content3,content4,content5,content6,content7,content8,content9,content10,updateTime)
+    values (#{serviceOrgId,jdbcType=INTEGER}, #{generalRequirement,jdbcType=VARCHAR},#{gThumb,jdbcType=VARCHAR},#{qualification,jdbcType=VARCHAR},#{qThumb,jdbcType=VARCHAR},#{basicFunction,jdbcType=VARCHAR},#{bThumb,jdbcType=VARCHAR},
+    #{projectAndScale,jdbcType=VARCHAR},#{pasThumb,jdbcType=VARCHAR},#{servicePerformance,jdbcType=VARCHAR},#{spThumb,jdbcType=VARCHAR},#{securityAssurance,jdbcType=VARCHAR},#{sThumb,jdbcType=VARCHAR},#{infrastructure,jdbcType=VARCHAR},#{iThumb,jdbcType=VARCHAR},#{personnelAllocation,jdbcType=VARCHAR},#{paThumb,jdbcType=VARCHAR},
+    #{regulatoryFramework,jdbcType=VARCHAR},#{rThumb,jdbcType=VARCHAR},#{supervision,jdbcType=VARCHAR},#{suThumb,jdbcType=VARCHAR},#{createTime,jdbcType=VARCHAR},#{gradeDictId,jdbcType=INTEGER},#{qustandard},#{standard},
+    #{content1,jdbcType=VARCHAR},#{content2,jdbcType=VARCHAR},#{content3,jdbcType=VARCHAR},#{content4,jdbcType=VARCHAR},#{content5,jdbcType=VARCHAR},
+    #{content6,jdbcType=VARCHAR},#{content7,jdbcType=VARCHAR},#{content8,jdbcType=VARCHAR},#{content9,jdbcType=VARCHAR},#{content10,jdbcType=VARCHAR},#{updateTime})
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgAssessment">
+        update t_serviceorg_assessment
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="generalRequirement != null">
+                generalRequirement = #{generalRequirement,jdbcType=VARCHAR},
+            </if>
+            <if test="gThumb != null">
+                gThumb = #{gThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="qualification != null">
+                qualification = #{qualification,jdbcType=VARCHAR},
+            </if>
+            <if test="qThumb != null">
+                qThumb = #{qThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="basicFunction != null">
+                basicFunction = #{basicFunction,jdbcType=VARCHAR},
+            </if>
+            <if test="bThumb != null">
+                bThumb = #{bThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="projectAndScale != null">
+                projectAndScale = #{projectAndScale,jdbcType=VARCHAR},
+            </if>
+            <if test="pasThumb != null">
+                pasThumb = #{pasThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="servicePerformance != null">
+                servicePerformance = #{servicePerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="spThumb != null">
+                spThumb = #{spThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="securityAssurance != null">
+                securityAssurance = #{securityAssurance,jdbcType=VARCHAR},
+            </if>
+            <if test="sThumb != null">
+                sThumb = #{sThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="infrastructure != null">
+                infrastructure = #{infrastructure,jdbcType=VARCHAR},
+            </if>
+            <if test="iThumb != null">
+                iThumb = #{iThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="personnelAllocation != null">
+                personnelAllocation = #{personnelAllocation,jdbcType=VARCHAR},
+            </if>
+            <if test="paThumb != null">
+                paThumb = #{paThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="regulatoryFramework != null">
+                regulatoryFramework = #{regulatoryFramework,jdbcType=VARCHAR},
+            </if>
+            <if test="rThumb != null">
+                rThumb = #{rThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="supervision != null">
+                supervision = #{supervision,jdbcType=VARCHAR},
+            </if>
+            <if test="suThumb != null">
+                suThumb = #{suThumb,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="gradeDictId != null">
+                gradeDictId = #{gradeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="standard != null">
+                standard = #{standard,jdbcType=INTEGER},
+            </if>
+            <if test="qustandard != null">
+                qustandard = #{qustandard,jdbcType=INTEGER},
+            </if>
+            <if test="standard1 != null">
+                standard1 = #{standard1,jdbcType=INTEGER},
+            </if>
+            <if test="standard2 != null">
+                standard2 = #{standard2,jdbcType=INTEGER},
+            </if>
+            <if test="standard3 != null">
+                standard3 = #{standard3,jdbcType=INTEGER},
+            </if>
+            <if test="standard4 != null">
+                standard4 = #{standard4,jdbcType=INTEGER},
+            </if>
+            <if test="standard5 != null">
+                standard5 = #{standard5,jdbcType=INTEGER},
+            </if>
+            <if test="standard6 != null">
+                standard6 = #{standard6,jdbcType=INTEGER},
+            </if>
+            <if test="standard7 != null">
+                standard7 = #{standard7,jdbcType=INTEGER},
+            </if>
+            <if test="standard8 != null">
+                standard8 = #{standard8,jdbcType=INTEGER},
+            </if>
+            <if test="standard9 != null">
+                standard9 = #{standard9,jdbcType=INTEGER},
+            </if>
+            <if test="standard10 != null">
+                standard10 = #{standard10,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="qucontent != null">
+                qucontent = #{qucontent,jdbcType=VARCHAR},
+            </if>
+            <if test="content1 != null">
+                content1 = #{content1,jdbcType=VARCHAR},
+            </if>
+            <if test="content2 != null">
+                content2 = #{content2,jdbcType=VARCHAR},
+            </if>
+            <if test="content3 != null">
+                content3 = #{content3,jdbcType=VARCHAR},
+            </if>
+            <if test="content4 != null">
+                content4 = #{content4,jdbcType=VARCHAR},
+            </if>
+            <if test="content5 != null">
+                content5 = #{content5,jdbcType=VARCHAR},
+            </if>
+            <if test="content6 != null">
+                content6 = #{content6,jdbcType=VARCHAR},
+            </if>
+            <if test="content7 != null">
+                content7 = #{content7,jdbcType=VARCHAR},
+            </if>
+            <if test="content8 != null">
+                content8 = #{content8,jdbcType=VARCHAR},
+            </if>
+            <if test="content9 != null">
+                content9 = #{content9,jdbcType=VARCHAR},
+            </if>
+            <if test="content10 != null">
+                content10 = #{content10,jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                flag = #{flag},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

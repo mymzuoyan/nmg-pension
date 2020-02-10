@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.EnrollMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Enroll"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_enroll a where a.id = #{id}
+    </select>
+    <select id="selectBymemberID" resultType="com.fedtech.pension.power.entity.Enroll"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_enroll a where a.memberID = #{memberID}
+    </select>
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Enroll" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_enroll (memberID, genderCode,name, birthDate,recordDateTime,remark,phone,idCardNo,deviceSid)
+    VALUES (#{memberID}, #{genderCode},#{name},#{birthDate}, #{recordDateTime}, #{remark},#{phone}, #{idCardNo},#{deviceSid})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Enroll">
+        UPDATE t_enroll set
+
+    memberID= #{memberID},genderCode= #{genderCode},name= #{name},birthDate= #{birthDate}, recordDateTime=#{recordDateTime},remark= #{remark},
+    phone=#{phone}, idCardNo=#{idCardNo},deviceSid=#{deviceSid}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.Enroll">
+        SELECT E.id,E.memberID,E.genderCode,E.name,E.recordDateTime,E.remark,E.phone,E.idCardNo,B.testType
+        FROM t_enroll E,t_blood B
+        WHERE E.memberID = B.memberID
+        <if test="filter.memberID != null and filter.memberID !=''">
+            AND E.memberID like CONCAT('%',#{filter.memberID},'%' )
+        </if>
+        <if test="filter.genderCode != null and filter.genderCode !=''">
+            AND E.genderCode = #{filter.genderCode}
+        </if>
+        <if test="filter.name != null and filter.name !=''">
+            AND E.name like CONCAT('%',#{filter.name},'%' )
+        </if>
+        <if test="filter.recordDateTime != null and filter.recordDateTime !=''">
+            AND E.recordDateTime like CONCAT('%',#{filter.recordDateTime},'%' )
+        </if>
+        <if test="filter.remark != null and filter.remark !=''">
+            AND E.remark like CONCAT('%',#{filter.remark},'%' )
+        </if>
+        <if test="filter.phone != null and filter.phone !=''">
+            AND E.phone like CONCAT('%',#{filter.phone},'%' )
+        </if>
+        <if test="filter.idCardNo != null and filter.idCardNo !=''">
+            AND E.idCardNo like CONCAT('%',#{filter.idCardNo},'%' )
+        </if>
+        <if test="filter.testType != null and filter.testType !=''">
+            AND B.testType = #{filter.testType}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.fedtech.pension.power.entity.Enroll">
+        SELECT count(*)
+        FROM t_enroll E,t_blood B
+        WHERE E.memberID = B.memberID
+        <if test="memberID != null and memberID !=''">
+            AND E.memberID like CONCAT('%',#{memberID},'%' )
+        </if>
+        <if test="genderCode != null and genderCode !=''">
+            AND E.genderCode = #{genderCode}
+        </if>
+        <if test="name != null and name !=''">
+            AND E.name like CONCAT('%',#{name},'%' )
+        </if>
+        <if test="recordDateTime != null and recordDateTime !=''">
+            AND E.recordDateTime like CONCAT('%',#{recordDateTime},'%' )
+        </if>
+        <if test="remark != null and remark !=''">
+            AND E.remark like CONCAT('%',#{remark},'%' )
+        </if>
+        <if test="phone != null and phone !=''">
+            AND E.phone like CONCAT('%',#{phone},'%' )
+        </if>
+        <if test="idCardNo != null and idCardNo !=''">
+            AND E.idCardNo like CONCAT('%',#{idCardNo},'%' )
+        </if>
+        <if test="testType != null and testType !=''">
+            AND B.testType = #{testType}
+        </if>
+    </select>
+</mapper>

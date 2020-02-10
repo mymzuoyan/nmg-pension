@@ -1,0 +1,55 @@
+debug:
+  true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.40.4.32:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  db:
+    readsize: 3
+    read0:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://10.40.4.32:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+    read1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://10.40.4.32:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+    read2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://10.40.4.32:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+  redis:
+      host: 10.40.4.32
+      port: 6379
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  dubbo:
+    application:
+      name: nurse-provider
+    registry:
+      address: zookeeper://10.40.4.33:2181
+    protocol:
+      name: dubbo
+      port: 20887
+    scan: com.fedtech.pension.nurse.service
+server:
+  port: 8087

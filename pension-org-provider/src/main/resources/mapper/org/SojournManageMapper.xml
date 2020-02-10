@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.SojournManageMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.SojournManage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="contact_information" jdbcType="VARCHAR" property="contactInformation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, city, organization_name, contacts, contact_information
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sojourn_manage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sojourn_manage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.SojournManage" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into sojourn_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="contactInformation != null">
+        contact_information,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null">
+        #{contactInformation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.SojournManage">
+    update sojourn_manage
+    <set>
+      <if test="city != null">
+        city=#{city,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name=#{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts=#{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null">
+        contact_information=#{contactInformation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from sojourn_manage
+    <where>
+
+
+      <if test="city != null and city !=''">
+        AND city like CONCAT('%',#{city},'%' )
+      </if>
+      <if test="organizationName != null and organizationName !=''">
+        AND organization_name like CONCAT('%',#{organizationName},'%' )
+      </if>
+      <if test="contacts != null and contacts !=''">
+        AND contacts like CONCAT('%',#{contacts},'%' )
+      </if>
+      <if test="contactInformation != null and contactInformation !=''">
+        AND contact_information like CONCAT('%',#{contactInformation},'%' )
+      </if>
+
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from sojourn_manage
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.SojournManage">
+    select
+      *
+    from sojourn_manage
+    <where>
+
+    <if test="filter.city != null and filter.city !=''">
+      AND city like CONCAT('%',#{filter.city},'%' )
+    </if>
+      <if test="filter.organizationName != null and filter.organizationName !=''">
+        AND organization_name like CONCAT('%',#{filter.organizationName},'%' )
+      </if>
+      <if test="filter.contacts != null and filter.contacts !=''">
+        AND contacts like CONCAT('%',#{filter.contacts},'%' )
+      </if>
+      <if test="filter.contactInformation != null and filter.contactInformation !=''">
+        AND contact_information like CONCAT('%',#{filter.contactInformation},'%' )
+      </if>
+
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sojourn_manage
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from sojourn_manage
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.SysPermissionMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.SysPermission" parameterType="java.lang.Integer">
+        SELECT id,parentId,name,permission,url,type,creatorId,createTime,modifyTime,sort
+        FROM sys_permission
+        WHERE id = #{id}
+    </select>
+
+    <select id="getSyspermissionName" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT permission
+        FROM sys_permission
+        WHERE id in
+        (select permissionId
+        From sys_role_permission
+        where roleId in
+        (
+        select roleId
+        From t_user_role
+        where userId=#{userId}
+        )
+        )
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM sys_permission
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.SysPermission" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_permission
+        (parentId,name,permission,url,type,sort,creatorId,createTime)
+        VALUES (#{parentId},#{name},#{permission},#{url},#{type},#{sort},#{creatorId},#{createTime})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.SysPermission">
+        UPDATE sys_permission
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="permission != null">
+                permission = #{permission},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="sort != null">
+                sort = #{sort}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.SysPermission" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM sys_permission
+        <if test="parentId!=null">
+            WHERE parentId = #{parentId}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM sys_permission
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.SysPermission">
+        SELECT A.id,A.parentId,A.name,A.permission,A.url,A.type,A.creatorId,C.nick_name AS
+        creatorName,A.createTime,A.modifyTime,A.sort
+        FROM sys_permission AS A
+        LEFT JOIN t_user AS C ON A.creatorId = C.uid
+        <if test="filter.parentId!=null">
+            WHERE A.parentId = #{filter.parentId}
+        </if>
+        LIMIT #{page.start},#{page.length}
+    </select>
+
+    <select id="selectAllList" resultType="com.fedtech.pension.sys.entity.SysPermission">
+        SELECT A.id,A.parentId,A.name,A.permission,A.url,A.type,A.creatorId,A.createTime,A.modifyTime,A.sort
+        FROM sys_permission AS A
+        ORDER BY sort ASC
+    </select>
+</mapper>

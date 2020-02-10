@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyGovBuyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="city" property="city" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="INTEGER"/>
+        <result column="street" property="street" jdbcType="INTEGER"/>
+        <result column="village" property="village" jdbcType="INTEGER"/>
+        <result column="subsidy" property="subsidy" jdbcType="INTEGER"/>
+        <result column="callertype" property="callertype" jdbcType="INTEGER"/>
+        <result column="callerlabel" property="callerlabel" jdbcType="INTEGER"/>
+        <result column="callerinitfee" property="callerinitfee" jdbcType="DOUBLE"/>
+        <result column="callermonthfee" property="callermonthfee" jdbcType="DOUBLE"/>
+        <result column="callerno" property="callerno" jdbcType="VARCHAR"/>
+        <result column="callerstatus" property="callerstatus" jdbcType="INTEGER"/>
+        <result column="callerstaff" property="callerstaff" jdbcType="VARCHAR"/>
+        <result column="callerstafftel" property="callerstafftel" jdbcType="VARCHAR"/>
+        <result column="cardno" property="cardno" jdbcType="VARCHAR"/>
+        <result column="attach" property="attach" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, serviceOrgId,elderId,city,area,street,village, subsidy, callertype, callerlabel, callerinitfee, callermonthfee, callerno,
+    callerstatus, callerstaff, callerstafftel, cardno,attach,status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select a.id,a.serviceOrgId,a.elderId,c.elderName,idcardno,c.areaName,age,sexDictId,elderTypeDictIds,childrenDictId,residenceDictId,mobile,city,area,street,village,subsidy
+        ,callertype,callerlabel,callerinitfee,callermonthfee,callerno,callerstatus,callerstaff,callerstafftel,a.cardno,attach,a.status
+        from  t_elderly_govbuy a, t_elderly_message c
+        where a.id = #{id,jdbcType=INTEGER} and  a.elderId = c.id
+    </select>
+    <select id="selectByElderId" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/>
+        from t_elderly_govbuy
+        where elderId = #{elderId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_govbuy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteSome" parameterType="java.util.List">
+        delete from t_elderly_govbuy
+        where id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        insert into t_elderly_govbuy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="street != null">
+                street,
+            </if>
+            <if test="village != null">
+                village,
+            </if>
+            <if test="subsidy != null">
+                subsidy,
+            </if>
+            <if test="callertype != null">
+                callertype,
+            </if>
+            <if test="callerlabel != null">
+                callerlabel,
+            </if>
+            <if test="callerinitfee != null">
+                callerinitfee,
+            </if>
+            <if test="callermonthfee != null">
+                callermonthfee,
+            </if>
+            <if test="callerno != null">
+                callerno,
+            </if>
+            <if test="callerstatus != null">
+                callerstatus,
+            </if>
+            <if test="callerstaff != null">
+                callerstaff,
+            </if>
+            <if test="callerstafftel != null">
+                callerstafftel,
+            </if>
+            <if test="cardno != null">
+                cardno,
+            </if>
+            <if test="attach != null">
+                attach,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=INTEGER},
+            </if>
+            <if test="street != null">
+                #{street,jdbcType=INTEGER},
+            </if>
+            <if test="village != null">
+                #{village,jdbcType=INTEGER},
+            </if>
+            <if test="subsidy != null">
+                #{subsidy,jdbcType=INTEGER},
+            </if>
+            <if test="callertype != null">
+                #{callertype,jdbcType=INTEGER},
+            </if>
+            <if test="callerlabel != null">
+                #{callerlabel,jdbcType=INTEGER},
+            </if>
+            <if test="callerinitfee != null">
+                #{callerinitfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callermonthfee != null">
+                #{callermonthfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callerno != null">
+                #{callerno,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstatus != null">
+                #{callerstatus,jdbcType=INTEGER},
+            </if>
+            <if test="callerstaff != null">
+                #{callerstaff,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstafftel != null">
+                #{callerstafftel,jdbcType=VARCHAR},
+            </if>
+            <if test="cardno != null">
+                #{cardno,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertSomeElderGovBuy" parameterType="java.util.List">
+        INSERT INTO t_elderly_govbuy
+        (serviceOrgId,elderId,subsidy, callertype, callerlabel, callerinitfee, callermonthfee, callerno,
+        callerstatus, callerstaff, callerstafftel, cardno,attach,status)
+        VALUES
+        <foreach collection="elderlyGovBuys" item="elderlyGovBuy" index="index" separator=",">
+            (#{elderlyGovBuy.serviceOrgId},#{elderlyGovBuy.elderId},#{elderlyGovBuy.subsidy},#{elderlyGovBuy.callertype},
+            #{elderlyGovBuy.callerlabel},#{elderlyGovBuy.callerinitfee}, #{elderlyGovBuy.callermonthfee},
+            #{elderlyGovBuy.callerno},#{elderlyGovBuy.callerstatus},#{elderlyGovBuy.callerstaff},
+            #{elderlyGovBuy.callerstafftel},#{elderlyGovBuy.cardno},#{elderlyGovBuy.attach},#{elderlyGovBuy.status})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        update t_elderly_govbuy
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=INTEGER},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=INTEGER},
+            </if>
+            <if test="street != null">
+                street = #{street,jdbcType=INTEGER},
+            </if>
+            <if test="village != null">
+                village = #{village,jdbcType=INTEGER},
+            </if>
+            <if test="subsidy != null">
+                subsidy = #{subsidy,jdbcType=INTEGER},
+            </if>
+            <if test="callertype != null">
+                callertype = #{callertype,jdbcType=INTEGER},
+            </if>
+            <if test="callerlabel != null">
+                callerlabel = #{callerlabel,jdbcType=INTEGER},
+            </if>
+            <if test="callerinitfee != null">
+                callerinitfee = #{callerinitfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callermonthfee != null">
+                callermonthfee = #{callermonthfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callerno != null">
+                callerno = #{callerno,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstatus != null">
+                callerstatus = #{callerstatus,jdbcType=INTEGER},
+            </if>
+            <if test="callerstaff != null">
+                callerstaff = #{callerstaff,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstafftel != null">
+                callerstafftel = #{callerstafftel,jdbcType=VARCHAR},
+            </if>
+            <if test="cardno != null">
+                cardno = #{cardno,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                attach = #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByElderId" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        update t_elderly_govbuy
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=INTEGER},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=INTEGER},
+            </if>
+            <if test="street != null">
+                street = #{street,jdbcType=INTEGER},
+            </if>
+            <if test="village != null">
+                village = #{village,jdbcType=INTEGER},
+            </if>
+            <if test="subsidy != null">
+                subsidy = #{subsidy,jdbcType=INTEGER},
+            </if>
+            <if test="callertype != null">
+                callertype = #{callertype,jdbcType=INTEGER},
+            </if>
+            <if test="callerlabel != null">
+                callerlabel = #{callerlabel,jdbcType=INTEGER},
+            </if>
+            <if test="callerinitfee != null">
+                callerinitfee = #{callerinitfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callermonthfee != null">
+                callermonthfee = #{callermonthfee,jdbcType=DOUBLE},
+            </if>
+            <if test="callerno != null">
+                callerno = #{callerno,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstatus != null">
+                callerstatus = #{callerstatus,jdbcType=INTEGER},
+            </if>
+            <if test="callerstaff != null">
+                callerstaff = #{callerstaff,jdbcType=VARCHAR},
+            </if>
+            <if test="callerstafftel != null">
+                callerstafftel = #{callerstafftel,jdbcType=VARCHAR},
+            </if>
+            <if test="cardno != null">
+                cardno = #{cardno,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                attach = #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where  elderId = #{elderId,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where c.status =1 and c.isDeath = 1
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND c.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND c.idcardno = #{idcardno}
+        </if>
+        <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+            AND c.elderTypeDictIds = #{elderTypeDictIds}
+        </if>
+        <if test="childrenDictId != null and childrenDictId !=''">
+            AND c.childrenDictId = #{childrenDictId}
+        </if>
+        <if test="residenceDictId != null and residenceDictId !=''">
+            AND c.residenceDictId = #{residenceDictId}
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND c.realAddress = #{realAddress}
+        </if>
+        <if test="callertype != null">
+            AND a.callertype = #{callertype}
+        </if>
+        <if test="callerlabel != null and callerlabel !=''">
+            AND a.callerlabel = #{callerlabel}
+        </if>
+        <if test="callerstatus != null ">
+            AND a.callerstatus = #{callerstatus}
+        </if>
+        <if test="subsidy != null ">
+            AND a.subsidy = #{subsidy}
+        </if>
+        <if test="status != null ">
+            AND a.status = #{status}
+        </if>
+  </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM t_elderly_govbuy
+  </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        select a.id,a.serviceOrgId,b.institutionName serviceOrgName,a.elderId,c.elderName,idcardno,c.areaName,
+        c.age,sexDictId,elderTypeDictIds,childrenDictId,residenceDictId,c.mobile,city,area,street,village,subsidy
+        ,callertype,callerlabel,callerinitfee,callermonthfee,callerno,callerstatus,callerstaff,callerstafftel,a.cardno,a.attach,a.status
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where  c.status =1 and c.isDeath = 1
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND c.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND c.elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND c.childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND c.residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND c.realAddress LIKE CONCAT('%',#{filter.realAddress},'%' )
+        </if>
+        <if test="filter.callertype != null">
+            AND a.callertype = #{filter.callertype}
+        </if>
+        <if test="filter.callerlabel != null and filter.callerlabel !=''">
+            AND a.callerlabel = #{filter.callerlabel}
+        </if>
+        <if test="filter.callerstatus != null ">
+            AND a.callerstatus = #{filter.callerstatus}
+        </if>
+        <if test="filter.subsidy != null ">
+            AND a.subsidy = #{filter.subsidy}
+        </if>
+        <if test="filter.status != null ">
+            AND a.status = #{filter.status}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+
+
+    <select id="countVisit" resultType="java.lang.Integer">
+        SELECT count(1)
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN
+        t_return_visit b on(b.visitorId = a.elderId and b.status=1 and b.visitorTYpe=1)
+        where  c.status =1 and c.isDeath = 1
+        <if test="areaName != null and areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+    </select>
+    <select id="selectVisitPageList" resultType="com.fedtech.pension.call.vo.ElderlyGovBuyVisitVo">
+        select a.elderId as id ,c.elderName,c.areaName,age,sexDictId,c.mobile,b.status,b.visitResult
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN
+        t_return_visit b on(b.visitorId = a.elderId and b.status=1 and b.visitorTYpe=1)
+        where  c.status =1 and c.isDeath = 1
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName = #{filter.elderName}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="countHandle" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where c.status =1 and c.isDeath = 1 and a.status  =  0
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND c.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND c.idcardno = #{idcardno}
+        </if>
+        <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+            AND c.elderTypeDictIds = #{elderTypeDictIds}
+        </if>
+        <if test="childrenDictId != null and childrenDictId !=''">
+            AND c.childrenDictId = #{childrenDictId}
+        </if>
+        <if test="residenceDictId != null and residenceDictId !=''">
+            AND c.residenceDictId = #{residenceDictId}
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND c.realAddress = #{realAddress}
+        </if>
+        <if test="callertype != null">
+            AND a.callertype = #{callertype}
+        </if>
+        <if test="callerlabel != null and callerlabel !=''">
+            AND a.callerlabel = #{callerlabel}
+        </if>
+        <if test="callerstatus != null ">
+            AND a.callerstatus = #{callerstatus}
+        </if>
+        <if test="subsidy != null ">
+            AND a.subsidy = #{subsidy}
+        </if>
+        <if test="status != null ">
+            AND a.status = #{status}
+        </if>
+    </select>
+    <select id="selectPageListHandle" resultType="com.fedtech.pension.elderly.entity.ElderlyGovBuy">
+        select a.id,a.serviceOrgId,b.institutionName serviceOrgName,a.elderId,c.elderName,idcardno,c.areaName,
+        c.age,sexDictId,elderTypeDictIds,childrenDictId,residenceDictId,c.mobile,city,area,street,village,subsidy
+        ,callertype,callerlabel,callerinitfee,callermonthfee,callerno,callerstatus,callerstaff,callerstafftel,a.cardno,a.attach,a.status
+        from  t_elderly_govbuy a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where  c.status =1 and c.isDeath = 1 and a.status = 0
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND c.idcardno LIKE CONCAT('%',#{filter.idcardno},'%' )
+        </if>
+        <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+            AND c.elderTypeDictIds = #{filter.elderTypeDictIds}
+        </if>
+        <if test="filter.childrenDictId != null and filter.childrenDictId !=''">
+            AND c.childrenDictId = #{filter.childrenDictId}
+        </if>
+        <if test="filter.residenceDictId != null and filter.residenceDictId !=''">
+            AND c.residenceDictId = #{filter.residenceDictId}
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND c.realAddress LIKE CONCAT('%',#{filter.realAddress},'%' )
+        </if>
+        <if test="filter.callertype != null">
+            AND a.callertype = #{filter.callertype}
+        </if>
+        <if test="filter.callerlabel != null and filter.callerlabel !=''">
+            AND a.callerlabel = #{filter.callerlabel}
+        </if>
+        <if test="filter.callerstatus != null ">
+            AND a.callerstatus = #{filter.callerstatus}
+        </if>
+        <if test="filter.subsidy != null ">
+            AND a.subsidy = #{filter.subsidy}
+        </if>
+        <if test="filter.status != null ">
+            AND a.status = #{filter.status}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+</mapper>

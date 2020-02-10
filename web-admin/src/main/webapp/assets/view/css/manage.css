@@ -1,0 +1,374 @@
+li {
+    list-style: none;
+}
+
+.layui-unselect {
+    display: none;
+}
+
+.layui-tab {
+    width: 300px;
+    padding-top: 30px;
+    position: relative;
+    margin: 0;
+    float: left;
+    height: 650px;
+}
+
+.layui-tab-title {
+    height: 30px;
+    position: absolute;
+    top: 0;
+    width: 261px;
+    left: 20px;
+    overflow-x: scroll;
+}
+
+.layui-tab-title::-webkit-scrollbar {
+    display: none;
+}
+
+#leftClick, #rightClick {
+    height: 30px;
+    line-height: 30px;
+    width: 20px;
+    z-index: 999;
+    background: #F2F2F2;
+    border-bottom: 1px #E6E6E6 solid;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#leftClick {
+    position: absolute;
+    top: 0;
+}
+
+#rightClick {
+    position: absolute;
+    top: 0;
+    left: 280px;
+}
+
+.layui-tab-title li {
+    height: 30px;
+    line-height: 30px;
+    width: 67px;
+    padding: 0;
+    margin: 0;
+    background: #F2F2F2;
+}
+
+.layui-tab-content {
+    padding: 2px;
+}
+
+.layui-tab-content p {
+    height: 20px;
+    line-height: 20px;
+    background: #DCE7EF;
+    font-size: 12px;
+    font-weight: bold;
+    text-indent: 1em;
+    margin: 5px;
+}
+
+.xinXi {
+    background: #F5F5F5;
+    border: 1px #CCCCCC dashed;
+    margin-bottom: 10px;
+}
+
+.xinXi ul {
+    width: 100%;
+    font-size: 12px;
+    padding: 5px;
+    color: #666666;
+}
+
+.xinXi ul span {
+    color: #EE6500;
+    font-weight: bold;
+}
+
+.xinXi li {
+    display: inline-table;
+    width: 24%;
+    height: 20px;
+    line-height: 20px;
+}
+
+.xiangQing {
+    height: 475px;
+    overflow-y: scroll;
+}
+
+.xiangQing::-webkit-scrollbar {
+    width: 1px;
+}
+
+.xiangQing div {
+    width: 90%;
+    margin: 0 auto;
+    height: 160px;
+    background: url("../images/house.png") no-repeat;
+    background-size: 100%;
+}
+
+.xiangQing ul {
+    width: 90%;
+    height: 70%;
+    position: relative;
+    left: 8%;
+    top: 13%;
+    overflow-y: scroll;
+}
+
+.xiangQing ul::-webkit-scrollbar {
+    width: 1px;
+}
+
+.xiangQing ul li {
+    width: 17%;
+    height: 46%;
+    margin-top: 2%;
+    margin-left: 2px;
+    font-size: 8px;
+    display: inline-table;
+    background: url("../images/door.png") no-repeat 50% 0;
+    text-align: center;
+    background-size: 20px;
+}
+
+.xiangQing ul li span:first-of-type {
+    position: relative;
+    top: 10px;
+    color: #0000EE;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.xiangQing ul li span:last-of-type {
+    position: relative;
+    top: 20px;
+}
+
+.xiangQing ul li img {
+    width: 50%;
+}
+
+#right {
+    height: 680px;
+    width: 79%;
+    margin-left: 310px;
+}
+
+#right_p {
+    width: 100%;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 40px;
+    border: 1px #CCCCCC solid;
+    box-shadow: 0 0 0 1px white inset, 0 0 0 4px #F2F2F2 inset, 0 0 0 4.5px #CCCCCC inset;
+    border-radius: 5px;
+    text-indent: 2em;
+}
+
+#right_p span {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+#right_p input {
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+#right_p button {
+    float: right;
+    margin-right: 15px;
+    height: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+}
+
+#right_bottom {
+    border: 1px #CCCCCC solid;
+    height: 640px;
+    border-radius: 5px;
+    background: #F2F2F2;
+    width: 100%;
+}
+
+#right_ul {
+    height: 14%;
+    background: white;
+    width: 99%;
+    margin: 5px auto;
+}
+
+#right_ul li {
+    display: inline-table;
+    width: 49%;
+    text-indent: 2em;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    color: grey;
+}
+
+#right_ul li:first-of-type, #right_ul li:nth-of-type(3), #right_ul li:nth-of-type(2) {
+    text-indent: 6em;
+}
+
+#right_ul li:nth-of-type(6) {
+    text-indent: 4em;
+}
+
+#right_ul li span {
+    margin-left: 2em;
+    color: black;
+}
+#right_type{
+    width: 99%;
+    margin: 0 auto;
+    height: 535px;
+    overflow-y: auto;
+}
+#right_type::-webkit-scrollbar{
+    display: none;
+}
+#right_type ul{
+    width: 100%;
+    height: 130px;
+    background: #FFFBF2;
+    border: 1px #C2AF8B solid;
+    margin-bottom: -1px;
+    padding-left: 10%;
+    padding-top: 10px;
+}
+#right_type ul li{
+    width: 14%;
+    height: 20px;
+    line-height: 20px;
+    display: inline-table;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.right_type_key{
+    background: #FFEECB;
+    text-align: right;
+    color: #975304;
+    margin-right: 10px;
+}
+.touX{
+    border: 1px #CBCBC9 solid;
+    width: 80px;
+    height: 112px;
+    line-height: 112px;
+    font-size: 80px;
+    text-align: center;
+    color: #C3C3C3;
+    background: #ECECEC;
+    box-shadow: 0 0 0 3px white inset;
+    position: relative;
+    left: -100px;
+    top: -100px;
+}
+.clickT,.clickZ{
+    position: relative;
+    top: -105px;
+    font-size: 10px;
+}
+.clickT span,.clickZ span{
+    margin-left: 10px;
+    color: white;
+    padding: 3px 8px 2px 8px;
+    background: #975304;
+    cursor: pointer;
+}
+.layui-layer-title{
+    /*max-height: 30px;
+    line-height: 30px;*/
+}
+#message{
+    width: 98%;
+    margin: 10px auto;
+}
+#message input,table select{
+    border: 1px #CCCCCC solid;
+    width: 100%;
+    height: 100%;
+}
+#message td{
+    border: 1px #D9D9D9 solid;
+    width: 25%;
+    text-align: center;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    background: #E1F3F8;
+    padding: 5px;
+}
+#message .must{
+    color: red;
+}
+#message_touX{
+    width: 80px;
+    height: 112px;
+    line-height: 112px;
+    border: 1px #CBCBC9 solid;
+    margin: 0 auto;
+    background: #ECECEC;
+    color: #C3C3C3;
+    box-shadow: 0 0 0 3px white inset;
+    font-size: 60px;
+    text-align: center;
+}
+#message_shangC{
+    color: #0000EE;
+    cursor: pointer;
+}
+#message button{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 60px;
+    outline: none;
+    border: none;
+    height: 25px;
+    line-height: 25px;
+}
+#message button:first-of-type{
+    background: #4B8DF8;
+    color: white;
+}
+#message button:last-of-type{
+    background: white;
+}
+.layui-laydate .layui-laydate-main{
+    width:230px;
+    height: 230px;
+    font-size: 13px;
+}
+.layui-laydate i{
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+.layui-laydate .layui-laydate-content td,.layui-laydate .layui-laydate-content th{
+    width:10px;
+    height: 8px;
+    font-size: 13px;
+}
+.layui-laydate table{
+    margin: 0 auto;
+}
+#right_type input{
+    border: none;
+    outline: none;
+    background: #FFFBF2;
+}

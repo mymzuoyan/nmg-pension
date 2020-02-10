@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.GoodsTypeAttrMapper" >
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.portal.entity.GoodsTypeAttr" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="typeId" property="typeId" jdbcType="INTEGER" />
+      <result column="attr" property="attr" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, typeId,attr
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select
+      <include refid="Base_Column_List" />
+      from t_goods_type_attr
+      where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+      delete from t_goods_type_attr
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByTypeId" parameterType="java.lang.Integer" >
+      delete from t_goods_type_attr
+      where typeId = #{typeId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.GoodsTypeAttr" >
+      insert into t_goods_type_attr
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+      id,
+      </if>
+      <if test="typeId != null" >
+      typeId,
+      </if>
+      <if test="attr != null" >
+          attr,
+      </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+      #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+      #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attr != null" >
+      #{attr,jdbcType=VARCHAR},
+      </if>
+      </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.GoodsTypeAttr" >
+      update t_goods_type_attr
+      <set >
+      <if test="typeId != null" >
+          typeId = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attr != null" >
+          attr = #{attr,jdbcType=VARCHAR},
+      </if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllRecode" resultMap="BaseResultMap" parameterType="com.fedtech.pension.portal.entity.GoodsTypeAttr" >
+      select
+      <include refid="Base_Column_List" />
+      from t_goods_type_attr
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+      select count(1) from t_goods_type_attr
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+      select count(1) from t_goods_type_attr
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+      SELECT
+      id, typeId,attr
+      FROM t_goods_type_attr
+      <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+      </if>
+      <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+      </if>
+    </select>
+
+    <insert id="insertSomeAccord" parameterType="java.util.List">
+      INSERT INTO t_goods_type_attr
+      (typeId,attr)
+      VALUES
+      <foreach collection="goodsTypeAttrs" item="goodsAttr" index="index" separator=",">
+      (#{goodsAttr.typeId},#{goodsAttr.attr})
+      </foreach>
+    </insert>
+
+</mapper>

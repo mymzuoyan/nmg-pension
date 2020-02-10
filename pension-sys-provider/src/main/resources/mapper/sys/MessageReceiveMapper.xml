@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.sys.mapper.MessageReceiveMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.sys.entity.MessageReceive">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="message_id" jdbcType="INTEGER" property="messageId"/>
+        <result column="receiver_id" jdbcType="INTEGER" property="receiverId"/>
+        <result column="read" jdbcType="INTEGER" property="read"/>
+        <result column="read_time" jdbcType="TIMESTAMP" property="readTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, message_id, receiver_id,`read`,read_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_message_receive
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_message_receive
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteSomeMessageReceive" parameterType="java.lang.Integer">
+        delete from t_message_receive
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.MessageReceive">
+        insert into t_message_receive
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="messageId != null">
+                message_id,
+            </if>
+            <if test="receiverId != null">
+                receiver_id,
+            </if>
+            <if test="read != null">
+                `read`,
+            </if>
+            <if test="readTime != null">
+                read_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="messageId != null">
+                #{messageId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=INTEGER},
+            </if>
+            <if test="read != null">
+                #{read,jdbcType=INTEGER},
+            </if>
+            <if test="readTime != null">
+                #{readTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertSomeAccord" parameterType="java.util.List">
+        INSERT INTO t_message_receive
+        (message_id,receiver_id, `read`,read_time)
+        VALUES
+        <foreach collection="messageReceives" item="messageReceive" index="index" separator=",">
+            (#{messageReceive.messageId},#{messageReceive.receiverId},#{messageReceive.read},#{messageReceive.readTime})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.MessageReceive">
+        update t_message_receive
+        <set>
+            <if test="messageId != null">
+                message_id = #{messageId},
+            </if>
+            <if test="receiverId != null">
+                receiver_id = #{receiverId},
+            </if>
+            <if test="read != null">
+                `read` = #{read},
+            </if>
+            <if test="readTime != null">
+                read_time = #{readTime},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByMessageIdAndReceiverId" parameterType="com.fedtech.pension.sys.entity.MessageReceive">
+        update t_message_receive
+        <set>
+            <if test="read != null">
+                `read` = #{read},
+            </if>
+            <if test="readTime != null">
+                read_time = #{readTime},
+            </if>
+        </set>
+        where message_id = #{messageId} AND receiver_id = #{receiverId}
+    </update>
+
+    <select id="countAll" resultType="java.lang.Integer">
+      select count(1) from t_message_receive
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+      select count(1) from t_message_receive
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_message_receive
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="selectOneByUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from t_message_receive
+        where message_id=#{id} and receiver_id=#{uid}
+    </select>
+
+
+</mapper>

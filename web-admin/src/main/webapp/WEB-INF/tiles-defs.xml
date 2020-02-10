@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- Definitions for Tiles documentation -->
+<tiles-definitions>
+    <!-- 管理员页布局模板 -->
+    <definition name="tiles.template.admin.layout" template="/WEB-INF/tiles/template/layout.jsp"/>
+</tiles-definitions>

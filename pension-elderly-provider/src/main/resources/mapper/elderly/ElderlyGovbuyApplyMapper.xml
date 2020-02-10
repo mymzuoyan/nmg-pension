@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyGovbuyApplyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyGovbuyApply">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="region1" property="region1" jdbcType="VARCHAR"/>
+        <result column="region2" property="region2" jdbcType="VARCHAR"/>
+        <result column="region3" property="region3" jdbcType="VARCHAR"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="idcardno" property="idcardno" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="homeTel" property="homeTel" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="educationDictId" property="educationDictId" jdbcType="INTEGER"/>
+        <result column="regPlace" property="regPlace" jdbcType="VARCHAR"/>
+        <result column="liveYearDictId" property="liveYearDictId" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="cardno" property="cardno" jdbcType="VARCHAR"/>
+        <result column="elderTypeDictIds" property="elderTypeDictIds" jdbcType="VARCHAR"/>
+        <result column="linkManName1" property="linkManName1" jdbcType="VARCHAR"/>
+        <result column="linkManRelat1" property="linkManRelat1" jdbcType="VARCHAR"/>
+        <result column="linkManLink1" property="linkManLink1" jdbcType="VARCHAR"/>
+        <result column="linkManKey1" property="linkManKey1" jdbcType="VARCHAR"/>
+        <result column="linkManName2" property="linkManName2" jdbcType="VARCHAR"/>
+        <result column="linkManRelat2" property="linkManRelat2" jdbcType="VARCHAR"/>
+        <result column="linkManLink2" property="linkManLink2" jdbcType="VARCHAR"/>
+        <result column="linkManKey2" property="linkManKey2" jdbcType="VARCHAR"/>
+        <result column="linkManName3" property="linkManName3" jdbcType="VARCHAR"/>
+        <result column="linkManRelat3" property="linkManRelat3" jdbcType="VARCHAR"/>
+        <result column="linkManLink3" property="linkManLink3" jdbcType="VARCHAR"/>
+        <result column="linkManKey3" property="linkManKey3" jdbcType="VARCHAR"/>
+        <result column="jobDictId" property="jobDictId" jdbcType="INTEGER"/>
+        <result column="incomeSource" property="incomeSource" jdbcType="VARCHAR"/>
+        <result column="childrenDictId" property="childrenDictId" jdbcType="INTEGER"/>
+        <result column="medicalType" property="medicalType" jdbcType="INTEGER"/>
+        <result column="residenceDictId" property="residenceDictId" jdbcType="INTEGER"/>
+        <result column="houseTypeDictId" property="houseTypeDictId" jdbcType="INTEGER"/>
+        <result column="roomTypeDictId" property="roomTypeDictId" jdbcType="INTEGER"/>
+        <result column="hasElevator" property="hasElevator" jdbcType="VARCHAR"/>
+        <result column="floor" property="floor" jdbcType="INTEGER"/>
+        <result column="hasToilet" property="hasToilet" jdbcType="INTEGER"/>
+        <result column="hasBath" property="hasBath" jdbcType="INTEGER"/>
+        <result column="careCondition" property="careCondition" jdbcType="VARCHAR"/>
+        <result column="serviceNeed" property="serviceNeed" jdbcType="VARCHAR"/>
+        <result column="sickenDictId" property="sickenDictId" jdbcType="VARCHAR"/>
+        <result column="psychologicDictId" property="psychologicDictId" jdbcType="INTEGER"/>
+        <result column="socialActiDictId" property="socialActiDictId" jdbcType="INTEGER"/>
+        <result column="saTypeDictId" property="saTypeDictId" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="estimateDate" property="estimateDate" jdbcType="TIMESTAMP"/>
+        <result column="attr1" property="attr1" jdbcType="INTEGER"/>
+        <result column="score01" property="score01" jdbcType="INTEGER"/>
+        <result column="attr2" property="attr2" jdbcType="INTEGER"/>
+        <result column="score02" property="score02" jdbcType="INTEGER"/>
+        <result column="attr3" property="attr3" jdbcType="INTEGER"/>
+        <result column="score03" property="score03" jdbcType="INTEGER"/>
+        <result column="attr4" property="attr4" jdbcType="INTEGER"/>
+        <result column="score04" property="score04" jdbcType="INTEGER"/>
+        <result column="attr5" property="attr5" jdbcType="INTEGER"/>
+        <result column="score05" property="score05" jdbcType="INTEGER"/>
+        <result column="attr6" property="attr6" jdbcType="INTEGER"/>
+        <result column="score06" property="score06" jdbcType="INTEGER"/>
+        <result column="attr7" property="attr7" jdbcType="INTEGER"/>
+        <result column="score07" property="score07" jdbcType="INTEGER"/>
+        <result column="attr8" property="attr8" jdbcType="INTEGER"/>
+        <result column="score08" property="score08" jdbcType="INTEGER"/>
+        <result column="attr9" property="attr9" jdbcType="INTEGER"/>
+        <result column="score09" property="score09" jdbcType="INTEGER"/>
+        <result column="attr10" property="attr10" jdbcType="INTEGER"/>
+        <result column="score10" property="score10" jdbcType="INTEGER"/>
+        <result column="attr11" property="attr11" jdbcType="INTEGER"/>
+        <result column="score11" property="score11" jdbcType="INTEGER"/>
+        <result column="attr12" property="attr12" jdbcType="INTEGER"/>
+        <result column="score12" property="score12" jdbcType="INTEGER"/>
+        <result column="attr13" property="attr13" jdbcType="INTEGER"/>
+        <result column="score13" property="score13" jdbcType="INTEGER"/>
+        <result column="attr14" property="attr14" jdbcType="INTEGER"/>
+        <result column="score14" property="score14" jdbcType="INTEGER"/>
+        <result column="attr15" property="attr15" jdbcType="INTEGER"/>
+        <result column="score15" property="score15" jdbcType="INTEGER"/>
+        <result column="resultScore" property="resultScore" jdbcType="INTEGER"/>
+        <result column="resultDictId" property="resultDictId" jdbcType="INTEGER"/>
+        <result column="familyName" property="familyName" jdbcType="VARCHAR"/>
+        <result column="familyDate" property="familyDate" jdbcType="VARCHAR"/>
+        <result column="workerName1" property="workerName1" jdbcType="VARCHAR"/>
+        <result column="workerCard1" property="workerCard1" jdbcType="VARCHAR"/>
+        <result column="workerDate1" property="workerDate1" jdbcType="VARCHAR"/>
+        <result column="workerName2" property="workerName2" jdbcType="VARCHAR"/>
+        <result column="workerCard2" property="workerCard2" jdbcType="VARCHAR"/>
+        <result column="workerDate2" property="workerDate2" jdbcType="VARCHAR"/>
+        <result column="callerType" property="callerType" jdbcType="INTEGER"/>
+        <result column="callerLabel" property="callerLabel" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="assessOrgId" property="assessOrgId" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="standard" property="standard" jdbcType="INTEGER"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="result" property="result" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, number, region1, region2, region3,elderId, name, idcardno, age, birthday, sex, homeTel,
+    mobile, educationDictId, regPlace, liveYearDictId, address, cardno, elderTypeDictIds, 
+    linkManName1, linkManRelat1, linkManLink1, linkManKey1, linkManName2, linkManRelat2, 
+    linkManLink2, linkManKey2, linkManName3, linkManRelat3, linkManLink3, linkManKey3, 
+    jobDictId, incomeSource, childrenDictId, medicalType, residenceDictId, houseTypeDictId, 
+    roomTypeDictId, hasElevator, floor, hasToilet, hasBath, careCondition, serviceNeed, 
+    sickenDictId, psychologicDictId, socialActiDictId, saTypeDictid, operator, estimateDate, 
+    attr1, score01, attr2, score02, attr3, score03, attr4, score04, attr5, score05, attr6, 
+    score06, attr7, score07, attr8, score08, attr9, score09, attr10, score10, attr11, 
+    score11, attr12, score12, attr13, score13, attr14, score14, attr15, score15, resultScore, 
+    resultDictId, familyName, familyDate, workerName1, workerCard1, workerDate1, workerName2, 
+    workerCard2, workerDate2, callerType, callerLabel,status,assessOrgId,serviceOrgId,standard,creatorId,createTime,updateTime,result
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_elderly_govbuy_apply
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findByLastNumber" resultType="java.lang.String" parameterType="java.lang.String">
+    select
+    number
+    from t_elderly_govbuy_apply
+    where number like CONCAT(#{number},"%")
+    ORDER by id DESC
+    LIMIT 1
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_govbuy_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApply" useGeneratedKeys="true" keyProperty="id">
+        insert into t_elderly_govbuy_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="region1 != null">
+                region1,
+            </if>
+            <if test="region2 != null">
+                region2,
+            </if>
+            <if test="region3 != null">
+                region3,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="homeTel != null">
+                homeTel,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="educationDictId != null">
+                educationDictId,
+            </if>
+            <if test="regPlace != null">
+                regPlace,
+            </if>
+            <if test="liveYearDictId != null">
+                liveYearDictId,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="cardno != null">
+                cardno,
+            </if>
+            <if test="elderTypeDictIds != null">
+                elderTypeDictIds,
+            </if>
+            <if test="linkManName1 != null">
+                linkManName1,
+            </if>
+            <if test="linkManRelat1 != null">
+                linkManRelat1,
+            </if>
+            <if test="linkManLink1 != null">
+                linkManLink1,
+            </if>
+            <if test="linkManKey1 != null">
+                linkManKey1,
+            </if>
+            <if test="linkManName2 != null">
+                linkManName2,
+            </if>
+            <if test="linkManRelat2 != null">
+                linkManRelat2,
+            </if>
+            <if test="linkManLink2 != null">
+                linkManLink2,
+            </if>
+            <if test="linkManKey2 != null">
+                linkManKey2,
+            </if>
+            <if test="linkManName3 != null">
+                linkManName3,
+            </if>
+            <if test="linkManRelat3 != null">
+                linkManRelat3,
+            </if>
+            <if test="linkManLink3 != null">
+                linkManLink3,
+            </if>
+            <if test="linkManKey3 != null">
+                linkManKey3,
+            </if>
+            <if test="jobDictId != null">
+                jobDictId,
+            </if>
+            <if test="incomeSource != null">
+                incomeSource,
+            </if>
+            <if test="childrenDictId != null">
+                childrenDictId,
+            </if>
+            <if test="medicalType != null">
+                medicalType,
+            </if>
+            <if test="residenceDictId != null">
+                residenceDictId,
+            </if>
+            <if test="houseTypeDictId != null">
+                houseTypeDictId,
+            </if>
+            <if test="roomTypeDictId != null">
+                roomTypeDictId,
+            </if>
+            <if test="hasElevator != null">
+                hasElevator,
+            </if>
+            <if test="floor != null">
+                floor,
+            </if>
+            <if test="hasToilet != null">
+                hasToilet,
+            </if>
+            <if test="hasBath != null">
+                hasBath,
+            </if>
+            <if test="careCondition != null">
+                careCondition,
+            </if>
+            <if test="serviceNeed != null">
+                serviceNeed,
+            </if>
+            <if test="sickenDictId != null">
+                sickenDictId,
+            </if>
+            <if test="psychologicDictId != null">
+                psychologicDictId,
+            </if>
+            <if test="socialActiDictId != null">
+                socialActiDictId,
+            </if>
+            <if test="saTypeDictId != null">
+                saTypeDictid,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="estimateDate != null">
+                estimateDate,
+            </if>
+            <if test="attr1 != null">
+                attr1,
+            </if>
+            <if test="score01 != null">
+                score01,
+            </if>
+            <if test="attr2 != null">
+                attr2,
+            </if>
+            <if test="score02 != null">
+                score02,
+            </if>
+            <if test="attr3 != null">
+                attr3,
+            </if>
+            <if test="score03 != null">
+                score03,
+            </if>
+            <if test="attr4 != null">
+                attr4,
+            </if>
+            <if test="score04 != null">
+                score04,
+            </if>
+            <if test="attr5 != null">
+                attr5,
+            </if>
+            <if test="score05 != null">
+                score05,
+            </if>
+            <if test="attr6 != null">
+                attr6,
+            </if>
+            <if test="score06 != null">
+                score06,
+            </if>
+            <if test="attr7 != null">
+                attr7,
+            </if>
+            <if test="score07 != null">
+                score07,
+            </if>
+            <if test="attr8 != null">
+                attr8,
+            </if>
+            <if test="score08 != null">
+                score08,
+            </if>
+            <if test="attr9 != null">
+                attr9,
+            </if>
+            <if test="score09 != null">
+                score09,
+            </if>
+            <if test="attr10 != null">
+                attr10,
+            </if>
+            <if test="score10 != null">
+                score10,
+            </if>
+            <if test="attr11 != null">
+                attr11,
+            </if>
+            <if test="score11 != null">
+                score11,
+            </if>
+            <if test="attr12 != null">
+                attr12,
+            </if>
+            <if test="score12 != null">
+                score12,
+            </if>
+            <if test="attr13 != null">
+                attr13,
+            </if>
+            <if test="score13 != null">
+                score13,
+            </if>
+            <if test="attr14 != null">
+                attr14,
+            </if>
+            <if test="score14 != null">
+                score14,
+            </if>
+            <if test="attr15 != null">
+                attr15,
+            </if>
+            <if test="score15 != null">
+                score15,
+            </if>
+            <if test="resultScore != null">
+                resultScore,
+            </if>
+            <if test="resultDictId != null">
+                resultDictId,
+            </if>
+            <if test="familyName != null">
+                familyName,
+            </if>
+            <if test="familyDate != null">
+                familyDate,
+            </if>
+            <if test="workerName1 != null">
+                workerName1,
+            </if>
+            <if test="workerCard1 != null">
+                workerCard1,
+            </if>
+            <if test="workerDate1 != null">
+                workerDate1,
+            </if>
+            <if test="workerName2 != null">
+                workerName2,
+            </if>
+            <if test="workerCard2 != null">
+                workerCard2,
+            </if>
+            <if test="workerDate2 != null">
+                workerDate2,
+            </if>
+            <if test="callerType != null">
+                callerType,
+            </if>
+            <if test="callerLabel != null">
+                callerLabel,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="assessOrgId != null">
+                assessOrgId,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="standard != null">
+                standard,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="region1 != null">
+                #{region1,jdbcType=VARCHAR},
+            </if>
+            <if test="region2 != null">
+                #{region2,jdbcType=VARCHAR},
+            </if>
+            <if test="region3 != null">
+                #{region3,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardno != null">
+                #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="homeTel != null">
+                #{homeTel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="educationDictId != null">
+                #{educationDictId,jdbcType=INTEGER},
+            </if>
+            <if test="regPlace != null">
+                #{regPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="liveYearDictId != null">
+                #{liveYearDictId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="cardno != null">
+                #{cardno,jdbcType=VARCHAR},
+            </if>
+            <if test="elderTypeDictIds != null">
+                #{elderTypeDictIds,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName1 != null">
+                #{linkManName1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat1 != null">
+                #{linkManRelat1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink1 != null">
+                #{linkManLink1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey1 != null">
+                #{linkManKey1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName2 != null">
+                #{linkManName2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat2 != null">
+                #{linkManRelat2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink2 != null">
+                #{linkManLink2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey2 != null">
+                #{linkManKey2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName3 != null">
+                #{linkManName3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat3 != null">
+                #{linkManRelat3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink3 != null">
+                #{linkManLink3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey3 != null">
+                #{linkManKey3,jdbcType=VARCHAR},
+            </if>
+            <if test="jobDictId != null">
+                #{jobDictId,jdbcType=INTEGER},
+            </if>
+            <if test="incomeSource != null">
+                #{incomeSource,jdbcType=VARCHAR},
+            </if>
+            <if test="childrenDictId != null">
+                #{childrenDictId,jdbcType=INTEGER},
+            </if>
+            <if test="medicalType != null">
+                #{medicalType,jdbcType=INTEGER},
+            </if>
+            <if test="residenceDictId != null">
+                #{residenceDictId,jdbcType=INTEGER},
+            </if>
+            <if test="houseTypeDictId != null">
+                #{houseTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="roomTypeDictId != null">
+                #{roomTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="hasElevator != null">
+                #{hasElevator,jdbcType=VARCHAR},
+            </if>
+            <if test="floor != null">
+                #{floor,jdbcType=INTEGER},
+            </if>
+            <if test="hasToilet != null">
+                #{hasToilet,jdbcType=INTEGER},
+            </if>
+            <if test="hasBath != null">
+                #{hasBath,jdbcType=INTEGER},
+            </if>
+            <if test="careCondition != null">
+                #{careCondition,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNeed != null">
+                #{serviceNeed,jdbcType=VARCHAR},
+            </if>
+            <if test="sickenDictId != null">
+                #{sickenDictId,jdbcType=VARCHAR},
+            </if>
+            <if test="psychologicDictId != null">
+                #{psychologicDictId,jdbcType=INTEGER},
+            </if>
+            <if test="socialActiDictId != null">
+                #{socialActiDictId,jdbcType=INTEGER},
+            </if>
+            <if test="saTypeDictId != null">
+                #{saTypeDictId,jdbcType=VARCHAR},
+            </if>
+            <if test="operator != null">
+                #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="estimateDate != null">
+                #{estimateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attr1 != null">
+                #{attr1,jdbcType=INTEGER},
+            </if>
+            <if test="score01 != null">
+                #{score01,jdbcType=INTEGER},
+            </if>
+            <if test="attr2 != null">
+                #{attr2,jdbcType=INTEGER},
+            </if>
+            <if test="score02 != null">
+                #{score02,jdbcType=INTEGER},
+            </if>
+            <if test="attr3 != null">
+                #{attr3,jdbcType=INTEGER},
+            </if>
+            <if test="score03 != null">
+                #{score03,jdbcType=INTEGER},
+            </if>
+            <if test="attr4 != null">
+                #{attr4,jdbcType=INTEGER},
+            </if>
+            <if test="score04 != null">
+                #{score04,jdbcType=INTEGER},
+            </if>
+            <if test="attr5 != null">
+                #{attr5,jdbcType=INTEGER},
+            </if>
+            <if test="score05 != null">
+                #{score05,jdbcType=INTEGER},
+            </if>
+            <if test="attr6 != null">
+                #{attr6,jdbcType=INTEGER},
+            </if>
+            <if test="score06 != null">
+                #{score06,jdbcType=INTEGER},
+            </if>
+            <if test="attr7 != null">
+                #{attr7,jdbcType=INTEGER},
+            </if>
+            <if test="score07 != null">
+                #{score07,jdbcType=INTEGER},
+            </if>
+            <if test="attr8 != null">
+                #{attr8,jdbcType=INTEGER},
+            </if>
+            <if test="score08 != null">
+                #{score08,jdbcType=INTEGER},
+            </if>
+            <if test="attr9 != null">
+                #{attr9,jdbcType=INTEGER},
+            </if>
+            <if test="score09 != null">
+                #{score09,jdbcType=INTEGER},
+            </if>
+            <if test="attr10 != null">
+                #{attr10,jdbcType=INTEGER},
+            </if>
+            <if test="score10 != null">
+                #{score10,jdbcType=INTEGER},
+            </if>
+            <if test="attr11 != null">
+                #{attr11,jdbcType=INTEGER},
+            </if>
+            <if test="score11 != null">
+                #{score11,jdbcType=INTEGER},
+            </if>
+            <if test="attr12 != null">
+                #{attr12,jdbcType=INTEGER},
+            </if>
+            <if test="score12 != null">
+                #{score12,jdbcType=INTEGER},
+            </if>
+            <if test="attr13 != null">
+                #{attr13,jdbcType=INTEGER},
+            </if>
+            <if test="score13 != null">
+                #{score13,jdbcType=INTEGER},
+            </if>
+            <if test="attr14 != null">
+                #{attr14,jdbcType=INTEGER},
+            </if>
+            <if test="score14 != null">
+                #{score14,jdbcType=INTEGER},
+            </if>
+            <if test="attr15 != null">
+                #{attr15,jdbcType=INTEGER},
+            </if>
+            <if test="score15 != null">
+                #{score15,jdbcType=INTEGER},
+            </if>
+            <if test="resultScore != null">
+                #{resultScore,jdbcType=INTEGER},
+            </if>
+            <if test="resultDictId != null">
+                #{resultDictId,jdbcType=INTEGER},
+            </if>
+            <if test="familyName != null">
+                #{familyName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyDate != null">
+                #{familyDate,jdbcType=VARCHAR},
+            </if>
+            <if test="workerName1 != null">
+                #{workerName1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerCard1 != null">
+                #{workerCard1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerDate1 != null">
+                #{workerDate1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerName2 != null">
+                #{workerName2,jdbcType=VARCHAR},
+            </if>
+            <if test="workerCard2 != null">
+                #{workerCard2,jdbcType=VARCHAR},
+            </if>
+            <if test="workerDate2 != null">
+                #{workerDate2,jdbcType=VARCHAR},
+            </if>
+            <if test="callerType != null">
+                #{callerType,jdbcType=INTEGER},
+            </if>
+            <if test="callerLabel != null">
+                #{callerLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="assessOrgId != null">
+                #{assessOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="standard != null">
+                #{standard,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApply">
+        update t_elderly_govbuy_apply
+        <set>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="region1 != null">
+                region1 = #{region1,jdbcType=VARCHAR},
+            </if>
+            <if test="region2 != null">
+                region2 = #{region2,jdbcType=VARCHAR},
+            </if>
+            <if test="region3 != null">
+                region3 = #{region3,jdbcType=VARCHAR},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="homeTel != null">
+                homeTel = #{homeTel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="educationDictId != null">
+                educationDictId = #{educationDictId,jdbcType=INTEGER},
+            </if>
+            <if test="regPlace != null">
+                regPlace = #{regPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="liveYearDictId != null">
+                liveYearDictId = #{liveYearDictId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="cardno != null">
+                cardno = #{cardno,jdbcType=VARCHAR},
+            </if>
+            <if test="elderTypeDictIds != null">
+                elderTypeDictIds = #{elderTypeDictIds,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName1 != null">
+                linkManName1 = #{linkManName1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat1 != null">
+                linkManRelat1 = #{linkManRelat1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink1 != null">
+                linkManLink1 = #{linkManLink1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey1 != null">
+                linkManKey1 = #{linkManKey1,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName2 != null">
+                linkManName2 = #{linkManName2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat2 != null">
+                linkManRelat2 = #{linkManRelat2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink2 != null">
+                linkManLink2 = #{linkManLink2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey2 != null">
+                linkManKey2 = #{linkManKey2,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManName3 != null">
+                linkManName3 = #{linkManName3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManRelat3 != null">
+                linkManRelat3 = #{linkManRelat3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManLink3 != null">
+                linkManLink3 = #{linkManLink3,jdbcType=VARCHAR},
+            </if>
+            <if test="linkManKey3 != null">
+                linkManKey3 = #{linkManKey3,jdbcType=VARCHAR},
+            </if>
+            <if test="jobDictId != null">
+                jobDictId = #{jobDictId,jdbcType=INTEGER},
+            </if>
+            <if test="incomeSource != null">
+                incomeSource = #{incomeSource,jdbcType=VARCHAR},
+            </if>
+            <if test="childrenDictId != null">
+                childrenDictId = #{childrenDictId,jdbcType=INTEGER},
+            </if>
+            <if test="medicalType != null">
+                medicalType = #{medicalType,jdbcType=INTEGER},
+            </if>
+            <if test="residenceDictId != null">
+                residenceDictId = #{residenceDictId,jdbcType=INTEGER},
+            </if>
+            <if test="houseTypeDictId != null">
+                houseTypeDictId = #{houseTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="roomTypeDictId != null">
+                roomTypeDictId = #{roomTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="hasElevator != null">
+                hasElevator = #{hasElevator,jdbcType=VARCHAR},
+            </if>
+            <if test="floor != null">
+                floor = #{floor,jdbcType=INTEGER},
+            </if>
+            <if test="hasToilet != null">
+                hasToilet = #{hasToilet,jdbcType=INTEGER},
+            </if>
+            <if test="hasBath != null">
+                hasBath = #{hasBath,jdbcType=INTEGER},
+            </if>
+            <if test="careCondition != null">
+                careCondition = #{careCondition,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNeed != null">
+                serviceNeed = #{serviceNeed,jdbcType=VARCHAR},
+            </if>
+            <if test="sickenDictId != null">
+                sickenDictId = #{sickenDictId,jdbcType=VARCHAR},
+            </if>
+            <if test="psychologicDictId != null">
+                psychologicDictId = #{psychologicDictId,jdbcType=INTEGER},
+            </if>
+            <if test="socialActiDictId != null">
+                socialActiDictId = #{socialActiDictId,jdbcType=INTEGER},
+            </if>
+            <if test="saTypeDictId != null">
+                saTypeDictid = #{saTypeDictId,jdbcType=VARCHAR},
+            </if>
+            <if test="operator != null">
+                operator = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="estimateDate != null">
+                estimateDate = #{estimateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attr1 != null">
+                attr1 = #{attr1,jdbcType=INTEGER},
+            </if>
+            <if test="score01 != null">
+                score01 = #{score01,jdbcType=INTEGER},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2,jdbcType=INTEGER},
+            </if>
+            <if test="score02 != null">
+                score02 = #{score02,jdbcType=INTEGER},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3,jdbcType=INTEGER},
+            </if>
+            <if test="score03 != null">
+                score03 = #{score03,jdbcType=INTEGER},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4,jdbcType=INTEGER},
+            </if>
+            <if test="score04 != null">
+                score04 = #{score04,jdbcType=INTEGER},
+            </if>
+            <if test="attr5 != null">
+                attr5 = #{attr5,jdbcType=INTEGER},
+            </if>
+            <if test="score05 != null">
+                score05 = #{score05,jdbcType=INTEGER},
+            </if>
+            <if test="attr6 != null">
+                attr6 = #{attr6,jdbcType=INTEGER},
+            </if>
+            <if test="score06 != null">
+                score06 = #{score06,jdbcType=INTEGER},
+            </if>
+            <if test="attr7 != null">
+                attr7 = #{attr7,jdbcType=INTEGER},
+            </if>
+            <if test="score07 != null">
+                score07 = #{score07,jdbcType=INTEGER},
+            </if>
+            <if test="attr8 != null">
+                attr8 = #{attr8,jdbcType=INTEGER},
+            </if>
+            <if test="score08 != null">
+                score08 = #{score08,jdbcType=INTEGER},
+            </if>
+            <if test="attr9 != null">
+                attr9 = #{attr9,jdbcType=INTEGER},
+            </if>
+            <if test="score09 != null">
+                score09 = #{score09,jdbcType=INTEGER},
+            </if>
+            <if test="attr10 != null">
+                attr10 = #{attr10,jdbcType=INTEGER},
+            </if>
+            <if test="score10 != null">
+                score10 = #{score10,jdbcType=INTEGER},
+            </if>
+            <if test="attr11 != null">
+                attr11 = #{attr11,jdbcType=INTEGER},
+            </if>
+            <if test="score11 != null">
+                score11 = #{score11,jdbcType=INTEGER},
+            </if>
+            <if test="attr12 != null">
+                attr12 = #{attr12,jdbcType=INTEGER},
+            </if>
+            <if test="score12 != null">
+                score12 = #{score12,jdbcType=INTEGER},
+            </if>
+            <if test="attr13 != null">
+                attr13 = #{attr13,jdbcType=INTEGER},
+            </if>
+            <if test="score13 != null">
+                score13 = #{score13,jdbcType=INTEGER},
+            </if>
+            <if test="attr14 != null">
+                attr14 = #{attr14,jdbcType=INTEGER},
+            </if>
+            <if test="score14 != null">
+                score14 = #{score14,jdbcType=INTEGER},
+            </if>
+            <if test="attr15 != null">
+                attr15 = #{attr15,jdbcType=INTEGER},
+            </if>
+            <if test="score15 != null">
+                score15 = #{score15,jdbcType=INTEGER},
+            </if>
+            <if test="resultScore != null">
+                resultScore = #{resultScore,jdbcType=INTEGER},
+            </if>
+            <if test="resultDictId != null">
+                resultDictId = #{resultDictId,jdbcType=INTEGER},
+            </if>
+            <if test="familyName != null">
+                familyName = #{familyName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyDate != null">
+                familyDate = #{familyDate,jdbcType=VARCHAR},
+            </if>
+            <if test="workerName1 != null">
+                workerName1 = #{workerName1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerCard1 != null">
+                workerCard1 = #{workerCard1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerDate1 != null">
+                workerDate1 = #{workerDate1,jdbcType=VARCHAR},
+            </if>
+            <if test="workerName2 != null">
+                workerName2 = #{workerName2,jdbcType=VARCHAR},
+            </if>
+            <if test="workerCard2 != null">
+                workerCard2 = #{workerCard2,jdbcType=VARCHAR},
+            </if>
+            <if test="workerDate2 != null">
+                workerDate2 = #{workerDate2,jdbcType=VARCHAR},
+            </if>
+            <if test="callerType != null">
+                callerType = #{callerType,jdbcType=INTEGER},
+            </if>
+            <if test="callerLabel != null">
+                callerLabel = #{callerLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="assessOrgId != null">
+                assessOrgId = #{assessOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="standard != null">
+                standard = #{standard,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from t_elderly_govbuy_apply
+        <where>
+            <if test="status != null">
+                status = #{status}
+            </if>
+            <if test="selectStatus != null and selectStatus != ''">
+                and status in (${selectStatus})
+            </if>
+            <if test="region1 != null">
+                and region1 = #{region1}
+            </if>
+            <if test="region2 != null">
+                and region2 = #{region2}
+            </if>
+            <if test="region3 != null">
+                and region3 = #{region3}
+            </if>
+            <if test="number != null">
+                and number like concat(#{number},"%")
+            </if>
+            <if test="result != null">
+                and result = #{result}
+            </if>
+            <if test="assessOrgId != null">
+                and assessOrgId = #{assessOrgId}
+            </if>
+            <if test="serviceOrgId != null">
+                and serviceOrgId = #{serviceOrgId}
+            </if>
+            <if test="standard != null">
+                and standard = #{standard}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_elderly_govbuy_apply
+  </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyGovbuyApply">
+        select
+        <include refid="Base_Column_List"/>
+        from t_elderly_govbuy_apply
+        <where>
+            <if test="filter.status != null">
+                status = #{filter.status,jdbcType=INTEGER}
+            </if>
+            <if test="filter.selectStatus != null and filter.selectStatus != ''">
+                and status in (${filter.selectStatus})
+            </if>
+            <if test="filter.region1 != null">
+                and region1 = #{filter.region1}
+            </if>
+            <if test="filter.region2 != null">
+                and region2 = #{filter.region2}
+            </if>
+            <if test="filter.region3 != null">
+                and region3 = #{filter.region3}
+            </if>
+            <if test="filter.number != null">
+                and number like concat(#{filter.number},"%")
+            </if>
+            <if test="filter.result != null">
+                and result =#{filter.result}
+            </if>
+            <if test="filter.assessOrgId != null">
+                and assessOrgId =#{filter.assessOrgId}
+            </if>
+            <if test="filter.serviceOrgId != null">
+                and serviceOrgId =#{filter.serviceOrgId}
+            </if>
+            <if test="filter.standard != null">
+                and standard =#{filter.standard}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+</mapper>

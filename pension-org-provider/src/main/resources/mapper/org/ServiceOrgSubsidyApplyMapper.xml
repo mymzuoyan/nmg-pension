@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgSubsidyApplyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgSubsidyApply">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="service_org_id" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="subsidy_type" property="subsidyType" jdbcType="INTEGER"/>
+        <result column="subsidy_object" property="subsidyObject" jdbcType="INTEGER"/>
+        <result column="attach" property="attach" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="verify_id" property="verifyId" jdbcType="INTEGER"/>
+        <result column="verify_time" property="verifyTime" jdbcType="TIMESTAMP"/>
+        <result column="node" property="node" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgSubsidyApply"
+            parameterType="java.lang.Integer">
+       select a.id,
+        a.service_org_id as "serviceOrg.id",
+        b.institutionName as "serviceOrg.institutionName",
+        b.areaName as "serviceOrg.areaName",
+        a.subsidy_type as "subsidyType",
+        a.subsidy_object as "subsidyObject",
+        a.attach as "attach",
+        a.status as "status",
+        a.money as "money",
+        a.create_time as "createTime",
+        a.verify_time as "verifyTime",
+        a.node as "node"
+        from t_service_org_subsidy_apply a
+        LEFT join t_service_org b on (a.service_org_id = b.id)
+        where a.id = #{id,jdbcType=INTEGER}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_subsidy_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgSubsidyApply">
+        insert into t_service_org_subsidy_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                service_org_id,
+            </if>
+            <if test="subsidyType != null">
+                subsidy_type,
+            </if>
+            <if test="subsidyObject != null">
+                subsidy_object,
+            </if>
+            <if test="attach != null">
+                attach,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                creator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="verifyer!=null and verifyer.uid != null">
+                verify_id,
+            </if>
+            <if test="verifyTime != null">
+                verify_time,
+            </if>
+            <if test="node != null">
+                node,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                #{serviceOrg.id,jdbcType=INTEGER},
+            </if>
+            <if test="subsidyType != null">
+                #{subsidyType,jdbcType=INTEGER},
+            </if>
+            <if test="subsidyObject != null">
+                #{subsidyObject,jdbcType=INTEGER},
+            </if>
+            <if test="attach != null">
+                #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                #{creator.uid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="verifyer!=null and verifyer.uid != null">
+                #{verifyer.uid,jdbcType=INTEGER},
+            </if>
+            <if test="verifyTime != null">
+                #{verifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="node != null">
+                #{node,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgSubsidyApply">
+        update t_service_org_subsidy_apply
+        <set>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                service_org_id = #{serviceOrg.id,jdbcType=INTEGER},
+            </if>
+            <if test="subsidyType != null">
+                subsidy_type = #{subsidyType,jdbcType=INTEGER},
+            </if>
+            <if test="subsidyObject != null">
+                subsidy_object = #{subsidyObject,jdbcType=INTEGER},
+            </if>
+            <if test="attach != null">
+                attach = #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                creator_id = #{creator.uid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="verifyer!=null and verifyer.uid != null">
+                verify_id = #{verifyer.uid,jdbcType=INTEGER},
+            </if>
+            <if test="verifyTime != null">
+                verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="node != null">
+                node = #{node,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_service_org_subsidy_apply
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from t_service_org_subsidy_apply a
+        LEFT join t_service_org b on a.service_org_id = b.id
+        <where>
+            <if test="subsidyType!=null and subsidyType!=''">
+                and a.subsidy_type = ${subsidyType}
+            </if>
+            <if test="areaName!=null and areaName!=''">
+                and b.areaName = #{areaName}
+            </if>
+            <if test="subsidyObject!=null and subsidyObject!=''">
+                and a.subsidy_object = ${subsidyObject}
+            </if>
+            <if test="status!=null and status!=''">
+                and a.status = ${status}
+                and b.status = ${status}
+            </if>
+            <if test="serviceOrg!=null and serviceOrg.id!=null">
+                and a.service_org_id = #{serviceOrg.id}
+            </if>
+            <if test="serviceOrg!=null and serviceOrg.institutionName!=null and  serviceOrg.institutionName!=''">
+                and b.institutionName like CONCAT('%',#{serviceOrg.institutionName},'%' )
+            </if>
+            <if test="serviceOrg!=null and serviceOrg.areaName!=null and serviceOrg.areaName!=''">
+                and b.areaName like CONCAT('%',#{serviceOrg.areaName},'%' )
+            </if>
+            <if test="startDate!=null">
+                and a.create_time &gt; #{startDate}
+            </if>
+            <if test="endDate!=null ">
+                and a.create_time &lt; #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgSubsidyApply">
+        select a.id,
+        a.service_org_id as "serviceOrg.id",
+        b.institutionName as "serviceOrg.institutionName",
+        b.areaName as "serviceOrg.areaName",
+        a.subsidy_type as "subsidyType",
+        a.subsidy_object as "subsidyObject",
+        a.attach as "attach",
+        a.status as "status",
+        a.money as "money",
+        a.create_time as "createTime",
+        a.verify_time as "verifyTime",
+        a.node as "node"
+        from t_service_org_subsidy_apply a
+        LEFT join t_service_org b on a.service_org_id = b.id
+        <where>
+            <if test="filter.areaName!=null and filter.areaName!=''">
+                and b.areaName = #{filter.areaName}
+            </if>
+            <if test="filter.subsidyType!=null and filter.subsidyType!=''">
+                and a.subsidy_type = #{filter.subsidyType}
+            </if>
+            <if test="filter.subsidyObject!=null and filter.subsidyObject!=''">
+                and a.subsidy_object = #{filter.subsidyObject}
+            </if>
+            <if test="filter.status!=null and filter.status!=''">
+                and a.status = #{filter.status}
+                and b.status = #{filter.status}
+            </if>
+            <if test="filter.serviceOrg!=null and filter.serviceOrg.id!=null">
+                and a.service_org_id = #{filter.serviceOrg.id}
+            </if>
+            <if test="filter.serviceOrg!=null and filter.serviceOrg.institutionName!=null and filter.serviceOrg.institutionName!=''">
+                and b.institutionName like CONCAT('%',#{filter.serviceOrg.institutionName},'%' )
+            </if>
+            <if test="filter.serviceOrg!=null and filter.serviceOrg.areaName!=null and  filter.serviceOrg.areaName!=''">
+                and b.areaName like CONCAT('%',#{filter.serviceOrg.areaName},'%' )
+            </if>
+            <if test="filter.startDate!=null">
+                and a.create_time &gt; #{filter.startDate}
+            </if>
+            <if test="filter.endDate!=null">
+                and a.create_time &lt; #{filter.endDate}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+
+    <select id="statistic" resultType="ServiceOrgSubsidyApplyStatistic">
+        SELECT
+        REVERSE(
+        SUBSTRING_INDEX(
+        REVERSE(
+        SUBSTRING_INDEX(areaName, ',', #{areaLevel})
+        ),
+        ',',
+        1
+        )
+        ) areaName,
+        COUNT(a.id) count,
+        SUM(if( a.subsidy_type=1,1,0))  jsCount,
+        SUM(if(a.subsidy_type=2,1,0))  yyCount,
+        SUM(if(a.`status`= 0 and a.subsidy_type=1,1,0)) jsUndoCount,
+        SUM(if(a.`status`= 1 and a.subsidy_type=1,1,0)) jsDoneCount,
+        SUM(if(a.`status`= 2 and a.subsidy_type=1,1,0)) jsRefuseCount,
+        SUM(if(a.`status`= 0 and a.subsidy_type=2,1,0)) yyUndoCount,
+        SUM(if(a.`status`= 1 and a.subsidy_type=2,1,0)) yyDoneCount,
+        SUM(if(a.`status`= 2 and a.subsidy_type=2,1,0)) yyRefuseCount
+        FROM
+        t_service_org_subsidy_apply a
+        LEFT JOIN t_service_org d ON a.service_org_id = d.id
+        <where>
+            <if test="subsidyType!=null">
+                a.subsidy_type = #{subsidyType}
+            </if>
+            <if test="subsidyObject!=null">
+                and a.subsidy_object = #{subsidyObject}
+            </if>
+        </where>
+        GROUP BY
+        REVERSE(
+        SUBSTRING_INDEX(
+        REVERSE(
+        SUBSTRING_INDEX(areaName, ',', #{areaLevel})
+        ),
+        ',',
+        1
+        )
+        )
+    </select>
+
+</mapper>

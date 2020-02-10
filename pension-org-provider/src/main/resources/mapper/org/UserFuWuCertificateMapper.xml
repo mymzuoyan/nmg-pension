@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.UserFuWuCertificateMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.UserFuWuCertificate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="serviceOrgId" jdbcType="INTEGER" property="serviceOrgId" />
+    <result column="idcardno" jdbcType="VARCHAR" property="idcardno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="certificateName" jdbcType="VARCHAR" property="certificateName" />
+    <result column="certificateType" jdbcType="VARCHAR" property="certificateType" />
+    <result column="issuingTime" jdbcType="VARCHAR" property="issuingTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, serviceOrgId, idcardno, name, certificateName, certificateType, issuingTime
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_fuwu_certificate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user_fuwu_certificate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.UserFuWuCertificate" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_user_fuwu_certificate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceOrgId != null">
+        serviceOrgId,
+      </if>
+      <if test="idcardno != null">
+        idcardno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="certificateName != null">
+        certificateName,
+      </if>
+      <if test="certificateType != null">
+        certificateType,
+      </if>
+      <if test="issuingTime != null">
+        issuingTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceOrgId != null">
+        #{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateName != null">
+        #{certificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingTime != null">
+        #{issuingTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.UserFuWuCertificate">
+    update t_user_fuwu_certificate
+    <set>
+      <if test="serviceOrgId != null">
+        serviceOrgId=#{serviceOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null">
+        idcardno=#{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateName != null">
+        certificateName=#{certificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        certificateType=#{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingTime != null">
+        issuingTime=#{issuingTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_user_fuwu_certificate
+    <where>
+      <if test="serviceOrgId != null and serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{serviceOrgId},'%' )
+      </if>
+      <if test="idcardno != null and idcardno !=''">
+        AND idcardno like CONCAT('%',#{idcardno},'%' )
+      </if>
+      <if test="name != null and name !=''">
+        AND name like CONCAT('%',#{name},'%' )
+      </if>
+      <if test="certificateName != null and certificateName !=''">
+        AND certificateName like CONCAT('%',#{certificateName},'%' )
+      </if>
+      <if test="certificateType != null and certificateType !=''">
+        AND certificateType like CONCAT('%',#{certificateType},'%' )
+      </if>
+      <if test="issuingTime != null and issuingTime !=''">
+        AND issuingTime like CONCAT('%',#{issuingTime},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_user_fuwu_certificate
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.UserFuWuCertificate">
+    select
+      *
+    from t_user_fuwu_certificate
+    <where>
+      <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+        AND serviceOrgId like CONCAT('%',#{filter.serviceOrgId},'%' )
+      </if>
+      <if test="filter.idcardno != null and filter.idcardno !=''">
+        AND idcardno like CONCAT('%',#{filter.idcardno},'%' )
+      </if>
+      <if test="filter.name != null and filter.name !=''">
+        AND name like CONCAT('%',#{filter.name},'%' )
+      </if>
+      <if test="filter.certificateName != null and filter.certificateName !=''">
+        AND certificateName like CONCAT('%',#{filter.certificateName},'%' )
+      </if>
+      <if test="filter.certificateType != null and filter.certificateType !=''">
+        AND certificateType like CONCAT('%',#{filter.certificateType},'%' )
+      </if>
+      <if test="filter.issuingTime != null and filter.issuingTime !=''">
+        AND issuingTime like CONCAT('%',#{filter.issuingTime},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user_fuwu_certificate
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_user_fuwu_certificate
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+
+  </delete>
+
+</mapper>

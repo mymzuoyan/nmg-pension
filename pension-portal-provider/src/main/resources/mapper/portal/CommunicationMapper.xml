@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.CommunicationMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.portal.entity.Communication">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="imageFile" property="imageFile" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, userId, content, imageFile ,createTime
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_communication
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectTopN" resultType="com.fedtech.pension.portal.entity.Communication">
+        select
+        a.id, a.userId,b.nick_name nickName,b.avatar , a.content, a.imageFile ,a.createTime
+        from t_communication a, t_user b
+        where a.userId = b.uid
+        ORDER BY a.id DESC
+        LIMIT #{count}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_communication
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.Communication">
+        insert into t_communication
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="imageFile != null">
+                imageFile,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="imageFile != null">
+                #{imageFile,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="count" parameterType="com.fedtech.pension.portal.entity.Communication" resultType="java.lang.Integer">
+        SELECT count(1)
+        from t_communication
+    </select>
+
+    <select id="countAll" parameterType="com.fedtech.pension.portal.entity.Communication" resultType="java.lang.Integer">
+        select count(1) from t_communication
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.portal.entity.Communication">
+        select
+        a.id, a.userId,b.nick_name nickName,b.avatar , a.content, a.imageFile ,a.createTime
+        from t_communication a, t_user b
+        where a.userId = b.uid
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.Communication">
+        update t_communication
+        <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="imageFile != null">
+                imageFile = #{imageFile,jdbcType=VARCHAR},
+            </if>
+            <if test=" != null">
+                = #{,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

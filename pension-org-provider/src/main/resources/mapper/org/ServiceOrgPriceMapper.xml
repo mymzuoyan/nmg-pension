@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgPriceMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="serviceProjectId" property="serviceProjectId" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="moreInfo" property="moreInfo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, serviceOrgId, serviceProjectId, price, moreInfo
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_price
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByNameAndServiceOrgId" resultType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+      select  a.id,  a.serviceOrgId,  a.serviceProjectId,b.serviceName serviceProjectName,b.serviceUnit serviceUnit, a. price,  a.moreInfo,b.moreService moreService
+     from t_service_org_price a LEFT  JOIN  t_service_project b ON (a.serviceProjectId = b.id)
+     where b.serviceName=#{name} and a.serviceOrgId=#{serviceOrgId}
+  </select>
+    <select id="selectByProjectIdAndServiceOrgId" resultType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+      select  a.id,  a.serviceOrgId,  a.serviceProjectId,b.serviceName serviceProjectName,b.serviceUnit serviceUnit, a. price,  a.moreInfo,b.moreService moreService
+     from t_service_org_price a LEFT  JOIN  t_service_project b ON (a.serviceProjectId = b.id)
+     where b.id=#{serviceProjectId} and a.serviceOrgId=#{serviceOrgId}
+  </select>
+
+    <select id="selectByNameAndServiceOrgIds" resultType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        select a.id, a.serviceOrgId, a.serviceProjectId,b.serviceName serviceProjectName,b.serviceUnit serviceUnit,
+        a.price, a.moreInfo,b.moreService moreService
+        from t_service_org_price a LEFT JOIN t_service_project b ON (a.serviceProjectId = b.id)
+        where b.serviceName=#{name} and a.serviceOrgId IN
+        <foreach collection="serviceOrgIds" item="serviceOrgId" index="index" open="(" separator="," close=")">
+            #{serviceOrgId}
+        </foreach>
+        ORDER BY a.price asc
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        insert into t_service_org_price
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="serviceProjectId != null">
+                serviceProjectId,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="moreInfo != null">
+                moreInfo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceProjectId != null">
+                #{serviceProjectId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="moreInfo != null">
+                #{moreInfo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        update t_service_org_price
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceProjectId != null">
+                serviceProjectId = #{serviceProjectId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="moreInfo != null">
+                moreInfo = #{moreInfo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertSomeRecode" parameterType="java.util.List">
+        INSERT INTO t_service_org_price
+        (serviceOrgId, serviceProjectId, price, moreInfo)
+        VALUES
+        <foreach collection="serviceOrgPrices" item="servicePrice" index="index" separator=",">
+            (#{servicePrice.serviceOrgId},#{servicePrice.serviceProjectId},#{servicePrice.price},#{servicePrice.moreInfo})
+        </foreach>
+    </insert>
+    <delete id="deleteByServiceOrgId" parameterType="java.lang.Integer">
+    delete from t_service_org_price
+    where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+  </delete>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        select a.id, a.serviceOrgId, a.serviceProjectId,b.serviceName serviceProjectName,b.serviceUnit serviceUnit, a.
+        price, a.moreInfo,b.moreService moreService
+        from t_service_org_price a LEFT JOIN t_service_project b ON (a.serviceProjectId = b.id)
+        <where>
+            <if test="filter.serviceProjectName != null">
+                b.serviceName = #{filter.serviceProjectName}
+            </if>
+            <if test="filter.serviceProjectId != null">
+                a.serviceProjectId = #{filter.serviceProjectId}
+            </if>
+            <if test="filter.serviceOrgId != null">
+                a.serviceOrgId = #{filter.serviceOrgId}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectServiceOrgsByName" resultType="com.fedtech.pension.org.entity.ServiceOrgPrice">
+        select b.id, a.id serviceOrgId, b.serviceProjectId,b. price, b.moreInfo,c.serviceName
+        serviceProjectName,c.serviceUnit serviceUnit
+        from t_service_org a LEFT JOIN t_service_org_price b ON (a.id = b.serviceOrgId) LEFT JOIN t_service_project c ON
+        (b.serviceProjectId = c.id)
+        where c.serviceName = #{name}
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir},id ASC
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getPriceRange" resultType="com.fedtech.pension.org.vo.RangeVo">
+        SELECT max(price) as max,min(price) as min
+        from t_service_org_price
+        where serviceOrgId IN
+        <foreach collection="serviceOrgIds" item="serviceOrgId" index="index" open="(" separator="," close=")">
+            #{serviceOrgId}
+        </foreach>
+        and serviceProjectId=#{serviceProjectId}
+    </select>
+
+    <select id="getStandardByType" resultType="com.fedtech.pension.org.entity.ServiceStandard">
+        select tsop.id id,tsop.price price,tsop.moreInfo  moreInfo,tsp.serviceName serviceName,tsp.serviceUnit serviceUnit,tst.name name from   t_service_type tst left join t_service_project tsp on tst.id=tsp.serviceType left  join  t_service_org_price tsop on tsp.id=tsop.serviceProjectId  where tsop.serviceOrgId=#{orgId} and tsp.serviceType=#{type}
+    </select>
+
+</mapper>

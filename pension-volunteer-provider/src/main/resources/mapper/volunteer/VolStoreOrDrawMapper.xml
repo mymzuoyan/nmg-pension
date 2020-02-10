@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.volunteer.mapper.VolStoreOrDrawMapper">
+
+    <resultMap id="volStoreOrDraw" type="com.fedtech.pension.volunteer.entity.VolStoreOrDraw">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER"/>
+        <result column="target_name" property="targetName" jdbcType="VARCHAR"/>
+        <result column="target_id" property="targetId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="service_time" property="serviceTime" jdbcType="TIMESTAMP"/>
+        <result column="service_name" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="service_id" property="serviceId" jdbcType="INTEGER"/>
+        <result column="service_info" property="serviceInfo" jdbcType="VARCHAR"/>
+        <result column="organization_name" property="organizationName" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, volunteer_id, target_name, target_id, type, create_user_id,
+        create_time, score, service_time, service_name, service_id, service_info,organization_name
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="volStoreOrDraw" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_vol_storeordraw
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_vol_storeordraw
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM t_vol_storeordraw
+        WHERE 1=1
+        <if test="type!=null">
+            AND type = #{type}
+        </if>
+        <if test="volunteerId!=null">
+            AND volunteer_id = #{volunteerId}
+        </if>
+        <if test="startTime!=null">
+            AND service_time >= #{startTime}
+        </if>
+        <if test="endTime!=null">
+            <![CDATA[  AND service_time <= #{endTime} ]]>
+        </if>
+    </select>
+
+    <select id="selectPageList" resultMap="volStoreOrDraw">
+        SELECT
+        id, volunteer_id, target_name,score,service_time, service_name, service_info,organization_name
+        FROM t_vol_storeordraw
+        WHERE 1=1
+        <if test="filter.type!=null">
+            AND type = #{filter.type}
+        </if>
+        <if test="filter.organizationName!=null and filter.organizationName!=''">
+            AND organization_name = #{filter.organizationName}
+        </if>
+        <if test="filter.volunteerId!=null">
+            AND volunteer_id = #{filter.volunteerId}
+        </if>
+        <if test="filter.startTime!=null">
+            AND service_time >= #{filter.startTime}
+        </if>
+        <if test="filter.endTime!=null">
+            <![CDATA[  AND service_time <= #{filter.endTime} ]]>
+        </if>
+        ORDER BY id desc
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_vol_storeordraw
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.volunteer.entity.VolStoreOrDraw">
+        insert into t_vol_storeordraw
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="organizationName != null">
+                organization_name,
+            </if>
+            <if test="volunteerId != null">
+                volunteer_id,
+            </if>
+            <if test="targetName != null">
+                target_name,
+            </if>
+            <if test="targetId != null">
+                target_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="serviceTime != null">
+                service_time,
+            </if>
+            <if test="serviceName != null">
+                service_name,
+            </if>
+            <if test="serviceId != null">
+                service_id,
+            </if>
+            <if test="serviceInfo != null">
+                service_info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="organizationName != null">
+                #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="volunteerId != null">
+                #{volunteerId,jdbcType=INTEGER},
+            </if>
+            <if test="targetName != null">
+                #{targetName,jdbcType=VARCHAR},
+            </if>
+            <if test="targetId != null">
+                #{targetId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="serviceTime != null">
+                #{serviceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceName != null">
+                #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceId != null">
+                #{serviceId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceInfo != null">
+                #{serviceInfo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.volunteer.entity.VolStoreOrDraw">
+        update t_vol_storeordraw
+        <set>
+            <if test="volunteerId != null">
+                volunteer_id = #{volunteerId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationName != null">
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="targetName != null">
+                target_name = #{targetName,jdbcType=VARCHAR},
+            </if>
+            <if test="targetId != null">
+                target_id = #{targetId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createOrgId != null">
+                create_org_id = #{createOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="serviceTime != null">
+                service_time = #{serviceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceName != null">
+                service_name = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceId != null">
+                service_id = #{serviceId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceInfo != null">
+                service_info = #{serviceInfo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

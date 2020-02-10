@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.NurseElderlyLocationMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.NurseElderlyLocation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="elderId" property="elderId" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="sourceNumber" property="sourceNumber" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="DOUBLE" />
+    <result column="lng" property="lng" jdbcType="DOUBLE" />
+    <result column="fenceStatus" property="fenceStatus" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, elderId, source, sourceNumber, lat, lng, fenceStatus, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_nurse_elderly_location
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_nurse_elderly_location
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.NurseElderlyLocation" useGeneratedKeys="true" keyProperty="id">
+    insert into t_nurse_elderly_location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="elderId != null" >
+        elderId,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="sourceNumber != null" >
+        sourceNumber,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="fenceStatus != null" >
+        fenceStatus,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="elderId != null" >
+        #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceNumber != null" >
+        #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="fenceStatus != null" >
+        #{fenceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.NurseElderlyLocation" >
+    update t_nurse_elderly_location
+    <set >
+      <if test="elderId != null" >
+        elderId = #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceNumber != null" >
+        sourceNumber = #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="fenceStatus != null" >
+        fenceStatus = #{fenceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.NurseElderlyLocation">
+    select
+    a.id, a.elderId,b.elderName,b.sexDictId elderSex,b.age elderAge, a.source, a.sourceNumber, a.lat, a.lng, a.fenceStatus, a.createTime
+    from t_nurse_elderly_location a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="filter.elderName!=null and filter.elderName!=''">
+        b.elderName like CONCAT('%',#{filter.elderName},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_nurse_elderly_location a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="elderName!=null and elderName!=''">
+        b.elderName like CONCAT('%',#{elderName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_nurse_elderly_location
+  </select>
+  <select id="getAllRecode" resultType="com.fedtech.pension.nurse.entity.NurseElderlyLocation">
+    select
+    a.id, a.elderId,b.elderName,b.sexDictId elderSex,b.age elderAge, a.source, a.sourceNumber, a.lat, a.lng, a.fenceStatus, a.createTime
+    from t_nurse_elderly_location a LEFT  JOIN t_elderly_message b on (a.elderId=b.id)
+    <where>
+      <if test="filter.elderName!=null and filter.elderName!=''">
+        b.elderName like CONCAT('%',#{filter.elderName},'%' )
+      </if>
+    </where>
+  </select>
+</mapper>

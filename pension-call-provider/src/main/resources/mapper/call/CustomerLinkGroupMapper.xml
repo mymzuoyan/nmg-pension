@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.call.mapper.CustomerLinkGroupMapper">
+
+    <sql id="Base_Column_List">
+        id,groupId,customerId
+    </sql>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.call.entity.CustomerLinkGroup" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM c_customer_link_group
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByCustomerId" resultType="com.fedtech.pension.call.entity.CustomerLinkGroup" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM c_customer_link_group
+        where customerId = #{customerId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE
+        FROM c_customer_link_group
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByCustomerId" parameterType="java.lang.Integer">
+        DELETE
+        FROM c_customer_link_group
+        where customerId = #{customerId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.call.entity.CustomerLinkGroup">
+        insert into c_customer_link_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="groupId != null">
+                groupId,
+            </if>
+            <if test="customerId != null">
+                customerId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                #{groupId},
+            </if>
+            <if test="customerId != null">
+                #{customerId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.call.entity.CustomerLinkGroup">
+        update c_customer_link_group
+        <set>
+            <if test="groupId != null">
+                groupId = #{groupId},
+            </if>
+            <if test="customerId != null">
+                customerId = #{customerId},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.call.entity.CustomerLinkGroup" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM c_customer_link_group
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM c_customer_link_group
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.call.entity.CustomerLinkGroup">
+        SELECT
+        a.id,a.groupId,c.name groupName,a.customerId,b.login_name account,b.nick_name name
+        FROM c_customer_link_group a,c_customer_group c,t_user b
+        where a.groupId=c.id
+        and b.uid=a.customerId
+        <if test="filter.groupId != null">
+            and a.groupId = #{filter.groupId}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+</mapper>

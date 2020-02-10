@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgConstructionSubApplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="object" property="object" jdbcType="VARCHAR"/>
+        <result column="serviceOrgName" property="serviceOrgName" jdbcType="VARCHAR"/>
+        <result column="openingHours" property="openingHours" jdbcType="VARCHAR"/>
+        <result column="legalRepresentative" property="legalRepresentative" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="total" property="total" jdbcType="VARCHAR"/>
+        <result column="management" property="management" jdbcType="VARCHAR"/>
+        <result column="servicePersonal" property="servicePersonal" jdbcType="VARCHAR"/>
+        <result column="otherPersonal" property="otherPersonal" jdbcType="VARCHAR"/>
+        <result column="extremelyPoorElderly" property="extremelyPoorElderly" jdbcType="VARCHAR"/>
+        <result column="other" property="other" jdbcType="VARCHAR"/>
+        <result column="bedNum" property="bedNum" jdbcType="VARCHAR"/>
+        <result column="bedNum1" property="bedNum1" jdbcType="VARCHAR"/>
+        <result column="bedNum2" property="bedNum2" jdbcType="VARCHAR"/>
+        <result column="bedNum3" property="bedNum3" jdbcType="VARCHAR"/>
+        <result column="bedNum4" property="bedNum4" jdbcType="VARCHAR"/>
+        <result column="bedNum5" property="bedNum5" jdbcType="VARCHAR"/>
+        <result column="bedNum6" property="bedNum6" jdbcType="VARCHAR"/>
+        <result column="bedNum7" property="bedNum7" jdbcType="VARCHAR"/>
+        <result column="bedNum8" property="bedNum8" jdbcType="VARCHAR"/>
+        <result column="bedNum9" property="bedNum9" jdbcType="VARCHAR"/>
+        <result column="bedNum10" property="bedNum10" jdbcType="VARCHAR"/>
+        <result column="bedNum11" property="bedNum11" jdbcType="VARCHAR"/>
+        <result column="bedNum12" property="bedNum12" jdbcType="VARCHAR"/>
+        <result column="applyer" property="applyer" jdbcType="VARCHAR"/>
+        <result column="applyTime" property="applyTime" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="submitStatus" property="submitStatus" jdbcType="VARCHAR"/>
+        <result column="applyYear" property="applyYear" jdbcType="VARCHAR"/>
+        <result column="totalElderAndOther" property="totalElderAndOther" jdbcType="VARCHAR"/>
+        <result column="institutionNum" property="institutionNum" jdbcType="VARCHAR"/>
+        <result column="orgCode" property="orgCode" jdbcType="VARCHAR"/>
+        <result column="landArea" property="landArea" jdbcType="VARCHAR"/>
+        <result column="bedNums" property="bedNums" jdbcType="VARCHAR"/>
+        <result column="cityStatus" property="cityStatus" jdbcType="VARCHAR"/>
+        <result column="areaStaus" property="areaStaus" jdbcType="VARCHAR"/>
+        <result column="elderlyId" property="elderlyId" jdbcType="VARCHAR"/>
+        <result column="starClass" property="starClass" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="INTEGER"/>
+
+
+
+    </resultMap>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply"
+            parameterType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply">
+        SELECT
+        *
+        FROM t_service_org_ins_con_subsidies
+        GROUP by id
+    </select>
+
+    <select id="selectAll" resultType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply"
+            >
+        SELECT
+        *
+        FROM t_service_org_ins_con_subsidies
+
+    </select>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org_ins_con_subsidies
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="object != null">
+                object,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="serviceOrgName != null">
+                serviceOrgName,
+            </if>
+            <if test="openingHours != null">
+                openingHours,
+            </if>
+            <if test="legalRepresentative != null">
+                legalRepresentative,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="total != null">
+                total,
+            </if>
+            <if test="management != null">
+                management,
+            </if>
+            <if test="servicePersonal != null">
+                servicePersonal,
+            </if>
+            <if test="otherPersonal != null">
+                otherPersonal,
+            </if>
+            <if test="extremelyPoorElderly != null">
+                extremelyPoorElderly,
+            </if>
+            <if test="other != null">
+                other,
+            </if>
+            <if test="bedNum != null">
+                bedNum,
+            </if>
+            <if test="bedNum1 != null">
+                bedNum1,
+            </if>
+            <if test="bedNum2 != null">
+                bedNum2,
+            </if>
+            <if test="bedNum3 != null">
+                bedNum3,
+            </if>
+            <if test="bedNum4 != null">
+                bedNum4,
+            </if>
+            <if test="bedNum5 != null">
+                bedNum5,
+            </if>
+            <if test="bedNum6 != null">
+                bedNum6,
+            </if>
+            <if test="bedNum7 != null">
+                bedNum7,
+            </if>
+            <if test="bedNum8 != null">
+                bedNum8,
+            </if>
+            <if test="bedNum9 != null">
+                bedNum9,
+            </if>
+            <if test="bedNum10 != null">
+                bedNum10,
+            </if>
+            <if test="bedNum11 != null">
+                bedNum11,
+            </if>
+            <if test="bedNum12 != null">
+                bedNum12,
+            </if>
+            <if test="applyer != null">
+                applyer,
+            </if>
+            <if test="applyTime != null">
+                applyTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="submitStatus != null">
+                submitStatus,
+            </if>
+            <if test="applyYear != null">
+                applyYear,
+            </if>
+            <if test="totalElderAndOther != null">
+                totalElderAndOther,
+            </if>
+            <if test="institutionNum != null">
+                institutionNum,
+            </if>
+            <if test="orgCode != null">
+                orgCode,
+            </if>
+            <if test="landArea != null">
+                landArea,
+            </if>
+            <if test="bedNums != null">
+                bedNums,
+            </if>
+            <if test="cityStatus != null">
+                cityStatus,
+            </if>
+            <if test="areaStaus != null">
+                areaStaus,
+            </if>
+            <if test="elderlyId != null">
+                elderlyId,
+            </if>
+            <if test="starClass != null">
+                starClass,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="object != null">
+                #{object,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgName != null">
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="openingHours != null">
+                #{openingHours,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="total != null">
+                #{total,jdbcType=VARCHAR},
+            </if>
+            <if test="management != null">
+                #{management,jdbcType=VARCHAR},
+            </if>
+            <if test="servicePersonal != null">
+                #{servicePersonal,jdbcType=VARCHAR},
+            </if>
+            <if test="otherPersonal != null">
+                #{otherPersonal,jdbcType=VARCHAR},
+            </if>
+            <if test="extremelyPoorElderly != null">
+                #{extremelyPoorElderly,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                #{other,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum != null">
+                #{bedNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum1 != null">
+                #{bedNum1,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum2 != null">
+                #{bedNum2,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum3 != null">
+                #{bedNum3,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum4 != null">
+                #{bedNum4,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum5 != null">
+                #{bedNum5,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum6 != null">
+                #{bedNum6,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum7 != null">
+                #{bedNum7,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum8 != null">
+                #{bedNum8,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum9 != null">
+                #{bedNum9,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum10 != null">
+                #{bedNum10,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum11 != null">
+                #{bedNum11,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum12 != null">
+                #{bedNum12,jdbcType=VARCHAR},
+            </if>
+            <if test="applyer != null">
+                #{applyer,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="submitStatus != null">
+                #{submitStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="applyYear != null">
+                #{applyYear,jdbcType=VARCHAR},
+            </if>
+            <if test="totalElderAndOther != null">
+                #{totalElderAndOther,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionNum != null">
+                #{institutionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="landArea != null">
+                #{landArea,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNums != null">
+                #{bedNums,jdbcType=VARCHAR},
+            </if>
+            <if test="cityStatus != null">
+                #{cityStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="areaStaus != null">
+                #{areaStaus,jdbcType=VARCHAR},
+            </if>
+            <if test="elderlyId != null">
+                #{elderlyId,jdbcType=VARCHAR},
+            </if>
+            <if test="starClass != null">
+                #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply">
+        select r.* FROM t_service_org_ins_con_subsidies r
+        LEFT JOIN t_service_org s ON r.serviceOrgId = s.id
+        where
+        1=1
+        <if test="filter.areaName!=null and filter.areaName!=''">
+            and s.areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND r.serviceOrgId = #{filter.serviceOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="filter.type != null and filter.type != ''">
+            AND r.type = #{filter.type,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.object != null and filter.object != ''">
+            AND r.object = #{filter.object,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.serviceOrgName != null and filter.serviceOrgName != ''">
+            AND r.serviceOrgName = #{filter.serviceOrgName,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.openingHours != null and filter.openingHours != ''">
+            AND r.openingHours = #{filter.openingHours,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.legalRepresentative != null and filter.legalRepresentative != ''">
+            AND r.legalRepresentative = #{filter.legalRepresentative,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.address != null and filter.address != ''">
+            AND r.address = #{filter.address,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.mobile != null and filter.mobile != ''">
+            AND r.mobile = #{filter.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.total != null and filter.total != ''">
+            AND r.total = #{filter.total,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.management != null and filter.management != ''">
+            AND r.management = #{filter.management,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.servicePersonal != null and filter.servicePersonal != ''">
+            AND r.servicePersonal = #{filter.servicePersonal,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.otherPersonal != null and filter.otherPersonal != ''">
+            AND r.otherPersonal = #{filter.otherPersonal,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.extremelyPoorElderly != null and filter.extremelyPoorElderly != ''">
+            AND r.extremelyPoorElderly = #{filter.extremelyPoorElderly,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.other != null and filter.other != ''">
+            AND r.other = #{filter.other,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum != null and filter.bedNum != ''">
+            AND r.bedNum = #{filter.bedNum,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum1 != null and filter.bedNum1 != ''">
+            AND r.bedNum1 = #{filter.bedNum1,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum2 != null and filter.bedNum2 != ''">
+            AND r.bedNum2 = #{filter.bedNum2,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum3 != null and filter.bedNum3 != ''">
+            AND r.bedNum3 = #{filter.bedNum3,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum4 != null and filter.bedNum4 != ''">
+            AND r.bedNum4 = #{filter.bedNum4,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum5 != null and filter.bedNum5 != ''">
+            AND r.bedNum5 = #{filter.bedNum5,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum6 != null and filter.bedNum6 != ''">
+            AND r.bedNum6 = #{filter.bedNum6,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum7 != null and filter.bedNum7 != ''">
+            AND r.bedNum7 = #{filter.bedNum7,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum8 != null and filter.bedNum8 != ''">
+            AND r.bedNum8 = #{filter.bedNum8,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum9 != null and filter.bedNum9 != ''">
+            AND r.bedNum9 = #{filter.bedNum9,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum10 != null and filter.bedNum10 != ''">
+            AND r.bedNum10 = #{filter.bedNum10,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum11 != null and filter.bedNum11 != ''">
+            AND r.bedNum11 = #{filter.bedNum11,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNum12 != null and filter.bedNum12 != ''">
+            AND r.bedNum12 = #{filter.bedNum12,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.applyer != null and filter.applyer != ''">
+            AND r.applyer = #{filter.applyer,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.applyTime != null and filter.applyTime != ''">
+            AND r.applyTime = #{filter.applyTime,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.status != null and filter.status != ''">
+            AND r.status = #{filter.status,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.submitStatus != null and filter.submitStatus != ''">
+            AND r.submitStatus = #{filter.submitStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.applyYear != null and filter.applyYear != ''">
+            AND r.applyYear = #{filter.applyYear,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.totalElderAndOther != null and filter.totalElderAndOther != ''">
+            AND r.totalElderAndOther = #{filter.totalElderAndOther,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.institutionNum != null and filter.institutionNum != ''">
+            AND r.institutionNum = #{filter.institutionNum,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.orgCode != null and filter.orgCode != ''">
+            AND r.orgCode = #{filter.orgCode,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.landArea != null and filter.landArea != ''">
+            AND r.landArea = #{filter.landArea,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.bedNums != null and filter.bedNums != ''">
+            AND r.bedNums = #{filter.bedNums,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.areaStaus != null and filter.areaStaus != ''">
+            AND r.areaStaus = #{filter.areaStaus,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.cityStatus != null and filter.cityStatus != ''">
+            AND r.cityStatus = #{filter.cityStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.elderlyId != null and filter.elderlyId != ''">
+            AND r.elderlyId = #{filter.elderlyId,jdbcType=VARCHAR}
+        </if>
+        <if test="filter.starClass != null and filter.starClass !=''">
+            AND r.starClass = #{filter.starClass,jdbcType=INTEGER}
+        </if>
+        <if test="filter.money != null and filter.money !=''">
+            AND r.money = #{filter.money,jdbcType=INTEGER}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        t_service_org_ins_con_subsidies r
+        LEFT JOIN t_service_org s ON r.serviceOrgId = s.id
+        where
+        1=1
+        <if test="areaName!=null and areaName!=''">
+            and s.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="serviceOrgId != null and serviceOrgId != ''">
+            AND r.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="type != null and type != ''">
+            AND r.type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="object != null and object != ''">
+            AND r.object = #{object,jdbcType=VARCHAR}
+        </if>
+        <if test="serviceOrgName != null and serviceOrgName != ''">
+            AND r.serviceOrgName = #{serviceOrgName,jdbcType=VARCHAR}
+        </if>
+        <if test="openingHours != null and openingHours != ''">
+            AND r.openingHours = #{openingHours,jdbcType=VARCHAR}
+        </if>
+        <if test="legalRepresentative != null and legalRepresentative != ''">
+            AND r.legalRepresentative = #{legalRepresentative,jdbcType=VARCHAR}
+        </if>
+        <if test="address != null and address != ''">
+            AND r.address = #{address,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND r.mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="total != null and total != ''">
+            AND r.total = #{total,jdbcType=VARCHAR}
+        </if>
+        <if test="management != null and management != ''">
+            AND r.management = #{management,jdbcType=VARCHAR}
+        </if>
+        <if test="servicePersonal != null and servicePersonal != ''">
+            AND r.servicePersonal = #{servicePersonal,jdbcType=VARCHAR}
+        </if>
+        <if test="otherPersonal != null and otherPersonal != ''">
+            AND r.otherPersonal = #{otherPersonal,jdbcType=VARCHAR}
+        </if>
+        <if test="extremelyPoorElderly != null and extremelyPoorElderly != ''">
+            AND r.extremelyPoorElderly = #{extremelyPoorElderly,jdbcType=VARCHAR}
+        </if>
+        <if test="other != null and other != ''">
+            AND r.other = #{other,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum != null and bedNum != ''">
+            AND r.bedNum = #{bedNum,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum1 != null and bedNum1 != ''">
+            AND r.bedNum1 = #{bedNum1,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum2 != null and bedNum2 != ''">
+            AND r.bedNum2 = #{bedNum2,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum3 != null and bedNum3 != ''">
+            AND r.bedNum3 = #{bedNum3,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum4 != null and bedNum4 != ''">
+            AND r.bedNum4 = #{bedNum4,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum5 != null and bedNum5 != ''">
+            AND r.bedNum5 = #{bedNum5,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum6 != null and bedNum6 != ''">
+            AND r.bedNum6 = #{bedNum6,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum7 != null and bedNum7 != ''">
+            AND r.bedNum7 = #{bedNum7,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum8 != null and bedNum8 != ''">
+            AND r.bedNum8 = #{bedNum8,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum9 != null and bedNum9 != ''">
+            AND r.bedNum9 = #{bedNum9,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum10 != null and bedNum10 != ''">
+            AND r.bedNum10 = #{bedNum10,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum11 != null and bedNum11 != ''">
+            AND r.bedNum11 = #{bedNum11,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNum12 != null and bedNum12 != ''">
+            AND r.bedNum12 = #{bedNum12,jdbcType=VARCHAR}
+        </if>
+        <if test="applyer != null and applyer != ''">
+            AND r.applyer = #{applyer,jdbcType=VARCHAR}
+        </if>
+        <if test="applyTime != null and applyTime != ''">
+            AND r.applyTime = #{applyTime,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+            AND r.status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="submitStatus != null and submitStatus != ''">
+            AND r.submitStatus = #{submitStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="applyYear != null and applyYear != ''">
+            AND r.applyYear = #{applyYear,jdbcType=VARCHAR}
+        </if>
+        <if test="totalElderAndOther != null and totalElderAndOther != ''">
+            AND r.totalElderAndOther = #{totalElderAndOther,jdbcType=VARCHAR}
+        </if>
+        <if test="institutionNum != null and institutionNum != ''">
+            AND r.institutionNum = #{institutionNum,jdbcType=VARCHAR}
+        </if>
+        <if test="orgCode != null and orgCode != ''">
+            AND r.orgCode = #{orgCode,jdbcType=VARCHAR}
+        </if>
+        <if test="landArea != null and landArea != ''">
+            AND r.landArea = #{landArea,jdbcType=VARCHAR}
+        </if>
+        <if test="bedNums != null and bedNums != ''">
+            AND r.bedNums = #{bedNums,jdbcType=VARCHAR}
+        </if>
+        <if test="cityStatus != null and cityStatus != ''">
+            AND r.cityStatus = #{cityStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="areaStaus != null and areaStaus != ''">
+            AND r.areaStaus = #{areaStaus,jdbcType=VARCHAR}
+        </if>
+        <if test="elderlyId != null and elderlyId != ''">
+            AND r.elderlyId = #{elderlyId,jdbcType=VARCHAR}
+        </if>
+        <if test="starClass != null and starClass != ''">
+            AND r.starClass = #{starClass,jdbcType=INTEGER}
+        </if>
+        <if test="money != null and money != ''">
+            AND r.money = #{money,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply">
+        update t_service_org_ins_con_subsidies
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="object != null">
+                object = #{object,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgName != null">
+                serviceOrgName = #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="openingHours != null">
+                openingHours = #{openingHours,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                legalRepresentative = #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="total != null">
+                total = #{total,jdbcType=VARCHAR},
+            </if>
+            <if test="management != null">
+                management = #{management,jdbcType=VARCHAR},
+            </if>
+            <if test="servicePersonal != null">
+                servicePersonal = #{servicePersonal,jdbcType=VARCHAR},
+            </if>
+            <if test="otherPersonal != null">
+                otherPersonal = #{otherPersonal,jdbcType=VARCHAR},
+            </if>
+            <if test="extremelyPoorElderly != null">
+                extremelyPoorElderly = #{extremelyPoorElderly,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                other = #{other,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum != null">
+                bedNum = #{bedNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum1 != null">
+                bedNum1 = #{bedNum1,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum2 != null">
+                bedNum2 = #{bedNum2,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum3 != null">
+                bedNum3 = #{bedNum3,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum4 != null">
+                bedNum4 = #{bedNum4,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum5 != null">
+                bedNum5 = #{bedNum5,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum6 != null">
+                bedNum6 = #{bedNum6,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum7 != null">
+                bedNum7 = #{bedNum7,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum8 != null">
+                bedNum8 = #{bedNum8,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum9 != null">
+                bedNum9 = #{bedNum9,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum10 != null">
+                bedNum10 = #{bedNum10,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum11 != null">
+                bedNum11 = #{bedNum11,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNum12 != null">
+                bedNum12 = #{bedNum12,jdbcType=VARCHAR},
+            </if>
+            <if test="applyer != null">
+                applyer = #{applyer,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                applyTime = #{applyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="submitStatus != null">
+                submitStatus = #{submitStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="applyYear != null">
+                applyYear = #{applyYear,jdbcType=VARCHAR},
+            </if>
+            <if test="totalElderAndOther != null">
+                totalElderAndOther = #{totalElderAndOther,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionNum != null">
+                institutionNum = #{institutionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                orgCode = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="landArea != null">
+                landArea = #{landArea,jdbcType=VARCHAR},
+            </if>
+            <if test="bedNums != null">
+                bedNums = #{bedNums,jdbcType=VARCHAR},
+            </if>
+            <if test="cityStatus != null">
+                cityStatus = #{cityStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="areaStaus != null">
+                areaStaus = #{areaStaus,jdbcType=VARCHAR},
+            </if>
+            <if test="elderlyId != null">
+                elderlyId = #{elderlyId,jdbcType=VARCHAR},
+            </if>
+            <if test="starClass != null">
+                starClass = #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply" parameterType="java.lang.Integer">
+        select *
+        from t_service_org_ins_con_subsidies
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_ins_con_subsidies
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_service_org_ins_con_subsidies
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectByServiceOrgId" resultType="com.fedtech.pension.org.entity.ServiceOrgConstructionSubsidyApply" parameterType="java.lang.Integer">
+        select *
+        from t_service_org_ins_con_subsidies
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

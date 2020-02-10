@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.CertificateMapper">
+    <resultMap id="certificate" type="com.fedtech.pension.org.entity.Certificate">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="certificateId" property="certificateId" jdbcType="INTEGER"/>
+        <result column="certificate" property="certificate" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, certificateId, certificate
+  </sql>
+
+    <select id="selectByCertificateId" resultMap="certificate" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_certificate
+        where certificateId = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_certificate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.Certificate">
+    insert into t_certificate (certificateId, certificate
+      )
+    values (#{certificateId,jdbcType=INTEGER}, #{certificate,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.fedtech.pension.org.entity.Certificate">
+        insert into t_certificate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="certificateId != null">
+                certificateId,
+            </if>
+            <if test="certificate != null">
+                certificate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="certificateId != null">
+                #{certificateId,jdbcType=INTEGER},
+            </if>
+            <if test="certificate != null">
+                #{certificate,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.Certificate">
+        update t_certificate
+        <set>
+            <if test="certificateId != null">
+                certificateId = #{certificateId,jdbcType=INTEGER},
+            </if>
+            <if test="certificate != null">
+                certificate = #{certificate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where certificateId = #{certificateId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fedtech.pension.org.entity.Certificate">
+    update t_certificate
+    set certificateId = #{certificateId,jdbcType=INTEGER},
+      certificate = #{certificate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

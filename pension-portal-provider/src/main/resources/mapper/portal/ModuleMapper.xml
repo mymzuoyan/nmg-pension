@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.ModuleMapper">
+    <resultMap id="module" type="com.fedtech.pension.portal.entity.Module">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="module" property="module" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, module
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="module" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_module
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllRecode" resultMap="module" parameterType="com.fedtech.pension.portal.entity.Module">
+        select
+        <include refid="Base_Column_List"/>
+        from t_module
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_module
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from t_module
+    </select>
+
+    <select id="selectPageList" resultMap="module">
+        SELECT
+        id, module
+        FROM t_module
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_module
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.Module">
+        insert into t_module (module
+        )
+        values (#{module,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.Module">
+        update t_module
+        <set>
+            <if test="module != null">
+                `module` = #{module,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

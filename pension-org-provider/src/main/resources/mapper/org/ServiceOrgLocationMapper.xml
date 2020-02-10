@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgLocationMapper">
+    <sql id="Base_Column_List">
+        id, serviceOrgId, lng, lat
+    </sql>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrgLocation"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_serviceorg_location
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByServiceOrgId" resultType="com.fedtech.pension.org.entity.ServiceOrgLocation"
+            parameterType="java.lang.Integer">
+        select
+         a.id,a.serviceOrgId,c.institutionName serviceOrgName,c.institutionTypeDictId institutionTypeDictId,c.gradeDictId,c.areaName,c.areaId,c.address
+        address,c.applyName linkMan,c.serviceProject serviceProject, c.serviceProjectName serviceProjectName,c.mobile phone,
+          bedCount, bedNurseCount, bedCareCount,
+          bedMoney, bedNurseMoney, bedCareMoney,
+         a.lng,a.lat,(select count(1) from t_user_fuwu where serviceOrgId=c.id) serviceUserCount
+        from t_serviceorg_location a ,t_service_org c
+        where a.serviceOrgId = #{serviceOrgId,jdbcType=INTEGER} and a.serviceOrgId = c.id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_serviceorg_location
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into t_serviceorg_location
+    (serviceOrgId, lng, lat)
+    VALUES (#{serviceOrgId},#{lng},#{lat})
+    </insert>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1)
+         from t_serviceorg_location
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_serviceorg_location a ,t_service_org c
+        where a.serviceOrgId = c.id
+        <if test="areaId!=null">
+            AND c.areaId = #{areaId}
+        </if>
+        <if test="serviceOrgId!=null">
+            AND a.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="serviceOrgName!=null and serviceOrgName!=''">
+            AND c.institutionName = #{serviceOrgName}
+        </if>
+        <if test="institutionTypeDictId!=null and institutionTypeDictId!=''">
+            AND c.institutionTypeDictId in( #{institutionTypeDictId})
+        </if>
+        <if test="serviceOrgName!=null">
+            AND c.institutionName LIKE CONCAT(CONCAT('%', #{serviceOrgName}), '%')
+        </if>
+        <if test="areaName!=null">
+            AND c.areaName LIKE CONCAT(CONCAT('%', #{areaName}), '%')
+        </if>
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        select
+        a.id,a.serviceOrgId,c.institutionName serviceOrgName,c.institutionTypeDictId
+        institutionTypeDictId,c.gradeDictId,c.areaName,c.areaId,c.address,c.feedbackRate,
+        address,c.applyName linkMan,c.serviceProject serviceProject,c.serviceProjectName serviceProjectName,c.mobile
+        phone,bedCount, bedNurseCount, bedCareCount,
+        bedEmptyCount, bedNurseEmptyCount, bedCareEmptyCount,
+        bedMoney, bedNurseMoney, bedCareMoney,
+        a.lng,a.lat,(select count(1) from t_user_fuwu where serviceOrgId=c.id) serviceUserCount
+        from t_serviceorg_location a ,t_service_org c
+        where a.serviceOrgId = c.id
+        <if test="filter.areaId!=null">
+            AND c.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+            AND c.institutionTypeDictId in( #{filter.institutionTypeDictId})
+        </if>
+        <if test="filter.areaName!=null">
+            AND c.areaName LIKE CONCAT(CONCAT('%', #{filter.areaName}), '%')
+        </if>
+        <if test="filter.serviceOrgName!=null">
+            AND c.institutionName LIKE CONCAT(CONCAT('%', #{filter.serviceOrgName}), '%')
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        update t_serviceorg_location
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="lat != null">
+                lat = #{lat},
+            </if>
+            <if test="lng != null">
+                lng = #{lng},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByServiceOrgId" parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        update t_serviceorg_location
+        <set>
+            <if test="lat != null">
+                lat = #{lat},
+            </if>
+            <if test="lng != null">
+                lng = #{lng},
+            </if>
+        </set>
+        where serviceOrgId = #{serviceOrgId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation"
+            resultType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        select
+        a.id,c.id as serviceOrgId,c.institutionName serviceOrgName,c.type type,c.institutionTypeDictId institutionTypeDictId,c.gradeDictId,c.areaName,c.areaId,c.address
+        address,c.applyName linkMan,c.serviceProject serviceProject,c.serviceProjectName serviceProjectName,c.mobile phone,
+        bedCount, bedNurseCount, bedCareCount,
+        bedEmptyCount, bedNurseEmptyCount, bedCareEmptyCount,
+      bedMoney, bedNurseMoney, bedCareMoney,fuwuRadius as serviceRadius,
+      a.lng,a.lat,(select count(1) from t_user_fuwu where serviceOrgId=c.id) serviceUserCount
+     from t_serviceorg_location a RIGHT JOIN t_service_org c on a.serviceOrgId = c.id
+    </select>
+
+    <select id="selectAllServiceOrg" resultType="com.fedtech.pension.org.entity.ServiceOrgLocation"
+            parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        select
+        a.id,a.serviceOrgId,c.institutionName serviceOrgName,c.institutionTypeDictId
+        institutionTypeDictId,c.gradeDictId,c.areaName,c.areaId,c.address
+        address,c.applyName linkMan,c.serviceProject serviceProject,c.serviceProjectName serviceProjectName,c.mobile
+        phone,
+        bedCount, bedNurseCount, bedCareCount,
+        bedEmptyCount, bedNurseEmptyCount, bedCareEmptyCount,
+        bedMoney, bedNurseMoney, bedCareMoney,
+        a.lng,a.lat,(select count(1) from t_user_fuwu where serviceOrgId=c.id) serviceUserCount
+        from t_serviceorg_location a ,t_service_org c
+        where a.serviceOrgId = c.id
+        <if test="filter.areaId!=null">
+            AND c.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND c.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.serviceProjectName!=null and filter.serviceProjectName!=''">
+            AND c.serviceProjectName like CONCAT('%',#{filter.serviceProjectName},'%' )
+        </if>
+        <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+            AND c.institutionTypeDictId in( #{filter.institutionTypeDictId})
+        </if>
+        <if test="filter.areaName!=null">
+            AND c.areaName LIKE CONCAT(CONCAT('%', #{filter.areaName}), '%')
+        </if>
+    </select>
+
+    <select id="selectAllAppServiceOrg" resultType="com.fedtech.pension.org.entity.ServiceOrgLocation"
+            parameterType="com.fedtech.pension.org.entity.ServiceOrgLocation">
+        select
+        a.id,a.serviceOrgId,c.institutionName serviceOrgName,c.institutionTypeDictId
+        institutionTypeDictId,c.gradeDictId,c.areaName,c.areaId,c.address
+        address,c.applyName linkMan,c.serviceProject serviceProject,c.serviceProjectName serviceProjectName,c.mobile
+        phone,
+        bedCount, bedNurseCount, bedCareCount,
+        bedEmptyCount, bedNurseEmptyCount, bedCareEmptyCount,
+        bedMoney, bedNurseMoney, bedCareMoney,
+        a.lng,a.lat,(select count(1) from t_user_fuwu where serviceOrgId=c.id) serviceUserCount
+        from t_serviceorg_location a ,t_service_org c
+        where a.serviceOrgId = c.id and c.type=3
+        <if test="filter.areaId!=null">
+            AND c.areaId = #{filter.areaId}
+        </if>
+        <if test="filter.serviceOrgId!=null">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            AND c.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.serviceProjectName!=null and filter.serviceProjectName!=''">
+            AND c.serviceProjectName like CONCAT('%',#{filter.serviceProjectName},'%' )
+        </if>
+        <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+            AND c.institutionTypeDictId in( #{filter.institutionTypeDictId})
+        </if>
+        <if test="filter.areaName!=null">
+            AND c.areaName LIKE CONCAT(CONCAT('%', #{filter.areaName}), '%')
+        </if>
+
+        <if test="filter.lng!=null and filter.lng!='' and filter.lat!=null and filter.lat!=''">
+            AND    ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{filter.lat}*PI()/180-lat*PI()/180)/2),2)
+            +COS(#{filter.lat}*PI()/180)*COS(lat*PI()/180)*POW(SIN((#{filter.lng}*PI()/180-lng*PI()/180)/2),2)))*1000)&lt;= #{filter.serviceRadius}
+        </if>
+    </select>
+</mapper>

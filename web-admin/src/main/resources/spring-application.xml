@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="web-admin"/>
+
+    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" client="zkclient"/>
+    <!-- 使用注解方式暴露接口 -->
+    <dubbo:reference id="areaService" interface="com.fedtech.pension.sys.service.AreaService"
+                     version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="userService" interface="com.fedtech.pension.sys.service.UserService"
+                     version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="sysRoleService" interface="com.fedtech.pension.sys.service.SysRoleService"
+                     version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="sysPermissionService" interface="com.fedtech.pension.sys.service.SysPermissionService"
+                     version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="serviceOrgNurseElderlyService"
+                     interface="com.fedtech.pension.nurse.service.ServiceOrgNurseElderlyService"
+                     version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="nurseAlarmService" interface="com.fedtech.pension.nurse.service.NurseAlarmService"
+                     version="1.0.0"
+                     check="false"/>
+
+    <dubbo:reference id="abandonedService" interface="com.fedtech.pension.ipccp.service.AbandonedService"
+                     version="1.0.0"
+                     check="false"/>
+
+
+    <dubbo:reference id="customerService" interface="com.fedtech.pension.call.service.CustomerService"
+                     version="1.0.0"
+                     check="false"/>
+
+
+    <dubbo:reference id="callBackService" interface="com.fedtech.pension.call.service.CallBackService"
+                     version="1.0.0"
+                     check="false"/>
+
+
+    <dubbo:reference id="ipccpcdrService" interface="com.fedtech.pension.ipccp.service.IpccpcdrService"
+                     version="1.0.0"
+                     check="false"/>
+
+
+    <import resource="redis-context.xml"/>
+    <import resource="spring-task.xml"/>
+    <bean id="DwrService" class="com.fedtech.pension.dwr.DwrService"/>
+
+    <!--读取properties配置文件-->
+    <context:property-placeholder location="classpath:**.properties" file-encoding="UTF-8"/>
+    <context:component-scan base-package="com.fedtech.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <bean id="appProperty"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:application.properties</value>
+            </array>
+        </property>
+    </bean>
+
+</beans>
+	

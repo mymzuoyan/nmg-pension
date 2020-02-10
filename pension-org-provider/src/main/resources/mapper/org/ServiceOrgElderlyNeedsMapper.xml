@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgElderlyNeedsMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgElderlyNeeds">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="elderName" jdbcType="VARCHAR" property="elderName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="demandContent" jdbcType="VARCHAR" property="demandContent" />
+    <result column="needsTime" jdbcType="VARCHAR" property="needsTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, elderName, phone, demandContent, needsTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_needs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_needs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeeds" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_elderly_needs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="elderName != null">
+        elderName,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="demandContent != null">
+        demandContent,
+      </if>
+      <if test="needsTime != null">
+        needsTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="elderName != null">
+        #{elderName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="demandContent != null">
+        #{demandContent,jdbcType=VARCHAR},
+      </if>
+      <if test="needsTime != null">
+        #{needsTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeeds">
+    update t_elderly_needs
+    <set>
+      <if test="elderName != null">
+        elderName=#{elderName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone=#{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="demandContent != null">
+        demandContent=#{demandContent,jdbcType=VARCHAR},
+      </if>
+      <if test="needsTime != null">
+        needsTime=#{needsTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_elderly_needs
+    <where>
+
+
+      <if test="elderName != null and elderName !=''">
+        AND elderName like CONCAT('%',#{elderName},'%' )
+      </if>
+      <if test="phone != null and phone !=''">
+        AND phone like CONCAT('%',#{phone},'%' )
+      </if>
+      <if test="demandContent != null and demandContent !=''">
+        AND demandContent like CONCAT('%',#{demandContent},'%' )
+      </if>
+      <if test="needsTime != null and needsTime !=''">
+        AND needsTime like CONCAT('%',#{needsTime},'%' )
+      </if>
+
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_elderly_needs
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeeds">
+    select
+      *
+    from t_elderly_needs
+    <where>
+
+    <if test="filter.elderName != null and filter.elderName !=''">
+      AND elderName like CONCAT('%',#{filter.elderName},'%' )
+    </if>
+      <if test="filter.phone != null and filter.phone !=''">
+        AND phone like CONCAT('%',#{filter.phone},'%' )
+      </if>
+      <if test="filter.demandContent != null and filter.demandContent !=''">
+        AND demandContent like CONCAT('%',#{filter.demandContent},'%' )
+      </if>
+      <if test="filter.needsTime != null and filter.needsTime !=''">
+        AND needsTime like CONCAT('%',#{filter.needsTime},'%' )
+      </if>
+
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_elderly_needs
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_elderly_needs
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

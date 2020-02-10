@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgElderlyNeedsDistributionMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgElderlyNeedsDistribution">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="releaseTime" jdbcType="VARCHAR" property="releaseTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="serviceOrgName" jdbcType="VARCHAR" property="serviceOrgName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, title, context, publisher, releaseTime, status, serviceOrgName
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_needs_distribution
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_needs_distribution
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeedsDistribution" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_elderly_needs_distribution
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="releaseTime != null">
+        releaseTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="serviceOrgName != null">
+          serviceOrgName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null">
+        #{releaseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrgName != null">
+            #{serviceOrgName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeedsDistribution">
+    update t_elderly_needs_distribution
+    <set>
+      <if test="title != null">
+        title=#{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        context=#{context,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        publisher=#{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null">
+        releaseTime=#{releaseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status=#{status,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrgName != null">
+          serviceOrgName=#{serviceOrgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_elderly_needs_distribution
+    <where>
+      <if test="title != null and title !=''">
+        AND title like CONCAT('%',#{title},'%' )
+      </if>
+      <if test="context != null and context !=''">
+        AND context like CONCAT('%',#{context},'%' )
+      </if>
+      <if test="publisher != null and publisher !=''">
+        AND publisher like CONCAT('%',#{publisher},'%' )
+      </if>
+      <if test="releaseTime != null and releaseTime !=''">
+        AND releaseTime like CONCAT('%',#{releaseTime},'%' )
+      </if>
+      <if test="status != null and status !=''">
+        AND status like CONCAT('%',#{status},'%' )
+      </if>
+      <if test="serviceOrgName != null and serviceOrgName !=''">
+        AND serviceOrgName like CONCAT('%',#{serviceOrgName},'%' )
+      </if>
+    </where>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_elderly_needs_distribution
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgElderlyNeedsDistribution">
+    select
+      *
+    from t_elderly_needs_distribution
+    <where>
+      <if test="filter.title != null and filter.title !=''">
+        AND title like CONCAT('%',#{filter.title},'%' )
+      </if>
+      <if test="filter.context != null and filter.context !=''">
+        AND context like CONCAT('%',#{filter.context},'%' )
+      </if>
+      <if test="filter.publisher != null and filter.publisher !=''">
+        AND publisher like CONCAT('%',#{filter.publisher},'%' )
+      </if>
+      <if test="filter.releaseTime != null and filter.releaseTime !=''">
+        AND releaseTime like CONCAT('%',#{filter.releaseTime},'%' )
+      </if>
+      <if test="filter.status != null and filter.status !=''">
+        AND status like CONCAT('%',#{filter.status},'%' )
+      </if>
+      <if test="filter.serviceOrgName != null and filter.serviceOrgName !=''">
+        AND serviceOrgName like CONCAT('%',#{filter.serviceOrgName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_elderly_needs_distribution
+  </select>
+
+  <delete id="deleteSomeMsg" parameterType="java.util.List">
+    delete from t_elderly_needs_distribution
+    where id IN
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

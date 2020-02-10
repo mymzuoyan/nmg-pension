@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgWareHouseMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        service_org_id as "serviceOrg.id",
+        name as "name",
+        number as "number",
+        type as "type",
+        creator_id as "creator.uid",
+        create_time as "createTime"
+    </sql>
+    <select id="selectByPrimaryKey" resultType="ServiceOrgWareHouse" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_warehouse
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_service_org_warehouse
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgWareHouse">
+        insert into t_service_org_warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                service_org_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                creator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                #{serviceOrg.id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="number != null">
+                #{number},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="creator != null and creator.uid!=null">
+                #{creator.uid},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgWareHouse">
+        update t_service_org_warehouse
+        <set>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                service_org_id=#{serviceOrg.id},
+            </if>
+            <if test="name != null">
+                name= #{name},
+            </if>
+            <if test="number != null">
+                number= #{number},
+            </if>
+            <if test="type != null">
+                type= #{type},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="count" parameterType="com.fedtech.pension.org.entity.ServiceOrgWareHouse"
+            resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_service_org_warehouse a
+        LEFT JOIN t_service_org b on(a.service_org_id=b.id)
+        LEFT JOIN t_user c on(a.creator_id=c.uid)
+        <where>
+
+            <if test="creator!=null and creator.nickName!=null">
+                AND b.nick_name like CONCAT('%',#{uname},'%' )
+            </if>
+            <if test="name!=null and name!=''">
+                AND a.name like CONCAT('%',#{name},'%' )
+            </if>
+            <if test="type!=null">
+                AND a.type = #{type}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_service_org_warehouse
+    </select>
+
+    <select id="selectPageList" resultType="ServiceOrgWareHouse">
+        SELECT
+        a.id,
+        a.service_org_id as "serviceOrg.id",
+        b.institutionName as "serviceOrg.institutionName",
+        a.name as "name",
+        a.number as "number",
+        a.type as "type",
+        a.creator_id as "creator.uid",
+        c.nick_name as "creator.nickName",
+        a.create_time as "createTime"
+        FROM t_service_org_warehouse a
+        LEFT JOIN t_service_org b on(a.service_org_id=b.id)
+        LEFT JOIN t_user c on(a.creator_id=c.uid)
+        <where>
+            <if test="filter.creator!=null and filter.creator.nickName!=null">
+                AND c.nick_name like CONCAT('%',#{filter.creator.nickName},'%' )
+            </if>
+            <if test="filter.name!=null and filter.name!=''">
+                AND a.name like CONCAT('%',#{filter.name},'%' )
+            </if>
+            <if test="filter.type!=null">
+                AND a.type = #{filter.type}
+            </if>
+
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+</mapper>

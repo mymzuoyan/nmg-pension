@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.AbilityMapper">
+    <resultMap id="serviceAbility" type="com.fedtech.pension.power.entity.Ability">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="cfNormal" property="cfNormal" jdbcType="INTEGER"/>
+        <result column="cfLightloss" property="cfLightloss" jdbcType="INTEGER"/>
+        <result column="cfMiddleloss" property="cfMiddleloss" jdbcType="INTEGER"/>
+        <result column="cfCompletelyloss" property="cfCompletelyloss" jdbcType="INTEGER"/>
+        <result column="cyNormal" property="cyNormal" jdbcType="INTEGER"/>
+        <result column="cyLightloss" property="cyLightloss" jdbcType="INTEGER"/>
+        <result column="cyMiddleloss" property="cyMiddleloss" jdbcType="INTEGER"/>
+        <result column="cyCompletelyloss" property="cyCompletelyloss" jdbcType="INTEGER"/>
+        <result column="rcNormal" property="rcNormal" jdbcType="INTEGER"/>
+        <result column="rcLightloss" property="rcLightloss" jdbcType="INTEGER"/>
+        <result column="rcMiddleloss" property="rcMiddleloss" jdbcType="INTEGER"/>
+        <result column="rcCompletelyloss" property="rcCompletelyloss" jdbcType="INTEGER"/>
+        <result column="snzdNormal" property="snzdNormal" jdbcType="INTEGER"/>
+        <result column="snzdLightloss" property="snzdLightloss" jdbcType="INTEGER"/>
+        <result column="snzdMiddleloss" property="snzdMiddleloss" jdbcType="INTEGER"/>
+        <result column="snzdCompletelyloss" property="snzdCompletelyloss" jdbcType="INTEGER"/>
+        <result column="xzNormal" property="xzNormal" jdbcType="INTEGER"/>
+        <result column="xzLightloss" property="xzLightloss" jdbcType="INTEGER"/>
+        <result column="xzMiddleloss" property="xzMiddleloss" jdbcType="INTEGER"/>
+        <result column="xzCompletelyloss" property="xzCompletelyloss" jdbcType="INTEGER"/>
+        <result column="dxbNormal" property="dxbNormal" jdbcType="INTEGER"/>
+        <result column="dxbLightloss" property="dxbLightloss" jdbcType="INTEGER"/>
+        <result column="dxbMiddleloss" property="dxbMiddleloss" jdbcType="INTEGER"/>
+        <result column="dxbCompletelyloss" property="dxbCompletelyloss" jdbcType="INTEGER"/>
+        <result column="jqjyNormal" property="jqjyNormal" jdbcType="INTEGER"/>
+        <result column="jqjyLightloss" property="jqjyLightloss" jdbcType="INTEGER"/>
+        <result column="jqjyMiddleloss" property="jqjyMiddleloss" jdbcType="INTEGER"/>
+        <result column="jqjyCompletelyloss" property="jqjyCompletelyloss" jdbcType="INTEGER"/>
+        <result column="cxjyNormal" property="cxjyNormal" jdbcType="INTEGER"/>
+        <result column="cxjyLightloss" property="cxjyLightloss" jdbcType="INTEGER"/>
+        <result column="cxjyMiddleloss" property="cxjyMiddleloss" jdbcType="INTEGER"/>
+        <result column="cxjyCompletelyloss" property="cxjyCompletelyloss" jdbcType="INTEGER"/>
+        <result column="dxjyNormal" property="dxjyNormal" jdbcType="INTEGER"/>
+        <result column="dxjyLightloss" property="dxjyLightloss" jdbcType="INTEGER"/>
+        <result column="dxjyMiddleloss" property="dxjyMiddleloss" jdbcType="INTEGER"/>
+        <result column="dxjyCompletelyloss" property="dxjyCompletelyloss" jdbcType="INTEGER"/>
+        <result column="pdnlNormal" property="pdnlNormal" jdbcType="INTEGER"/>
+        <result column="pdnlLightloss" property="pdnlLightloss" jdbcType="INTEGER"/>
+        <result column="pdnlMiddleloss" property="pdnlMiddleloss" jdbcType="INTEGER"/>
+        <result column="pdnlCompletelyloss" property="pdnlCompletelyloss" jdbcType="INTEGER"/>
+        <result column="qxNormal" property="qxNormal" jdbcType="INTEGER"/>
+        <result column="qxLightloss" property="qxLightloss" jdbcType="INTEGER"/>
+        <result column="qxMiddleloss" property="qxMiddleloss" jdbcType="INTEGER"/>
+        <result column="qxCompletelyloss" property="qxCompletelyloss" jdbcType="INTEGER"/>
+        <result column="xwNormal" property="xwNormal" jdbcType="INTEGER"/>
+        <result column="xwLightloss" property="xwLightloss" jdbcType="INTEGER"/>
+        <result column="xwMiddleloss" property="xwMiddleloss" jdbcType="INTEGER"/>
+        <result column="xwCompletelyloss" property="xwCompletelyloss" jdbcType="INTEGER"/>
+        <result column="gtNormal" property="gtNormal" jdbcType="INTEGER"/>
+        <result column="gtLightloss" property="gtLightloss" jdbcType="INTEGER"/>
+        <result column="gtMiddleloss" property="gtMiddleloss" jdbcType="INTEGER"/>
+        <result column="gtCompletelyloss" property="gtCompletelyloss" jdbcType="INTEGER"/>
+        <result column="sjNormal" property="sjNormal" jdbcType="INTEGER"/>
+        <result column="sjLightloss" property="sjLightloss" jdbcType="INTEGER"/>
+        <result column="sjMiddleloss" property="sjMiddleloss" jdbcType="INTEGER"/>
+        <result column="sjCompletelyloss" property="sjCompletelyloss" jdbcType="INTEGER"/>
+        <result column="tjNormal" property="tjNormal" jdbcType="INTEGER"/>
+        <result column="tjLightloss" property="tjLightloss" jdbcType="INTEGER"/>
+        <result column="tjMiddleloss" property="tjMiddleloss" jdbcType="INTEGER"/>
+        <result column="tjCompletelyloss" property="tjCompletelyloss" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, cfNormal, cfLightloss, cfMiddleloss, cfCompletelyloss, cyNormal, cyLightloss,cyMiddleloss, cyCompletelyloss,
+    rcNormal, rcLightloss,rcMiddleloss, rcCompletelyloss, snzdNormal,snzdLightloss, snzdMiddleloss,
+    snzdCompletelyloss, xzNormal, xzLightloss, xzMiddleloss, xzCompletelyloss,
+    dxbNormal,dxbLightloss, dxbMiddleloss,dxbCompletelyloss, jqjyNormal,jqjyLightloss, jqjyMiddleloss, jqjyCompletelyloss,
+    cxjyNormal,cxjyLightloss, cxjyMiddleloss, cxjyCompletelyloss, dxjyNormal, dxjyLightloss, dxjyMiddleloss,
+    dxjyCompletelyloss,pdnlNormal,pdnlLightloss, pdnlMiddleloss, pdnlCompletelyloss,qxNormal,
+    qxLightloss,qxMiddleloss,qxCompletelyloss,xwNormal, xwLightloss, xwMiddleloss, xwCompletelyloss,
+    gtNormal, gtLightloss, gtMiddleloss,gtCompletelyloss, sjNormal, sjLightloss, sjMiddleloss,
+    sjCompletelyloss, tjNormal, tjLightloss,tjMiddleloss,tjCompletelyloss
+  </sql>
+    <select id="findAbility" resultMap="serviceAbility" >
+        select
+        <include refid="Base_Column_List"/>
+        from t_ability  order by id desc limit 0,1
+    </select>
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Ability" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO t_ability (cfNormal, cfLightloss, cfMiddleloss, cfCompletelyloss, cyNormal, cyLightloss,cyMiddleloss, cyCompletelyloss,
+    rcNormal, rcLightloss,rcMiddleloss, rcCompletelyloss, snzdNormal,snzdLightloss, snzdMiddleloss,
+    snzdCompletelyloss, xzNormal, xzLightloss, xzMiddleloss, xzCompletelyloss,
+    dxbNormal,dxbLightloss, dxbMiddleloss,dxbCompletelyloss, jqjyNormal,jqjyLightloss, jqjyMiddleloss, jqjyCompletelyloss,
+    cxjyNormal,cxjyLightloss, cxjyMiddleloss, cxjyCompletelyloss, dxjyNormal, dxjyLightloss, dxjyMiddleloss,
+    dxjyCompletelyloss,pdnlNormal,pdnlLightloss, pdnlMiddleloss, pdnlCompletelyloss,qxNormal,
+    qxLightloss,qxMiddleloss,qxCompletelyloss,xwNormal, xwLightloss, xwMiddleloss, xwCompletelyloss,
+    gtNormal, gtLightloss, gtMiddleloss,gtCompletelyloss, sjNormal, sjLightloss, sjMiddleloss,
+    sjCompletelyloss, tjNormal, tjLightloss,tjMiddleloss,tjCompletelyloss)
+    VALUES (#{cfNormal}, #{cfLightloss},#{cfMiddleloss}, #{cfCompletelyloss}, #{cyNormal}, #{cyLightloss},#{cyMiddleloss}, #{cyCompletelyloss},
+    #{rcNormal}, #{rcLightloss},#{rcMiddleloss}, #{rcCompletelyloss}, #{snzdNormal},#{snzdLightloss}, #{snzdMiddleloss},
+    #{snzdCompletelyloss}, #{xzNormal}, #{xzLightloss}, #{xzMiddleloss}, #{xzCompletelyloss},
+    #{dxbNormal},#{dxbLightloss}, #{dxbMiddleloss},#{dxbCompletelyloss}, #{jqjyNormal},#{jqjyLightloss}, #{jqjyMiddleloss}, #{jqjyCompletelyloss},
+    #{cxjyNormal},#{cxjyLightloss}, #{cxjyMiddleloss}, #{cxjyCompletelyloss}, #{dxjyNormal}, #{dxjyLightloss}, #{dxjyMiddleloss},
+    #{dxjyCompletelyloss},#{pdnlNormal},#{pdnlLightloss}, #{pdnlMiddleloss}, #{pdnlCompletelyloss},#{qxNormal},
+    #{qxLightloss},#{qxMiddleloss},#{qxCompletelyloss},#{xwNormal}, #{xwLightloss}, #{xwMiddleloss}, #{xwCompletelyloss},
+    #{gtNormal}, #{gtLightloss}, #{gtMiddleloss},#{gtCompletelyloss}, #{sjNormal}, #{sjLightloss}, #{sjMiddleloss},
+    #{sjCompletelyloss}, #{tjNormal}, #{tjLightloss},#{tjMiddleloss},#{tjCompletelyloss})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Ability">
+        update t_ability
+        <set>
+            <if test="cfNormal != null">
+                cfNormal = #{cfNormal,jdbcType=INTEGER},
+            </if>
+            <if test="cfLightloss != null">
+                cfLightloss = #{cfLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="cfMiddleloss != null">
+                cfMiddleloss = #{cfMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="cfCompletelyloss != null">
+                cfCompletelyloss = #{cfCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="cyNormal != null">
+                cyNormal = #{cyNormal,jdbcType=INTEGER},
+            </if>
+            <if test="cyLightloss != null">
+                cyLightloss = #{cyLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="cyMiddleloss != null">
+                cyMiddleloss = #{cyMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="cyCompletelyloss != null">
+                cyCompletelyloss = #{cyCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="rcNormal!=null">
+                rcNormal=#{rcNormal,jdbcType=INTEGER},
+            </if>
+            <if test="rcLightloss!=null">
+                rcLightloss=#{rcLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="rcMiddleloss!=null">
+                rcMiddleloss=#{rcMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="rcCompletelyloss!=null">
+                rcCompletelyloss=#{rcCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="snzdNormal!=null">
+                snzdNormal=#{snzdNormal,jdbcType=INTEGER},
+            </if>
+            <if test="snzdLightloss!=null">
+                snzdLightloss=#{snzdLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="snzdMiddleloss!=null">
+                snzdMiddleloss=#{snzdMiddleloss,jdbcType=INTEGER},
+            </if><if test="snzdCompletelyloss!=null">
+            snzdCompletelyloss=#{snzdCompletelyloss,jdbcType=INTEGER},
+        </if>
+            <if test="xzNormal!=null">
+                xzNormal=#{xzNormal,jdbcType=INTEGER},
+            </if>
+            <if test="xzLightloss!=null">
+                xzLightloss=#{xzLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="xzMiddleloss!=null">
+                xzMiddleloss=#{xzMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="xzCompletelyloss!=null">
+                xzCompletelyloss=#{xzCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxbNormal!=null">
+                dxbNormal=#{dxbNormal,jdbcType=INTEGER},
+            </if>
+            <if test="dxbLightloss!=null">
+                dxbLightloss=#{dxbLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxbMiddleloss!=null">
+                dxbMiddleloss=#{dxbMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxbCompletelyloss!=null">
+                dxbCompletelyloss=#{dxbCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="jqjyNormal!=null">
+                jqjyNormal=#{jqjyNormal,jdbcType=INTEGER},
+            </if>
+            <if test="jqjyLightloss!=null">
+                jqjyLightloss=#{jqjyLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="jqjyMiddleloss!=null">
+                jqjyMiddleloss=#{jqjyMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="jqjyCompletelyloss!=null">
+                jqjyCompletelyloss=#{jqjyCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="cxjyNormal!=null">
+                cxjyNormal=#{cxjyNormal,jdbcType=INTEGER},
+            </if>
+            <if test="cxjyLightloss!=null">
+                cxjyLightloss=#{cxjyLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="cxjyMiddleloss!=null">
+                cxjyMiddleloss=#{cxjyMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="cxjyCompletelyloss!=null">
+                cxjyCompletelyloss=#{cxjyCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxjyNormal!=null">
+                dxjyNormal=#{dxjyNormal,jdbcType=INTEGER},
+            </if>
+            <if test="dxjyLightloss!=null">
+                dxjyLightloss=#{dxjyLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxjyMiddleloss!=null">
+                dxjyMiddleloss=#{dxjyMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="dxjyCompletelyloss!=null">
+                dxjyCompletelyloss=#{dxjyCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="pdnlNormal!=null">
+                pdnlNormal=#{pdnlNormal,jdbcType=INTEGER},
+            </if>
+            <if test="pdnlLightloss!=null">
+                pdnlLightloss=#{pdnlLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="pdnlMiddleloss!=null">
+                pdnlMiddleloss=#{pdnlMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="pdnlCompletelyloss!=null">
+                pdnlCompletelyloss=#{pdnlCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="qxNormal!=null">
+                qxNormal=#{qxNormal,jdbcType=INTEGER},
+            </if>
+            <if test="qxLightloss!=null">
+                qxLightloss=#{qxLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="qxMiddleloss!=null">
+                qxMiddleloss=#{qxMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="qxCompletelyloss!=null">
+                qxCompletelyloss=#{qxCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="xwNormal!=null">
+                xwNormal=#{xwNormal,jdbcType=INTEGER},
+            </if>
+            <if test="xwLightloss!=null">
+                xwLightloss=#{xwLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="xwMiddleloss!=null">
+                xwMiddleloss=#{xwMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="xwCompletelyloss!=null">
+                xwCompletelyloss=#{xwCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="gtNormal!=null">
+                gtNormal=#{gtNormal,jdbcType=INTEGER},
+            </if>
+            <if test="gtLightloss!=null">
+                gtLightloss=#{gtLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="gtMiddleloss!=null">
+                gtMiddleloss=#{gtMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="gtCompletelyloss!=null">
+                gtCompletelyloss=#{gtCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="sjNormal!=null">
+                sjNormal=#{sjNormal,jdbcType=INTEGER},
+            </if>
+            <if test="sjLightloss!=null">
+                sjLightloss=#{sjLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="sjMiddleloss!=null">
+                sjMiddleloss=#{sjMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="sjCompletelyloss!=null">
+                sjCompletelyloss=#{sjCompletelyloss,jdbcType=INTEGER},
+            </if>
+            <if test="tjNormal!=null">
+                tjNormal=#{tjNormal,jdbcType=INTEGER},
+            </if>
+            <if test="tjLightloss!=null">
+                tjLightloss=#{tjLightloss,jdbcType=INTEGER},
+            </if>
+            <if test="tjMiddleloss!=null">
+                tjMiddleloss=#{tjMiddleloss,jdbcType=INTEGER},
+            </if>
+            <if test="tjCompletelyloss!=null">
+                tjCompletelyloss=#{tjCompletelyloss,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

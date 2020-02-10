@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.OrderMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Order"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_order a where  a.id = #{id}
+    </select>
+
+    <delete id="deleteByBillId" parameterType="java.util.List">
+        delete from t_order
+        where billId IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectByBillId" resultType="com.fedtech.pension.power.entity.Order"  parameterType="java.lang.Integer">
+        SELECT
+        a.*
+        FROM t_order a where  a.billId = #{id}
+    </select>
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order (unitPrice, billId,serObjectId, objectName, obprice, obcount)
+    VALUES (#{unitPrice}, #{billId},#{serObjectId},#{objectName}, #{obprice}, #{obcount})
+    </insert>
+</mapper>

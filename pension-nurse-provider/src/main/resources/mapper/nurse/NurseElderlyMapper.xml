@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.nurse.mapper.NurseElderlyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.NurseElderly">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="region_code" jdbcType="VARCHAR" property="regionCode"/>
+        <result column="idcardno" jdbcType="VARCHAR" property="idcardno"/>
+        <result column="elder_name" jdbcType="VARCHAR" property="elderName"/>
+        <result column="member_id" jdbcType="VARCHAR" property="memberId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="device_sid" jdbcType="VARCHAR" property="deviceSid"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id,region_code,idcardno,elder_name,member_id,phone,device_sid,create_time
+  </sql>
+
+    <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.NurseElderly" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_nurse_elderly
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="regionCode != null">
+                region_code,
+            </if>
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+            <if test="elderName != null">
+                elder_name,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="phone !=null">
+                phone,
+            </if>
+            <if test="deviceSid !=null">
+                device_sid,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="regionCode != null">
+                #{regionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardno != null">
+                #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceSid != null">
+                #{deviceSid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.NurseElderly">
+        update t_nurse_elderly
+        <set>
+            <if test="regionCode != null">
+                region_code = #{regionCode,jdbcType=INTEGER},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno,jdbcType=INTEGER},
+            </if>
+            <if test="elderName != null">
+                elder_name = #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                member_id = #{memberId,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceSid != null">
+                device_sid = #{deviceSid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.MentalIndex">
+        select
+        id,region_code,idcardno,elder_name,member_id,phone,device_sid,create_time
+        from t_nurse_elderly
+        <where>
+            <if test="filter.idcardno!=null and filter.idcardno!=''">
+                idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+            <if test="filter.elderName!=null and filter.elderName!=''">
+                and elder_name like CONCAT('%',#{filter.elderName},'%' )
+            </if>
+            <if test="filter.memberId!=null and filter.memberId!=''">
+                and member_id like CONCAT('%',#{filter.memberId},'%' )
+            </if>
+            <if test="filter.phone!=null and filter.phone!=''">
+                and phone like CONCAT('%',#{filter.phone},'%' )
+            </if>
+            <if test="filter.deviceSide!=null and filter.fastCount!=''">
+                and device_sid like CONCAT('%',#{filter.fastCount},'%' )
+            </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from t_nurse_elderly
+        <where>
+            <if test="idcardno!=null and idcardno!=''">
+                idcardno like CONCAT('%',#{idcardno},'%' )
+            </if>
+            <if test="elderName!=null and elderName!=''">
+                and elder_name like CONCAT('%',#{elderName},'%' )
+            </if>
+            <if test="memberId!=null and memberId!=''">
+                and member_id like CONCAT('%',#{memberId},'%' )
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like CONCAT('%',#{phone},'%' )
+            </if>
+            <if test="deviceSide!=null and fastCount!=''">
+                and device_sid like CONCAT('%',#{fastCount},'%' )
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_nurse_elderly
+  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_nurse_elderly
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="findByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_nurse_elderly
+        where member_id = #{memberId} limit 1
+    </select>
+
+
+    <select id="findByIdcardNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_nurse_elderly
+        where idcardno = #{idcardno} limit 1
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_nurse_elderly
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

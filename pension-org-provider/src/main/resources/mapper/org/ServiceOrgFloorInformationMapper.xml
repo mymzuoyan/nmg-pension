@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgFloorInformationMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgFloorInformation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="floor_number" jdbcType="VARCHAR" property="floorNumber" />
+    <result column="rooms" jdbcType="INTEGER" property="rooms" />
+    <result column="bed_num" jdbcType="INTEGER" property="bedNum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="tower_courtyard_id" jdbcType="INTEGER" property="towerCourtyardId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, floor_number, rooms, bed_num, remark, tower_courtyard_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_service_org_floor_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_floor_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgFloorInformation" useGeneratedKeys="true"  keyProperty="id">
+    insert into t_service_org_floor_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="floorNumber != null">
+        floor_number,
+      </if>
+      <if test="rooms != null">
+        rooms,
+      </if>
+      <if test="bedNum != null">
+        bed_num,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="towerCourtyardId != null">
+        tower_courtyard_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="floorNumber != null">
+        #{floorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rooms != null">
+        #{rooms,jdbcType=INTEGER},
+      </if>
+      <if test="bedNum != null">
+        #{bedNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="towerCourtyardId != null">
+        #{towerCourtyardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgFloorInformation">
+    update t_service_org_floor_information
+    <set>
+      <if test="floorNumber != null">
+        floor_number = #{floorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rooms != null">
+        rooms = #{rooms,jdbcType=INTEGER},
+      </if>
+      <if test="bedNum != null">
+        bed_num = #{bedNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="towerCourtyardId != null">
+        tower_courtyard_id = #{towerCourtyardId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_floor_information
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgFloorInformation">
+    select
+    *
+    from t_service_org_floor_information
+    <where>
+      <if test="filter.floorNumber != null and filter.floorNumber !=''">
+        AND floor_number like CONCAT('%',#{filter.floorNumber},'%' )
+      </if>
+      <if test="filter.rooms!=null">
+        and rooms=#{filter.rooms}
+      </if>
+      <if test="filter.bedNum!=null">
+        and bed_num=#{filter.bedNum}
+      </if>
+      <if test="filter.remark != null and filter.remark !=''">
+        AND remark like CONCAT('%',#{filter.remark},'%' )
+      </if>
+      <if test="filter.towerCourtyardId!=null">
+        and tower_courtyard_id=#{filter.towerCourtyardId}
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_floor_information
+    <where>
+      <if test="floorNumber != null and floorNumber !=''">
+        AND floor_number like CONCAT('%',#{floorNumber},'%' )
+      </if>
+      <if test="rooms!=null">
+        and rooms=#{rooms}
+      </if>
+      <if test="bedNum!=null">
+        and bed_num=#{bedNum}
+      </if>
+      <if test="remark != null and remark !=''">
+        AND remark like CONCAT('%',#{remark},'%' )
+      </if>
+      <if test="towerCourtyardId!=null">
+        and tower_courtyard_id=#{towerCourtyardId}
+      </if>
+    </where>
+  </select>
+  <select id="selectByFloorNumber" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_floor_information
+    where floor_number = #{floorNumber,jdbcType=VARCHAR}
+    and
+    tower_courtyard_id  = #{towerCourtyardId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByTowerCourtyardId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    *
+    from t_service_org_floor_information
+    where
+    tower_courtyard_id  = #{towerCourtyardId,jdbcType=INTEGER}
+  </select>
+</mapper>

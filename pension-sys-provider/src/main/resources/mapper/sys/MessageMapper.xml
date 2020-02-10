@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.sys.mapper.MessageMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.sys.entity.Message">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="attach" jdbcType="VARCHAR" property="attach"/>
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, title, content,attach,creator_id,create_time,type
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_message
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectUnRead" resultMap="BaseResultMap" parameterType="com.fedtech.pension.sys.entity.Message">
+        select a.*,b.id as receiveId,b.read,b.message_id,b.receiver_id
+        from t_message a,t_message_receive b
+        where a.id=b.message_id and b.receiver_id=#{filter.receiveId} and
+        a.creator_id&lt;&gt;#{filter.receiveId}
+        <if test="filter.read!=null">
+            and b.read = #{filter.read}
+        </if>
+        <if test="filter.type!=null">
+            and a.type=#{filter.type}
+        </if>
+        <if test="filter.attach!=null">
+            and a.attach=#{filter.attach}
+        </if>
+        <if test="filter.content!=null">
+            and a.content like CONCAT('%',#{filter.content},'%' )
+        </if>
+        order by a.create_time DESC
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="countUnRead" resultType="java.lang.Integer" parameterType="com.fedtech.pension.sys.entity.Message">
+        select count(1)
+        from t_message a,t_message_receive b
+        where a.id=b.message_id and b.receiver_id=#{receiveId} and
+        a.creator_id&lt;&gt;#{receiveId}
+        <if test="read!=null">
+            and b.read = #{read}
+        </if>
+        <if test="type!=null">
+            and a.type=#{type}
+        </if>
+        <if test="attach!=null">
+            and a.attach=#{attach}
+        </if>
+        <if test="content!=null">
+            and a.content like CONCAT('%',#{content},'%' )
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_message
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteSomeMessage" parameterType="java.lang.Integer">
+        delete from t_message
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.Message" useGeneratedKeys="true" keyProperty="id">
+        insert into t_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="attach != null">
+                attach,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.Message">
+        update t_message
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="attach != null">
+                attach = #{attach},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countAll" resultType="java.lang.Integer">
+      select count(1) from t_message
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.fedtech.pension.sys.entity.Message">
+        SELECT
+        count(*)
+        FROM t_message a LEFT JOIN (t_user c) on(a.creator_id=c.uid) LEFT JOIN (t_message_receive b) on(b.message_id =
+        a.id)
+        where b.receiver_id=#{receiveId}
+        <if test="read!=null">
+            and b.read=#{read}
+        </if>
+        and a.type&lt;&gt;#{type}
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap" parameterType="com.fedtech.pension.sys.entity.Message">
+        SELECT
+        a.id, a.title, a.content,a.attach,a.creator_id,a.create_time,c.nick_name creatorName,a.type,b.read
+        FROM t_message a LEFT JOIN (t_user c) on(a.creator_id=c.uid) LEFT JOIN (t_message_receive b) on(b.message_id =
+        a.id)
+        where b.receiver_id=#{filter.receiveId}
+        <if test="filter.read!=null">
+            and b.read=#{filter.read}
+        </if>
+        and a.type&lt;&gt;#{filter.type}
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+</mapper>

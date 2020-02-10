@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.GoodsMapper" >
+
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.portal.entity.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="typeId" property="typeId" jdbcType="INTEGER" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="INTEGER" />
+    <result column="info" property="info" jdbcType="LONGVARCHAR" />
+    <result column="creatorId" property="creatorId" jdbcType="INTEGER" />
+    <result column="putTop" property="putTop" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+
+    <collection property="goodsAttrs" ofType="com.fedtech.pension.portal.entity.GoodsAttr">
+      <id column="p_id" property="id" jdbcType="INTEGER" />
+      <result column="p_goodsId" property="goodsId" jdbcType="INTEGER" />
+      <result column="p_attrId" property="attrId" jdbcType="VARCHAR" />
+      <result column="p_value" property="value" jdbcType="VARCHAR" />
+      <result column="p_attr" property="attr" jdbcType="VARCHAR" />
+    </collection>
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, typeId, num, name,pic, img, price, amount, account,info,creatorId,updateTime,putTop,status
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      SELECT
+      a.id, a.typeId,a. num, a.name, a.pic,a.img, a.price, a.amount, a.account,a.info,a.creatorId,a.updateTime,a.putTop,a.status,
+      b.name typeName,
+      c.id p_id ,c.goodsId p_goodsId,c.attrId p_attrId,c.value p_value,
+      d.attr p_attr
+      FROM t_goods a
+      LEFT JOIN t_goods_type b on a.typeId=b.id
+      LEFT JOIN t_goods_attr c on c.goodsId=a.id
+      LEFT JOIN t_goods_type_attr d on c.attrId=d.id
+      where a.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.fedtech.pension.portal.entity.Goods" useGeneratedKeys="true" keyProperty="id">
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeId != null" >
+        typeId,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="info != null" >
+        creatorId,
+      </if>
+      <if test="info != null" >
+        putTop,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      createTime,
+      updateTime
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="putTop != null" >
+        #{putTop,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.Goods" >
+    update t_goods
+    <set >
+      <if test="typeId != null" >
+        typeId = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creatorId=#{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="putTop != null" >
+        putTop= #{putTop,jdbcType=INTEGER},
+      </if>
+        updateTime = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(1) from t_goods
+  </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    select count(1)
+    FROM t_goods a LEFT JOIN t_goods_type b on(a.typeId=b.id)
+    <where>
+      <if test="typeId!=null">
+        a.typeId = #{typeId}
+      </if>
+      <if test="status!=null">
+        and  a.status = #{status}
+      </if>
+      <if test="name!=null and name!=''">
+        and  a.name = #{name}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectPageList" resultMap="BaseResultMap" >
+    SELECT
+    a.id, a.typeId,b.name typeName,a. num, a.name, a.pic,a.img, a.price, a.amount, a.account,a.info,a.creatorId,a.updateTime,a.putTop,a.status,
+    c.id p_id ,c.goodsId p_goodsId,c.attrId p_attrId,c.value p_value,d.attr p_attr
+    FROM t_goods a LEFT JOIN t_goods_type b on(a.typeId=b.id) LEFT JOIN t_goods_attr c on (c.goodsId=a.id) LEFT JOIN t_goods_type_attr d on (c.attrId=d.id)
+    <where>
+      <if test="filter.typeId!=null">
+        a.typeId = #{filter.typeId}
+      </if>
+      <if test="filter.status!=null">
+        and a.status = #{filter.status}
+      </if>
+      <if test="filter.name!=null and filter.name!=''">
+        and  a.name like CONCAT('%',#{filter.name},'%' )
+      </if>
+    </where>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+
+  <select id="selectTopNByClassId" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+    SELECT
+    a.id, a.typeId,b.name typeName,a.num, a.name, a.pic,a.img, a.price, a.amount, a.account,a.info,a.creatorId,a.updateTime,a.putTop,a.status,
+    c.id p_id ,c.goodsId p_goodsId,c.attrId p_attrId,c.value p_value,
+    d.attr p_attr
+    FROM t_goods a
+    LEFT JOIN t_goods_type b on a.typeId=b.id
+    LEFT JOIN t_goods_attr c on c.goodsId=a.id
+    LEFT JOIN t_goods_type_attr d on c.attrId=d.id
+    WHERE
+    1=1
+    <if test="typeId != null">
+      AND a.typeId = #{typeId,jdbcType=INTEGER}
+    </if>
+    AND status=1
+    ORDER BY a.id DESC
+    LIMIT #{count}
+  </select>
+
+  <update id="closedGoods">
+    update t_goods
+    set
+    `status` = #{status},
+    updateTime = now()
+    where id = #{id}
+  </update>
+
+</mapper>

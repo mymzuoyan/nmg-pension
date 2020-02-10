@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgElderlyMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgElderly">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="service_org_id" property="serviceOrg.id" jdbcType="INTEGER"/>
+        <result column="elderly_id" property="elderlyMsg.id" jdbcType="INTEGER"/>
+        <result column="check_in_time" property="checkInTime" jdbcType="TIMESTAMP"/>
+        <result column="check_out_time" property="checkOutTime" jdbcType="TIMESTAMP"/>
+        <result column="bed_number" property="bedNumber" jdbcType="VARCHAR"/>
+        <result column="bed_type" property="bedType" jdbcType="INTEGER"/>
+        <result column="bed_info" property="bedInfo" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="disableStutiation" property="disableStutiation" jdbcType="INTEGER"/>
+        <result column="idcardno" property="elderlyMsg.idcardno" jdbcType="VARCHAR"/>
+        <result column="roomStatus" property="roomStatus" jdbcType="INTEGER"/>
+        <result column="roomNum" property="roomNum" jdbcType="VARCHAR"/>
+        <result column="operatingSubsidies" property="operatingSubsidies" jdbcType="INTEGER"/>
+        <result column="organizationName" property="organizationName" jdbcType="VARCHAR"/>
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,number, service_org_id, elderly_id, check_in_time, check_out_time, bed_number, bed_type,
+    bed_info, status ,disableStutiation,roomStatus,roomNum,operatingSubsidies,organizationName
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        <!--select
+        <include refid="Base_Column_List"/>
+        from t_service_org_elderly
+        where id = #{id,jdbcType=INTEGER}-->
+        SELECT
+        e.*, m.idcardno
+        FROM
+        `t_service_org_elderly` e,
+        t_elderly_message m
+        WHERE
+        e.elderly_id = m.id and e.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_elderly
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderly" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org_elderly (id,number,service_org_id,elderly_id,check_in_time,check_out_time,bed_number,bed_type,bed_info,status,disableStutiation,roomStatus,roomNum,operatingSubsidies,organizationName)
+        values (#{id,jdbcType=INTEGER},#{number,jdbcType=INTEGER},#{serviceOrgId,jdbcType=INTEGER},#{elderlyId,jdbcType=INTEGER},
+        #{checkInTime,jdbcType=TIMESTAMP},#{checkOutTime,jdbcType=TIMESTAMP},#{bedNumber,jdbcType=VARCHAR},#{bedType,jdbcType=INTEGER},
+        #{bedInfo,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{disableStutiation,jdbcType=INTEGER},#{roomStatus,jdbcType=INTEGER},#{roomNum,jdbcType=VARCHAR},#{operatingSubsidies,jdbcType=INTEGER},#{organizationName,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSome" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_service_org_elderly
+        (number,service_org_id,elderly_id,check_in_time,check_out_time,bed_number,bed_type,bed_info,status,disableStutiation,roomStatus,roomNum,operatingSubsidies,organizationName)
+        VALUES
+        <foreach collection="filters" item="filter" index="index" separator=",">
+            (#{filter.number},#{filter.serviceOrgId},#{filter.elderlyId},#{filter.checkInTime},#{filter.checkOutTime},
+            #{filter.bedNumber},#{filter.bedType},
+            #{filter.bedInfo},#{filter.status},#{filter.disableStutiation},#{filter.roomStatus},#{filter.roomNum},#{filter.operatingSubsidies},#{filter.organizationName})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgElderly">
+        update t_service_org_elderly
+        <set>
+            <if test="number != null  and number!=''">
+                number =#{number,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id!=null">
+                service_org_id = #{serviceOrg.id,jdbcType=INTEGER},
+            </if>
+            <if test="elderlyMsg != null and elderlyMsg.id!=null">
+                elderly_id = #{elderlyMsg.id,jdbcType=INTEGER},
+            </if>
+            <if test="checkInTime != null">
+                check_in_time = #{checkInTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkOutTime != null">
+                check_out_time = #{checkOutTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bedNumber != null">
+                bed_number = #{bedNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bedType != null">
+                bed_type = #{bedType,jdbcType=INTEGER},
+            </if>
+            <if test="bedInfo != null">
+                bed_info = #{bedInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="disableStutiation != null">
+                disableStutiation = #{disableStutiation,jdbcType=INTEGER},
+            </if>
+            <if test="roomStatus != null">
+                roomStatus = #{roomStatus,jdbcType=INTEGER},
+            </if>
+            <if test="roomNum != null">
+                roomNum = #{roomNum,jdbcType=VARCHAR},
+            </if>
+            <if test="operatingSubsidies != null">
+                operatingSubsidies = #{operatingSubsidies,jdbcType=INTEGER},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_service_org_elderly
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from t_service_org_elderly a left join t_service_org b on a.service_org_id = b.id
+        left join t_elderly_message c on a.elderly_id = c.id
+        where c.status != 0
+        <if test="elderlyMsg!=null and elderlyMsg.areaName!=null and elderlyMsg.areaName!=''">
+            and c.areaName like CONCAT('%',#{elderlyMsg.areaName},'%' )
+        </if>
+        <if test="serviceOrgId!=null and serviceOrgId!=''">
+            and a.service_org_id = #{serviceOrgId}
+        </if>
+        <if test="serviceOrg!=null and serviceOrgName!=null and serviceOrgName!=''">
+            and b.institutionName like CONCAT('%',#{serviceOrgName},'%' )
+        </if>
+        <if test="elderlyMsg!=null and elderlyMsg.elderName!=null and elderlyMsg.elderName!=''">
+            and c.elderName like CONCAT('%',#{elderlyMsg.elderName},'%' )
+        </if>
+        <if test="startCheckInTime!=null ">
+            AND DATE(a.check_in_time) &gt;= #{startCheckInTime}
+        </if>
+        <if test="endCheckInTime!=null ">
+            AND DATE(a.check_in_time) &lt;= #{endCheckInTime}
+        </if>
+        <if test="startCheckOutTime!=null ">
+            AND DATE(a.check_out_time) &gt;= #{startCheckOutTime}
+        </if>
+        <if test="endCheckOutTime!=null ">
+            AND DATE(a.check_out_time) &lt;= #{endCheckOutTime}
+        </if>
+        <if test="status!=null">
+            AND a.status= #{status}
+        </if>
+        <if test="number!=null and number!=''">
+            AND a.number like CONCAT('%',#{number},'%' )
+        </if>
+        <if test="roomStatus!=null">
+            AND a.roomStatus= #{roomStatus}
+        </if>
+        <if test="roomNum!=null">
+            AND a.roomNum  like CONCAT('%',#{roomNum},'%' )
+        </if>
+        <if test="operatingSubsidies!=null">
+            AND a.operatingSubsidies= #{operatingSubsidies}
+        </if>
+
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgElderly">
+        select a.id,
+        a.number,
+        a.service_org_id,
+        b.institutionName,
+        a.elderly_id as "elderlyMsg.id",
+        c.elderName as "elderlyMsg.elderName",
+        c.age as "elderlyMsg.age",
+        c.sexDictId as "elderlyMsg.sexDictId",
+        a.check_in_time as "checkInTime",
+        a.check_out_time as "checkOutTime",
+        a.bed_number as bedNumber,
+        a.bed_type as bedType,
+        a.bed_info as "bedInfo",
+        a.status,
+        a.organizationName
+        from t_service_org_elderly a left join t_service_org b on a.service_org_id = b.id
+        left join t_elderly_message c on a.elderly_id = c.id
+        where c.status != 0
+        <if test="filter.elderlyMsg!=null and filter.elderlyMsg.areaName!=null and filter.elderlyMsg.areaName!=''">
+            and c.areaName like CONCAT('%',#{filter.elderlyMsg.areaName},'%' )
+        </if>
+        <if test="filter.serviceOrg!=null and filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+            and a.service_org_id = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.serviceOrg!=null and filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+            and b.institutionName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.elderlyMsg!=null and filter.elderlyMsg.elderName!=null and filter.elderlyMsg.elderName!=''">
+            and c.elderName like CONCAT('%',#{filter.elderlyMsg.elderName},'%' )
+        </if>
+        <if test="filter.startCheckInTime!=null ">
+            AND DATE(a.check_in_time) &gt;= #{filter.startCheckInTime}
+        </if>
+        <if test="filter.endCheckInTime!=null ">
+            AND DATE(a.check_in_time) &lt;= #{filter.endCheckInTime}
+        </if>
+        <if test="filter.startCheckOutTime!=null ">
+            AND DATE(a.check_out_time) &gt;= #{filter.startCheckOutTime}
+        </if>
+        <if test="filter.endCheckOutTime!=null ">
+            AND DATE(a.check_out_time) &lt;= #{filter.endCheckOutTime}
+        </if>
+        <if test="filter.status!=null ">
+            AND a.status= #{filter.status}
+        </if>
+        <if test="filter.number!=null and filter.number!=''">
+            AND a.number like CONCAT('%',#{filter.number},'%' )
+        </if>
+        <if test="filter.organizationName!=null and filter.organizationName!=''">
+            AND a.organizationName like CONCAT('%',#{filter.organizationName},'%' )
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_service_org_elderly
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByElderlyId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    *
+    from t_service_org_elderly
+    where elderly_id = #{elderlyId,jdbcType=INTEGER}
+  </select>
+    <select id="selectByServiceOrgId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    *
+    from t_service_org_elderly
+    where service_org_id = #{serviceOrgId,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectByServiceOrgIdAndBedNumber" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_elderly
+    where service_org_id = #{serviceOrgId,jdbcType=INTEGER}
+    AND
+    bed_number = #{bedNumber,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

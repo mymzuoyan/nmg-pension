@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.OldManCardMapper">
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.OldManCard" >
+        insert into t_old_man_card
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cardId != null" >
+                cardId,
+            </if>
+            <if test="serviceOrgId!= null" >
+                serviceOrgId,
+            </if>
+            <if test="serviceOrgName != null" >
+                serviceOrgName,
+            </if>
+            <if test="idNumber != null" >
+                idNumber,
+            </if>
+            <if test="oldManId != null" >
+                oldManId,
+            </if>
+            <if test="oldManName != null" >
+                oldManName,
+            </if>
+            status,
+            money,
+            createDate,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cardId != null" >
+                #{cardId,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceOrgId != null" >
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgName != null" >
+                #{serviceOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null" >
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="oldManId != null" >
+                #{oldManId,jdbcType=INTEGER},
+            </if>
+            <if test="oldManName != null" >
+                #{oldManName,jdbcType=VARCHAR},
+            </if>
+              0,
+            0.0,
+            now(),
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.OldManCard">
+        UPDATE t_old_man_card
+        <set>
+            <if test="cardId != null" >
+                cardId=#{cardId},
+            </if>
+            <if test="serviceOrgId != null" >
+                serviceOrgId=#{serviceOrgId},
+            </if>
+            <if test="serviceOrgName != null" >
+                serviceOrgName=#{serviceOrgName},
+            </if>
+            <if test="idNumber != null" >
+                idNumber=#{idNumber},
+            </if>
+            <if test="oldManId != null" >
+                oldManId=#{oldManId},
+            </if>
+            <if test="oldManName != null" >
+                oldManName=#{oldManName},
+            </if>
+            <if test="status != null" >
+                <if test="status != 0" >
+                    removeDate=now(),
+                </if>
+                status=#{status},
+            </if>
+            <if test="money != null" >
+                money=#{money},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_old_man_card
+        WHERE id = #{id}
+    </delete>
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.OldManCard" parameterType="java.lang.Integer" >
+        select *
+        from t_old_man_card
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.OldManCard">
+        select
+        c.*,s.areaId,s.areaName,e.elderTypeDictIds
+        from t_old_man_card c  left join t_elderly_message e on c.oldManId=e.id left join t_service_org s on c.serviceOrgId=s.id
+        <where>
+            <if test="filter.cardId!=null and filter.cardId!=''">
+                and cardId like CONCAT('%',#{filter.cardId},'%' )
+            </if>
+            <if test="filter.idNumber!=null and filter.idNumber!=''">
+                and idNumber like CONCAT('%',#{filter.idNumber},'%' )
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                and serviceOrgName = #{filter.serviceOrgName}
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                and c.serviceOrgName  like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.serviceOrgId!=null and filter.serviceOrgId!=''">
+                and c.serviceOrgId=#{filter.serviceOrgId}
+            </if>
+            <if test="filter.oldManName!=null and filter.oldManName!=''">
+                and oldManName  like CONCAT('%',#{filter.oldManName},'%' )
+            </if>
+            <if test="filter.startCreateDate!=null and filter.startCreateDate!=''">
+                and createDate  &gt;=#{filter.startCreateDate}
+            </if>
+            <if test="filter.endCreateDate!=null and filter.endCreateDate!=''">
+                and createDate  &lt;=#{filter.endCreateDate}
+            </if>
+            <if test="filter.startRemoveDate!=null and filter.startRemoveDate!=''">
+                and removeDate  &gt;=#{filter.startRemoveDate}
+            </if>
+            <if test="filter.endRemoveDate!=null and filter.endRemoveDate!=''">
+                and removeDate  &lt;=#{filter.endRemoveDate}
+            </if>
+            <!--<if test="filter.areaId != null and filter.areaId !=''">
+                AND s.areaId = #{filter.areaId}
+            </if>-->
+            <!--<if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+                AND e.elderTypeDictIds=#{filter.elderTypeDictIds}
+            </if>-->
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND s.areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.elderTypeDictIds != null and filter.elderTypeDictIds !=''">
+                AND (
+                <trim  prefixOverrides="or">
+                    <foreach collection="filter.elderTypeList" index="index" item="elderTypeDictIds">
+                        OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                    </foreach>
+                </trim>
+                )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.power.entity.OldManCard" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_old_man_card c  left join t_elderly_message e on c.oldManId=e.id left join t_service_org s on c.serviceOrgId=s.id
+        <where>
+            <if test="idNumber!=null and idNumber!=''">
+                and idNumber like CONCAT('%',#{idNumber},'%' )
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                and serviceOrgName = #{serviceOrgName}
+            </if>
+            <if test="cardId!=null and cardId!=''">
+                and cardId like CONCAT('%',#{cardId},'%' )
+            </if>
+            <if test="serviceOrgId!=null and serviceOrgId!=''">
+                and c.serviceOrgId=#{serviceOrgId}
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                and c.serviceOrgName  like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="oldManName!=null and oldManName!=''">
+                and oldManName  like CONCAT('%',#{oldManName},'%' )
+            </if>
+            <if test="startCreateDate!=null and startCreateDate!=''">
+                and createDate  &gt;=#{startCreateDate}
+            </if>
+            <if test="endCreateDate!=null and endCreateDate!=''">
+                and createDate  &lt;=#{endCreateDate}
+            </if>
+            <if test="startRemoveDate!=null and startRemoveDate!=''">
+                and removeDate  &gt;=#{startRemoveDate}
+            </if>
+            <if test="endRemoveDate!=null and endRemoveDate!=''">
+                and removeDate  &lt;=#{endRemoveDate}
+            </if>
+            <!--<if test="areaId != null and areaId !=''">
+                AND s.areaId = #{areaId}
+            </if>-->
+            <!--<if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                AND e.elderTypeDictIds=#{elderTypeDictIds}
+            </if>-->
+            <if test="areaName != null and areaName !=''">
+                AND s.areaName like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="elderTypeDictIds != null and elderTypeDictIds !=''">
+                AND (
+                <trim  prefixOverrides="or">
+                    <foreach collection="elderTypeList" index="index" item="elderTypeDictIds">
+                        OR FIND_IN_SET(#{elderTypeDictIds},e.elderTypeDictIds)
+                    </foreach>
+                </trim>
+                )
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteSomeMsg" parameterType="java.util.List">
+        delete from t_old_man_card
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.power.entity.OldManCard"
+            resultType="com.fedtech.pension.power.entity.OldManCard">
+        SELECT *
+        FROM t_old_man_card
+        <where>
+            <if test="filter.cardId!=null and filter.cardId!=''">
+                and cardId like CONCAT('%',#{filter.cardId},'%' )
+            </if>
+            <if test="filter.idNumber!=null and filter.idNumber!=''">
+                and idNumber like CONCAT('%',#{filter.idNumber},'%' )
+            </if>
+            <if test="filter.serviceOrgName!=null and filter.serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{filter.serviceOrgName},'%' )
+            </if>
+            <if test="filter.oldManName!=null and filter.oldManName!=''">
+                and oldManName  like CONCAT('%',#{filter.oldManName},'%' )
+            </if>
+            <if test="filter.startCreateDate!=null and filter.startCreateDate!=''">
+                and createDate  &gt;=#{filter.startCreateDate}
+            </if>
+            <if test="filter.endCreateDate!=null and filter.endCreateDate!=''">
+                and createDate  &lt;=#{filter.endCreateDate}
+            </if>
+            <if test="filter.startRemoveDate!=null and filter.startRemoveDate!=''">
+                and removeDate  &gt;=#{filter.startRemoveDate}
+            </if>
+            <if test="filter.endRemoveDate!=null and filter.endRemoveDate!=''">
+                and removeDate  &lt;=#{filter.endRemoveDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByEntity" parameterType="com.fedtech.pension.power.entity.OldManCard"
+            resultType="com.fedtech.pension.power.entity.OldManCard">
+        SELECT *
+        FROM t_old_man_card
+        <where>
+
+            <if test="idNumber!=null and idNumber!=''">
+                and idNumber like CONCAT('%',#{idNumber},'%' )
+            </if>
+            <if test="cardId!=null and cardId!=''">
+                and cardId =#{cardId}
+            </if>
+            <if test="serviceOrgName!=null and serviceOrgName!=''">
+                and serviceOrgName  like CONCAT('%',#{serviceOrgName},'%' )
+            </if>
+            <if test="oldManName!=null and oldManName!=''">
+                and oldManName  like CONCAT('%',#{oldManName},'%' )
+            </if>
+            <if test="status!=null">
+                and status =#{status}
+            </if>
+            <if test="id!=null and id!=''">
+                and id !=#{id}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <update id="updateOldManCardMoney" parameterType="com.fedtech.pension.power.entity.OldManCard">
+        UPDATE t_old_man_card
+        <set>
+            <if test="money != null" >
+                money=(money + ${money}),
+            </if>
+        </set>
+        WHERE cardId = #{cardId}
+    </update>
+
+</mapper>

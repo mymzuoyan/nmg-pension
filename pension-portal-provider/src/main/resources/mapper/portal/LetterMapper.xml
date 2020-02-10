@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.LetterMapper">
+    <resultMap id="letter" type="com.fedtech.pension.portal.entity.Letter">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="letterType" property="letterType" jdbcType="INTEGER"/>
+        <result column="letterTitle" property="letterTitle" jdbcType="VARCHAR"/>
+        <result column="letterContent" property="letterContent" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, letterType, letterTitle,letterContent,createTime
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="letter" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_letter
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.portal.entity.Letter">
+        select
+        <include refid="Base_Column_List"/>
+        from t_letter
+        where 1=1
+        <if test="filter.letterType!='' and filter.letterType!=null">
+            AND letterType = #{filter.letterType}
+        </if>
+        <if test="filter.letterTitle!='' and filter.letterTitle!=null">
+            AND letterTitle LIKE CONCAT('%',#{filter.letterTitle},'%')
+        </if>
+        ORDER BY id desc
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from t_letter
+        where 1=1
+        <if test="letterType!='' and letterType!=null ">
+            AND letterType = #{letterType}
+        </if>
+        <if test="letterTitle!=''and letterTitle!=null">
+            AND letterTitle LIKE CONCAT('%',#{letterTitle},'%')
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(*) from t_letter
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_letter
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.Letter">
+        insert into t_letter (letterType, letterTitle,letterContent,createTime)
+        values (#{letterType}, #{letterTitle},#{letterContent},#{createTime})
+    </insert>
+
+</mapper>

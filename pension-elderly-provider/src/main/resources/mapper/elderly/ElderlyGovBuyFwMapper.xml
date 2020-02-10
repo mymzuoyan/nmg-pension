@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyGovBuyFwMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="INTEGER"/>
+        <result column="idcardno" property="idcardno" jdbcType="VARCHAR"/>
+        <result column="elderType" property="elderType" jdbcType="VARCHAR"/>
+        <result column="subsidy" property="subsidy" jdbcType="INTEGER"/>
+        <result column="serviceItems" property="serviceItems" jdbcType="VARCHAR"/>
+        <result column="elderName" property="elderName" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="realAddress" property="realAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select a.id,a.serviceOrgId,b.institutionName serviceOrgName,a.elderId,c.elderName,c.idcardno,c.areaName,c.childrenDictId,c.mobile,c.areaId,c.homeTel phone,a.subsidy
+        ,a.elderType,a.serviceItems,c.realAddress,a.status
+        from  t_elderly_govbuyfw a left join t_elderly_message c on a.elderId = c.id  left join t_service_org b
+       on b.id=a.serviceOrgId
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByElderId" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+        select id,serviceOrgId,elderId,idcardno,mobile,phone,subsidy,elderType,serviceItems,realAddress
+        from t_elderly_govbuyfw
+        where elderId = #{elderId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_govbuyfw
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteSome" parameterType="java.util.List">
+        delete from t_elderly_govbuyfw
+        where id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        insert into t_elderly_govbuyfw
+        (elderId, serviceOrgId,subsidy, elderType, idcardno, serviceItems,status)
+        VALUES (#{elderId}, #{serviceOrgId},#{subsidy},#{elderType}, #{idcardno}, #{serviceItems},#{status})
+
+    </insert>
+    <insert id="insertSomeElderGovBuyFw" parameterType="java.util.List">
+        INSERT INTO t_elderly_govbuyfw
+        (serviceOrgId,elderId,subsidy, idcardno, elderType, mobile, phone, serviceItems,
+        realAddress,status)
+        VALUES
+        <foreach collection="elderlyGovBuyFws" item="elderlyGovBuyFw" index="index" separator=",">
+            (#{elderlyGovBuyFw.serviceOrgId},#{elderlyGovBuyFw.elderId},#{elderlyGovBuyFw.subsidy},#{elderlyGovBuyFw.idcardno},#{elderlyGovBuyFw.elderType},
+            #{elderlyGovBuyFw.mobile},#{elderlyGovBuyFw.phone}, #{elderlyGovBuyFw.serviceItems},
+            #{elderlyGovBuyFw.realAddress}, #{elderlyGovBuyFw.status})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        update t_elderly_govbuyfw
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=INTEGER},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="elderType != null">
+                elderType = #{elderType,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="subsidy != null">
+                subsidy = #{subsidy,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItems != null">
+                serviceItems = #{serviceItems,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddress != null">
+                realAddress = #{realAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByElderId" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        update t_elderly_govbuyfw
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=INTEGER},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="elderType != null">
+                elderType = #{elderType,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{village,jdbcType=VARCHAR},
+            </if>
+            <if test="subsidy != null">
+                subsidy = #{subsidy,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItems != null">
+                serviceItems = #{serviceItems,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddress != null">
+                realAddress = #{realAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where  elderId = #{elderId,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from  t_elderly_govbuyfw a
+        left JOIN t_elderly_message c on a.elderId = c.id
+        LEFT JOIN t_service_org b on b.id=a.serviceOrgId
+        where c.status =1 and c.isDeath = 1
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND c.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND c.idcardno = #{idcardno}
+        </if>
+        <if test="elderType!= null  and elderType!=0">
+            AND a.elderType = #{elderType}
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND c.realAddress = #{realAddress}
+        </if>
+        <if test="serviceItems != null">
+            AND a.serviceItems = #{serviceItems}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND a.idcardno = #{idcardno}
+        </if>
+        <if test="subsidy != null and subsidy!=0">
+            AND a.subsidy = #{subsidy}
+        </if>
+  </select>
+
+   <select id="countAll" resultType="java.lang.Integer">
+      SELECT COUNT(1) FROM t_elderly_govbuyfw
+   </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        select a.id,a.serviceOrgId,b.institutionName serviceOrgName,a.elderId,c.elderName,c.idcardno,c.areaName,
+        c.mobile,c.areaId,c.homeTel phone,c.realAddress,subsidy,a.status
+        ,elderType,serviceItems
+        from  t_elderly_govbuyfw a
+        left JOIN t_elderly_message c on a.elderId = c.id
+        LEFT JOIN t_service_org b on b.id=a.serviceOrgId
+        where  c.status =1 and c.isDeath = 1
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND c.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.elderType != null and filter.elderType!=0">
+            AND a.elderType = #{filter.elderType}
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND c.realAddress LIKE CONCAT('%',#{filter.realAddress},'%' )
+        </if>
+        <if test="filter.subsidy != null and filter.subsidy!=0">
+            AND a.subsidy = #{filter.subsidy}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+
+
+
+
+
+    <select id="countHandle" parameterType="com.fedtech.pension.elderly.entity.ElderlyGovBuy" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from  t_elderly_govbuyfw a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where c.status =1 and c.isDeath = 1 and a.status  =  0
+        <if test="serviceOrgId != null and serviceOrgId !=''">
+            AND c.serviceOrgId = #{serviceOrgId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND c.elderName = #{elderName}
+        </if>
+        <if test="idcardno != null and idcardno !=''">
+            AND c.idcardno = #{idcardno}
+        </if>
+        <if test="elderType!= null ">
+            AND c.elderType = #{elderType}
+        </if>
+        <if test="realAddress != null and realAddress !=''">
+            AND c.realAddress = #{realAddress}
+        </if>
+        <if test="subsidy != null ">
+            AND a.subsidy = #{subsidy}
+        </if>
+    </select>
+    <select id="selectPageListHandle" resultType="com.fedtech.pension.elderly.entity.ElderlyGovBuyFw">
+        select a.id,a.serviceOrgId,b.institutionName serviceOrgName,a.elderId,c.elderName,a.idcardno,c.areaName,
+       ,elderType,a.mobile,a.area,subsidy
+        ,serviceItems
+        from  t_elderly_govbuyfw a left JOIN t_elderly_message c on( a.elderId = c.id) LEFT JOIN t_service_org b on (b.id=a.serviceOrgId)
+        where  c.status =1 and c.isDeath = 1 and a.status = 0
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND c.elderName = #{filter.elderName}
+        </if>
+        <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+            AND a.serviceOrgId = #{filter.serviceOrgId}
+        </if>
+        <if test="filter.idcardno != null and filter.idcardno !=''">
+            AND c.idcardno = #{filter.idcardno}
+        </if>
+        <if test="filter.elderType != null">
+            AND a.elderType = #{filter.elderType}
+        </if>
+        <if test="filter.realAddress != null and filter.realAddress !=''">
+            AND c.realAddress = #{filter.realAddress}
+        </if>
+        <if test="filter.subsidy != null ">
+            AND a.subsidy = #{filter.subsidy}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+</mapper>

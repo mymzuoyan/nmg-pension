@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.UserApproveMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.UserApprove" parameterType="java.lang.Integer">
+        select
+        *
+        from t_user_approve
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_user_approve
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.UserApprove">
+        insert into t_user_approve(uid,type,permission)VALUES(#{uid},#{type},#{permission})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.UserApprove">
+        update t_user_approve
+        <set>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="permission != null">
+                permission = #{permission}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.UserApprove" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_user_approve` AS a,`t_user` AS u
+        WHERE a.uid=u.uid
+        <if test="type!=null and type!=''">
+            AND a.type = #{type}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_approve
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.UserApprove">
+        SELECT a.id,u.uid,u.login_name,a.type,a.permission
+        FROM `t_user_approve` AS a,`t_user` AS u
+        WHERE a.uid=u.uid
+        <if test="filter.type!=null and filter.type!=''">
+            AND a.type like CONCAT('%',#{filter.type},'%')
+        </if>
+        order by a.id DESC
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.sys.entity.UserApprove">
+        SELECT
+        *
+        FROM t_user_approve
+        where 1=1
+        <if test="filter.type!=null and filter.type!=''">
+            AND type = #{filter.type}
+        </if>
+        <if test="filter.permission!=null and filter.permission!=''">
+            AND permission =#{filter.permission}
+        </if>
+        <if test="filter.uid!=null and filter.uid!=''">
+            AND uid =#{filter.uid}
+        </if>
+        order by id DESC
+    </select>
+
+</mapper>

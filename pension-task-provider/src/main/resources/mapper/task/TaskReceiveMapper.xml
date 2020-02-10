@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.task.mapper.TaskReceiveMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.task.entity.TaskReceive" parameterType="java.lang.Integer">
+        SELECT
+        tr.id,tr.taskId,tr.receiverId,tr.register,tr.remind,t.number taskNumber,
+        t.title,t.receiverName,t.receiverServiceOrg,t.serviceTime,t.serviceType,t.serviceName,t.content,t.createTime,t.lng,t.lat,t.status,t.`comment`,t.`level`,t.serviceAddress,
+        tu.login_name as sendName,tu.phone as sendPhone,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.priceInfo,tr.creatorId
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId  and t.creatorId=tu.uid and t.elderId=te.id
+        and tr.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_task_receive
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByTaskId" parameterType="java.lang.Integer">
+        delete from t_task_receive
+        where taskId = #{taskId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="selectByTaskIds" parameterType="java.util.List" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT
+        tr.id,tr.taskId,tr.receiverId,tr.register,tr.remind,t.number taskNumber,
+        t.title,t.receiverName,t.receiverServiceOrg,t.serviceTime,t.serviceType,t.serviceName,t.content,t.createTime,t.lng,t.lat,t.status,t.`comment`,t.`level`,t.serviceAddress,
+        tu.login_name as sendName,tu.phone as sendPhone,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.priceInfo
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId and tr.receiverId=0 and t.creatorId=tu.uid and t.elderId=te.id
+        and t.id in
+        <foreach collection="taskIds" item="taskId" index="index" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+        <if test="page.orderField=='distance'">
+            order by field
+            (t.id,
+            <foreach collection="taskIds" item="taskId" index="index" separator=",">
+                #{taskId}
+            </foreach>
+            )
+        </if>
+        <if test="page.orderField=='serviceTime'">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.orderField=='id'">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+    </select>
+
+    <select id="selectByLastTask" resultType="com.fedtech.pension.task.entity.TaskReceive" parameterType="java.lang.Integer">
+        select
+        tr.id,tr.taskId,tr.receiverId,tr.register,tr.remind,t.number taskNumber,
+        t.title,t.receiverName,t.receiverServiceOrg,t.serviceTime,t.serviceType,t.serviceName,t.content,t.createTime,t.lng,t.lat,t.status,t.`comment`,t.`level`,t.serviceAddress,
+        tu.login_name as sendName,tu.phone as sendPhone,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.priceInfo
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId  and t.creatorId=tu.uid and t.elderId=te.id
+        and tr.taskId = #{taskId,jdbcType=INTEGER}
+        ORDER  BY tr.id DESC
+        limit 0 ,1
+    </select>
+
+
+    <insert id="insert" parameterType="com.fedtech.pension.task.entity.TaskReceive">
+        insert into t_task_receive
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="taskId != null">
+                taskId,
+            </if>
+            <if test="receiverId != null">
+                receiverId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="completeTime != null">
+                completeTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="register != null">
+                register,
+            </if>
+            <if test="remind != null">
+                remind
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="completeTime != null">
+                #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="register != null">
+                #{register},
+            </if>
+            <if test="remind != null">
+                #{remind}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.task.entity.TaskReceive">
+        update t_task_receive
+        <set>
+            <if test="taskId != null">
+                taskId = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="receiverId != null">
+                receiverId = #{receiverId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="completeTime != null">
+                completeTime = #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="register != null">
+                register = #{register,jdbcType=INTEGER},
+            </if>
+            <if test="remind != null">
+                remind = #{remind}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateTaskStatus">
+        update t_task_receive
+        <set>
+            status = #{status,jdbcType=INTEGER}
+        </set>
+        where receiverId = #{receiverId,jdbcType=INTEGER} and taskId = #{taskId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByTaskId" parameterType="com.fedtech.pension.task.entity.TaskReceive">
+        update t_task_receive
+        <set>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where taskId = #{taskId,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.task.entity.TaskReceive" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_task_receive a ,t_task b , t_user c
+        where a.taskId=b.id and a.creatorId=c.uid
+        and b.status!=0
+        <if test="status != null">
+            and b.status = #{status}
+        </if>
+        <if test="receiverId != null">
+            and a.receiverId = #{receiverId}
+        </if>
+        <if test="creatorId != null">
+            and a.creatorId = #{creatorId}
+        </if>
+        <if test="taskType != null">
+            and b.type = #{taskType}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_task_receive
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        select
+        a.id,a. taskId, b.number taskNumber, a.receiverId,b.receiverName
+        receiverName,a.createTime,a.creatorId,a.updateTime,
+        a.completeTime, b.status,b.title taskTitle,c.login_name sendName,c.uid sendId,b.createTime
+        sendTime,b.money,b.payType,b.payTime,b.priceInfo
+        FROM t_task_receive a ,t_task b , t_user c
+        where a.taskId=b.id and a.creatorId=c.uid
+        and b.status!=0
+        <if test="filter.status != null">
+            and b.status = #{filter.status}
+        </if>
+        <if test="filter.receiverId != null">
+            and a.receiverId = #{filter.receiverId}
+        </if>
+        <if test="filter.taskType != null">
+            and b.type = #{filter.taskType}
+        </if>
+        <if test="filter.creatorId != null">
+            and a.creatorId = #{filter.creatorId}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <insert id="insertSomeAccord" parameterType="java.util.List">
+        INSERT INTO t_task_receive
+        (taskId,receiverId,createTime,creatorId)
+        VALUES
+        <foreach collection="taskReceives" item="taskReceive" index="index" separator=",">
+            (#{taskReceive.taskId},#{taskReceive.receiverId},#{taskReceive.createTime},#{taskReceive.creatorId})
+        </foreach>
+    </insert>
+
+    <select id="getReceiveCountByUids" resultType="java.util.HashMap" parameterType="java.util.List">
+        SELECT receiverId uid ,COUNT(id) as receiveCount
+        FROM t_task_receive
+        where receiverId IN
+        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">
+            <if test="user.uid!=null">
+                #{user.uid}
+            </if>
+        </foreach>
+        GROUP BY receiverId
+    </select>
+
+    <select id="selectBytaskIdAndUserId" resultType="com.fedtech.pension.task.entity.TaskReceive"
+        parameterType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT id,taskId,receiverId,completeTime,status
+        FROM t_task_receive
+        WHERE taskId = #{taskId} AND receiverId = #{receiverId}
+    </select>
+
+    <select id="selectByReceiver" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT
+        tr.id,tr.taskId,t.number
+        taskNumber,tr.receiverId,t.serviceType,t.serviceName,t.serviceTime,tr.createTime,t.content,t.comment,t.level,t.lat,t.lng,t.status,tr.register,t.serviceAddress,
+        tr.remind,tu.login_name as sendName,tu.phone as sendPhone,tu.uid as sendId,t.createTime as sendTime,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.priceInfo
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId and t.creatorId=tu.uid and t.elderId=te.id
+        and tr.receiverId = #{receiverId}
+        <if test="status!=null">
+            and t.status in (${status})
+        </if>
+        <if test="serviceType!=null and serviceType!=''">
+            and t.serviceType=#{serviceType}
+        </if>
+        order by t.createTime desc
+        <if test="start!=null">
+            LIMIT #{start},#{length}
+        </if>
+    </select>
+
+    <select id="selectByCreatorId" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT
+        tr.id,tr.taskId,t.number
+        taskNumber,tr.receiverId,t.serviceType,t.serviceName,t.serviceTime,tr.createTime,t.content,t.comment,t.level,t.lat,t.lng,t.status,tr.register,
+        t.serviceAddress,tr.remind,tu.login_name as sendName,tu.phone as sendPhone,tu.uid as
+        sendId,t.createTime as sendTime,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.receiverName,t.priceInfo
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId and t.creatorId=tu.uid and t.elderId=te.id
+        and tr.creatorId = #{uid}
+        <if test="status!=null and status!=''">
+            and t.status in (${status})
+        </if>
+        <if test="serviceType!=null and serviceType!=''">
+            and t.serviceType=#{serviceType}
+        </if>
+        order by t.createTime desc
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectByReceiveIds" resultType="com.fedtech.pension.task.entity.TaskReceive">
+
+        SELECT
+        tr.id,tr.taskId,t.number
+        taskNumber,tr.receiverId,t.serviceType,t.serviceName,t.serviceTime,tr.creatorId,tr.createTime,t.content,t.comment,t.level,t.lat,t.lng,t.status,tr.register,
+        t.serviceAddress,tr.remind,tu.login_name as sendName,tu.phone as sendPhone,tu.uid as
+        sendId,t.createTime as sendTime,
+        te.elderName,te.elderMobile,t.money,t.payType,t.payTime,t.receiverName,t.priceInfo
+        FROM t_task t,t_task_receive tr,t_user tu,t_user_link_elder te
+        where t.id=tr.taskId and t.creatorId=tu.uid and t.elderId=te.id
+        and tr.receiverId IN
+        <if test="ids!=null">
+            <foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="status!=null and status!=''">
+            and t.status in (${status})
+        </if>
+        <if test="serviceType!=null and serviceType!=''">
+            and t.serviceType=#{serviceType}
+        </if>
+        order by t.createTime desc
+        <if test="page.start!=null and page.start!=''">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="selectById" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        select
+        a.id,a. taskId,b.number taskNumber, a.receiverId,a. createTime, a.completeTime,a.remind,
+        b.status,b.*,c.login_name sendName,c.uid sendId,b.createTime sendTime,c.phone as sendPhone,
+        d.elderName,d.elderMobile,b.money,b.payType,b.payTime,b.priceInfo
+        FROM t_task_receive a,t_task b,t_user c,t_user_link_elder d
+        where b.id=a.taskId and b.creatorId=c.uid and b.elderId = d.id and a.id=#{id}
+    </select>
+
+    <select id="getTaskByTime" resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT tr.id, t.serviceName,t.serviceTime,tr.comment,tr.level,t.serviceType
+        FROM t_task t,t_task_receive tr
+        WHERE t.id = tr.taskId
+        AND tr.receiverId = #{receiverId}
+        AND date(tr.createTime) = date(now())
+        AND tr.status != 0
+        order by tr.id desc
+        LIMIT #{start},#{length}
+     </select>
+
+    <select id="getCountByTime" resultType="java.util.HashMap" parameterType="java.util.Map">
+        <if test="map.flag=='year'">
+            SELECT MONTH(t.createTime) month,count(*) taskCount FROM t_task t,t_task_receive tr
+            where t.id=tr.taskId and receiverId=#{map.userId} and t.status in(${map.status})
+            and YEAR(t.createTime)=#{map.year} group by MONTH(t.createTime)
+        </if>
+        <if test="map.flag=='month'">
+            SELECT day(t.createTime) day,count(*) taskCount FROM t_task t,t_task_receive tr
+            where t.id=tr.taskId and receiverId=#{map.userId} and t.status in(${map.status})
+            and YEAR(t.createTime)=#{map.year} and MONTH(t.createTime)=#{map.month} group by day(t.createTime)
+        </if>
+    </select>
+
+    <select id="getCountByAnyTime" resultType="java.util.HashMap">
+        <if test="flag==1">
+            SELECT YEAR (a.createTime) AS year,COUNT(*) AS count
+            FROM t_task_receive a LEFT JOIN t_user c on(a.receiverId=c.uid)
+            WHERE DATE(a.createTime) >= #{startTime}
+            AND
+            <![CDATA[DATE (a.createTime) <= #{endTime}]]>
+            <if test="user.serviceOrgId != null">
+                and c.serviceOrgId IN (${user.serviceOrgId})
+            </if>
+            GROUP BY YEAR (a.createTime)
+        </if>
+        <if test="flag==2">
+            SELECT DATE_FORMAT(a.createTime,'%Y-%m') AS month,count(*) AS count
+            FROM t_task_receive a LEFT JOIN t_user c on(a.receiverId=c.uid)
+            WHERE DATE(a.createTime) >= #{startTime}
+            AND
+            <![CDATA[DATE(a.createTime) <= #{endTime}]]>
+            <if test="user.serviceOrgId != null">
+                and c.serviceOrgId IN (${user.serviceOrgId})
+            </if>
+            group by DATE_FORMAT(a.createTime,'%Y-%m')
+        </if>
+        <if test="flag==3">
+            SELECT DATE(a.createTime) AS day,COUNT(*) AS count
+            FROM t_task_receive a LEFT JOIN t_user c on(a.receiverId=c.uid)
+            WHERE DATE(a.createTime) >= #{startTime}
+            AND
+            <![CDATA[DATE(a.createTime)<= #{endTime}]]>
+            <if test="user.serviceOrgId != null">
+                and c.serviceOrgId IN (${user.serviceOrgId})
+            </if>
+            group by DATE(a.createTime)
+        </if>
+    </select>
+
+    <select id="scanCode" resultType="com.fedtech.pension.task.entity.TaskReceive">
+         SELECT tr.id,t.title,em.elderName,em.realAddress,t.content,t.createTime,t.serviceName,t.serviceType FROM t_elderly_message em,t_task t,t_task_receive tr WHERE
+          em.id=t.elderId AND t.id=tr.taskId AND tr.receiverId=#{userId} AND em.qrCoder = #{scanCode} AND tr.status=1 AND tr.register!=1;
+    </select>
+
+    <select id="getCountByUsersAndTimeAndStatus" resultType="java.lang.Integer">
+        select count(1)
+        FROM t_task_receive a LEFT JOIN t_user c on(a.receiverId=c.uid) LEFT JOIN t_task b on(a.taskId=b.id)
+        where a.createTime &gt;= #{startTime}
+        and a.createTime &lt;= #{endTime}
+        <if test="status>=0">
+            and b.status = #{status}
+        </if>
+        <if test="user.serviceOrgId != null">
+            and c.serviceOrgId IN (${user.serviceOrgId})
+        </if>
+        <if test="user.areaName != null">
+            AND c.areaName like CONCAT('%',#{user.areaName},'%' )
+        </if>
+    </select>
+
+    <select id="getCountByUsersAndTimeAndLevel" resultType="java.lang.Integer">
+        select count(1)
+        FROM t_task_receive a LEFT JOIN t_user c on(a.receiverId=c.uid) LEFT JOIN t_task b on(a.taskId=b.id)
+        where a.createTime &gt;= #{startTime}
+        and a.createTime &lt;= #{endTime}
+        <if test="level>=0">
+            and b.level &gt;= #{level}
+        </if>
+        <if test="user.serviceOrgId != null">
+            and c.serviceOrgId IN (${user.serviceOrgId})
+        </if>
+        <if test="user.areaName != null">
+            AND c.areaName like CONCAT('%',#{user.areaName},'%' )
+        </if>
+    </select>
+
+    <select id="selectByCreatorIdOrReceiverId" resultType="java.util.HashMap">
+        <if test="map.flag=='year'">
+            SELECT MONTH(t.createTime) month,count(*) taskCount FROM t_task t,t_task_receive tr
+            where t.id=tr.taskId and ((receiverId=#{map.userId} and t.status =2) or (tr.creatorId=#{map.userId} and
+            t.status in(${map.status})))
+            and YEAR(t.createTime)=#{map.year} group by MONTH(t.createTime)
+        </if>
+        <if test="map.flag=='month'">
+            SELECT day(t.createTime) day,count(*) taskCount FROM t_task t,t_task_receive tr
+            where t.id=tr.taskId and ((receiverId=#{map.userId} and t.status =2) or (tr.creatorId=#{map.userId} and
+            t.status in(${map.status})))
+            and YEAR(t.createTime)=#{map.year} and MONTH(t.createTime)=#{map.month} group by day(t.createTime)
+        </if>
+    </select>
+
+    <select id="selectCountByReceiverId" parameterType="java.lang.Integer"
+            resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT t.status,count(*) taskCount FROM t_task t,t_task_receive tr
+        where t.id=tr.taskId and receiverId=#{uid} group by t.status
+    </select>
+
+    <select id="getTaskByTaskIdAndRole" resultType="com.fedtech.pension.task.entity.TaskReceive">
+      select
+        a.id,a.taskId, a.receiverId
+        FROM t_task_receive a,t_user_role b
+        where b.userId=a.receiverId
+        and taskId=#{taskId} and roleId=#{roleId}
+    </select>
+
+    <select id="getAllRecode" parameterType="com.fedtech.pension.task.entity.TaskReceive"
+            resultType="com.fedtech.pension.task.entity.TaskReceive">
+        SELECT id,taskId,receiverId,completeTime,status
+        FROM t_task_receive
+        where taskId = #{filter.taskId}
+        <if test="filter.receiverId != null">
+            and receiverId = #{filter.receiverId}
+        </if>
+    </select>
+
+    <select id="getTaskCountByRange" resultType="com.fedtech.pension.task.vo.ServiceOrgTaskVo">
+        SELECT DISTINCT
+        b.serviceOrgId id ,
+        count(DISTINCT a.taskId) count
+        FROM
+        t_task_receive a
+        LEFT JOIN t_user b ON(a.receiverId = b.uid)
+        WHERE
+        b.serviceOrgId IN
+        <foreach collection="serviceOrgIds" item="serviceOrgId" index="index" open="(" separator="," close=")">
+            #{serviceOrgId}
+        </foreach>
+        and a.createTime &gt;= #{startDate}
+        and a.createTime &lt;= #{endDate}
+    </select>
+
+    <select id="countMoney" resultType="java.lang.Double" >
+        SELECT
+        sum(money)
+        FROM
+        t_task a left JOIN t_task_receive b on (a.id=b.taskId)
+        where a.status  in (9,10)
+        <if test="taskReceive.receiverId != null">
+            and b.receiverId = #{taskReceive.receiverId}
+        </if>
+        <if test="taskReceive.payType != null">
+            and a.payType = #{taskReceive.payType}
+        </if>
+        <if test="startTime != null">
+            and a.payTime &gt; #{startTime}
+        </if>
+        <if test="endTime != null">
+            and a.payTime &lt; #{endTime}
+        </if>
+    </select>
+</mapper>

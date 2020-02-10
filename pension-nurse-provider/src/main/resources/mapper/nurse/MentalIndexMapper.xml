@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.MentalIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.MentalIndex" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="test_type" property="testType" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, test_type, level,level_name
+  </sql>
+
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.MentalIndex" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into t_mental_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="testType != null" >
+        test_type,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testType != null" >
+        #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.MentalIndex" >
+    update t_mental_index
+    <set>
+      <if test="testType != null" >
+        test_type = #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.MentalIndex">
+    select
+    id,test_type,level,level_name
+    from t_mental_index
+    <where>
+      <if test="filter.testType!=null and filter.testType!=''">
+        test_type like CONCAT('%',#{filter.testType},'%' )
+      </if>
+      <if test="filter.level!=null">
+        and level = #{filter.level}
+      </if>
+      <if test="filter.levelName!=null and filter.levelName!=''">
+        and level_name like CONCAT('%',#{filter.levelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*)
+    from t_mental_index
+    <where>
+      <if test="testType!=null and testType!=''">
+        test_type like CONCAT('%',#{testType},'%' )
+      </if>
+      <if test="level!=null">
+        and level = #{level}
+      </if>
+      <if test="levelName!=null and levelName!=''">
+        and level_name like CONCAT('%',#{levelName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from t_mental_index
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_mental_index
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

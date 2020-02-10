@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.SmsLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.sys.entity.SmsLog">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, phone, content,ip,type,elderId,createTime,status
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sms_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectLastLog" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sms_log
+        where phone=#{phone}
+        ORDER BY id DESC
+        limit 0,1
+    </select>
+
+    <select id="count" parameterType="SmsLog" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_sms_log
+        where 1=1
+        <if test="filter.phone != null">
+            and phone = #{filter.phone}
+        </if>
+        <if test="filter.ip != null">
+            and ip = #{filter.ip}
+        </if>
+        <if test="filter.createTime != null">
+            and createTime = #{filter.createTime}
+        </if>
+        <if test="filter.status != null">
+            and status = #{filter.status}
+        </if>
+    </select>
+
+    <select id="countByDay" parameterType="SmsLog" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_sms_log
+        where date(createTime) = curdate()
+        <if test="filter.phone != null">
+            and phone = #{filter.phone}
+        </if>
+        <if test="filter.ip != null">
+            and ip = #{filter.ip}
+        </if>
+        <if test="filter.status != null">
+            and status = #{filter.status}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sms_log
+        where
+        <if test="filter.phone != null">
+            and phone = #{filter.phone}
+        </if>
+        <if test="filter.ip != null">
+            and ip = #{filter.ip}
+        </if>
+        <if test="filter.status != null">
+            and status = #{filter.status}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_sms_log
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="SmsLog">
+        insert into t_sms_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="SmsLog">
+        update t_sms_log
+        <set>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                elderId = #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{content,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertSomeRecode" parameterType="java.util.List">
+        INSERT INTO t_sms_log
+        (phone, content,ip,type,elderId,createTime,status)
+        VALUES
+        <foreach collection="smsLogs" item="smsLog" index="index" separator=",">
+            (#{smsLog.phone},#{smsLog.content},#{smsLog.ip},#{smsLog.type},#{smsLog.elderId},#{smsLog.createTime},#{smsLog.status})
+        </foreach>
+    </insert>
+
+    <select id="selectElderLySmsPageList" parameterType="com.fedtech.pension.sys.vo.SmsLogVo" resultType="com.fedtech.pension.sys.vo.SmsLogVo">
+        select a.id,a.phone, a.content,a.ip,a.type,a.elderId,b.elderName elderName,a.createTime,a.status
+        from t_sms_log a LEFT JOIN t_elderly_message b on (a.elderId=b.id)
+        <where>
+            <if test="filter.phone != null">
+                 a.phone like CONCAT('%',#{filter.phone},'%' )
+            </if>
+            <if test="filter.type != null">
+                AND a.type =#{filter.type}
+            </if>
+            <if test="filter.elderName != null">
+                AND b.elderName like CONCAT('%',#{filter.elderName},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+
+    </select>
+
+    <select id="countElderLySms" parameterType="com.fedtech.pension.sys.vo.SmsLogVo" resultType="java.lang.Integer">
+        select  count(1)
+        from t_sms_log a LEFT JOIN t_elderly_message b on (a.elderId=b.id)
+        <where>
+            <if test="phone != null">
+                a.phone like CONCAT('%',#{phone},'%' )
+            </if>
+            <if test="type != null">
+                AND a.type =#{type}
+            </if>
+            <if test="elderName != null">
+                AND b.elderName like CONCAT('%',#{elderName},'%' )
+            </if>
+        </where>
+    </select>
+
+</mapper>

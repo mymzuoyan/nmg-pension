@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.nurse.mapper.BloodOxygenMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.BloodOxygen">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="spo_value" jdbcType="INTEGER" property="spoValue" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, spo_value, level, level_name
+  </sql>
+
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.BloodOxygen" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into blood_oxygen
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="spoValue != null" >
+        spo_value,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="spoValue != null" >
+        #{spoValue,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.BloodOxygen">
+    update blood_oxygen
+    <set>
+      <if test="spoValue != null">
+        spo_value = #{spoValue,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.RespiratoryRate">
+    select
+    id,spo_value,level,level_name
+    from blood_oxygen
+    <where>
+      <if test="filter.spoValue!=null ">
+        spo_value = #{filter.spoValue}
+      </if>
+      <if test="filter.level!=null">
+        and level = #{filter.level}
+      </if>
+      <if test="filter.levelName!=null and filter.levelName!=''">
+        and level_name like CONCAT('%',#{filter.levelName},'%' )
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from blood_oxygen
+    <where>
+      <if test="spoValue!=null ">
+        spo_value = #{spoValue}
+      </if>
+      <if test="level!=null ">
+        and level = #{level}
+      </if>
+      <if test="levelName!=null and levelName!=''">
+        and level_name like CONCAT('%',#{levelName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from blood_oxygen
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blood_oxygen
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

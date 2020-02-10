@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.portal.mapper.ModuleMesMapper">
+    <resultMap id="moduleMes" type="com.fedtech.pension.portal.entity.ModuleMes">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="moduleId" property="moduleId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="startText" property="startText" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="creatorId" property="creatorId" jdbcType="INTEGER"/>
+        <result column="creatorName" property="creatorName" jdbcType="VARCHAR"/>
+        <result column="updaterId" property="updaterId" jdbcType="INTEGER"/>
+        <result column="updaterName" property="updaterName" jdbcType="VARCHAR"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="putTop" property="putTop" jdbcType="INTEGER"/>
+        <result column="viewCount" property="viewCount"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, moduleId, title,startText,content,image,createTime,creatorId,creatorName,updaterId,updaterName,updateTime,putTop,viewCount,status
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="moduleMes" parameterType="java.lang.Integer">
+        select
+           a.id,  a.moduleId,b.module module, a.startText, a.title, a.content, a.image, a.createTime, a.creatorId, a.creatorName, a.updaterId, a.updaterName, a.updateTime,a.viewCount,a.putTop,a.status
+         from t_module_mes a LEFT  JOIN  t_module b on(a.moduleId=b.id)
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <update id="verifyModuleMeses">
+        update t_module_mes set status = 1
+        WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        select
+        MAX(id)
+        from t_module_mes
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_module_mes
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        FROM t_module_mes a LEFT JOIN t_module b on(a.moduleId=b.id)
+        <where>
+            <if test="title!=null and title!=''">
+                AND a.title like CONCAT('%', #{title},'%')
+            </if>
+            <if test="creatorName!=null and creatorName!=''">
+                AND a.creatorName like CONCAT('%', #{creatorName},'%')
+            </if>
+            <if test="moduleId!=null and moduleId!=''">
+                AND a.moduleId = #{moduleId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPageList" resultMap="moduleMes">
+        SELECT
+        a.id,a.title,a.startText,b.module
+        module,a.content,a.createTime,a.creatorName,a.image,a.viewCount,a.putTop,a.status
+        FROM t_module_mes a LEFT JOIN t_module b on(a.moduleId=b.id)
+        <where>
+            <if test="filter.title!=null and filter.title!=''">
+                a.title like CONCAT('%', #{filter.title},'%')
+            </if>
+            <if test="filter.creatorName!=null and filter.creatorName!=''">
+                a.creatorName like CONCAT('%', #{filter.creatorName},'%')
+            </if>
+            <if test="filter.moduleId!=null and filter.moduleId!=''">
+                AND a.moduleId = #{filter.moduleId}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="selectTopNByModule" resultMap="moduleMes" parameterType="java.lang.Integer">
+        SELECT
+        main.id,title,startText,createTime,a.module module,  main.moduleId,image,viewCount,putTop,status
+        FROM
+        t_module_mes main LEFT JOIN  t_module a on(main.moduleId=a.id)
+        WHERE
+        (SELECT COUNT(1)
+        FROM t_module_mes sub
+        WHERE
+        main.moduleId = sub.moduleId
+        AND main.id  &lt;sub.id )
+        &lt; #{top} and status=1
+         ORDER BY main.id DESC
+    </select>
+
+    <select id="selectTopOrLastN" resultMap="moduleMes">
+        select a.id,a.title,a.startText,b.module
+        module,a.content,a.createTime,a.creatorName,a.image,a.viewCount,a.putTop,a.status
+        FROM t_module_mes a LEFT JOIN t_module b on(a.moduleId=b.id)
+        where status=1
+        <if test="topOrLast!=null">
+            <if test="topOrLast=='top'">
+                and a.id&lt;#{id}
+            </if>
+            <if test="topOrLast=='last'">
+                and a.id&gt;#{id}
+            </if>
+        </if>
+        <if test="moduleId!=null">
+            AND a.moduleId = #{moduleId}
+        </if>
+        ORDER BY a.id DESC
+        LIMIT 0, #{n}
+    </select>
+
+    <select id="selectPutTopMes" resultMap="moduleMes">
+        select a.id,a.title,a.startText,b.module module,a.content,a.createTime,a.creatorName,a.image,a.viewCount,a.putTop,a.status
+        FROM t_module_mes a LEFT JOIN t_module b on(a.moduleId=b.id)
+        where  status=1
+        ORDER BY a.putTop DESC , a.id DESC
+        LIMIT 0, #{count}
+    </select>
+
+    <select id="selectTopNByModuleId" resultMap="moduleMes" parameterType="java.lang.Integer">
+         SELECT
+        main.id,title,startText,createTime,a.module module,  main.moduleId,image,viewCount,putTop,status
+        FROM
+        t_module_mes main LEFT JOIN  t_module a on(main.moduleId=a.id)
+        where main.moduleId = #{moduleId,jdbcType=INTEGER} and status=1
+        ORDER BY main.id DESC
+        LIMIT #{count}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_module_mes
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.portal.entity.ModuleMes">
+        insert into t_module_mes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="moduleId != null">
+                moduleId,
+            </if>
+            <if test="startText != null">
+                startText,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="image != null">
+                image,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creatorId != null">
+                creatorId,
+            </if>
+            <if test="creatorName != null">
+                creatorName,
+            </if>
+            <if test="updaterId != null">
+                updaterId,
+            </if>
+            <if test="updaterName != null">
+                updaterName,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="putTop != null">
+                putTop,
+            </if>
+            <if test="viewCount != null">
+                viewCount,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId,jdbcType=INTEGER},
+            </if>
+            <if test="startText != null">
+                #{startText,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="creatorName != null">
+                #{creatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="updaterId != null">
+                #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updaterName != null">
+                #{updaterName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="putTop != null">
+                #{putTop,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="viewCount != null">
+                #{viewCount,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.portal.entity.ModuleMes">
+        update t_module_mes
+        <set>
+            <if test="moduleId != null">
+                moduleId = #{moduleId},
+            </if>
+            <if test="startText != null">
+                startText = #{startText},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="creatorId != null">
+                creatorId = #{creatorId},
+            </if>
+            <if test="creatorName != null">
+                creatorName = #{creatorName},
+            </if>
+            <if test="updaterId != null">
+                updaterId = #{updaterId},
+            </if>
+            <if test="updaterName != null">
+                updaterName = #{updaterName},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="putTop != null">
+                putTop = #{putTop},
+            </if>
+            <if test="viewCount != null">
+                viewCount = #{viewCount},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

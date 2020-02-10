@@ -1,0 +1,281 @@
+
+.public_box{
+    padding: 15px;
+}
+.table_row{
+    overflow: hidden;
+}
+
+#personalMsg .personal_info{
+    overflow: hidden;
+}
+#personalMsg .personal_info select{
+    height: 32px;
+    line-height: 32px;
+    padding: 0 5px ;
+    border: 1px solid #d8d8d8;
+    outline: none;
+    margin:  0 5px;
+}
+#personalMsg .personal_info input[type=radio]{
+    padding: 0 5px ;
+    border: 1px solid #d8d8d8;
+    outline: none;
+    margin:  0 5px;
+    vertical-align: middle;
+}
+#personalMsg .personal_info p{
+    margin:  15px 0;
+}
+#personalMsg .personal_info .tit{
+    margin:  0 5px 0 0;
+}
+#personalMsg .personal_type{
+    width: 330px;
+    border: 1px solid #d8d8d8;
+    padding: 15px;
+    overflow: hidden;
+    color: #333;
+    line-height: 32px;
+}
+#personalMsg .personal_type img{
+   margin-right: 10px;
+}
+
+/*关联老人*/
+#Associat_oldMan{
+
+}
+.addOldMan{
+    color: #D2D2D2;
+}
+.addOldMan a{
+    border: 1px solid #BFD6AF;
+    background-color: #E8F6D9;
+    color: #333;
+    line-height: 30px;
+    height: 30px;
+    width: 120px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.addOldMan a.active{
+    background-color:#0063AF ;
+    color: #ffffff;
+}
+
+#Associat_oldMan .oldMan_datalis{
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #d8d8d8;
+}
+#Associat_oldMan table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#Associat_oldMan table thead{
+
+}
+#Associat_oldMan table .colse{
+    font-size: 24px;
+}
+#Associat_oldMan table td{
+    padding: 4px 5px;
+}
+
+#Associat_oldMan table .data_set a{
+    color: #0063AF;
+    margin-left: 15px;
+}
+
+/*发布订单*/
+.row_from{
+    margin: 15px 0;
+    overflow: hidden;
+}
+.row_from .tit{
+    width: 130px;
+}
+ .pub_tit{
+
+     margin: 15px 0;
+}
+.row_from .row_from_info{
+    overflow: hidden;
+}
+.row_from .row_from_info input,.row_from .row_from_info select{
+    height: 32px;
+    line-height: 32px;
+    width: 530px;
+    border: 1px solid #d8d8d8;
+    padding: 0 5px;
+}
+.row_from .row_from_info textarea{
+    height: 200px;
+    line-height: 32px;
+    width: 530px;
+    border: 1px solid #d8d8d8;
+    padding: 0 5px;
+    resize: none;
+    font-size: 14px;
+}
+
+#indent_nav{
+
+}
+#indent_nav li{
+    float: left;
+    line-height: 32px;
+    padding: 0 10px;
+    border-bottom: 2px solid #fff;
+}
+#indent_nav li.active{
+   border-bottom: 2px solid #0063AF;
+}
+#indent_nav li a{
+    color: #0063AF;
+}
+#indent_seach{
+
+}
+#indent_seach input[type=text]{
+    height: 32px;
+    line-height: 32px;
+    width: 150px;
+    padding: 0 5px;
+    border: 1px solid #d8d8d8;
+    border-right: none;
+}
+#indent_seach input[type=submit]{
+    width: 40px;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    background: #fff;
+    outline: none;
+    border: 1px solid #d8d8d8;
+    background-image: url("../images/seach_ico_03.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+
+
+#indent_table{
+    width: 100%;
+    border-collapse:collapse ;
+}
+#indent_table select{
+     border: none;
+    outline: none;
+    background: #F5F5F5;
+ }
+#indent_table thead tr{
+    background: #F5F5F5;
+    text-align: center;
+    font-weight:600 ;
+}
+#indent_table  table {
+    width: 100%;
+    border-collapse:collapse ;
+    border: 1px solid #d8d8d8;
+}
+#indent_table  table tbody td{
+    border-right: 1px solid  #d8d8d8;
+    padding: 10px 10px;
+    text-align: center;
+}
+#indent_table  table tbody span{
+    color: #B3B3B3;
+    display: block;
+}
+#indent_table  table tbody span.color_suc{
+     color: #64C502;
+ }
+#indent_table  table tbody span.color_suc{
+      color: #64C502;
+  }
+#indent_table  table tbody span.color_warn{
+      color: #FF7712;
+  }
+#indent_table  table tbody  img.icon{
+    width: 16px;
+    vertical-align: middle;
+}
+#indent_table  table tbody  p{
+   text-align: center;
+}
+#indent_table  table tbody  .table_btn{
+  display: inline-block;
+    border: 1px solid #d8d8d8;
+    text-align: center;
+    width: 80px;
+    color: #333;
+    line-height: 28px;
+    height: 28px;
+    border-radius: 3px;
+    margin:  10px 0;
+}
+#indent_table  table tbody  .table_btn.active{
+    border-color: #E75153;
+    color: #E75153;
+}
+#indent_table  table tbody  a{
+ display: block;
+    margin: 5px 0;
+}
+#indent_table  td{
+    padding: 12px 0;
+}
+
+
+/*我的信息*/
+.alert_box{
+
+}
+.alert_box .alert_msg{
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+.alert_box .time{
+    text-align: center;
+    margin: 15px;
+    display: block;
+}
+.alert_box .warning{
+    background: #FFFCF2;
+    border: 1px solid #F8ECCA;
+}
+.alert_box .info{
+    background: #F5F5F5;
+    border: 1px solid #E1E1E1;
+}
+.alert_con{
+    padding: 12px;
+
+    overflow: hidden;
+}
+.alert_con .alert_hd{
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #EBEAEA;
+    padding-bottom: 10px;
+}
+.alert_con .alert_hd .close{
+    font-size: 24px;
+}
+.alert_con .alert_bd{
+    margin-top: 15px;
+    overflow: hidden;
+}
+.alert_con  .datalist{
+    color: #0063AF;
+}
+/*我的信息*/
+
+
+

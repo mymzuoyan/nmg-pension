@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.volunteer.mapper.VolunteerMapper">
+
+    <resultMap id="volunteer" type="com.fedtech.pension.volunteer.entity.Volunteer">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="area_id" property="areaId" jdbcType="INTEGER"/>
+        <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+        <result column="volunteer_name" property="volunteerName" jdbcType="VARCHAR"/>
+        <result column="create_org_id" property="createOrgId" jdbcType="INTEGER"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="sex_dict_id" property="sexDictId" jdbcType="INTEGER"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="idcardno" property="idcardno" jdbcType="VARCHAR"/>
+        <result column="home_tel" property="homeTel" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="qq" property="qq" jdbcType="VARCHAR"/>
+        <result column="registration_place" property="registrationPlace" jdbcType="VARCHAR"/>
+        <result column="real_live_address" property="realLiveAddress" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, area_id,area_name, volunteer_name, create_org_id, create_user_id, create_time,
+        sex_dict_id, age, birthday, idcardno, home_tel, mobile, qq, registration_place, REAL_LIVE_ADDRESS,SCORE
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="volunteer" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_volunteer
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_volunteer
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM t_volunteer
+        <where>
+            <if test="areaId!=null and areaId!=''">
+                AND area_id = #{areaId}
+            </if>
+            <if test="areaName!=null and areaName!=''">
+                and area_name like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="volunteerName!=null and volunteerName!=''">
+                and volunteer_name like CONCAT('%',#{volunteerName},'%' )
+            </if>
+            <if test="idcardno!=null and idcardno!=''">
+                and idcardno like CONCAT('%',#{idcardno},'%' )
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPageList" resultMap="volunteer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_volunteer
+        <where>
+            <if test="filter.areaId!=null and filter.areaId!=''">
+                AND area_id = #{filter.areaId}
+            </if>
+            <if test="filter.areaName!=null and filter.areaName!=''">
+                and area_name like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.volunteerName!=null and filter.volunteerName!=''">
+                and volunteer_name like CONCAT('%',#{filter.volunteerName},'%' )
+            </if>
+            <if test="filter.idcardno!=null and filter.idcardno!=''">
+                and idcardno like CONCAT('%',#{filter.idcardno},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultMap="volunteer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_volunteer
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_volunteer
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteSomeMsg">
+        delete from t_volunteer
+        where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.volunteer.entity.Volunteer">
+        insert into t_volunteer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="areaId != null">
+                area_id,
+            </if>
+            <if test="areaName != null">
+                area_name,
+            </if>
+            <if test="volunteerName != null">
+                volunteer_name,
+            </if>
+            <if test="createOrgId != null">
+                create_org_id,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="sexDictId != null">
+                sex_dict_id,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="idcardno != null">
+                idcardno,
+            </if>
+            <if test="homeTel != null">
+                home_tel,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="registrationPlace != null">
+                registration_place,
+            </if>
+            <if test="realLiveAddress != null">
+                real_live_address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="areaName != null">
+                #{areaName,jdbcType=INTEGER},
+            </if>
+            <if test="volunteerName != null">
+                #{volunteerName,jdbcType=VARCHAR},
+            </if>
+            <if test="createOrgId != null">
+                #{createOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sexDictId != null">
+                #{sexDictId,jdbcType=INTEGER},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardno != null">
+                #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="homeTel != null">
+                #{homeTel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationPlace != null">
+                #{registrationPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="realLiveAddress != null">
+                #{realLiveAddress,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.volunteer.entity.Volunteer">
+        update t_volunteer
+        <set>
+            <if test="areaId != null">
+                area_id = #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="areaName != null">
+                area_name = #{areaName,jdbcType=INTEGER},
+            </if>
+            <if test="volunteerName != null">
+                volunteer_name = #{volunteerName,jdbcType=VARCHAR},
+            </if>
+            <if test="createOrgId != null">
+                create_org_id = #{createOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sexDictId != null">
+                sex_dict_id = #{sexDictId,jdbcType=INTEGER},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardno != null">
+                idcardno = #{idcardno,jdbcType=VARCHAR},
+            </if>
+            <if test="homeTel != null">
+                home_tel = #{homeTel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationPlace != null">
+                registration_place = #{registrationPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="realLiveAddress != null">
+                real_live_address = #{realLiveAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                SCORE = #{score,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

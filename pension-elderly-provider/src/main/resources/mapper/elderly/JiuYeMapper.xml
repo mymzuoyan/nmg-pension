@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.JiuYeMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.JiuYe">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+        <result column="serviceOrgName" property="serviceOrgName" jdbcType="VARCHAR"/>
+        <result column="cardNo" property="cardNo" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="buTieMoney" property="buTieMoney" jdbcType="VARCHAR"/>
+        <result column="overTime" property="overTime" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.JiuYe">
+        SELECT id,name,areaName,serviceOrgName,cardNo,mobile,buTieMoney,overTime,remarks
+        FROM t_butie
+        WHERE 1 = 1
+        <if test="filter.areaName != null and filter.areaName !=''">
+            AND areaName like CONCAT('%',#{filter.areaName},'%' )
+        </if>
+        <if test="filter.name != null and filter.name !=''">
+            AND name LIKE CONCAT('%',#{filter.name},'%')
+        </if>
+        <if test="filter.serviceOrgName != null and filter.serviceOrgName !=''">
+            AND serviceOrgName like CONCAT('%',#{filter.serviceOrgName},'%' )
+        </if>
+        <if test="filter.cardNo != null and filter.cardNo !=''">
+            AND cardNo like CONCAT('%',#{filter.cardNo},'%' )
+        </if>
+        <if test="filter.mobile != null and filter.mobile !=''">
+            AND mobile like CONCAT('%',#{filter.mobile},'%' )
+        </if>
+        <if test="filter.buTieMoney != null and filter.buTieMoney !=''">
+            AND buTieMoney like CONCAT('%',#{filter.buTieMoney},'%' )
+        </if>
+        <if test="filter.overTime != null and filter.overTime !=''">
+            AND overTime = #{filter.overTime}
+        </if>
+        <if test="filter.remarks != null and filter.remarks !=''">
+            AND remarks = #{filter.remarks}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.fedtech.pension.elderly.entity.JiuYe">
+        SELECT
+        count(*)
+        FROM t_butie
+        WHERE 1 = 1
+        <if test="areaName != null and areaName !=''">
+            AND areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="name != null and name !=''">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="serviceOrgName != null and serviceOrgName !=''">
+            AND serviceOrgName like CONCAT('%',#{serviceOrgName},'%' )
+        </if>
+        <if test="cardNo != null and cardNo !=''">
+            AND cardNo like CONCAT('%',#{cardNo},'%' )
+        </if>
+        <if test="mobile != null and mobile !=''">
+            AND mobile like CONCAT('%',#{mobile},'%' )
+        </if>
+        <if test="buTieMoney != null and buTieMoney !=''">
+            AND buTieMoney like CONCAT('%',#{buTieMoney},'%' )
+        </if>
+        <if test="overTime != null and overTime !=''">
+            AND overTime = #{overTime}
+        </if>
+        <if test="remarks != null and remarks !=''">
+            AND remarks = #{remarks}
+        </if>
+    </select>
+
+    <select id="selectByCardNo" resultType="com.fedtech.pension.elderly.entity.JiuYe">
+        SELECT * FROM t_butie WHERE cardNo = #{cardNo}
+    </select>
+
+    <insert id="isAdd"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_butie
+        (name,areaName,cardNo,serviceOrgName,mobile,buTieMoney,overTime,remarks)
+        VALUES (#{name},#{areaName},#{cardNo},#{serviceOrgName},#{mobile},#{buTieMoney},#{overTime},#{remarks})
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+       DELETE FROM t_butie
+        WHERE id = #{id}
+     </delete>
+
+    <insert id="insertSomeElder" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_butie
+        (name,areaName,cardNo,serviceOrgName,mobile,buTieMoney,overTime,remarks)
+        VALUES
+        <foreach collection="jiuYes" item="jiuYe" index="index" separator=",">
+            (#{jiuYe.name},#{jiuYe.areaName},#{jiuYe.cardNo},#{jiuYe.serviceOrgName},#{jiuYe.mobile},#{jiuYe.buTieMoney},#{jiuYe.overTime},#{jiuYe.remarks})
+        </foreach>
+    </insert>
+
+    <update id="deleteSomeMsg">
+        DELETE FROM t_butie
+        WHERE id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.JiuYe"
+                     parameterType="java.lang.Integer">
+          SELECT *
+            FROM t_butie
+           where id = #{id}
+    </select>
+
+    <select id="selectCountByAreaName" resultType="java.lang.Integer"
+            parameterType="java.lang.Integer">
+          SELECT COUNT(1)
+            FROM t_butie
+           where areaName like concat('%',#{areaName},'%')
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.JiuYe">
+        UPDATE t_butie
+        <set>
+            <if test="name!=null and name!=''">
+                name = #{name},
+            </if>
+            <if test="areaName != null and areaName != ''">
+                areaName = #{areaName},
+            </if>
+            <if test="serviceOrgName != null and serviceOrgName != ''">
+                serviceOrgName = #{serviceOrgName},
+            </if>
+            <if test="cardNo != null and cardNo != ''">
+                cardNo = #{cardNo},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="buTieMoney != null">
+                buTieMoney = #{buTieMoney},
+            </if>
+            <if test="overTime != null and overTime != ''">
+                overTime = #{overTime},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="selectAreaByParentId" parameterType="int" resultType="com.fedtech.pension.sys.entity.Area">
+        SELECT * FROM `area` WHERE parentId = #{parentId}
+    </select>
+    <select id="selectByAreaName" parameterType="string" resultType="com.fedtech.pension.elderly.entity.JiuYe">
+        SELECT * FROM `t_butie` WHERE areaName like concat('%',#{name},'%')
+    </select>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.RolePermissionMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.RolePermission" parameterType="java.lang.Long">
+        SELECT id,roleId,permissionId
+        FROM sys_role_permission
+        WHERE id = #{id}
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM sys_role_permission
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteByRoleID" parameterType="java.lang.Integer">
+        DELETE FROM sys_role_permission
+        WHERE roleId = #{roleId}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.RolePermission" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role_permission
+        (roleId,permissionId,createTime)
+        VALUES (#{roleId},#{permissionId},#{createTime})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.RolePermission">
+        UPDATE sys_role_permission
+        <set>
+            <if test="roleId != null">
+                roleId = #{roleId},
+            </if>
+            <if test="permissionId != null">
+                permissionId = #{permissionId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.RolePermission" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_role
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_role
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.RolePermission">
+        SELECT id,roleId,permissionId
+        FROM sys_role_permission
+        <if test="filter.roleId!=null">
+            WHERE roleId=#{filter.roleId}
+        </if>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <insert id="insertSomeRolePermissions" parameterType="java.util.List">
+        INSERT INTO sys_role_permission
+        (roleId,permissionId)
+        VALUES
+        <foreach collection="rolePermissions" item="rolePermission" index="index" separator=",">
+            (#{rolePermission.roleId},#{rolePermission.permissionId})
+        </foreach>
+    </insert>
+
+
+</mapper>

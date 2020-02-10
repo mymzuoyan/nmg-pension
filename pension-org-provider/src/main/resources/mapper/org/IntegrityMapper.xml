@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.IntegrityMapper" >
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.Integrity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="institutionName" property="institutionName" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER"/>
+  </resultMap>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.Integrity" >
+    insert into t_integrity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="institutionName != null" >
+        institutionName,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="createName!=null">
+        createName,
+      </if>
+      createTime,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="institutionName != null" >
+        #{institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="createName!=null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      now(),
+    </trim>
+  </insert>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.Integrity">
+      select * from t_integrity
+    <where>
+      <if test="filter.institutionName!=null and filter.institutionName!=''">
+        AND institutionName like CONCAT('%',#{filter.institutionName},'%' )
+      </if>
+      <if test="filter.title!=null and filter.title!=''">
+        AND title like CONCAT('%',#{filter.title},'%' )
+      </if>
+       <if test="filter.flag !=null">
+         and flag =#{filter.flag}
+       </if>
+    </where>
+    GROUP by id
+    <if test="filter.startScore!=null and filter.startScore!='' and filter.endScore!=null and filter.endScore!=''">
+      HAVING score &gt;= #{filter.startScore}
+      and
+      score &lt;= #{filter.endScore}
+    </if>
+    <if test="(filter.endScore!=null and filter.endScore!='') and (filter.startScore ==null or filter.startScore=='')">
+      HAVING score &lt;= #{filter.endScore}
+    </if>
+    <if test="(filter.startScore !=null and filter.startScore!='') and (filter.endScore==null or filter.endScore=='')">
+      HAVING score &gt;= #{filter.startScore}
+    </if>
+    <if test="page.orderField!=null">
+      ORDER BY ${page.orderField} ${page.orderDir}
+    </if>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(1) from (
+    SELECT count(1) FROM t_integrity a
+    <where>
+      <if test="institutionName!=null and institutionName!=''">
+        AND a.institutionName like CONCAT('%',#{institutionName},'%' )
+      </if>
+      <if test="title!=null and title!=''">
+        AND a.title like CONCAT('%',#{title},'%' )
+      </if>
+      <if test="flag!=null">
+        and a.flag=#{flag}
+      </if>
+      <if test="startScore!=null and startScore!='' and endScore!=null and endScore!=''">
+        and a.score &gt;= #{startScore}
+        and  a.score &lt;= #{endScore}
+      </if>
+      <if test="(endScore!=null and endScore!='') and (startScore ==null or startScore=='')">
+        AND a.score &lt;= #{endScore}
+      </if>
+      <if test="(startScore !=null and startScore!='') and (endScore==null or endScore=='')">
+        and a.score &gt;= #{startScore}
+      </if>
+    </where>
+    GROUP by a.id
+    ) b
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_integrity
+    where id = #{id}
+  </delete>
+  <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.Integrity">
+    select * from t_integrity where id=#{id}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.Integrity">
+    update t_integrity  set
+    context=#{context},
+    institutionName=#{institutionName},
+    score=#{score},
+    title=#{title},
+    updateName=#{updateName},
+    updateTime=now()
+    where id=#{id}
+  </update>
+
+  <delete id="deleteSomeMsg">
+    delete from t_integrity
+    where id in
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+</mapper>

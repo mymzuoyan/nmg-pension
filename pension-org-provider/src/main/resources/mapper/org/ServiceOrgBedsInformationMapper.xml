@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgBedsInformationMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgBedsInformation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bed_number" jdbcType="VARCHAR" property="bedNumber" />
+    <result column="beds_state" jdbcType="INTEGER" property="bedsState" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, bed_number, beds_state, remark, room_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_service_org_beds_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_beds_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgBedsInformation" useGeneratedKeys="true"  keyProperty="id">
+    insert into t_service_org_beds_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bedNumber != null">
+        bed_number,
+      </if>
+      <if test="bedsState != null">
+        beds_state,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="roomId != null">
+        room_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bedNumber != null">
+        #{bedNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bedsState != null">
+        #{bedsState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgBedsInformation">
+    update t_service_org_beds_information
+    <set>
+      <if test="bedNumber != null">
+        bed_number = #{bedNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bedsState != null">
+        beds_state = #{bedsState,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null">
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_beds_information
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgBedsInformation">
+    select
+    *
+    from t_service_org_beds_information
+    <where>
+      <if test="filter.bedNumber != null and filter.bedNumber !=''">
+        AND bed_number like CONCAT('%',#{filter.bedNumber},'%' )
+      </if>
+      <if test="filter.bedsState!=null">
+        and beds_state=#{filter.bedsState}
+      </if>
+      <if test="filter.remark != null and filter.remark !=''">
+        AND remark like CONCAT('%',#{filter.remark},'%' )
+      </if>
+      <if test="filter.roomId!=null">
+        and room_id=#{filter.roomId}
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_beds_information
+    <where>
+      <if test="bedNumber != null and bedNumber !=''">
+        AND bed_number like CONCAT('%',#{bedNumber},'%' )
+      </if>
+      <if test="bedsState!=null">
+        and beds_state=#{bedsState}
+      </if>
+      <if test="remark != null and remark !=''">
+        AND remark like CONCAT('%',#{remark},'%' )
+      </if>
+      <if test="roomId!=null">
+        and room_id=#{roomId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByBedNumberAndRoomId" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_beds_information
+    where bed_number = #{bedNumber,jdbcType=VARCHAR}
+    and
+    room_id  = #{roomId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByRoomId" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_beds_information
+    where room_id  = #{roomId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBedNumberAndRoomNum" resultMap="BaseResultMap" >
+    select
+    *
+    from 	t_service_org_beds_information a,
+	t_service_org_tower_room_information b
+    where a.bed_number=#{bedNumber,jdbcType=VARCHAR}
+    and b.room_num=#{roomNum,jdbcType=VARCHAR}
+
+  </select>
+
+</mapper>

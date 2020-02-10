@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgTowerRoomInformationMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.org.entity.ServiceOrgTowerRoomInformation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_num" jdbcType="VARCHAR" property="roomNum" />
+    <result column="orientation" jdbcType="INTEGER" property="orientation" />
+    <result column="room_type" jdbcType="INTEGER" property="roomType" />
+    <result column="room_area" jdbcType="VARCHAR" property="roomArea" />
+    <result column="auxiliary_facilities" jdbcType="VARCHAR" property="auxiliaryFacilities" />
+    <result column="else_auxiliary_facilities" jdbcType="VARCHAR" property="elseAuxiliaryFacilities" />
+    <result column="room_equipment" jdbcType="VARCHAR" property="roomEquipment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="room_status" jdbcType="INTEGER" property="roomStatus" />
+    <result column="bed_num" jdbcType="INTEGER" property="bedNum" />
+    <result column="floor_id" jdbcType="INTEGER" property="floorId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, room_num, orientation, room_type, room_area, auxiliary_facilities, else_auxiliary_facilities, 
+    room_equipment, remark, room_status, bed_num, floor_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_service_org_tower_room_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_tower_room_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgTowerRoomInformation" useGeneratedKeys="true"  keyProperty="id">
+    insert into t_service_org_tower_room_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roomNum != null">
+        room_num,
+      </if>
+      <if test="orientation != null">
+        orientation,
+      </if>
+      <if test="roomType != null">
+        room_type,
+      </if>
+      <if test="roomArea != null">
+        room_area,
+      </if>
+      <if test="auxiliaryFacilities != null">
+        auxiliary_facilities,
+      </if>
+      <if test="elseAuxiliaryFacilities != null">
+        else_auxiliary_facilities,
+      </if>
+      <if test="roomEquipment != null">
+        room_equipment,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="roomStatus != null">
+        room_status,
+      </if>
+      <if test="bedNum != null">
+        bed_num,
+      </if>
+      <if test="floorId != null">
+        floor_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomNum != null">
+        #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orientation != null">
+        #{orientation,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="roomArea != null">
+        #{roomArea,jdbcType=VARCHAR},
+      </if>
+      <if test="auxiliaryFacilities != null">
+        #{auxiliaryFacilities,jdbcType=VARCHAR},
+      </if>
+      <if test="elseAuxiliaryFacilities != null">
+        #{elseAuxiliaryFacilities,jdbcType=VARCHAR},
+      </if>
+      <if test="roomEquipment != null">
+        #{roomEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStatus != null">
+        #{roomStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bedNum != null">
+        #{bedNum,jdbcType=INTEGER},
+      </if>
+      <if test="floorId != null">
+        #{floorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgTowerRoomInformation">
+    update t_service_org_tower_room_information
+    <set>
+      <if test="roomNum != null">
+        room_num = #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orientation != null">
+        orientation = #{orientation,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        room_type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="roomArea != null">
+        room_area = #{roomArea,jdbcType=VARCHAR},
+      </if>
+      <if test="auxiliaryFacilities != null">
+        auxiliary_facilities = #{auxiliaryFacilities,jdbcType=VARCHAR},
+      </if>
+      <if test="elseAuxiliaryFacilities != null">
+        else_auxiliary_facilities = #{elseAuxiliaryFacilities,jdbcType=VARCHAR},
+      </if>
+      <if test="roomEquipment != null">
+        room_equipment = #{roomEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStatus != null">
+        room_status = #{roomStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bedNum != null">
+        bed_num = #{bedNum,jdbcType=INTEGER},
+      </if>
+      <if test="floorId != null">
+        floor_id = #{floorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_tower_room_information
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgTowerRoomInformation">
+    select
+    *
+    from t_service_org_tower_room_information
+    <where>
+      <if test="filter.roomNum != null and filter.roomNum !=''">
+        AND room_num like CONCAT('%',#{filter.roomNum},'%' )
+      </if>
+      <if test="filter.orientation!=null">
+        and orientation=#{filter.orientation}
+      </if>
+      <if test="filter.roomType!=null">
+        and room_type=#{filter.roomType}
+      </if>
+      <if test="filter.roomArea != null and filter.roomArea !=''">
+        AND room_area like CONCAT('%',#{filter.roomArea},'%' )
+      </if>
+      <if test="filter.auxiliaryFacilities!=null and filter.auxiliaryFacilities!=''">
+        AND auxiliary_facilities like CONCAT('%',#{filter.auxiliaryFacilities},'%' )
+      </if>
+      <if test="filter.elseAuxiliaryFacilities != null and filter.elseAuxiliaryFacilities !=''">
+        AND else_auxiliary_facilities like CONCAT('%',#{filter.elseAuxiliaryFacilities},'%' )
+      </if>
+      <if test="filter.roomEquipment!=null and filter.roomEquipment!=''">
+        AND room_equipment like CONCAT('%',#{filter.roomEquipment},'%' )
+      </if>
+      <if test="filter.remark != null and filter.remark !=''">
+        AND remark like CONCAT('%',#{filter.remark},'%' )
+      </if>
+      <if test="filter.roomStatus!=null">
+        and room_status=#{filter.roomStatus}
+      </if>
+      <if test="filter.bedNum!=null">
+        and bed_num=#{filter.bedNum}
+      </if>
+      <if test="filter.floorId!=null">
+        and floor_id=#{filter.floorId}
+      </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from t_service_org_tower_room_information
+    <where>
+      <if test="roomNum != null and roomNum !=''">
+        AND room_num like CONCAT('%',#{roomNum},'%' )
+      </if>
+      <if test="orientation!=null">
+        and orientation=#{orientation}
+      </if>
+      <if test="roomType!=null">
+        and room_type=#{roomType}
+      </if>
+      <if test="roomArea != null and roomArea !=''">
+        AND room_area like CONCAT('%',#{roomArea},'%' )
+      </if>
+      <if test="auxiliaryFacilities!=null and auxiliaryFacilities!=''">
+        AND auxiliary_facilities like CONCAT('%',#{auxiliaryFacilities},'%' )
+      </if>
+      <if test="elseAuxiliaryFacilities != null and elseAuxiliaryFacilities !=''">
+        AND else_auxiliary_facilities like CONCAT('%',#{elseAuxiliaryFacilities},'%' )
+      </if>
+      <if test="roomEquipment!=null and roomEquipment!=''">
+        AND room_equipment like CONCAT('%',#{roomEquipment},'%' )
+      </if>
+      <if test="remark != null and remark !=''">
+        AND remark like CONCAT('%',#{remark},'%' )
+      </if>
+      <if test="roomStatus!=null">
+        and room_status=#{roomStatus}
+      </if>
+      <if test="bedNum!=null">
+        and bed_num=#{bedNum}
+      </if>
+      <if test="floorId!=null">
+        and floor_id=#{floorId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByFloorNumberAndfloorId" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_tower_room_information
+    where room_num = #{roomNum,jdbcType=VARCHAR}
+    and
+    floor_id  = #{floorId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByFloorNumber" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_tower_room_information a
+     LEFT JOIN t_service_org_floor_information b ON b.id = a.floor_id
+      LEFT JOIN t_service_org_tower_courtyard_information c ON c.id = b.tower_courtyard_id
+    where c.service_org_id like CONCAT('%',#{serviceOrgId},'%' )
+    AND room_num LIKE CONCAT('%',#{roomNum},'%' )
+  </select>
+
+  <select id="selectByRoomNumAndServiceOrgId" resultMap="BaseResultMap" >
+    select
+    *
+    from t_service_org_tower_room_information a
+    LEFT JOIN t_service_org_floor_information b ON b.id = a.floor_id
+      LEFT JOIN t_service_org_tower_courtyard_information c ON c.id = b.tower_courtyard_id
+    where c.service_org_id like CONCAT('%',#{serviceOrgId},'%' )
+    AND room_num LIKE CONCAT('%',#{roomNum},'%' )
+  </select>
+
+
+  <select id="selectByFloorId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    *
+    from t_service_org_tower_room_information
+    where
+    floor_id  = #{floorId,jdbcType=INTEGER}
+  </select>
+</mapper>

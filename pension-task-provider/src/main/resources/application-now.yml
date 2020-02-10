@@ -1,0 +1,74 @@
+debug:
+  true
+logging:
+  level:
+    org.springframework: INFO
+    com.fedtech: DEBUG
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Root!!2018
+  db:
+    readsize: 3
+    read0:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+    read2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/db_pension_sy?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Root!!2018
+  redis:
+      host: 127.0.0.1
+      port: 6379
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  dubbo:
+    application:
+      name: task-provider
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20885
+    scan: com.fedtech.pension.task.service
+server:
+  port: 8085
+
+
+#极光推送
+#服务人员
+serviceUser:
+  jPush:
+    AppKey: 27439a40e1768779b72dc754
+    secret: 50d67e89e52542f8035e4394
+#服务组织管理员
+serviceAdmin:
+  jPush:
+    AppKey: c340a1a2a1f9d55c31f0fd2b
+    secret: bddbd98cb6675ec4d5481849
+#服务对象
+serviceObject:
+  jPush:
+    AppKey: 42f03216c1f53bb33adf2052
+    secret: 9385327204c50f5733e1b27f
+

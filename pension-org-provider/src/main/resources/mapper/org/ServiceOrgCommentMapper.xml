@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgCommentMapper">
+    <sql id="Base_Column_List">
+   id,user_id,service_org_id,comment,score,create_time
+  </sql>
+
+    <select id="selectByServiceOrgCommentId" resultType="ServiceOrgComment" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_comment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrgComment" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user != null and user.uid!=null">
+                user_id,
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id != null">
+                service_org_id,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="user != null and user.uid!=null ">
+                #{user.uid,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id != null ">
+                #{serviceOrg.id,jdbcType=INTEGER},
+            </if>
+            <if test="comment != null">
+                #{comment},
+            </if>
+            <if test="score != null">
+                #{score},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrgComment">
+        update t_service_org_comment
+        <set>
+            <if test="user != null and user.uid!=null ">
+                user_id =#{user.uid},
+            </if>
+            <if test="serviceOrg != null and serviceOrg.id != null ">
+                service_org_id= #{serviceOrg.id},
+            </if>
+            <if test="comment != null">
+                comment =#{comment},
+            </if>
+            <if test="score != null">
+                score =#{score},
+            </if>
+            <if test="createTime != null">
+                create_time =#{createTime},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrgComment">
+        select
+        a.id,
+        a.service_org_id as "serviceOrg.id",
+        b.institutionName as "serviceOrg.institutionName",
+        a.user_id as "user.uid",
+        c.nick_name as "user.nickName",
+        a.comment as "comment",
+        a.score as "score",
+        a.create_time as createTime
+        from t_service_org_comment a
+        left join t_service_org b on a.service_org_id = b.id
+        left join t_user c on a.user_id = c.uid
+        <where>
+            <if test="filter.areaName!=null and filter.areaName!=null">
+                and b.areaName = #{filter.areaName}
+            </if>
+            <if test="filter.serviceOrg!=null and filter.serviceOrg.id!=null">
+                and a.service_org_id = #{filter.serviceOrg.id}
+            </if>
+            <if test="filter.serviceOrg.type!=null and filter.serviceOrg.type!=null">
+                and b.type = #{filter.serviceOrg.type}
+            </if>
+            <if test="filter.serviceOrg!=null and filter.serviceOrg.institutionName!=null and filter.serviceOrg.institutionName!=''">
+                and b.institutionName like CONCAT('%',#{filter.serviceOrg.institutionName},'%' )
+            </if>
+            <if test="filter.user!=null and filter.user.nickName!=null and filter.user.nickName!=''">
+                and c.nick_name like CONCAT('%',#{filter.user.nickName},'%' )
+            </if>
+            <if test="filter.score!=null ">
+                AND a.score= #{filter.score}
+            </if>
+            <if test="filter.comment!=null and filter.comment!=''">
+                AND a.comment like CONCAT('%',#{filter.comment},'%' )
+            </if>
+        </where>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_service_org_comment
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from t_service_org_comment a
+        left join t_service_org b on a.service_org_id = b.id
+        left join t_user c on a.user_id = c.uid
+        <where>
+            <if test="areaName!=null and areaName!=null">
+                and b.areaName = #{areaName}
+            </if>
+            <if test="serviceOrg!=null and serviceOrg.id!=null">
+                and a.service_org_id = #{serviceOrg.id}
+            </if>
+            <if test="serviceOrg.type!=null and serviceOrg.type!=null">
+                and b.type = #{serviceOrg.type}
+            </if>
+            <if test="serviceOrg!=null and serviceOrg.institutionName!=null and serviceOrg.institutionName!=''">
+                and b.institutionName like CONCAT('%',#{serviceOrg.institutionName},'%' )
+            </if>
+            <if test="user!=null and user.nickName!=null and user.nickName!=''">
+                and c.nick_name like CONCAT('%',#{user.nickName},'%' )
+            </if>
+            <if test="score!=null ">
+                AND a.score= #{score}
+            </if>
+            <if test="comment!=null and comment!=''">
+                AND a.comment like CONCAT('%',#{comment},'%' )
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

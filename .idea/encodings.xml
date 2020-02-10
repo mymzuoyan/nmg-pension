@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-call-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-call-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-call-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-call-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-call-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-elderly-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-elderly-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-elderly-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-elderly-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-elderly-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-nurse-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-nurse-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-nurse-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-nurse-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-nurse-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-oldman-power-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-oldman-power-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-oldman-power-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-oldman-power-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-oldman-power-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-org-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-org-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-org-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-org-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-org-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-portal-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-portal-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-portal-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-portal-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-portal-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-respect-gold-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-respect-gold-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-respect-gold-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-respect-gold-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-respect-gold-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-sys-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-sys-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-sys-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-sys-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-sys-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-task-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-task-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-task-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-task-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-task-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-volunteer-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-volunteer-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-volunteer-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-volunteer-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pension-volunteer-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-datadock-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-datadock-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-datadock-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-mobile-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-mobile-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web-mobile-api/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

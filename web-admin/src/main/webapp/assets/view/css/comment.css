@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding:0;
+    list-style: none;
+}
+.oho-comment{
+    overflow: hidden;
+    zoom: 1;
+    margin-left:20px;
+    margin-top:10px;
+}
+
+.oho-comment li{
+    padding-bottom: 3px;
+    border-bottom:3px solid #ffffff;
+    cursor: pointer;
+}
+
+.oho-comment li span {
+
+    color:#292929;
+    font-size:18px;
+
+}
+.oho-comment li.m_left{
+    margin-left:20px;
+}
+.oho-line{
+    position: relative;
+    top: -21px;
+}
+.box-tab .p_left{
+    padding-left:20px;
+    padding-right:10px;
+}
+.box-tab .comment-user {
+    padding-right: 15px;
+}
+.box-tab .comment-user .comment-reply{
+    text-decoration: none;
+    font-size:12px;
+    cursor: pointer;
+    color:#999;
+}
+.box-tab span{
+    font-size: 12px;
+    color: #999;
+}
+.box-tab .media-body p{
+    color:#666;
+    font-size:14px;
+    line-height:26px;
+}
+.box-tab .reply {
+    margin:20px;
+}
+.box-tab .reply .form-horizontal .form-group {
+    margin: 0;
+}
+.box-tab .reply .form-horizontal .form-group h4{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.box-tab .reply .form-horizontal .page-header {
+    padding-bottom: 9px;
+    margin: 0;
+    border-bottom: 0px;
+}
+
+.box-tab .reply .form-horizontal .page-header h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box-tab .reply .form-horizontal .page-header h3 a{
+    font-size: 14px;
+    color: #4285f4;
+}
+.box-tab .reply .form-horizontal .page-header h3 small{
+    font-size: 14px;
+    color: #999;
+}
+.box-tab .reply .form-horizontal .form-group h5 a{
+    color:#655f5f;
+}

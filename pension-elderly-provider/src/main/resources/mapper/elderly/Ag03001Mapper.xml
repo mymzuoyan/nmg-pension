@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.elderly.mapper.Ag03001Mapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.Ag03001">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CAGP9001" jdbcType="VARCHAR" property="cagp9001" />
+    <result column="CAGP9002" jdbcType="VARCHAR" property="cagp9002" />
+    <result column="CAGP9003" jdbcType="VARCHAR" property="cagp9003" />
+    <result column="CAGP9004" jdbcType="VARCHAR" property="cagp9004" />
+    <result column="CAGP9005" jdbcType="VARCHAR" property="cagp9005" />
+    <result column="CAGP9006" jdbcType="VARCHAR" property="cagp9006" />
+    <result column="CAGP9007" jdbcType="VARCHAR" property="cagp9007" />
+    <result column="CAGP9008" jdbcType="VARCHAR" property="cagp9008" />
+    <result column="CAGP9009" jdbcType="VARCHAR" property="cagp9009" />
+    <result column="CAGP9010" jdbcType="VARCHAR" property="cagp9010" />
+    <result column="CAGP9011" jdbcType="VARCHAR" property="cagp9011" />
+    <result column="CAGP9012" jdbcType="VARCHAR" property="cagp9012" />
+    <result column="CAGP9013" jdbcType="VARCHAR" property="cagp9013" />
+    <result column="CAGP9014" jdbcType="VARCHAR" property="cagp9014" />
+    <result column="CAGP9015" jdbcType="VARCHAR" property="cagp9015" />
+    <result column="CAGP9016" jdbcType="VARCHAR" property="cagp9016" />
+    <result column="CAGP9017" jdbcType="VARCHAR" property="cagp9017" />
+    <result column="CAGP9018" jdbcType="VARCHAR" property="cagp9018" />
+    <result column="CAGP9019" jdbcType="VARCHAR" property="cagp9019" />
+    <result column="CAGP9020" jdbcType="VARCHAR" property="cagp9020" />
+    <result column="CAGP9021" jdbcType="VARCHAR" property="cagp9021" />
+    <result column="CAGP9022" jdbcType="VARCHAR" property="cagp9022" />
+    <result column="CAGP9023" jdbcType="VARCHAR" property="cagp9023" />
+    <result column="CAGP9024" jdbcType="VARCHAR" property="cagp9024" />
+    <result column="CAGP9025" jdbcType="VARCHAR" property="cagp9025" />
+    <result column="CAGP9026" jdbcType="VARCHAR" property="cagp9026" />
+    <result column="CAGP9027" jdbcType="VARCHAR" property="cagp9027" />
+    <result column="CAGP9028" jdbcType="VARCHAR" property="cagp9028" />
+    <result column="CAGP9029" jdbcType="VARCHAR" property="cagp9029" />
+    <result column="CAGP9030" jdbcType="VARCHAR" property="cagp9030" />
+    <result column="CAGP9031" jdbcType="VARCHAR" property="cagp9031" />
+    <result column="CAGP9032" jdbcType="VARCHAR" property="cagp9032" />
+    <result column="CAGP9033" jdbcType="VARCHAR" property="cagp9033" />
+    <result column="CAGP9034" jdbcType="VARCHAR" property="cagp9034" />
+    <result column="CAGP9035" jdbcType="VARCHAR" property="cagp9035" />
+    <result column="CAGP9036" jdbcType="VARCHAR" property="cagp9036" />
+    <result column="CAGP9037" jdbcType="VARCHAR" property="cagp9037" />
+    <result column="CAGP9038" jdbcType="VARCHAR" property="cagp9038" />
+    <result column="CAGP9039" jdbcType="VARCHAR" property="cagp9039" />
+    <result column="CAGP9040" jdbcType="VARCHAR" property="cagp9040" />
+    <result column="CAGP9041" jdbcType="VARCHAR" property="cagp9041" />
+    <result column="CAGP9042" jdbcType="VARCHAR" property="cagp9042" />
+    <result column="CAGP9043" jdbcType="VARCHAR" property="cagp9043" />
+    <result column="CAGP9044" jdbcType="VARCHAR" property="cagp9044" />
+    <result column="CAGP9045" jdbcType="VARCHAR" property="cagp9045" />
+    <result column="CAGP9046" jdbcType="VARCHAR" property="cagp9046" />
+    <result column="CAGP9047" jdbcType="VARCHAR" property="cagp9047" />
+    <result column="CAGP9048" jdbcType="VARCHAR" property="cagp9048" />
+    <result column="CAGP9049" jdbcType="VARCHAR" property="cagp9049" />
+    <result column="CAGP9050" jdbcType="VARCHAR" property="cagp9050" />
+    <result column="CAGP9051" jdbcType="VARCHAR" property="cagp9051" />
+    <result column="CAGP9052" jdbcType="VARCHAR" property="cagp9052" />
+    <result column="CAGP9053" jdbcType="VARCHAR" property="cagp9053" />
+    <result column="CAGP9054" jdbcType="VARCHAR" property="cagp9054" />
+    <result column="CAGP9055" jdbcType="VARCHAR" property="cagp9055" />
+    <result column="CAGP9056" jdbcType="VARCHAR" property="cagp9056" />
+    <result column="CAGP9057" jdbcType="VARCHAR" property="cagp9057" />
+    <result column="CAGP9058" jdbcType="VARCHAR" property="cagp9058" />
+    <result column="CAGP9059" jdbcType="VARCHAR" property="cagp9059" />
+    <result column="CAGP9060" jdbcType="VARCHAR" property="cagp9060" />
+    <result column="CAGP9061" jdbcType="VARCHAR" property="cagp9061" />
+    <result column="CAGP9062" jdbcType="VARCHAR" property="cagp9062" />
+    <result column="CAGP9063" jdbcType="VARCHAR" property="cagp9063" />
+    <result column="CAGP9064" jdbcType="VARCHAR" property="cagp9064" />
+    <result column="CAGP9065" jdbcType="VARCHAR" property="cagp9065" />
+    <result column="CAGP9066" jdbcType="VARCHAR" property="cagp9066" />
+    <result column="CAGP9067" jdbcType="VARCHAR" property="cagp9067" />
+    <result column="CAGP9068" jdbcType="VARCHAR" property="cagp9068" />
+    <result column="CAGP9069" jdbcType="VARCHAR" property="cagp9069" />
+    <result column="CAGP9070" jdbcType="VARCHAR" property="cagp9070" />
+    <result column="CAGP9071" jdbcType="VARCHAR" property="cagp9071" />
+    <result column="CAGP9072" jdbcType="VARCHAR" property="cagp9072" />
+    <result column="CAGP9073" jdbcType="VARCHAR" property="cagp9073" />
+    <result column="CAGP9074" jdbcType="VARCHAR" property="cagp9074" />
+    <result column="CAGP9075" jdbcType="VARCHAR" property="cagp9075" />
+    <result column="CAGP9076" jdbcType="VARCHAR" property="cagp9076" />
+    <result column="CAGP9077" jdbcType="VARCHAR" property="cagp9077" />
+    <result column="CAGP9078" jdbcType="VARCHAR" property="cagp9078" />
+    <result column="CAGP9079" jdbcType="VARCHAR" property="cagp9079" />
+    <result column="CAGP9080" jdbcType="VARCHAR" property="cagp9080" />
+    <result column="CAGP9081" jdbcType="TIMESTAMP" property="cagp9081" />
+    <result column="CAGP9082" jdbcType="VARCHAR" property="cagp9082" />
+    <result column="CAGP9083" jdbcType="VARCHAR" property="cagp9083" />
+    <result column="CAGP9084" jdbcType="VARCHAR" property="cagp9084" />
+    <result column="CAGP9085" jdbcType="VARCHAR" property="cagp9085" />
+    <result column="CAGP9086" jdbcType="DECIMAL" property="cagp9086" />
+    <result column="CAGP9087" jdbcType="TIMESTAMP" property="cagp9087" />
+    <result column="CAGP9088" jdbcType="TIMESTAMP" property="cagp9088" />
+    <result column="BPM_STATUS" jdbcType="VARCHAR" property="bpmStatus" />
+    <result column="CREATE_NAME" jdbcType="VARCHAR" property="createName" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_NAME" jdbcType="VARCHAR" property="updateName" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="SYS_ORG_CODE" jdbcType="VARCHAR" property="sysOrgCode" />
+    <result column="SYS_COMPANY_CODE" jdbcType="VARCHAR" property="sysCompanyCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CAGP9001, CAGP9002, CAGP9003, CAGP9004, CAGP9005, CAGP9006, CAGP9007, CAGP9008, 
+    CAGP9009, CAGP9010, CAGP9011, CAGP9012, CAGP9013, CAGP9014, CAGP9015, CAGP9016, CAGP9017, 
+    CAGP9018, CAGP9019, CAGP9020, CAGP9021, CAGP9022, CAGP9023, CAGP9024, CAGP9025, CAGP9026, 
+    CAGP9027, CAGP9028, CAGP9029, CAGP9030, CAGP9031, CAGP9032, CAGP9033, CAGP9034, CAGP9035, 
+    CAGP9036, CAGP9037, CAGP9038, CAGP9039, CAGP9040, CAGP9041, CAGP9042, CAGP9043, CAGP9044, 
+    CAGP9045, CAGP9046, CAGP9047, CAGP9048, CAGP9049, CAGP9050, CAGP9051, CAGP9052, CAGP9053, 
+    CAGP9054, CAGP9055, CAGP9056, CAGP9057, CAGP9058, CAGP9059, CAGP9060, CAGP9061, CAGP9062, 
+    CAGP9063, CAGP9064, CAGP9065, CAGP9066, CAGP9067, CAGP9068, CAGP9069, CAGP9070, CAGP9071, 
+    CAGP9072, CAGP9073, CAGP9074, CAGP9075, CAGP9076, CAGP9077, CAGP9078, CAGP9079, CAGP9080, 
+    CAGP9081, CAGP9082, CAGP9083, CAGP9084, CAGP9085, CAGP9086, CAGP9087, CAGP9088, BPM_STATUS, 
+    CREATE_NAME, CREATE_BY, CREATE_DATE, UPDATE_NAME, UPDATE_BY, UPDATE_DATE, SYS_ORG_CODE, 
+    SYS_COMPANY_CODE
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ag03001
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAreaName" parameterType="java.lang.Integer" resultType="java.lang.String">
+      select getAreaName(#{areaId})
+  </select>
+
+  <select id="selectbyDistrictId" parameterType="java.lang.String" resultType="com.fedtech.pension.sys.entity.Area">
+    select
+    *
+    from area
+    where districtId = #{districtId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+     select
+    cagp9024,cagp9009,cagp9008,cagp9007,cagp9006,cagp9005,cagp9013,cagp9067,cagp9080
+		from ag03001 a join (
+select number from ag03001
+limit #{start}, #{length}
+) b on (a.number = b.number)
+
+  </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    select count(1) from ag03001
+  </select>
+
+  <select id="selectbyId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from ag03001
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+
+</mapper>

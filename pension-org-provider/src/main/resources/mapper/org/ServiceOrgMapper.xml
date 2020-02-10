@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.org.mapper.ServiceOrgMapper">
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT max(id) FROM  t_service_org
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrg"
+            parameterType="java.lang.Integer">
+        select
+        *,CAST(((SUM(address is not null and address !='')
+        +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+        +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+        +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+        +SUM(inServiceTimeAm is not null and inServiceTimeAm !='')
+        +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+        +SUM(cardSystemName is not null  and cardSystemName !='') +SUM(nurseCenterLevel is not null and nurseCenterLevel !='')
+        +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+        +SUM(instProp is not null and instProp !='')
+        +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+        +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+        +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as decimal(10,2))as infoIntegrity
+        from t_service_org WHERE id = #{id}
+        GROUP BY id
+    </select>
+
+    <select id="selectByInstitutionName" resultType="com.fedtech.pension.org.entity.ServiceOrg"
+            parameterType="com.fedtech.pension.org.entity.ServiceOrg">
+        select
+        *
+        from t_service_org WHERE institutionName = #{institutionName}
+    </select>
+
+    <select id="getOrgIdByInstitutionName" resultType="com.fedtech.pension.org.entity.ServiceOrg"
+            parameterType="java.lang.String">
+        select
+        *
+        from t_service_org
+        WHERE institutionName = #{institutionName}
+        and type=2
+    </select>
+
+    <select id="getByNameAndType" resultType="com.fedtech.pension.org.entity.ServiceOrg">
+        select
+        *
+        from t_service_org
+        WHERE institutionName = #{name}
+        and type=#{type}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1) from t_service_org
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from (
+        SELECT count(1) FROM t_service_org a
+        <where>
+            <if test="areaId!=null">
+                a.areaId = #{areaId}
+            </if>
+            <if test="buildType!=null">
+                AND a.build_type=#{buildType}
+            </if>
+            <if test="areaName != null and areaName !=''">
+                AND a.areaName like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="type!=null">
+                AND a.type = #{type}
+            </if>
+            <if test="applyName != null and applyName !=''">
+                AND a.applyName like CONCAT('%',#{applyName},'%' )
+            </if>
+            <if test="applyIdcardNo != null and applyIdcardNo !=''">
+                AND a.applyIdcardNo like CONCAT('%',#{applyIdcardNo},'%' )
+            </if>
+            <if test="institutionName!=null and institutionName!=''">
+                AND a.institutionName like CONCAT('%',#{institutionName},'%' )
+            </if>
+            <if test="serviceProject!=null and serviceProject!=''">
+                AND a.serviceProject like CONCAT('%',#{serviceProject},'%' )
+            </if>
+            <if test="institutionTypeDictId!=null and institutionTypeDictId!=''">
+                AND a.institutionTypeDictId in (${institutionTypeDictId})
+            </if>
+            <if test="serviceArea!=null">
+                AND a.serviceArea = #{serviceArea}
+            </if>
+            <if test="id!=null">
+                AND a.id = #{id}
+            </if>
+            <if test="gradeDictId!=null">
+                <if test="gradeDictId &gt; 6 ">
+                    AND locate(a.gradeDictId,${gradeDictId})
+                </if>
+                <if test="gradeDictId  &lt; 6">
+                    AND a.gradeDictId = #{gradeDictId}
+                </if>
+            </if>
+            <if test="regTypeDictId!=null">
+                AND a.regTypeDictId = #{regTypeDictId}
+            </if>
+            <if test="socialForce!=null">
+                AND a.socialForce = #{socialForce}
+            </if>
+            <if test="status!=null">
+                AND a.status = #{status}
+            </if>
+            <if test="isPensionPermit !=null">
+                AND a.isPensionPermit = #{isPensionPermit}
+            </if>
+            <if test="isFoodSafePermit !=null">
+                AND a.isFoodSafePermit = #{isFoodSafePermit}
+            </if>
+            <if test="videoStatus !=null and videoStatus == 1">
+                AND a.videoMonitors &gt;0
+            </if>
+        </where>
+        GROUP by a.id
+        <if test="startInfoity!=null and startInfoity!='' and endInfoity!=null and endInfoity!=''">
+            HAVING cast(((SUM(address is not null and address !='')
+            +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+            +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+            +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+            +SUM(inServiceTimeAm is not null and
+            inServiceTimeAm !='')
+            +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+            +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and
+            nurseCenterLevel !='')
+            +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+            +SUM(instProp is not null and instProp !='')
+            +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+            +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+            +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as decimal(9,2)) &gt;= #{startInfoity}
+            and
+            cast(((SUM(address is not null and address !='')
+            +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+            +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+            +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+            +SUM(inServiceTimeAm is not null and
+            inServiceTimeAm !='')
+            +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+            +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and
+            nurseCenterLevel !='')
+            +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+            +SUM(instProp is not null and instProp !='')
+            +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+            +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+            +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19))as decimal(9,2)) &lt; #{endInfoity}
+        </if>
+        <if test="(endInfoity!=null and endInfoity!='') and (startInfoity ==null or startInfoity=='')">
+            HAVING cast(((SUM(address is not null and address !='')
+            +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+            +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+            +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+            +SUM(inServiceTimeAm is not null and
+            inServiceTimeAm !='')
+            +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+            +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and
+            nurseCenterLevel !='')
+            +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+            +SUM(instProp is not null and instProp !='')
+            +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+            +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+            +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as decimal(9,2)) &lt; #{endInfoity}
+        </if>
+        <if test="(startInfoity !=null and startInfoity!='') and (endInfoity==null or endInfoity=='')">
+            HAVING cast(((SUM(address is not null and address !='')
+            +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+            +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+            +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+            +SUM(inServiceTimeAm is not null and
+            inServiceTimeAm !='')
+            +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+            +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and
+            nurseCenterLevel !='')
+            +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+            +SUM(instProp is not null and instProp !='')
+            +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+            +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+            +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as decimal(9,2)) &gt;= #{startInfoity}
+        </if>
+        ) b
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.org.entity.ServiceOrg">
+        SELECT
+        a.* ,((SUM(address is not null and address !='')
+        +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+        +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+        +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+        +SUM(inServiceTimeAm is not null and inServiceTimeAm !='')
+        +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+        +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and nurseCenterLevel
+        !='')
+        +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+        +SUM(instProp is not null and instProp !='')
+        +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+        +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+        +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as infoIntegrity
+        FROM t_service_org a
+        <where>
+            <if test="filter.areaId!=null">
+                a.areaId = #{filter.areaId}
+            </if>
+            <if test="filter.buildType!=null">
+                AND a.build_type = #{filter.buildType}
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND a.areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.type!=null">
+                AND a.type = #{filter.type}
+            </if>
+            <if test="filter.applyName != null and filter.applyName !=''">
+                AND a.applyName like CONCAT('%',#{filter.applyName},'%' )
+            </if>
+            <if test="filter.applyIdcardNo != null and filter.applyIdcardNo !=''">
+                AND a.applyIdcardNo like CONCAT('%',#{filter.applyIdcardNo},'%' )
+            </if>
+            <if test="filter.institutionName!=null and filter.institutionName!=''">
+                AND a.institutionName like CONCAT('%',#{filter.institutionName},'%' )
+            </if>
+            <if test="filter.serviceProject!=null and filter.serviceProject!=''">
+                AND a.serviceProject like CONCAT('%',#{filter.serviceProject},'%' )
+            </if>
+            <if test="filter.serviceProjectName!=null and filter.serviceProjectName!=''">
+                AND a.serviceProjectName like CONCAT('%',#{filter.serviceProjectName},'%' )
+            </if>
+            <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+                AND a.institutionTypeDictId in (${filter.institutionTypeDictId})
+            </if>
+            <if test="filter.serviceArea!=null">
+                AND a.serviceArea = #{filter.serviceArea}
+            </if>
+
+            <if test="filter.id!=null">
+                AND a.id = #{filter.id}
+            </if>
+
+            <if test="filter.gradeDictId!=null">
+                <if test="filter.gradeDictId &gt; 6">
+                    AND locate(a.gradeDictId,${filter.gradeDictId})
+                </if>
+                <if test="filter.gradeDictId &lt; 6">
+                    AND a.gradeDictId = #{filter.gradeDictId}
+                </if>
+            </if>
+            <if test="filter.regTypeDictId!=null">
+                AND a.regTypeDictId = #{filter.regTypeDictId}
+            </if>
+            <if test="filter.socialForce!=null">
+                AND a.socialForce = #{filter.socialForce}
+            </if>
+            <if test="filter.status!=null">
+                AND a.status = #{filter.status}
+            </if>
+            <if test="filter.isPensionPermit !=null">
+                AND a.isPensionPermit = #{filter.isPensionPermit}
+            </if>
+            <if test="filter.isFoodSafePermit !=null">
+                AND a.isFoodSafePermit = #{filter.isFoodSafePermit}
+            </if>
+            <if test="filter.videoStatus !=null and filter.videoStatus ==1">
+                AND a.videoMonitors &gt;0
+            </if>
+        </where>
+        GROUP by a.id
+        <if test="filter.startInfoity!=null and filter.startInfoity!='' and filter.endInfoity!=null and filter.endInfoity!=''">
+            HAVING cast(infoIntegrity as decimal(9,2)) &gt;= #{filter.startInfoity}
+            and
+            cast(infoIntegrity as decimal(9,2)) &lt;= #{filter.endInfoity}
+        </if>
+        <if test="(filter.endInfoity!=null and filter.endInfoity!='') and (filter.startInfoity ==null or filter.startInfoity=='')">
+            HAVING cast(infoIntegrity as decimal(9,2)) &lt;= #{filter.endInfoity}
+        </if>
+        <if test="(filter.startInfoity !=null and filter.startInfoity!='') and (filter.endInfoity==null or filter.endInfoity=='')">
+            HAVING cast(infoIntegrity as decimal(9,2)) &gt;= #{filter.startInfoity}
+        </if>
+        order by a.status asc,a.areaOrder ASC,a.id desc,CONVERT( a.institutionName USING gbk ) COLLATE gbk_chinese_ci
+        ASC
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.org.entity.ServiceOrg"
+            parameterType="com.fedtech.pension.org.entity.ServiceOrg">
+        SELECT
+        * ,((SUM(address is not null and address !='')
+        +SUM(regTypeDictId is not null and regTypeDictId !='') +SUM(regCapital is not null and regCapital !='')
+        +SUM(postcode is not null and postcode !='') +SUM(orgCode is not null and orgCode !='')
+        +SUM(legalRepresentatives is not null and legalRepresentatives !='') +SUM(phone is not null and phone !='')
+        +SUM(inServiceTimeAm is not null and inServiceTimeAm !='')
+        +SUM(inServiceTimePm is not null and inServiceTimePm !='')
+        +SUM(cardSystemName is not null and cardSystemName !='') +SUM(nurseCenterLevel is not null and nurseCenterLevel
+        !='')
+        +SUM(attach is not null and attach !='')+SUM(serviceCount is not null and serviceCount !='')
+        +SUM(instProp is not null and instProp !='')
+        +SUM(gradeDictId is not null and gradeDictId !='') +SUM(serviceProject is not null and serviceProject !='')
+        +SUM(roomProp is not null and roomProp !='') +SUM(landArea is not null and landArea !='')
+        +SUM(serviceInfo is not null and serviceInfo !='') )*(100 / 19)) as infoIntegrity
+        FROM t_service_org
+        <where>
+            <if test="filter != null">
+                <if test="filter.areaId!=null">
+                    areaId = #{filter.areaId}
+                </if>
+                <if test="filter.areaName != null and filter.areaName !=''">
+                    AND areaName like CONCAT('%',#{filter.areaName},'%' )
+                </if>
+                <if test="filter.type!=null">
+                    AND type = #{filter.type}
+                </if>
+                <if test="filter.applyName != null and filter.applyName !=''">
+                    AND applyName like CONCAT('%',#{filter.applyName},'%' )
+                </if>
+                <if test="filter.institutionName!=null and filter.institutionName!=''">
+                    AND institutionName like CONCAT('%',#{filter.institutionName},'%' )
+                </if>
+                <if test="filter.serviceProject!=null and filter.serviceProject!=''">
+                    AND serviceProject like CONCAT('%',#{filter.serviceProject},'%' )
+                </if>
+                <if test="filter.serviceProjectName!=null and filter.serviceProjectName!=''">
+                    AND serviceProjectName like CONCAT('%',#{filter.serviceProjectName},'%' )
+                </if>
+                <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+                    AND institutionTypeDictId in (${filter.institutionTypeDictId})
+                </if>
+                <if test="filter.serviceArea!=null">
+                    AND serviceArea = #{filter.serviceArea}
+                </if>
+
+                <if test="filter.gradeDictId!=null">
+                    <if test="filter.gradeDictId &gt; 6">
+                        AND locate(gradeDictId,${filter.gradeDictId})
+                    </if>
+                    <if test="filter.gradeDictId &lt; 6">
+                        AND gradeDictId = #{filter.gradeDictId}
+                    </if>
+                </if>
+                <if test="filter.regTypeDictId!=null">
+                    AND regTypeDictId = #{filter.regTypeDictId}
+                </if>
+                <if test="filter.socialForce!=null">
+                    AND socialForce = #{filter.socialForce}
+                </if>
+                <if test="filter.status!=null">
+                    AND status = #{filter.status}
+                </if>
+                <if test="filter.isPensionPermit !=null">
+                    AND isPensionPermit = #{filter.isPensionPermit}
+                </if>
+                <if test="filter.isFoodSafePermit !=null">
+                    AND isFoodSafePermit = #{filter.isFoodSafePermit}
+                </if>
+            </if>
+        </where>
+        GROUP by id
+        <if test="filter != null">
+            <if test="filter.startInfoity!=null and filter.startInfoity!='' and filter.endInfoity!=null and filter.endInfoity!=''">
+                HAVING cast(infoIntegrity as decimal(9,2)) &gt;= #{filter.startInfoity}
+                and
+                cast(infoIntegrity as decimal(9,2)) &lt;= #{filter.endInfoity}
+            </if>
+            <if test="(filter.endInfoity!=null and filter.endInfoity!='') and (filter.startInfoity ==null or filter.startInfoity=='')">
+                HAVING cast(infoIntegrity as decimal(9,2)) &lt;= #{filter.endInfoity}
+            </if>
+            <if test="(filter.startInfoity !=null and filter.startInfoity!='') and (filter.endInfoity==null or filter.endInfoity=='')">
+                HAVING cast(infoIntegrity as decimal(9,2)) &gt;= #{filter.startInfoity}
+            </if>
+        </if>
+        order by status asc,areaOrder ASC,CONVERT( institutionName USING gbk ) COLLATE gbk_chinese_ci ASC
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_service_org
+        where id = #{id}
+  </delete>
+
+    <delete id="deleteSomeMsg">
+        delete from t_service_org
+        where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByPrimaryKeyAndCreatorId" parameterType="java.lang.Long">
+        delete from t_service_org
+        where id = #{id,jdbcType=INTEGER} AND applyEmail = #{creatorId}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.org.entity.ServiceOrg" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org (logoUrl,areaId,applyIdcardNo, areaName, institutionName,type,cityOrTown,
+        institutionTypeDictId, gradeDictId,
+        orgCode, regTypeDictId,
+         regCapital,build_type,
+        legalRepresentatives, linkMan, phone,
+        mobile, settlementBank, settlementBankNo, address,
+        zipcode, instProp,
+        bedCount, bedNurseCount, bedCareCount,
+        bedMoney, bedNurseMoney, bedCareMoney,
+        roomProp, landArea,totalInvestment, fixedCapital, serviceProject,serviceProjectName,
+        serviceArea, serviceInfo,
+        applyName, applyEmail, deleted,
+        createTime, deleteTime, levelTextDictId,
+        level,status,attach,postcode,inBusinessLicenseCode,inTaxCode,inServiceTimeAm,inServiceTimePm,inClassic,inType,volunteerCount,inServiceRangeId,inServiceRangeName,areaOrder,socialForce,nurseCenterLevel,
+        serviceCount,nurseServiceCover,regtime,streetErr,countryErr,
+        fuwuRadius,fuwuRangeRemark,homeNurseBedCount,designBedCount,serviceMoney,isFoodSafePermit,isFireLicense,elderNum,workNum,nursingNum,medicalServiceMode,institutionsCategory)
+        values (#{logoUrl,jdbcType=VARCHAR},#{areaId,jdbcType=INTEGER},#{applyIdcardNo,jdbcType=VARCHAR},
+        <if test="areaName==null ">
+            getAreaName(#{areaId}),
+        </if>
+        <if test="areaName!=null">
+            #{areaName},
+        </if>
+
+         #{institutionName,jdbcType=VARCHAR},#{type},#{cityOrTown},
+        #{institutionTypeDictId,jdbcType=VARCHAR}, #{gradeDictId,jdbcType=INTEGER},
+        #{orgCode,jdbcType=VARCHAR}, #{regTypeDictId,jdbcType=INTEGER},
+         #{regCapital},#{buildType},
+        #{legalRepresentatives,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},#{settlementBank,jdbcType=VARCHAR}, #{settlementBankNo,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{zipcode,jdbcType=VARCHAR}, #{instProp,jdbcType=INTEGER},
+        #{bedCount,jdbcType=INTEGER}, #{bedNurseCount,jdbcType=INTEGER}, #{bedCareCount,jdbcType=INTEGER},
+        #{bedMoney,jdbcType=INTEGER}, #{bedNurseMoney,jdbcType=INTEGER}, #{bedCareMoney,jdbcType=INTEGER},
+        #{roomProp,jdbcType=INTEGER}, #{landArea},
+        #{totalInvestment}, #{fixedCapital}, #{serviceProject,jdbcType=VARCHAR},#{serviceProjectName,jdbcType=VARCHAR},
+        #{serviceArea,jdbcType=INTEGER}, #{serviceInfo,jdbcType=VARCHAR},
+        #{applyName,jdbcType=VARCHAR}, #{applyEmail,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP}, #{levelTextDictId,jdbcType=INTEGER},
+        #{level,jdbcType=INTEGER},#{status},#{attach},#{postcode},#{inBusinessLicenseCode},#{inTaxCode},#{inServiceTimeAm},#{inServiceTimePm},#{inClassic},#{inType},#{volunteerCount},#{inServiceRangeId},#{inServiceRangeName},#{areaOrder},#{socialForce},
+        #{nurseCenterLevel},#{serviceCount},#{nurseServiceCover},#{regtime},#{streetErr},#{countryErr},
+        #{fuwuRadius},#{fuwuRangeRemark},#{homeNurseBedCount},#{designBedCount},0.0,#{isFoodSafePermit},#{isFireLicense},#{elderNum},#{workNum},#{nursingNum},#{medicalServiceMode},#{institutionsCategory})
+  </insert>
+
+    <insert id="insertIns" parameterType="com.fedtech.pension.org.entity.ServiceOrg" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org (areaName,institutionName,type,applyName,phone,mobile,address,status,
+        createTime)
+        values (#{areaName,jdbcType=VARCHAR},#{institutionName,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},#{applyName,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertOrg" parameterType="com.fedtech.pension.org.entity.ServiceOrg" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_service_org (areaName,institutionName,institutionTypeDictId,instProp,type,applyName,mobile,
+        regTypeDictId,gradeDictId,address,status,createTime)
+        values (#{areaName,jdbcType=VARCHAR},#{institutionName,jdbcType=VARCHAR},
+        #{institutionTypeDictId,jdbcType=VARCHAR},#{instProp,jdbcType=INTEGER},
+        #{type,jdbcType=INTEGER},#{applyName,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},#{regTypeDictId,jdbcType=INTEGER},
+        #{gradeDictId,jdbcType=INTEGER},
+        #{address,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSomeServiceOrg" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO t_service_org
+        (areaId,areaName,institutionName,type,applyName,phone,mobile,cityOrTown,institutionTypeDictId,gradeDictId,regTypeDictId,address,bedCount,bedNurseCount,bedCareCount,status,attach,isFireLicense,designBedCount,serviceMoney)
+        VALUES
+        <foreach collection="serviceOrgs" item="serviceOrg" index="index" separator=",">
+            (#{serviceOrg.areaId},#{serviceOrg.areaName},#{serviceOrg.institutionName},#{serviceOrg.type},#{serviceOrg.applyName},#{serviceOrg.phone},#{serviceOrg.mobile},#{serviceOrg.cityOrTown},#{serviceOrg.institutionTypeDictId},#{serviceOrg.gradeDictId},
+            #{serviceOrg.regTypeDictId},#{serviceOrg.address},#{serviceOrg.bedCount},#{serviceOrg.bedNurseCount},#{serviceOrg.bedCareCount},#{serviceOrg.status},#{serviceOrg.attach},#{isFireLicense},#{designBedCount},0.0)
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.org.entity.ServiceOrg">
+        update t_service_org
+        <set>
+            <if test="logoUrl != null">
+                logoUrl = #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="areaId != null">
+                areaId = #{areaId,jdbcType=INTEGER},
+                areaName = getAreaName(#{areaId}),
+                streetErr = '',
+                countryErr = '',
+            </if>
+            <if test="institutionName != null and institutionName!=''">
+                institutionName = #{institutionName,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionNameEnglish != null and institutionNameEnglish!=''">
+                institutionNameEnglish = #{institutionNameEnglish,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationDepartmentsSet != null and organizationDepartmentsSet!=''">
+                organizationDepartmentsSet = #{organizationDepartmentsSet,jdbcType=VARCHAR},
+            </if>
+            <if test="grossAssets != null and grossAssets!=''">
+                grossAssets = #{grossAssets,jdbcType=VARCHAR},
+            </if>
+            <if test="corporateQualificationCertificateNum != null and corporateQualificationCertificateNum!=''">
+                corporateQualificationCertificateNum = #{corporateQualificationCertificateNum,jdbcType=VARCHAR},
+            </if>
+            <if test="initiateSubject != null">
+                initiateSubject = #{initiateSubject,jdbcType=INTEGER},
+            </if>
+            <if test="taxRegistrationNum != null and taxRegistrationNum!=''">
+                taxRegistrationNum = #{taxRegistrationNum,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null and sign!=''">
+                sign = #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="starClass != null and starClass!=''">
+                starClass = #{starClass,jdbcType=INTEGER},
+            </if>
+            <if test="institutionsCategory != null">
+                institutionsCategory = #{institutionsCategory,jdbcType=INTEGER},
+            </if>
+            <if test="runWay != null">
+                runWay = #{runWay,jdbcType=INTEGER},
+            </if>
+            <if test="medicalServiceMode != null">
+                medicalServiceMode = #{medicalServiceMode,jdbcType=INTEGER},
+            </if>
+            <if test="whetherHealthCareQualification != null">
+                whetherHealthCareQualification = #{whetherHealthCareQualification,jdbcType=INTEGER},
+            </if>
+            <if test="whetherToAcceptRemoteElderly != null">
+                whetherToAcceptRemoteElderly = #{whetherToAcceptRemoteElderly,jdbcType=INTEGER},
+            </if>
+            <if test="fax != null and fax!=''">
+                fax = #{fax,jdbcType=VARCHAR},
+            </if>
+            <if test="electronicMailbox != null and electronicMailbox!=''">
+                electronicMailbox = #{electronicMailbox,jdbcType=VARCHAR},
+            </if>
+            <if test="website != null and website!=''">
+                website = #{website,jdbcType=VARCHAR},
+            </if>
+            <if test="leaseCommencementTime != null and leaseCommencementTime!=''">
+                leaseCommencementTime = #{leaseCommencementTime,jdbcType=VARCHAR},
+            </if>
+            <if test="leaseEndTime != null and leaseEndTime!=''">
+                leaseEndTime = #{leaseEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLicenseNo != null and businessLicenseNo!=''">
+                businessLicenseNo = #{businessLicenseNo,jdbcType=VARCHAR},
+            </if>
+            <if test="sOfRealEstate != null and sOfRealEstate!=''">
+                sOfRealEstate = #{sOfRealEstate,jdbcType=VARCHAR},
+            </if>
+            <if test="elderNum != null and elderNum!=''">
+                elderNum = #{elderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="workNum != null and workNum!=''">
+                workNum = #{workNum,jdbcType=VARCHAR},
+            </if>
+            <if test="nursingNum != null and nursingNum!=''">
+                nursingNum = #{nursingNum,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null and beginTime!=''">
+                beginTime = #{beginTime,jdbcType=VARCHAR},
+            </if>
+            <if test="cityOrTown != null and cityOrTown!=''">
+                cityOrTown = #{cityOrTown,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionTypeDictId != null">
+                institutionTypeDictId = #{institutionTypeDictId,jdbcType=VARCHAR},
+            </if>
+            <if test="gradeDictId != null">
+                gradeDictId = #{gradeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="orgCode != null">
+                orgCode = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="regTypeDictId != null">
+                regTypeDictId = #{regTypeDictId,jdbcType=INTEGER},
+            </if>
+            <if test="regCapital != null">
+                regCapital = #{regCapital},
+            </if>
+            <if test="legalRepresentatives != null">
+                legalRepresentatives = #{legalRepresentatives,jdbcType=VARCHAR},
+            </if>
+            <if test="linkMan != null">
+                linkMan = #{linkMan,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="settlementBank != null">
+                settlementBank = #{settlementBank,jdbcType=VARCHAR},
+            </if>
+            <if test="settlementBankNo != null">
+                settlementBankNo = #{settlementBankNo,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="zipcode != null">
+                zipcode = #{zipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="instProp != null">
+                instProp = #{instProp,jdbcType=INTEGER},
+            </if>
+            <if test="bedCount != null">
+                bedCount = #{bedCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedNurseCount != null">
+                bedNurseCount = #{bedNurseCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedCareCount != null">
+                bedCareCount = #{bedCareCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedEmptyCount != null">
+                bedEmptyCount = #{bedEmptyCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedNurseEmptyCount != null">
+                bedNurseEmptyCount = #{bedNurseEmptyCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedCareEmptyCount != null">
+                bedCareEmptyCount = #{bedCareEmptyCount,jdbcType=INTEGER},
+            </if>
+            <if test="bedMoney != null">
+                bedMoney = #{bedMoney,jdbcType=INTEGER},
+            </if>
+            <if test="bedNurseMoney != null">
+                bedNurseMoney = #{bedNurseMoney,jdbcType=INTEGER},
+            </if>
+            <if test="bedCareMoney != null">
+                bedCareMoney = #{bedCareMoney,jdbcType=INTEGER},
+            </if>
+            <if test="roomProp != null">
+                roomProp = #{roomProp,jdbcType=INTEGER},
+            </if>
+            <if test="landArea != null">
+                landArea = #{landArea},
+            </if>
+            <if test="totalInvestment != null">
+                totalInvestment = #{totalInvestment},
+            </if>
+            <if test="fixedCapital != null">
+                fixedCapital = #{fixedCapital},
+            </if>
+            <if test="serviceProject != null">
+                serviceProject = #{serviceProject,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceProjectName != null">
+                serviceProjectName = #{serviceProjectName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceArea != null">
+                serviceArea = #{serviceArea,jdbcType=INTEGER},
+            </if>
+            <if test="serviceInfo != null">
+                serviceInfo = #{serviceInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="applyName != null">
+                applyName = #{applyName,jdbcType=VARCHAR},
+            </if>
+            <if test="applyEmail != null">
+                applyEmail = #{applyEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteTime != null">
+                deleteTime = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="levelTextDictId != null">
+                levelTextDictId = #{levelTextDictId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="attach != null">
+                attach = #{attach,jdbcType=INTEGER},
+            </if>
+            <if test="postcode!=null">
+                postcode = #{postcode,jdbcType=INTEGER},
+            </if>
+            <if test="inBusinessLicenseCode != null">
+                inBusinessLicenseCode = #{inBusinessLicenseCode,jdbcType=INTEGER},
+            </if>
+            <if test="inTaxCode != null">
+                inTaxCode = #{inTaxCode,jdbcType=INTEGER},
+            </if>
+            <if test="inServiceTimeAm != null">
+                inServiceTimeAm = #{inServiceTimeAm,jdbcType=INTEGER},
+            </if>
+            <if test="inServiceTimePm != null">
+                inServiceTimePm = #{inServiceTimePm,jdbcType=INTEGER},
+            </if>
+            <if test="inClassic != null">
+                inClassic = #{inClassic,jdbcType=INTEGER},
+            </if>
+            <if test="inType != null">
+                inType = #{inType,jdbcType=INTEGER},
+            </if>
+            <if test="volunteerCount != null">
+                volunteerCount = #{volunteerCount,jdbcType=INTEGER},
+            </if>
+            <if test="inServiceRangeId != null">
+                inServiceRangeId = #{inServiceRangeId,jdbcType=INTEGER},
+            </if>
+            <if test="inServiceRangeName != null">
+                inServiceRangeName = #{inServiceRangeName,jdbcType=INTEGER},
+            </if>
+            <if test="areaOrder!=null">
+                areaOrder = #{areaOrder},
+            </if>
+            <if test="feedbackRate!=null">
+                feedbackRate = #{feedbackRate},
+            </if>
+            <if test="alipayCount!=null">
+                alipayCount = #{alipayCount},
+            </if>
+            <if test="wxpayCount!=null">
+                wxpayCount = #{wxpayCount},
+            </if>
+            <if test="cardSystemName!=null">
+                cardSystemName = #{cardSystemName},
+            </if>
+            <if test="socialForce!=null">
+                socialForce= #{socialForce},
+            </if>
+            <if test="nurseCenterLevel!=null">
+                nurseCenterLevel = #{nurseCenterLevel},
+            </if>
+            <if test="serviceCount!=null">
+                serviceCount = #{serviceCount},
+            </if>
+            <if test="nurseServiceCover!=null">
+                nurseServiceCover = #{nurseServiceCover},
+            </if>
+            <if test="regtime!=null">
+                regtime = #{regtime},
+            </if>
+            <if test="fuwuRadius!=null">
+                fuwuRadius = #{fuwuRadius},
+            </if>
+            <if test="fuwuRangeRemark!=null">
+                fuwuRangeRemark=#{fuwuRangeRemark},
+            </if>
+            <if test="homeNurseBedCount!=null">
+                homeNurseBedCount=#{homeNurseBedCount},
+            </if>
+            <if test="isPensionPermit!=null">
+                isPensionPermit=#{isPensionPermit},
+            </if>
+            <if test="isFoodSafePermit!=null">
+                isFoodSafePermit=#{isFoodSafePermit},
+            </if>
+            <if test="isFireLicense!=null">
+                isFireLicense=#{isFireLicense},
+            </if>
+            <if test="designBedCount!=null">
+                designBedCount=#{designBedCount},
+            </if>
+            <if test="buildType!=null">
+                build_type=#{buildType}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countVisit" resultType="java.lang.Integer">
+        SELECT count(1) FROM t_service_org a LEFT JOIN t_return_visit b on(b.visitorId = a.id and b.status=1 and
+        b.visitorTYpe>1)
+        WHERE 1=1
+        <if test="areaId!=null">
+            AND a.areaId = #{areaId}
+        </if>
+        <if test="areaName != null and areaName !=''">
+            AND a.areaName like CONCAT('%',#{areaName},'%' )
+        </if>
+        <if test="institutionName!=null and institutionName!=''">
+            AND a.institutionName = #{institutionName}
+        </if>
+        <if test="gradeDictId!=null">
+            <if test="gradeDictId>1">
+                AND a.gradeDictId = #{gradeDictId}
+            </if>
+            <if test="gradeDictId==1">
+                AND a.gradeDictId &lt; 2
+            </if>
+        </if>
+    </select>
+    <!--selectVisitPageList-->
+    <select id="selectVisitPageList" resultType="com.fedtech.pension.call.vo.ServiceOrgVisitVo">
+        SELECT
+        a.id,a.areaName,a.institutionName,a.linkMan, CASE LENGTH(a.phone) WHEN 0 THEN a.mobile
+        ELSE a.phone end as phone,a.gradeDictId,b.status,b.visitResult
+        FROM t_service_org a LEFT JOIN t_return_visit b on(b.visitorId = a.id and b.status=1 and b.visitorTYpe>1)
+        <where>
+            <if test="filter.areaId!=null">
+                a.areaId = #{filter.areaId}
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND a.areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.institutionName!=null and filter.institutionName!=''">
+                AND a.institutionName = #{filter.institutionName}
+            </if>
+            <if test="filter.gradeDictId!=null">
+                <if test="filter.gradeDictId>1">
+                    AND a.gradeDictId = #{filter.gradeDictId}
+                </if>
+                <if test="filter.gradeDictId==1">
+                    AND a.gradeDictId &lt; 2
+                </if>
+            </if>
+            <if test="page.orderField!=null">
+                ORDER BY ${page.orderField} ${page.orderDir}
+            </if>
+            <if test="page.start!=null">
+                LIMIT #{page.start}, #{page.length}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPositionByPrimaryKey" resultType="com.fedtech.pension.org.entity.ServiceOrg"
+            parameterType="java.lang.Integer">
+       select  a.*,tsl.lat serverLat,tsl.lng serverLng  from  t_service_org  a  left join t_serviceorg_location  tsl on a.id=tsl.serviceOrgId where a.id=#{id} limit 0,1
+    </select>
+
+    <select id="selectByAreaId" parameterType="java.lang.Integer" resultType="com.fedtech.pension.org.entity.ServiceOrg">
+         SELECT *
+        FROM t_service_org
+        where areaId=#{areaId}
+    </select>
+
+    <update id="updateScore">
+        UPDATE t_service_org SET
+        <choose>
+            <when test="integrity.flag==0">
+                score=score+#{integrity.score}
+            </when>
+            <when test="integrity.flag==1">
+                score=score-#{integrity.score}
+            </when>
+        </choose>
+        where institutionName=#{integrity.institutionName}
+    </update>
+
+</mapper>

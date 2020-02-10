@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.sys.mapper.SysRoleMapper">
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.sys.entity.SysRole" parameterType="java.lang.Integer">
+        SELECT id,name,role,description,creatorId
+        FROM sys_role
+        WHERE id = #{id}
+    </select>
+
+    <select id="getRoleList" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT role
+        FROM sys_role
+        WHERE id in
+        (select roleId
+        from t_user_role
+        where userId=#{userId})
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE from sys_role
+        WHERE id = #{id} AND creatorId=#{creatorId}
+    </update>
+
+    <insert id="insert" parameterType="com.fedtech.pension.sys.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role
+        (name,role,description,creatorId,createTime)
+        VALUES (#{name},#{role},#{description},${creatorId},#{createTime})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.sys.entity.SysRole">
+        UPDATE sys_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="role!=null">
+                role = #{role}
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="count" parameterType="com.fedtech.pension.sys.entity.SysRole" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM sys_role
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM sys_role
+    </select>
+
+    <select id="selectPageList" resultType="com.fedtech.pension.sys.entity.SysRole">
+        SELECT A.id,A.name,A.role,A.description,A.creatorId,C.nick_name AS creatorName,A.createTime
+        FROM sys_role AS A
+        LEFT JOIN t_user AS C ON A.creatorId = C.uid
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getRoleNamesByUids" resultType="java.util.HashMap" parameterType="java.util.List" >
+        select B.userId as uid,A.name as roleName
+        from sys_role as A
+        LEFT JOIN   t_user_role as B ON A.id = B.roleId
+        where B.userId in
+        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">
+            <if test="user.uid!=null">
+                #{user.uid}
+            </if>
+        </foreach>
+    </select>
+
+    <select id="getAllRecode" resultType="com.fedtech.pension.sys.entity.SysRole">
+        SELECT A.id,A.name,A.role,A.description,A.creatorId,C.nick_name AS creatorName,A.createTime
+        FROM sys_role AS A
+        LEFT JOIN t_user AS C ON A.creatorId = C.uid
+    </select>
+
+</mapper>

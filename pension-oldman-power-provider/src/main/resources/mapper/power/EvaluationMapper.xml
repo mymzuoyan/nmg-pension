@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.power.mapper.EvaluationMapper">
+
+    <insert id="insert" parameterType="com.fedtech.pension.power.entity.Evaluation" useGeneratedKeys="true" keyProperty="id">
+        insert into t_evaluation(name,area,location,phone,createTime,state,legalPerson,sex,legalPersonPhone,introduce,photoIds,businessLicenseId) values(
+        #{name},#{area},#{location},#{phone},#{createTime},#{state},#{legalPerson},#{sex},#{legalPersonPhone},#{introduce},#{photoIds},#{businessLicenseId}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.power.entity.Evaluation">
+        update t_evaluation
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="area != null">
+                area = #{area},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="legalPerson != null">
+                legalPerson = #{legalPerson},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="legalPersonPhone != null">
+                legalPersonPhone = #{legalPersonPhone},
+            </if>
+            <if test="introduce != null">
+                introduce = #{introduce},
+            </if>
+            <if test="photoIds != null">
+                photoIds = #{photoIds},
+            </if>
+            <if test="businessLicenseId != null">
+                businessLicenseId = #{businessLicenseId},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteSomeMsg" parameterType="java.util.List">
+        update t_evaluation
+        <set>
+            state=2
+        </set>
+        where id IN
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="selectPageList" resultType="com.fedtech.pension.power.entity.Evaluation">
+        select
+        *
+        from t_evaluation
+        <where>
+            <if test="filter.area!=null and filter.area!=''">
+                and area  like CONCAT('%',#{filter.area},'%' )
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="count" parameterType="com.fedtech.pension.power.entity.Evaluation" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_evaluation
+        <where>
+            <if test="area!=null and area!=''">
+                and area  like CONCAT('%',#{area},'%' )
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.fedtech.pension.power.entity.Evaluation" parameterType="java.lang.Integer" >
+        select *
+        from t_evaluation
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

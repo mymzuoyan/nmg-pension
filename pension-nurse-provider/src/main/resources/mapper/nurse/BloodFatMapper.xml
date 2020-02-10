@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.nurse.mapper.BloodFatMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.BloodFat">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="chol_value" jdbcType="DOUBLE" property="cholValue" />
+    <result column="trig_value" jdbcType="DOUBLE" property="trigValue" />
+    <result column="hdl_value" jdbcType="DOUBLE" property="hdlValue" />
+    <result column="ldl_value" jdbcType="DOUBLE" property="ldlValue" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+    <result column="chol_level" jdbcType="INTEGER" property="cholLevel" />
+    <result column="chol_level_name" jdbcType="VARCHAR" property="cholLevelName" />
+    <result column="hdl_level" jdbcType="INTEGER" property="hdlLevel" />
+    <result column="hdl_level_name" jdbcType="VARCHAR" property="hdlLevelName" />
+    <result column="ldl_level" jdbcType="INTEGER" property="ldlLevel" />
+    <result column="ldl_level_name" jdbcType="VARCHAR" property="ldlLevelName" />
+    <result column="trig_level" jdbcType="INTEGER" property="trigLevel" />
+    <result column="trig_level_name" jdbcType="VARCHAR" property="trigLevelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, chol_value, trig_value, hdl_value, ldl_value, level, level_name, chol_level, 
+    chol_level_name, hdl_level, hdl_level_name, ldl_level, ldl_level_name, trig_level,
+    trig_level_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blood_fat
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blood_fat
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.BloodFat" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into blood_fat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cholValue != null">
+      chol_value,
+    </if>
+      <if test="trigValue != null">
+        trig_value,
+      </if>
+      <if test="hdlValue != null">
+        hdl_value,
+      </if>
+      <if test="ldlValue != null">
+        ldl_value,
+      </if>
+      <if test="level != null">
+      level,
+    </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+      <if test="cholLevel != null">
+      chol_level,
+    </if>
+      <if test="cholLevelName != null">
+      chol_level_name,
+    </if>
+      <if test="hdlLevel != null">
+      hdl_level,
+    </if>
+      <if test="hdlLevelName != null">
+        hdl_level_name,
+      </if>
+      <if test="ldlLevel != null">
+        ldl_level,
+      </if>
+      <if test="ldlLevelName != null">
+      ldl_level_name,
+    </if>
+      <if test="trigLevel != null">
+        trig_level,
+      </if>
+      <if test="trigLevelName != null">
+        trig_level_name,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cholValue != null">
+        #{cholValue,jdbcType=DOUBLE},
+      </if>
+      <if test="trigValue != null">
+        #{trigValue,jdbcType=DOUBLE},
+      </if>
+      <if test="hdlValue != null">
+        #{hdlValue,jdbcType=DOUBLE},
+      </if>
+      <if test="ldlValue != null">
+        #{ldlValue,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="cholLevel != null">
+        #{cholLevel,jdbcType=INTEGER},
+      </if>
+      <if test="cholLevelName != null">
+        #{cholLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="hdlLevel != null">
+        #{hdlLevel,jdbcType=INTEGER},
+      </if>
+      <if test="hdlLevelName != null">
+        #{hdlLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="ldlLevel != null">
+        #{ldlLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ldlLevelName != null">
+        #{ldlLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="trigLevel != null">
+        #{trigLevel,jdbcType=INTEGER},
+      </if>
+      <if test="trigLevelName != null">
+        #{trigLevelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.BloodFat">
+    update blood_fat
+    <set>
+      <if test="cholValue != null">
+        chol_value= #{cholValue,jdbcType=DOUBLE},
+      </if>
+      <if test="trigValue != null">
+        trig_value= #{trigValue,jdbcType=DOUBLE},
+      </if>
+      <if test="hdlValue != null">
+        hdl_value=#{hdlValue,jdbcType=DOUBLE},
+      </if>
+      <if test="ldlValue != null">
+        ldl_value= #{ldlValue,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        level= #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name=#{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="cholLevel != null">
+        chol_level=#{cholLevel,jdbcType=INTEGER},
+      </if>
+      <if test="cholLevelName != null">
+        chol_level_name= #{cholLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="hdlLevel != null">
+        hdl_level= #{hdlLevel,jdbcType=INTEGER},
+      </if>
+      <if test="hdlLevelName != null">
+        hdl_level_name= #{hdlLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="ldlLevel != null">
+        ldl_level=#{ldlLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ldlLevelName != null">
+        ldl_level_name= #{ldlLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="trigLevel != null">
+        trig_level=#{trigLevel,jdbcType=INTEGER},
+      </if>
+      <if test="trigLevelName != null">
+        trig_level_name= #{trigLevelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    from blood_fat
+    <where>
+
+      <if test="cholValue!=null">
+        and chol_value=#{cholValue}
+      </if>
+      <if test="trigValue!=null">
+        and trig_value=#{trigValue}
+      </if>
+      <if test="hdlValue!=null">
+        and hdl_value=#{hdlValue}
+      </if>
+      <if test="ldlValue!=null">
+        and ldl_value=#{ldl_value}
+      </if>
+      <if test="level!=null">
+        and level=#{level}
+      </if>
+      <if test="cholLevel!=null">
+        and chol_level=#{cholLevel}
+      </if>
+      <if test="levelName != null and levelName !=''">
+        AND level_name like CONCAT('%',#{levelName},'%' )
+      </if>
+      <if test="cholLevelName != null and cholLevelName !=''">
+        AND chol_level_name like CONCAT('%',#{cholLevelName},'%' )
+      </if>
+      <if test="hdlLevel!=null">
+        and hdl_level=#{hdlLevel}
+      </if>
+      <if test="hdlLevelName != null and hdlLevelName !=''">
+        AND hdl_level_name like CONCAT('%',#{hdlLevelName},'%' )
+      </if>
+      <if test="ldlLevel!=null">
+        and ldl_level=#{ldlLevel}
+      </if>
+      <if test="ldlLevelName != null and ldlLevelName !=''">
+        AND ldl_level_name like CONCAT('%',#{ldlLevelName},'%' )
+      </if>
+      <if test="trigLevel!=null">
+        and trig_level=#{trigLevel}
+      </if>
+      <if test="trigLevelName != null and trigLevelName !=''">
+        AND trig_level_name like CONCAT('%',#{trigLevelName},'%' )
+      </if>
+    </where>
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from blood_fat
+  </select>
+  <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.BloodFat">
+    select
+      *
+    from blood_fat
+    <where>
+    <if test="filter.cholValue!=null">
+      and chol_value=#{filter.cholValue}
+    </if>
+    <if test="filter.trigValue!=null">
+      and trig_value=#{filter.trigValue}
+    </if>
+    <if test="filter.hdlValue!=null">
+      and hdl_value=#{filter.hdlValue}
+    </if>
+    <if test="filter.ldlValue!=null">
+      and ldl_value=#{filter.ldl_value}
+    </if>
+    <if test="filter.level!=null">
+      and level=#{filter.level}
+    </if>
+    <if test="filter.cholLevel!=null">
+      and chol_level=#{filter.cholLevel}
+    </if>
+    <if test="filter.levelName != null and filter.levelName !=''">
+      AND level_name like CONCAT('%',#{filter.levelName},'%' )
+    </if>
+    <if test="filter.cholLevelName != null and filter.cholLevelName !=''">
+      AND chol_level_name like CONCAT('%',#{filter.cholLevelName},'%' )
+    </if>
+    <if test="filter.hdlLevel!=null">
+      and hdl_level=#{filter.hdlLevel}
+    </if>
+    <if test="filter.hdlLevelName != null and filter.hdlLevelName !=''">
+      AND hdl_level_name like CONCAT('%',#{filter.hdlLevelName},'%' )
+    </if>
+    <if test="filter.ldlLevel!=null">
+      and ldl_level=#{filter.ldlLevel}
+    </if>
+    <if test="filter.ldlLevelName != null and filter.ldlLevelName !=''">
+      AND ldl_level_name like CONCAT('%',#{filter.ldlLevelName},'%' )
+    </if>
+    <if test="filter.trigLevel!=null">
+      and trig_level=#{filter.trigLevel}
+    </if>
+    <if test="filter.trigLevelName != null and filter.trigLevelName !=''">
+      AND trig_level_name like CONCAT('%',#{filter.trigLevelName},'%' )
+    </if>
+    </where>
+    <if test="page.start!=null">
+      LIMIT #{page.start}, #{page.length}
+    </if>
+  </select>
+  <select id="getAllRecode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from blood_fat
+  </select>
+
+</mapper>

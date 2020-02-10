@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.nurse.mapper.ServiceOrgNurseMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.nurse.entity.ServiceOrgNurse">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serviceOrgId" property="serviceOrgId" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, serviceOrgId, createTime
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_nurse
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_service_org_nurse
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fedtech.pension.nurse.entity.ServiceOrgNurse">
+        insert into t_service_org_nurse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serviceOrgId != null">
+                serviceOrgId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serviceOrgId != null">
+                #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.nurse.entity.ServiceOrgNurse">
+        update t_service_org_nurse
+        <set>
+            <if test="serviceOrgId != null">
+                serviceOrgId = #{serviceOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        from t_service_org_nurse a LEFT JOIN t_service_org b on (a.serviceOrgId=b.id)
+        <where>
+            <if test="institutionTypeDictId!=null and institutionTypeDictId!=''">
+                and b.institutionTypeDictId in (${institutionTypeDictId})
+            </if>
+            <if test="type!=null and type!=''">
+                and b.type=#{type}
+            </if>
+            <if test="areaName != null and areaName !=''">
+                AND b.areaName like CONCAT('%',#{areaName},'%' )
+            </if>
+            <if test="applyName != null and applyName !=''">
+                AND b.applyName like CONCAT('%',#{applyName},'%' )
+            </if>
+           <if test="institutionName!=null and institutionName!=''">
+                AND b.institutionName like CONCAT('%',#{institutionName},'%' )
+            </if>
+            <if test="gradeDictId!=null">
+                <if test="gradeDictId &gt; 6 ">
+                    AND locate(b.gradeDictId,${gradeDictId})
+                </if>
+                <if test="gradeDictId  &lt; 6">
+                    AND b.gradeDictId = #{gradeDictId}
+                </if>
+            </if>
+            <if test="regTypeDictId!=null">
+                AND b.regTypeDictId = #{regTypeDictId}
+            </if>
+        </where>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+    SELECT  COUNT (*)
+    from t_service_org_nurse
+  </select>
+    <select id="selectPageList" resultType="com.fedtech.pension.nurse.entity.ServiceOrgNurse">
+        select
+        a.id, a.serviceOrgId,a.createTime,b.institutionName
+        serviceOrgName,b.areaName,b.institutionTypeDictId,b.applyName,b.mobile,b.regTypeDictId,b.gradeDictId
+        from t_service_org_nurse a LEFT JOIN t_service_org b on (a.serviceOrgId=b.id)
+        <where>
+            <if test="filter.institutionTypeDictId!=null and filter.institutionTypeDictId!=''">
+               and b.institutionTypeDictId in (${filter.institutionTypeDictId})
+            </if>
+            <if test="filter.type!=null and filter.type!=''">
+                and b.type=#{filter.type}
+            </if>
+            <if test="filter.areaName != null and filter.areaName !=''">
+                AND b.areaName like CONCAT('%',#{filter.areaName},'%' )
+            </if>
+            <if test="filter.applyName != null and filter.applyName !=''">
+                AND b.applyName like CONCAT('%',#{filter.applyName},'%' )
+            </if>
+            <if test="filter.institutionName!=null and filter.institutionName!=''">
+                AND b.institutionName like CONCAT('%',#{filter.institutionName},'%' )
+            </if>
+            <if test="filter.gradeDictId!=null">
+                <if test="filter.gradeDictId &gt; 6">
+                    AND locate(b.gradeDictId,${filter.gradeDictId})
+                </if>
+                <if test="filter.gradeDictId &lt; 6">
+                    AND b.gradeDictId = #{filter.gradeDictId}
+                </if>
+            </if>
+            <if test="filter.regTypeDictId!=null">
+                AND b.regTypeDictId = #{filter.regTypeDictId}
+            </if>
+        </where>
+        <if test="page.orderField!=null">
+            ORDER BY ${page.orderField} ${page.orderDir}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start},#{page.length}
+        </if>
+    </select>
+
+    <select id="getAllRecode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service_org_nurse
+    </select>
+</mapper>

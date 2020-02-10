@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.gold.mapper.GoldElderlySendMsgMapper">
+    <resultMap id="BaseResultMap" type="com.fedtech.pension.gold.entity.GoldElderlySendMsg">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="elderId" property="elderId" jdbcType="INTEGER"/>
+        <result column="elderName" property="elderName" jdbcType="VARCHAR"/>
+        <result column="telPhone" property="telPhone" jdbcType="VARCHAR"/>
+        <result column="sendContent" property="sendContent" jdbcType="VARCHAR"/>
+        <result column="sendTime" property="sendTime" jdbcType="TIMESTAMP"/>
+        <result column="result" property="result" jdbcType="INTEGER"/>
+        <result column="isFlag" property="isFlag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select * from t_elderly_send_message where isFlag = 1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from t_elderly_send_message t
+        WHERE
+        t.isFlag = 1
+        <if test="telPhone != null and telPhone !=''">
+            AND  t.telPhone  LIKE CONCAT('%',#{telPhone},'%' )
+        </if>
+        <if test="elderName != null and elderName !=''">
+            AND t.elderName LIKE CONCAT('%',#{elderName},'%' )
+        </if>
+        <if test="result != null">
+            AND t.result = #{result}
+        </if>
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        select
+        t.id,
+        t.elderId,
+        t.elderName,
+        t.telPhone,
+        t.sendContent,
+        t.sendTime,
+        t.result,
+        t.isFlag
+        FROM
+        t_elderly_send_message t
+        WHERE
+        t.isFlag = 1
+        <if test="filter.telPhone != null and filter.telPhone !=''">
+            AND  t.telPhone  LIKE CONCAT('%',#{filter.telPhone},'%' )
+        </if>
+        <if test="filter.elderName != null and filter.elderName !=''">
+            AND t.elderName LIKE CONCAT('%',#{filter.elderName},'%' )
+        </if>
+        <if test="filter.result != null">
+            AND t.result = #{filter.result}
+        </if>
+        <if test="page.start!=null">
+            LIMIT #{page.start}, #{page.length}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_elderly_send_message
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.fedtech.pension.gold.entity.GoldElderlySendMsg" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_elderly_send_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="elderId != null">
+                elderId,
+            </if>
+            <if test="elderName != null">
+                elderName,
+            </if>
+            <if test="telPhone != null">
+                telPhone,
+            </if>
+            <if test="sendContent != null">
+                sendContent,
+            </if>
+            <if test="sendTime != null">
+                sendTime,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="isFlag != null">
+                isFlag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="elderId != null">
+                #{elderId,jdbcType=INTEGER},
+            </if>
+            <if test="elderName != null">
+                #{elderName,jdbcType=VARCHAR},
+            </if>
+            <if test="telPhone != null">
+                #{telPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="sendContent != null">
+                #{sendContent,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+            <if test="isFlag != null">
+                #{isFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

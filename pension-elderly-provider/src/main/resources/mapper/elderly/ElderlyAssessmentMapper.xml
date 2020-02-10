@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderlyAssessmentMapper" >
+  <select id="selectByPrimaryKey" resultType="com.fedtech.pension.elderly.entity.ElderlyAssessment" parameterType="java.lang.Integer">
+    SELECT a.*
+    FROM t_elderly_assessment a
+    WHERE a.status = 1
+    and a.elderId = #{id}
+  </select>
+
+  <select id="getAllRecode" resultType="com.fedtech.pension.elderly.entity.ElderlyAssessment" parameterType="com.fedtech.pension.elderly.entity.ElderlyAssessment">
+    SELECT a.*
+    FROM t_elderly_assessment a , t_elderly_message c
+    WHERE a.status = 1 and a.elderId = c.id
+    <if test="filter!=null">
+      <if test="filter.areaName != null and filter.areaName !=''">
+        AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+      </if>
+      <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+        AND c.serviceOrgId = #{filter.serviceOrgId}
+      </if>
+    </if>
+  </select>
+
+  <update id="updateByElderId" parameterType="java.lang.Integer">
+    update t_elderly_assessment set status = 0
+    WHERE elderId = #{id}
+  </update>
+
+  <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderlyAssessment" useGeneratedKeys="true" keyProperty="id">
+    insert into t_elderly_assessment (elderId, attr1, score01, attr2, score02,
+            attr3, score03, attr4, score04, attr5, score05,
+            attr6, score06, attr7, score07, attr8, score08,
+            attr9, score09, attr10, score10, attr11, score11,
+            attr12, score12, attr13, score13, attr14, score14,
+            attr15, score15, resultScore, resultDictId, familyName, familyDate,
+            audit1, auditDate1, workerName1, workerCard1, workerDate1, workerName2,
+            workerCard2, workerDate2, tid, createDate, updateDate, status)
+    values (#{elderId},#{attr1},#{score01},
+            #{attr2},#{score02},#{attr3},#{score03},#{attr4},#{score04},#{attr5},
+            #{score05},#{attr6},#{score06},#{attr7},#{score07},#{attr8},#{score08},
+            #{attr9},#{score09},#{attr10},#{score10},#{attr11},#{score11},#{attr12},
+            #{score12},#{attr13},#{score13},#{attr14},#{score14},#{attr15},#{score15},
+            #{resultScore},#{resultDictId},#{familyName},#{familyDate},#{audit1},
+            #{auditDate1},#{workerName1},#{workerCard1},#{workerDate1},#{workerName2},
+            #{workerCard2},#{workerDate2},#{tid},#{createDate},#{updateDate},#{status})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderlyAssessment">
+    UPDATE t_elderly_assessment
+    <set>
+      <if test="elderId != null" >
+        elderId = #{elderId},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1},
+      </if>
+      <if test="score01 != null" >
+        score01  = #{score01},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2},
+      </if>
+      <if test="score02 != null" >
+        score02 = #{score02},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3},
+      </if>
+      <if test="score03 != null" >
+        score03 = #{score03},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4},
+      </if>
+      <if test="score04 != null" >
+        score04 = #{score04},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5},
+      </if>
+      <if test="score05 != null" >
+        score05 = #{score05},
+      </if>
+      <if test="attr6 != null" >
+        attr6 = #{attr6},
+      </if>
+      <if test="score06 != null" >
+        score06 = #{score06},
+      </if>
+      <if test="attr7 != null" >
+        attr7 = #{attr7},
+      </if>
+      <if test="score07 != null" >
+        score07 = #{score07},
+      </if>
+      <if test="attr8 != null" >
+        attr8 = #{attr8},
+      </if>
+      <if test="score08 != null" >
+        score08 = #{score08},
+      </if>
+      <if test="attr9 != null" >
+        attr9 = #{attr9},
+      </if>
+      <if test="score09 != null" >
+        score09 = #{score09},
+      </if>
+      <if test="attr10 != null" >
+        attr10 = #{attr10},
+      </if>
+      <if test="score10 != null" >
+        score10 = #{score10},
+      </if>
+      <if test="attr11 != null" >
+        attr11 = #{attr11},
+      </if>
+      <if test="score11 != null" >
+        score11 = #{score11},
+      </if>
+      <if test="attr12 != null" >
+        attr12 = #{attr12},
+      </if>
+      <if test="score12 != null" >
+        score12 = #{score12},
+      </if>
+      <if test="attr13 != null" >
+        attr13 = #{attr13},
+      </if>
+      <if test="score13 != null" >
+        score13 = #{score13},
+      </if>
+      <if test="attr14 != null" >
+        attr14 = #{attr14},
+      </if>
+      <if test="score14 != null" >
+        score14 = #{score14},
+      </if>
+      <if test="attr15 != null" >
+        attr15 = #{attr15},
+      </if>
+      <if test="score15 != null" >
+        score15 = #{score15},
+      </if>
+      <if test="resultScore != null" >
+        resultScore = #{resultScore},
+      </if>
+      <if test="resultDictId != null" >
+        resultDictId = #{resultDictId},
+      </if>
+      <if test="familyName != null" >
+        familyName = #{familyName},
+      </if>
+      <if test="familyDate != null" >
+        familyDate = #{familyDate},
+      </if>
+      <if test="audit1 != null" >
+        audit1 = #{audit1},
+      </if>
+      <if test="auditDate1 != null" >
+        auditDate1 = #{auditDate1},
+      </if>
+      <if test="workerName1 != null" >
+        workerName1 = #{workerName1},
+      </if>
+      <if test="workerCard1 != null" >
+        workerCard1 = #{workerCard1},
+      </if>
+      <if test="workerDate1 != null" >
+        workerDate1 = #{workerDate1},
+      </if>
+      <if test="workerName2 != null" >
+        workerName2 = #{workerName2},
+      </if>
+      <if test="workerCard2 != null" >
+        workerCard2 = #{workerCard2},
+      </if>
+      <if test="workerDate2 != null" >
+        workerDate2 = #{workerDate2},
+      </if>
+      <if test="tid != null" >
+        tid = #{tid},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate},
+      </if>
+      <if test="updateDate != null" >
+        updateDate = #{updateDate},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+    </set>
+    WHERE elderId = #{id}
+  </update>
+
+  <select id="count" parameterType="com.fedtech.pension.elderly.entity.ElderlyAssessment" resultType="java.lang.Integer">
+    SELECT COUNT(1)  FROM t_elderly_assessment a , t_elderly_message c
+    WHERE a.status = 1 and a.elderId = c.id
+    <if test="areaName != null and areaName !=''">
+      AND c.areaName LIKE CONCAT('%',#{areaName},'%' )
+    </if>
+    <if test="serviceOrgId != null and serviceOrgId !=''">
+      AND c.serviceOrgId = #{serviceOrgId}
+    </if>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM t_elderly_assessment where status = 1
+  </select>
+
+  <select id="selectPageList" resultType="com.fedtech.pension.elderly.entity.ElderlyAssessment">
+    SELECT a.*,c.areaName areaName
+    FROM t_elderly_assessment a , t_elderly_message c
+    WHERE a.status = 1 and a.elderId = c.id
+    <if test="filter.areaName != null and filter.areaName !=''">
+      AND c.areaName LIKE CONCAT('%',#{filter.areaName},'%' )
+    </if>
+    <if test="filter.serviceOrgId != null and filter.serviceOrgId !=''">
+      AND c.serviceOrgId = #{filter.serviceOrgId}
+    </if>
+    ORDER BY a.id desc
+    <if test="page.start!=null">
+      LIMIT #{page.start},#{page.length}
+    </if>
+  </select>
+
+  <select id="selectMaxMap" resultType="com.fedtech.pension.elderly.entity.ElderlyAssessment" parameterType="java.lang.Integer">
+    SELECT a.*
+    FROM t_elderly_assessment a
+    WHERE a.status = 1
+    and a.elderId = #{id}
+    order by a.createDate desc
+    limit 1
+  </select>
+
+  <select id="selectByPrimaryKeyAll" resultType="com.fedtech.pension.elderly.entity.ElderlyAssessment" parameterType="java.lang.Integer">
+    SELECT a.*
+    FROM t_elderly_assessment a
+    WHERE a.elderId = #{elderId}
+    and a.id = #{id}
+  </select>
+
+</mapper>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fedtech.pension.elderly.mapper.ElderAssessCheckMapper">
+  <resultMap id="BaseResultMap" type="com.fedtech.pension.elderly.entity.ElderAssessCheck">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="elderId" jdbcType="INTEGER" property="elderId" />
+    <result column="bycheck_unit" jdbcType="VARCHAR" property="bycheckUnit" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="link_phone" jdbcType="VARCHAR" property="linkPhone" />
+    <result column="link_address" jdbcType="VARCHAR" property="linkAddress" />
+    <result column="check_unit" jdbcType="VARCHAR" property="checkUnit" />
+    <result column="check_man" jdbcType="VARCHAR" property="checkMan" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="check_content" jdbcType="VARCHAR" property="checkContent" />
+    <result column="check_result" jdbcType="VARCHAR" property="checkResult" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,elderId , bycheck_unit, link_man, link_phone,link_address, check_unit, check_man, check_time,
+    check_content, check_result
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_elderly_assess_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getAllRecode" parameterType="com.fedtech.pension.elderly.entity.ElderAssessCheck" resultType="com.fedtech.pension.elderly.entity.ElderAssessCheck">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_elderly_assess_check
+    <if test="filter!=null">
+      <if test="filter.elderId!=null">
+        where elderId = #{filter.elderId}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_elderly_assess_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fedtech.pension.elderly.entity.ElderAssessCheck">
+    insert into t_elderly_assess_check
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="elderId != null">
+        elderId,
+      </if>
+      <if test="bycheckUnit != null">
+        bycheck_unit,
+      </if>
+      <if test="linkMan != null">
+        link_man,
+      </if>
+      <if test="linkPhone != null">
+        link_phone,
+      </if>
+      <if test="linkAddress != null">
+        link_address,
+      </if>
+      <if test="checkUnit != null">
+        check_unit,
+      </if>
+      <if test="checkMan != null">
+        check_man,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="checkContent != null">
+        check_content,
+      </if>
+      <if test="checkResult != null">
+        check_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="elderId != null">
+        #{elderId,jdbcType=INTEGER},
+      </if>
+      <if test="bycheckUnit != null">
+        #{bycheckUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null">
+        #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null">
+        #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null">
+        #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUnit != null">
+        #{checkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMan != null">
+        #{checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkContent != null">
+        #{checkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null">
+        #{checkResult,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fedtech.pension.elderly.entity.ElderAssessCheck">
+    update t_elderly_assess_check
+    <set>
+      <if test="elderId != null">
+        elderId = #{elderid,jdbcType=INTEGER},
+      </if>
+      <if test="bycheckUnit != null">
+        bycheck_unit = #{bycheckUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null">
+        link_man = #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null">
+        link_phone = #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null">
+        link_address = #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUnit != null">
+        check_unit = #{checkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMan != null">
+        check_man = #{checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkContent != null">
+        check_content = #{checkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null">
+        check_result = #{checkResult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
