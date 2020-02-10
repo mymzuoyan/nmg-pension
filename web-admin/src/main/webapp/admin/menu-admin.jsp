@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="page-sidebar-menu " data-auto-scroll="true" data-slide-speed="200">
 
-    <!-- 养老服务大数据库-->
+    <!-- 内蒙古养老服务大数据库-->
     <shiro:hasPermission name="elderly">
         <li class="">
             <a href="javascript:">
